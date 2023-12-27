@@ -7,7 +7,7 @@ import shricharan from "../../images/shricharan.png";
 const Register = () => {
   return (
     <div className='grid grid-cols-12 gap-4 mt-36'>
-      <div className='col-start-1 col-span-8'>
+      <div className='col-start-2 col-span-7'>
         <img src={shricharan} alt="img" className="rounded-xl" />
       </div>  
       <div className='col-span-3 px-4 py-7 border border-gray-500 rounded-md shadow-2xl shadow-gray-400'>
