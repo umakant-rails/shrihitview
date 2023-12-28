@@ -6,11 +6,11 @@ import shricharan from "../../images/shricharan.png";
 // flowbite css
 const Register = () => {
   return (
-    <div className='grid grid-cols-12 gap-4 mt-36'>
-      <div className='col-start-2 col-span-7'>
-        <img src={shricharan} alt="img" className="rounded-xl" />
-      </div>  
-      <div className='col-span-3 px-4 py-7 border border-gray-500 rounded-md shadow-2xl shadow-gray-400'>
+    <div className='grid grid-flow-row lg:grid-cols-12 md:grid-cols-12 gap-4 mt-24'>
+      <div className='lg:col-start-2 lg:col-span-7 md:col-start-2 md:col-span-7 flex justify-center items-center'>
+        <img src={shricharan} alt="img" className="rounded-xl object-cover" />
+      </div> 
+      <div className='lg:col-span-3 md:col-span-3 px-4 py-7 border border-gray-500 rounded-md shadow-2xl shadow-gray-400'>
         <form className="max-w-md mx-auto">
           <div className="text-xl text-center font-bold border-b-2 py-3 mb-5">
             Create Your Account

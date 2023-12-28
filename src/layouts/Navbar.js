@@ -1,9 +1,13 @@
 import React from 'react';
 import { TAB_LIST } from '../utils/types';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from "../services/AuthContext";
 
 const Navbar = () => {
 
+  const {currentUser, setCurrentUser} = useContext(AuthContext);
+  
   const getTabList = () =>{ 
     return TAB_LIST.map((tabName, index) => {
       if (index == 0 ) {
