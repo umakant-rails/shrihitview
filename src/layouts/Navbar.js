@@ -5,12 +5,11 @@ import { useContext } from 'react';
 import { AuthContext } from "../services/AuthContext";
 
 const Navbar = () => {
-
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
+  const {currentUser} = useContext(AuthContext);
   
   const getTabList = () =>{ 
     return TAB_LIST.map((tabName, index) => {
-      if (index == 0 ) {
+      if (index === 0 ) {
         return <a href="#" key={index} className="bg-neutral-700 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">{tabName}</a>
       } else {
         return <a href="#" key={index} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">{tabName}</a> 
@@ -49,8 +48,20 @@ const Navbar = () => {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <NavLink to="/users/register" key={'regiter_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Register</NavLink> 
-            <NavLink to="/users/login" key={'login_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Login</NavLink> 
+            {
+             (currentUser) ? 
+              ( 
+                <>
+                  <NavLink to="/users/register" key={'regiter_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Logout</NavLink> 
+                  <NavLink to="/users/login" key={'login_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >{currentUser.username}</NavLink> 
+                </>
+              ) : (
+                <>
+                  <NavLink to="/users/register" key={'regiter_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Register</NavLink> 
+                  <NavLink to="/users/login" key={'login_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Login</NavLink> 
+                </>
+              )
+            }
           </div>
         </div>
       </div>
