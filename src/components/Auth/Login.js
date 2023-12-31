@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+//import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import shricharan from "../../images/shricharan.png";
 import { userLogin } from '../../actions/auth';
 import { AuthContext } from '../../services/AuthContext';
@@ -12,19 +13,14 @@ const Login = () => {
   const loginCredential = {email: '', password: ''};
   const [formValues, setFormValues] = useState(loginCredential);
   const {currentUser, setCurrentUser} = useContext(AuthContext);
-  const {user, token, message, statusCode} = useSelector( (state) => state.auth);
+  const {user, isLoggedIn} = useSelector( (state) => state.auth);
 
-  useState(() => {
-    if(statusCode == 200) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      setCurrentUser(user)
-      toast.success(message);
+  useEffect(() => {
+    if(isLoggedIn){
+      setCurrentUser(user);
       navigate("/");
-    } else if (statusCode == 401) {
-      toast.error(message);
     }
-  }, [statusCode]);
+  }, [isLoggedIn]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;
@@ -48,7 +44,7 @@ const Login = () => {
           <form onSubmit={onFormSubmit} className="max-w-md mx-auto">
             <div className="text-xl text-center font-bold border-b-2 py-3 mb-5">Login To Your Account</div>
             <div className="relative z-0 w-full mb-5 group">
-              <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
               <input 
                 type="text" 
                 name="email"
@@ -61,7 +57,7 @@ const Login = () => {
               />
             </div>
             <div className="relative z-0 w-full mb-5 group">
-              <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
               <input 
                 type="password" 
                 name="password" 

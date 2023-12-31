@@ -1,8 +1,10 @@
 import baseUrl from "../services/AxiosService";
 import {
   USER_LOGIN,
+  USER_LOGOUT,
   USER_REGISTRATION,
-  ERROR_HANDLING
+  ERROR_HANDLING,
+  SET_MESSAGE
 } from "../utils/types";
 
 export const userRegister = (formValues) => async dispatch => {
@@ -18,13 +20,22 @@ export const userRegister = (formValues) => async dispatch => {
 
   if(response.status == 200){
     dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.status.message,
+    });
+    dispatch({
       type: USER_REGISTRATION, 
       payload: {
-        statusCode: response.data.status.code,
-        message: response.data.status.message
+        isRegistered: true
       }
     });
   } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.status.message,
+    });
     dispatch({
       type: ERROR_HANDLING, 
       payload: {
@@ -40,13 +51,22 @@ export const userLogin = (formValues) => async dispatch => {
   const response = await baseUrl.post(
     '/login', 
     {user: formValues}, {}
-  ).then( response => { 
+  ).then( response => {
     return response;
   }).catch( error => {
     return error.response;
   });  
 
   if(response.status == 200){
+    localStorage.setItem("token", response.headers.authorization);
+    localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+    
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.status.message,
+    });
+
     dispatch({
       type: USER_LOGIN, 
       payload: {
@@ -58,6 +78,11 @@ export const userLogin = (formValues) => async dispatch => {
     });
   } else {
     dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data,
+    });
+    dispatch({
       type: ERROR_HANDLING, 
       payload: {
         statusCode: 401,
@@ -68,6 +93,21 @@ export const userLogin = (formValues) => async dispatch => {
 }
 
 export const userLogout = (formValues) => async dispatch => {
-  const response = await baseUrl.delete('/logout', {user: formValues},{});
-  return Promise.resolve(response.data);
+  // const response = await baseUrl.delete('/logout', {user: formValues},{});
+  // return Promise.resolve(response.data);
+  dispatch({
+    type: SET_MESSAGE,
+    msg_type: "success",
+    payload: 'Successfully logged out.',
+  });
+
+  dispatch({
+    type: USER_LOGOUT, 
+    payload: {
+      isLoggedOut: true,
+      user: null, 
+      token: null,
+      message: 'Successfully logged out.'
+    }
+  });
 }

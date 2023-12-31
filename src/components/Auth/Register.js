@@ -16,28 +16,13 @@ const Register = () => {
   const [formValues, setFormValues] = useState(userObj);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const {message, statusCode} = useSelector( (state) => state.auth);
+  const {isRegistered} = useSelector( (state) => state.auth);
   
   useEffect(() => {
-    if(statusCode === 200){
-      toast.success(message);
+    if(isRegistered){
       navigate("/users/login");
-    }else if (statusCode === 401) {
-      toast.error(message);
     }
-  }, [statusCode, message]);
-
-  // useEffect(() => {
-  //   let errors = [];
-  //   if(Object.keys(formErrors).length > 0){
-  //     for (const [key, value] of Object.entries(formErrors)) {
-  //       errors.push(value);
-  //     }
-  //     toast.error(errors.join("\n"))
-  //     setIsSubmit(false);
-  //   }
-  // }, [formErrors]);
-
+  }, [isRegistered]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;
@@ -81,8 +66,7 @@ const Register = () => {
     let errors = await validateForm(formValues);
 
     if(Object.keys(errors).length === 0){
-      console.log("form submit")
-      //dispatch(userRegister(formValues))
+      dispatch(userRegister(formValues))
     } else if (Object.keys(errors).length > 0) {
       let errorMsgs = [] 
       for (const [key, value] of Object.entries(errors)) {

@@ -2,10 +2,13 @@ import React from 'react';
 import { TAB_LIST } from '../utils/types';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { AuthContext } from "../services/AuthContext";
+import { userLogout } from '../actions/auth';
 
 const Navbar = () => {
-  const {currentUser} = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const {currentUser, setCurrentUser} = useContext(AuthContext);
   
   const getTabList = () =>{ 
     return TAB_LIST.map((tabName, index) => {
@@ -16,6 +19,22 @@ const Navbar = () => {
       }
     });
   };
+
+  const logoutUser = (event) =>{ 
+    localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    dispatch(userLogout(currentUser));
+    // dispatch(userLogout(currentUser)).then(response => {
+    //   if(response.status == 200) {
+    //     setCurrentUser(null)
+    //     localStorage.removeItem("token");
+    //     localStorage.removeItem("currentUser");
+    //   }
+    // }).catch(error => {
+    //   console.log(error);
+    // })
+  }
 
   return (
     <nav className="bg-lime-900">
@@ -52,7 +71,7 @@ const Navbar = () => {
              (currentUser) ? 
               ( 
                 <>
-                  <NavLink to="/users/register" key={'regiter_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Logout</NavLink> 
+                  <button key={'logoutBtn'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" onClick={() => logoutUser()} >Logout</button> 
                   <NavLink to="/users/login" key={'login_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >{currentUser.username}</NavLink> 
                 </>
               ) : (

@@ -4,7 +4,7 @@ import { createBrowserRouter, Route, createRoutesFromElements  } from "react-rou
 import ApplicationLayout from "../layouts/ApplicationLayout";
 import Home from "../pages/Home";
 import Aboutus from "../pages/Aboutus";
-// import ErrorPage from "../pages/ErrorPage";
+import ErrorPage from "../pages/ErrorPage";
 import Register from "../components/Auth/Register";
 import Login from "../components/Auth/Login";
 
@@ -16,10 +16,11 @@ import Login from "../components/Auth/Login";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<ApplicationLayout /> }>
-      <Route index element={<Home />} />
+      <Route index element={<Home />}  exact />
       <Route path="/users/register" element={<Register />} />
       <Route path="/users/login" element={<Login />} />
       <Route path="/aboutus" element={<Aboutus />} />
+      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 )
