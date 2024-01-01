@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, Route, createRoutesFromElements  } from "react-router-dom";
 
-import ApplicationLayout from "../layouts/ApplicationLayout";
+import ApplicationLayout from "../components/layouts/ApplicationLayout";
 import Home from "../pages/Home";
 import Aboutus from "../pages/Aboutus";
 import ErrorPage from "../pages/ErrorPage";

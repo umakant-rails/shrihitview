@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import shricharan from "../../images/shricharan.png";
+import shricharan from "../../assets/images/shricharan.png";
 import { useDispatch,useSelector } from 'react-redux';
 //import  toast  from 'react-hot-toast';
 import { toast } from 'react-toastify';
@@ -20,7 +20,8 @@ const Register = () => {
   
   useEffect(() => {
     if(isRegistered){
-      navigate("/users/login");
+      setFormValues(userObj);
+      //navigate("/users/login");
     }
   }, [isRegistered]);
 

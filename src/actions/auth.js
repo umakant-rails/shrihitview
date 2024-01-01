@@ -27,7 +27,8 @@ export const userRegister = (formValues) => async dispatch => {
     dispatch({
       type: USER_REGISTRATION, 
       payload: {
-        isRegistered: true
+        statusCode: response.status,
+        message: response.data.status.message
       }
     });
   } else {

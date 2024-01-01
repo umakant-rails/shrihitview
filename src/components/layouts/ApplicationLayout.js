@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Outlet, useNavigate } from "react-router-dom";
-import { clearMessage } from '../actions/message';
+import { clearMessage } from '../../actions/message';
 
 const ApplicationLayout = () => {
   const { type, message } = useSelector((state) => state.msg);

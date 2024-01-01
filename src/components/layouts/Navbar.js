@@ -1,10 +1,10 @@
 import React from 'react';
-import { TAB_LIST } from '../utils/types';
+import { TAB_LIST } from '../../utils/types';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { AuthContext } from "../services/AuthContext";
-import { userLogout } from '../actions/auth';
+import { AuthContext } from "../../services/AuthContext";
+import { userLogout } from '../../actions/auth';
 
 const Navbar = () => {
   const dispatch = useDispatch();

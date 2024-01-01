@@ -27,8 +27,7 @@ const authReducer = (state=stateObj, action) => {
       };
     case USER_REGISTRATION:
       return { 
-        message: action.payload.message,
-        statusCode: action.payload.statusCode
+        isRegistered: true,
       }
     case ERROR_HANDLING:
       return{
