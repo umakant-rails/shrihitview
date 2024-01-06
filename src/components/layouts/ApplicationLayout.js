@@ -28,38 +28,42 @@ const ApplicationLayout = () => {
 
   return (
     <>
-      <div className="navbar mb-3">
+      <div className="navbar">
         <Navbar />
       </div>
-      <div className="main">
-        {/* <Toaster>
-          {(t) => (
-            <ToastBar toast={t}>
-              {({ icon, message }) => (
-                <>
-                  {icon}
-                  {message}
-                  {t.type !== 'loading' && (
-                    <button onClick={() => toast.dismiss(t.id)}>x</button>
+      <div className="main py-5">
+        <div className='grid grid-flow-row md:grid-cols-12 gap-4'>
+          <div className='md:col-start-2 md:col-span-10'>
+            {/* <Toaster>
+              {(t) => (
+                <ToastBar toast={t}>
+                  {({ icon, message }) => (
+                    <>
+                      {icon}
+                      {message}
+                      {t.type !== 'loading' && (
+                        <button onClick={() => toast.dismiss(t.id)}>x</button>
+                      )}
+                    </>
                   )}
-                </>
+                </ToastBar>
               )}
-            </ToastBar>
-          )}
-        </Toaster>; */}
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          />
-        <Outlet />
+            </Toaster>; */}
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              />
+            <Outlet />
+          </div>
+        </div>
       </div>
     </>
   );

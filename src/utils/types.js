@@ -10,3 +10,5 @@ export const ERROR_HANDLING = "ERROR_HANDLING";
 
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+export const ARTICLE_LIST = "ARTICLE_LIST";

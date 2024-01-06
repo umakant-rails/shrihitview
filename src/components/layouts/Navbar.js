@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { AuthContext } from "../../services/AuthContext";
 import { userLogout } from '../../actions/auth';
-
+import logo from "../../assets/images/hitlalju.png"
 const Navbar = () => {
   const dispatch = useDispatch();
   const {currentUser, setCurrentUser} = useContext(AuthContext);
@@ -37,7 +37,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-lime-900">
+    <nav className="bg-blue-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -55,8 +55,8 @@ const Navbar = () => {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <NavLink to="/">
-                <img className="h-8 w-auto" 
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" 
+                <img className="h-10 w-12 w-auto rounded-full" 
+                  src={logo}
                   alt="Your Company" />
               </NavLink>
             </div>
@@ -76,8 +76,8 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <NavLink to="/users/register" key={'regiter_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Register</NavLink> 
-                  <NavLink to="/users/login" key={'login_link'} className="relative bg-lime-600 rounded-md text-white px-3 py-2 text-sm mx-2" >Login</NavLink> 
+                  <NavLink to="/users/register" key={'regiter_link'} className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" >Register</NavLink> 
+                  <NavLink to="/users/login" key={'login_link'} className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" >Login</NavLink> 
                 </>
               )
             }
