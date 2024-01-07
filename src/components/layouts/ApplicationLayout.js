@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar';
+
 //import toast, { Toaster, ToastBar } from 'react-hot-toast';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Outlet, useNavigate } from "react-router-dom";
 import { clearMessage } from '../../actions/message';
+import Footer from './Footer';
+
 
 const ApplicationLayout = () => {
   const { type, message } = useSelector((state) => state.msg);
@@ -31,7 +34,7 @@ const ApplicationLayout = () => {
       <div className="navbar">
         <Navbar />
       </div>
-      <div className="main py-5">
+      <div className="main py-5 mt-24">
         <div className='grid grid-flow-row md:grid-cols-12 gap-4'>
           <div className='md:col-start-2 md:col-span-10'>
             {/* <Toaster>
@@ -65,6 +68,7 @@ const ApplicationLayout = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
