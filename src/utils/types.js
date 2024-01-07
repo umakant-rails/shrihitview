@@ -1,6 +1,8 @@
 export const TAB_LIST = [
-    'रचनाये', 'रचनाकार/लेखक', 'संत जीवनी', 'रसिक वाणी/ग्रन्थ', 'भक्ति प्रसंग',
-    'आरती/स्तोत्र', ' हितोत्सव पत्रिका', 'सुझाव'
+    {url: '/pb/articles', label: 'रचनाये'}, {url: 'authors', label:'रचनाकार/लेखक'}, 
+    {url: 'sants', label: 'संत जीवनी'}, {url: 'scriptures', label:'रसिक वाणी/ग्रन्थ'}, 
+    {url: 'stories', label:'भक्ति प्रसंग'}, {url: 'strota', label:'आरती/स्तोत्र'}, 
+    {url: 'panchangs', label: 'हितोत्सव पत्रिका'}, {url: 'suggestions', label:'सुझाव'}
 ]
 export const HOME_PAGE = "HOME_PAGE";
 

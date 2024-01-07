@@ -12,29 +12,25 @@ const Navbar = () => {
   const {currentUser, setCurrentUser} = useContext(AuthContext);
   
   const getTabList = () =>{ 
-    return TAB_LIST.map((tabName, index) => {
+    return TAB_LIST.map((tab, index) => {
       // if (index === 0 ) {
-      //   return <a href="#" key={index} className="bg-neutral-700 text-white rounded-md px-2 py-2 text-sm font-bold" aria-current="page">{tabName}</a>
+      //   return(
+      //     <li>
+      //       <a href="#" key={index} className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent">
+      //         {tabName}
+      //       </a>
+      //     </li>
+      //   );
       // } else {
-      //   return <a href="#" key={index} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-2 py-2 text-sm font-bold">{tabName}</a> 
-      // }
-      if (index === 0 ) {
+
         return(
-          <li>
-            <a href="#" key={index} className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent">
-              {tabName}
-            </a>
+          <li key={index} >
+            <NavLink to={tab.url} className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-200 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              {tab.label}
+            </NavLink>
           </li>
         );
-      } else {
-        return(
-          <li>
-            <a href="#" key={index} className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-200 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              {tabName}
-            </a>
-          </li>
-        );
-      }
+      //}
     });
   };
 
