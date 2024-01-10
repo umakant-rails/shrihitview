@@ -1,20 +1,20 @@
 import baseUrl from "../services/AxiosService";
 import {
   ARTICLE_LIST,
+  ARTICLE_SHOW,
   SET_MESSAGE
 } from "../utils/types";
 
 export const getArticles = () => async dispatch => {
-  let statusCode = null; 
+  // let statusCode = null; 
   const response = await baseUrl.get(
     '/pb/articles', 
   ).then(response => {
-    console.log(response);
     return response;
   }).catch(function (error) {
     return error.response;
   });
-  console.log(response)
+
   if(response.status === 200){
     dispatch({
       type: ARTICLE_LIST, 
@@ -37,3 +37,31 @@ export const getArticles = () => async dispatch => {
   }
   // return Promise.resolve(response.data);
 };
+
+export const getArticle = (id) => async(dispatch) => {
+  console.log(id)
+  const response = await baseUrl.get(
+    `/pb/articles/${id}`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: ARTICLE_SHOW, 
+      payload: {
+        statusCode: response.status,
+        article: response.data.article,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.status.message,
+    });
+  }
+
+}

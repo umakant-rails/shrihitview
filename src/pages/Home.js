@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getArticles } from '../actions/articles';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import "../assets/styles/custom.css";
 import shrijicharan from "../assets/images/shriji_charan.png";
 import shrihit from "../assets/images/shrihit.png";
 import { dateFormat } from '../utils/utilityFunctions';
-import { ReactTransliterate, Language } from "react-transliterate";
+import { ReactTransliterate } from "react-transliterate";
 import { getHomePageData } from '../actions/home';
 
 const Home = () => {

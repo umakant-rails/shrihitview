@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Footer = () => {
-  const {articles, authors, tags, contexts, article_types } = useSelector( state => state.home);
+  const {authors, tags, contexts, article_types } = useSelector( state => state.home);
 
   return (
     <div className="bg-blue-800 pt-4 sm:pt-10 lg:pt-12">
