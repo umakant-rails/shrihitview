@@ -5,22 +5,72 @@ import { Link } from 'react-router-dom';
 import { ReactTransliterate } from "react-transliterate";
 import shrihit from "../../assets/images/shrihit.png"
 import { dateFormat } from '../../utils/utilityFunctions';
-import { getArticles } from '../../actions/articles';
+import { getArticle, getArticles } from '../../actions/articles';
+import SearchArticle from './SearchArticle';
+import axios from 'axios';
 
 const ArticleList = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
+  const [searchArticles, setSearchArticles] = useState([]);
+  const [autoCompleteArticles, setAutoCompleteArticles] = useState([]);
+  //const [showAutoComplete, setShowAutoComplete] = useState(false);
   const {articles, authors, tags, contexts, article_types } = useSelector( state => state.article);
 
   useEffect( ()=> {
     dispatch(getArticles());
   }, []);
+
+  useEffect( ()=> {
+    setSearchArticles(articles);
+  }, [articles]);
   
+  
+  const searchToArticles = async (term) => {
+    console.log(term)
+    const response = await axios.get(
+      `http://localhost:3001/pb/articles/search_articles`, {params: {term: term}} 
+    );
+    return response;
+    // dispatch(searchArticles(text))
+    // dispatch(searchArticles(text)).then( response => {
+    //   if(response.status === 200) {
+    //     console.log(response);
+    //   }
+    // }).catch(error => {
+    //   console.log("error");
+    //   console.log(error);
+    // });
+  }
+
+  const showAutoComplete = async (event) => {
+    if(event.keyCode === 32 || event.keyCode === 13){
+      const response = await searchToArticles(text)
+      setAutoCompleteArticles(response.data.articles);
+    }
+  }
+  
+  const searchArticle = async (term) => {
+    //const term = event.target.textContent.trim();
+    setText(term);
+    // const response = await axios.get(
+    //   `http://localhost:3001/pb/articles/search_articles`, {params: {term: term}} 
+    // );
+    const response = await searchToArticles(term)
+    setSearchArticles(response.data.articles);
+    setAutoCompleteArticles([]);
+  }
+  const searchOnSubmit = async (term) => {
+    const response = await searchToArticles(term)
+    setSearchArticles(response.data.articles);
+    setAutoCompleteArticles([]);
+  }
 
   return (
     <div>
       <div className='grid grid-cols-5 mb-5'>
-        <form className="col-start-2 col-span-3 grow">   
+        <form className="col-start-2 col-span-3 grow" 
+          onSubmit={(event) => {event.preventDefault(); searchOnSubmit(text);}}>   
           <label  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10" >
@@ -30,23 +80,35 @@ const ArticleList = () => {
             </div>
             <ReactTransliterate
               value={text}
-              onChangeText={(text) => {setText(text); }}
+              onChangeText={(text) => {setText(text); /*searchArticles(text);*/ }}
+              onKeyUp={showAutoComplete}
               lang={'hi'}
               type="search"
               className='block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             />
-            <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+            <button type="submit" 
+              className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Search
+            </button>
           </div>
+          <ul class="text-left text-gray-500 dark:text-gray-400">
+            { autoCompleteArticles && autoCompleteArticles.map((article, index) =>(
+              <li key={index} 
+                onClick={(e) => searchArticle(e.target.textContent.trim())}
+                class="flex items-center space-x-3 rtl:space-x-reverse border-b-2 border-x-2 hover:bg-gray-200 py-2 px-2">
+                <span>{article.hindi_title}</span>
+              </li>
+            ))} 
+          </ul>
         </form>
       </div>
       <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
         नवीनतम रचनायें
       </div>
       <div className="grid lg:grid-cols-10 md:grid-cols-10 gap-10">
-        
         <div className="md:col-span-7 sm:col-span-full">
           {
-            articles && articles.map((article, index) =>
+            searchArticles && searchArticles.map((article, index) =>
               <div key={index} className='grid lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
                 <div className='lg:col-span-4 md:col-span-full'>
                   <Link to={`/pb/articles/${article.hindi_title}`} >

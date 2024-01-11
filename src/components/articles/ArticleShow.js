@@ -44,7 +44,7 @@ const ArticleShow = () => {
                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
               </div>
               <div id="comment-section" className='py-2 grid grid-cols-8'>
-                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
+                <label htmlFor="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
                 <div className="grid col-start-1 col-end-6">
                   <ReactTransliterate
                     value={comment}
