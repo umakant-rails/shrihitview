@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div>
-      <div className='grid grid-flow-row md:grid-cols-12 gap-4 mt-28'>
+      <div className='grid grid-flow-row md:grid-cols-12 gap-4 mt-20 mb-20'>
         <div className='md:col-start-2 md:col-span-7'>
           <img src={shricharan} alt="img" className="rounded-xl" />
         </div>  

@@ -79,9 +79,9 @@ const Register = () => {
   }
 
   return (
-    <div className='grid grid-flow-row lg:grid-cols-12 md:grid-cols-12 gap-4 mt-24'>
+    <div className='grid grid-flow-row md:grid-cols-12 gap-4 mt-16 mb-16'>
       <div className='md:col-start-2 md:col-span-7 flex justify-center items-center'>
-        <img src={shricharan} alt="img" className="rounded-xl object-cover" />
+        <img src={shricharan} alt="img" className="rounded-xl object-cover h-full w-full" />
       </div> 
       <div className='md:col-span-3 px-4 py-7 border border-gray-500 rounded-md shadow-2xl shadow-gray-400'>
         <form onSubmit={onFormSubmit} className="max-w-md mx-auto">
@@ -89,7 +89,8 @@ const Register = () => {
             Create Your Account
           </div>
           <div className="relative z-0 w-full mb-5 group">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+            {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+             */}
             <input 
               type="text" 
               key="email" 
@@ -102,7 +103,8 @@ const Register = () => {
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+            {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+             */}
             <input 
               type="text" 
               key="username" 
@@ -115,7 +117,8 @@ const Register = () => {
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            */}
             <input 
               type="password" 
               key="password" 
@@ -123,12 +126,14 @@ const Register = () => {
               id="password" 
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               onChange={onInputChange}
+              placeholder="Password" 
               value = {formValues.password}
                
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+            {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+            */}
             <input 
               type="password" 
               key="confirm_password" 
@@ -136,6 +141,7 @@ const Register = () => {
               id="confirm_password" 
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               onChange={onInputChange}
+              placeholder="Confirm Password" 
               value = {formValues.confirm_password}
                
             />

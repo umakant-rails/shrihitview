@@ -28,7 +28,7 @@ const ArticleShow = () => {
   }
 
   return (
-    <div className='min-h-96 grid grid-cols-12'>
+    <div className='grid grid-cols-12'>
       <div className='col-start-2 col-end-11'>
         { article ?
           ( <>

@@ -6,7 +6,6 @@ import { ReactTransliterate } from "react-transliterate";
 import shrihit from "../../assets/images/shrihit.png"
 import { dateFormat } from '../../utils/utilityFunctions';
 import { getArticle, getArticles } from '../../actions/articles';
-import SearchArticle from './SearchArticle';
 import axios from 'axios';
 
 const ArticleList = () => {
@@ -45,7 +44,8 @@ const ArticleList = () => {
 
   const showAutoComplete = async (event) => {
     if(event.keyCode === 32 || event.keyCode === 13){
-      const response = await searchToArticles(text)
+      const response = await searchToArticles(text);
+      // const response = dispatch(searchToArticles(text));
       setAutoCompleteArticles(response.data.articles);
     }
   }
@@ -71,7 +71,7 @@ const ArticleList = () => {
       <div className='grid grid-cols-5 mb-5'>
         <form className="col-start-2 col-span-3 grow" 
           onSubmit={(event) => {event.preventDefault(); searchOnSubmit(text);}}>   
-          <label  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+          <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10" >
               <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="none" viewBox="0 0 20 20">
@@ -91,11 +91,11 @@ const ArticleList = () => {
               Search
             </button>
           </div>
-          <ul class="text-left text-gray-500 dark:text-gray-400">
+          <ul className="text-left text-gray-500 dark:text-gray-400">
             { autoCompleteArticles && autoCompleteArticles.map((article, index) =>(
               <li key={index} 
                 onClick={(e) => searchArticle(e.target.textContent.trim())}
-                class="flex items-center space-x-3 rtl:space-x-reverse border-b-2 border-x-2 hover:bg-gray-200 py-2 px-2">
+                className="flex items-center space-x-3 rtl:space-x-reverse border-b-2 border-x-2 hover:bg-gray-200 py-2 px-2">
                 <span>{article.hindi_title}</span>
               </li>
             ))} 
@@ -120,10 +120,10 @@ const ArticleList = () => {
                     <div className='text-2xl px-2 text-amber-600 font-bold'>
                       {article.hindi_title}
                     </div>
-                    <div className='text-xl max-h-36 overflow-hidden py-2 px-2 mb-3'>
-                      {<div dangerouslySetInnerHTML={{__html: article.content}} />}
-                    </div>
                   </Link>
+                  <div className='text-xl max-h-36 overflow-hidden py-2 px-2 mb-3'>
+                    {<div dangerouslySetInnerHTML={{__html: article.content}} />}
+                  </div>
                   <div>
                     <Link to={`/pb/article_types/${article.article_type}`} >
                       <span className='bg-orange-600 px-3 py-1 mx-1 text-white rounded font-bold mb-2'>
@@ -143,14 +143,9 @@ const ArticleList = () => {
               </div>
             )
           }
-          <Link to="#">
-            <div className='text-blue-500 text-center text-lg border-2 border-blue-500 rounded-md py-2 hover:bg-blue-500 hover:text-white'>
-              View more articles ...
-            </div>
-          </Link>
         </div>
         <div className="md:col-span-3 sm:col-span-full">
-          <div className='mb-4'>
+          <div className='mb-5 shadow-xl'>
             <div className='text-xl font-bold border-b-2 bg-blue-50 px-1 py-2 mb-2 text-blue-800'>
               रचना प्रकार
             </div>
@@ -166,7 +161,7 @@ const ArticleList = () => {
             </fieldset>
           </div>
 
-          <div className='mb-4'>
+          <div className='mb-5 shadow-xl'>
             <div className='text-xl font-bold border-b-2 bg-blue-50 text-blue-800 px-1 py-2 mb-2'>
               लेखक/रचनाकार
             </div>
@@ -182,7 +177,7 @@ const ArticleList = () => {
             </fieldset>
           </div>
           
-          <div className='mb-4'>
+          <div className='mb-5 shadow-xl'>
             <div className='text-xl font-bold border-b-2 text-blue-800 bg-blue-50 px-1 py-2 mb-2'>
               प्रसंग
             </div>
@@ -198,7 +193,7 @@ const ArticleList = () => {
             </fieldset>
           </div>
 
-          <div className='mb-4'>
+          <div className='mb-5 shadow-xl'>
             <div className='text-xl font-bold border-b-2 text-blue-800 bg-blue-50 px-1 py-2 mb-2'>
               टैग्स
             </div>
