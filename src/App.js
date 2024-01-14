@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import {RouterProvider } from "react-router-dom";
 import router from "./routes";
 import { AuthContext } from "./services/AuthContext";
+//https://jpuri.github.io/react-draft-wysiwyg/#/
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -14,6 +15,7 @@ const App = () => {
       setCurrentUser(JSON.parse(currentUserObj));
     }
   }, []);
+
 
   return (
     <AuthContext.Provider value={providerValue} >

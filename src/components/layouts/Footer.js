@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="col-span-full lg:col-span-2">
             <div className="mb-4 lg:-mt-2">
               <NavLink to="/">
-                <img className="h-20 w-20 w-auto rounded-full" 
+                <img className="h-11 w-11 w-auto rounded-full"
                   src={logo}
                   alt="Your Company" />
               </NavLink>

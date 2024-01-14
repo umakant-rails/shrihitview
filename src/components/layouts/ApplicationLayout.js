@@ -5,15 +5,25 @@ import Navbar from './Navbar';
 //import toast, { Toaster, ToastBar } from 'react-hot-toast';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { clearMessage } from '../../actions/message';
 import Footer from './Footer';
+// import { IStaticMethods } from "preline/preline";
+import { initFlowbite } from 'flowbite'
 
+// interface window {
+//   HSStaticMethods: IStaticMethods;
+// }
 
 const ApplicationLayout = () => {
   const { type, message } = useSelector((state) => state.msg);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // window.HSStaticMethods.autoInit();
+    initFlowbite();
+  }, [location]);
 
   useEffect(()=> {
     if(message !== undefined && type === "error"){
@@ -25,9 +35,7 @@ const ApplicationLayout = () => {
     }
   }, [type, message]);
 
-  // useEffect(() => {
-  //   dispatch(clearMessage()); // clear message when changing location
-  // }, [dispatch, navigate]);
+
 
   return (
     <>

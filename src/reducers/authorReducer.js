@@ -2,8 +2,8 @@ import {
   AUTHOR_LIST,
   AUTHOR_SHOW,
 } from "../utils/types";
-const initialState = {};
 
+const initialState = {authorList: []};
 const authorReducer = (state=initialState, action) => {
     switch (action.type) {
     case AUTHOR_LIST:

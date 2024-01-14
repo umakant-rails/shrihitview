@@ -54,7 +54,7 @@ const Navbar = () => {
     <nav className="bg-blue-800 fixed top-0 w-full z-100 border-gray-200 dark:bg-gray-900 dark:border-gray-700 border-b-2 border-gray-400 z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <NavLink to="/" className="flex items-center space-x-3 rtl:space-x-reverse m-2">
-          <img className="h-12 w-12 w-auto rounded-full" 
+          <img className="h-11 w-11 w-auto rounded-full" 
             src={logo}
             alt="श्रीहित" />
             <span className="self-center text-2xl text-white font-semibold whitespace-nowrap dark:text-white">
