@@ -9,12 +9,11 @@ export const getHomePageData = () => async dispatch => {
   const response = await baseUrl.get(
     '/pb/home', 
   ).then(response => {
-    console.log(response);
     return response;
   }).catch(function (error) {
     return error.response;
   });
-  console.log(response)
+
   if(response.status === 200){
     dispatch({
       type: HOME_PAGE, 
