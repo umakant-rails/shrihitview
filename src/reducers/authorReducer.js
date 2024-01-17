@@ -1,6 +1,8 @@
 import {
   AUTHOR_LIST,
   AUTHOR_SHOW,
+  SANT_LIST,
+  SANT_SHOW
 } from "../utils/types";
 
 const initialState = {authorList: []};
@@ -15,6 +17,18 @@ const authorReducer = (state=initialState, action) => {
       return {
         ...state,
         author: action.payload.author,
+      };
+    case SANT_LIST:
+      console.log(action.payload.sants)
+      return {
+        ...state,
+        sants: action.payload.sants,
+      };
+    case SANT_SHOW:
+      return {
+        ...state,
+        related_sants: action.payload.sants,
+        sant: action.payload.sant
       };
     default: 
       return state

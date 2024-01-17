@@ -15,14 +15,14 @@ const AuthorList = () => {
   
   useEffect( () => {
     dispatch(getAuthors());
-  }, []);
+  });
 
   useEffect( () => {
     if(authors){
       setAuthorList(authors);
       setCurrentAuthors(authors.slice(0, itemPerPage));
     }
-  }, [authors]);
+  }, [authors, itemPerPage]);
   
   const handlePageClick = (event) => {
     const newOffset = parseInt(event.target.getAttribute('value'));
@@ -78,7 +78,7 @@ const AuthorList = () => {
                     onClick={resetFilteredAuthors}
                     className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                     Refresh&nbsp;&nbsp;
-                    <svg class="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                    <svg className="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97"/>
                     </svg>
                   </button>

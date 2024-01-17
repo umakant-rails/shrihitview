@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReactTransliterate } from "react-transliterate";
-import shrihit from "../../assets/images/shrihit.png"
+import shrihit from "../../assets/images/shrihit.png";
 import { dateFormat } from '../../utils/utilityFunctions';
 import { getArticle, getArticles } from '../../actions/articles';
 import axios from 'axios';

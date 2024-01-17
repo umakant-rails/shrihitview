@@ -13,6 +13,8 @@ import ArticleList from "../components/articles/ArticleList";
 import ArticleShow from "../components/articles/ArticleShow";
 
 import AuthorList from "../components/authors/AuthorList";
+import SantList from "../components/authors/SantList";
+import SantBiography from "../components/authors/SantBiography";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -30,6 +32,8 @@ const router = createBrowserRouter(
       <Route path="/pb/articles/:id" element={<ArticleShow />} />
 
       <Route path="/pb/authors" element={<AuthorList />} />
+      <Route path="/pb/authors/sants" element={<SantList />} />
+      <Route path="/pb/authors/:name/sant_biography" element={<SantBiography />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )
