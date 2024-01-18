@@ -26,8 +26,8 @@ const authorReducer = (state=initialState, action) => {
     case SANT_SHOW:
       return {
         ...state,
-        sants: action.payload.sants,
-        sant: action.payload.sant,
+        related_sants: action.payload.sants,
+        sant: action.payload.sant
       };
     default: 
       return state

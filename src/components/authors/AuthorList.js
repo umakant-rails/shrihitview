@@ -15,14 +15,14 @@ const AuthorList = () => {
   
   useEffect( () => {
     dispatch(getAuthors());
-  }, []);
+  });
 
   useEffect( () => {
     if(authors){
       setAuthorList(authors);
       setCurrentAuthors(authors.slice(0, itemPerPage));
     }
-  }, [authors]);
+  }, [authors, itemPerPage]);
   
   const handlePageClick = (event) => {
     const newOffset = parseInt(event.target.getAttribute('value'));
