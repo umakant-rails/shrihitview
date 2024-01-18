@@ -1,6 +1,6 @@
 export const TAB_LIST = [
     {url: '/pb/articles', label: 'रचनाये'}, {url: '/pb/authors', label:'रचनाकार/लेखक'}, 
-    {url: 'sants', label: 'संत जीवनी'}, {url: 'scriptures', label:'रसिक वाणी/ग्रन्थ'}, 
+    {url: '/pb/authors/sants', label: 'संत जीवनी'}, {url: 'scriptures', label:'रसिक वाणी/ग्रन्थ'}, 
     {url: 'stories', label:'भक्ति प्रसंग'}, {url: 'strota', label:'आरती/स्तोत्र'}, 
     {url: 'panchangs', label: 'हितोत्सव पत्रिका'}, {url: 'suggestions', label:'सुझाव'}
 ]
@@ -20,3 +20,5 @@ export const ARTICLE_SHOW = "ARTICLE_SHOW";
 
 export const AUTHOR_LIST = "AUTHOR_LIST";
 export const AUTHOR_SHOW = "AUTHOR_SHOW";
+export const SANT_LIST = "SANT_LIST";
+export const SANT_SHOW = "SANT_SHOW";

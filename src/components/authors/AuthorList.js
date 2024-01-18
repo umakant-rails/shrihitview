@@ -11,7 +11,7 @@ const AuthorList = () => {
   const [itemPerPage, setItemPerPage] = useState(10);
   const [authorId, setAuthorId] = useState(null);
   const [authorList, setAuthorList] = useState([]);
-  let { authors } = useSelector( state => state.author );
+  const { authors } = useSelector( state => state.author );
   
   useEffect( () => {
     dispatch(getAuthors());
@@ -27,7 +27,7 @@ const AuthorList = () => {
   const handlePageClick = (event) => {
     const newOffset = parseInt(event.target.getAttribute('value'));
     const startingOffset = (newOffset > 0) ? (newOffset-1)*itemPerPage : 0;
-    setCurrentAuthors(authors.slice(startingOffset, startingOffset+itemPerPage));
+    setCurrentAuthors(authorList.slice(startingOffset, startingOffset+itemPerPage));
   };
 
   const showArticles = (author) => {
@@ -39,15 +39,20 @@ const AuthorList = () => {
   };
 
   const resetFilteredAuthors = (e) => {
-    authors=authorList;
-    setCurrentAuthors(authors.slice(0,itemPerPage));
+    setAuthorList(authors);
+    if(authors != authorList){
+      setAuthorList(authors);
+      setCurrentAuthors(authors.slice(0,itemPerPage));
+    } else {
+      alert('No Filter Apply Now.')
+    }
     document.getElementsByName("alphabet").forEach((el) => el.checked = false );
   }
   const filterAuthors = (e) => {
     const selectedAlbhabet = e.target.value;
-    authors = authorList;
-    authors = authors.filter(author => author.name.startsWith(selectedAlbhabet));
-    setCurrentAuthors(authors.slice(0,itemPerPage));
+    let fileteredAuthors = authors.filter(author => author.name.startsWith(selectedAlbhabet));
+    setAuthorList(fileteredAuthors);
+    setCurrentAuthors(fileteredAuthors.slice(0,itemPerPage));
   }
 
   return (
@@ -78,7 +83,7 @@ const AuthorList = () => {
                     onClick={resetFilteredAuthors}
                     className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                     Refresh&nbsp;&nbsp;
-                    <svg class="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                    <svg className="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97"/>
                     </svg>
                   </button>
@@ -180,10 +185,10 @@ const AuthorList = () => {
             </div>
             <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
               {
-                authors &&
+                authorList &&
                 <Pagination 
-                  showWidget={3} 
-                  totalItems={authors.length}
+                  showWidget={5} 
+                  totalItems={authorList.length}
                   itemsPerPage={itemPerPage}
                   pageChangeHandler= {handlePageClick}
                 />
