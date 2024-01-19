@@ -15,7 +15,7 @@ const AuthorList = () => {
   
   useEffect( () => {
     dispatch(getAuthors());
-  });
+  }, []);
 
   useEffect( () => {
     if(authors){

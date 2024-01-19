@@ -5,11 +5,13 @@ import authReducer from "./authReducer";
 import msgReducer from "./msgReducen";
 import homeReducer from "./homeReducer";
 import authorReducer from "./authorReducer";
+import scriptureReducer from "./scriptureReducer";
 
 export default combineReducers({
     home: homeReducer,
     article: articleReducer,
     auth: authReducer,
     msg: msgReducer,
-    author: authorReducer
+    author: authorReducer,
+    scripture: scriptureReducer
 });
