@@ -42,10 +42,10 @@ const ScriptureShow = () => {
   }
  
   return (
-    <div className='grid grid-cols-12'>
-      <div className='col-start-2 col-span-10'>
-        <div className='grid grid-cols-12'>
-          <div className='col-start-2 col-span-10 border-2 border-gray-2 pb-4 shadow-2xl page-min'>
+    <div className='grid md:grid-cols-12'>
+      <div className='lg:col-start-2 lg:col-span-10 md:col-span-12'>
+        <div className='grid md:grid-cols-12'>
+          <div className='lg:col-start-2 lg:col-span-10 md:col-span-12 border-2 border-gray-2 pb-4 shadow-2xl page-min'>
             <div className='!py-5 article-header-violet mb-3 text-3xl !text-blue-800 text-center'>
               <span className='float-left ms-2'>
                 <button onClick={updateIndexing}>
@@ -59,8 +59,8 @@ const ScriptureShow = () => {
             <div className={`${indexing && 'hidden'}`}>
               {scripture && scripture.articles && scripture.articles.map((article, index) =>
                 (currentArticle === index+1 ) && (
-                  <div key={article.id} className='grid grid-cols-12'>
-                    <div className='flex justify-center items-center page-fixed' >
+                  <div key={article.id} className='grid md:grid-cols-12'>
+                    <div className='hidden md:flex flex justify-center items-center page-fixed' >
                       <button onClick={e => navigateArticle(currentArticle-1)}>
                         <svg className={`w-[38px] h-[38px] ${prevCls} dark:text-white`} aria-hidden="true" 
                           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
@@ -68,7 +68,7 @@ const ScriptureShow = () => {
                         </svg>
                       </button>
                     </div>
-                    <div className='col-span-10'>
+                    <div className='md:col-span-10'>
                       <div className='text-3xl font-bold text-center bg-slate-800 text-white rounded-md py-3 mt-5 mb-8 shadow-xl shadow-purple-400'>
                         {currentArticle}. {article[titleAttr]}
                       </div>
@@ -76,7 +76,7 @@ const ScriptureShow = () => {
                         {<div dangerouslySetInnerHTML={{__html: article[contentAttr]}} />}
                       </div>
                     </div>
-                    <div className='flex justify-center items-center page-fixed'>
+                    <div className='hidden md:flex flex justify-center items-center page-fixed'>
                       <button onClick={e => navigateArticle(currentArticle+1)}>
                         <svg className={`w-[38px] h-[38px] ${nextCls} dark:text-white`} aria-hidden="true" 
                           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
@@ -88,7 +88,7 @@ const ScriptureShow = () => {
                 )
               )}
             </div>
-            <div className={`grid grid-cols-12 page-scroll ${!indexing && 'hidden'}`}>
+            <div className={`grid md:grid-cols-12 page-scroll ${!indexing && 'hidden'}`}>
               <div className='col-start-2 col-span-10'>
                 <div className='text-3xl font-bold text-center bg-slate-800 text-white rounded-md py-3 mx-3 my-8 shadow-purple-400'>
                   अनुक्रमाणिका

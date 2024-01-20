@@ -15,15 +15,15 @@ const ScriptureList = () => {
   }, []);
 
   return (
-    <div className='grid grid-cols-12'>
-      <div className='col-start-2 col-span-10'>
+    <div className='grid md:grid-cols-12'>
+      <div className='md:col-start-2 md:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           रसिक वाणी सूची 
         </div>
-        <div className='grid grid-cols-12 gap-3'>
+        <div className='grid md:grid-cols-12 gap-3'> 
           {
             scriptures && scriptures.map( (scripture, index) => 
-              <div key={index} className='col-span-2'>
+              <div key={index} className='md:col-span-4 lg:col-span-3 flex justify-center'>
                 <Link to={`/pb/scriptures/${scripture.name_eng}`}>
                   <img 
                     src={images(`./${imageNamefromScrName(scripture.name_eng)}.png`)} 
