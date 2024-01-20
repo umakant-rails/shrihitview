@@ -25,3 +25,4 @@ export const SANT_SHOW = "SANT_SHOW";
 
 
 export const SCRIPTURE_LIST = "SCRIPTURE_LIST";
+export const SCRIPTURE_SHOW = "SCRIPTURE_SHOW";

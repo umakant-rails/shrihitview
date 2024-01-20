@@ -23,8 +23,8 @@ const ScriptureList = () => {
         <div className='grid grid-cols-12 gap-3'>
           {
             scriptures && scriptures.map( (scripture, index) => 
-              <div className='col-span-2'>
-                <Link to="#">
+              <div key={index} className='col-span-2'>
+                <Link to={`/pb/scriptures/${scripture.name_eng}`}>
                   <img 
                     src={images(`./${imageNamefromScrName(scripture.name_eng)}.png`)} 
                     alt="shit-hit" className='border h-60 border-violet-400 items-center'/>
