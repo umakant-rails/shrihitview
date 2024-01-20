@@ -154,6 +154,15 @@
   color: black;;
 }
 
-.page{
+.page-min{
   min-height: 29.7cm;
+}
+.page-scroll{
+  min-height: 29.7cm;
+  max-height: 29.7cm;
+  overflow-y: scroll;
+}
+.page-fixed{
+  min-height: 29.7cm;
+  max-height: 29.7cm;
 }
