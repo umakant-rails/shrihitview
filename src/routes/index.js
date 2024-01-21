@@ -18,6 +18,8 @@ import ScriptureList from "../components/scriptures/ScriptureList";
 import ScriptureShow from "../components/scriptures/ScriptureShow";
 import StoryList from "../components/stories/StoryList";
 import StoryShow from "../components/stories/StoryShow";
+import StrotumList from "../components/strota/StrotumList";
+import StrotumShow from "../components/strota/StrotumShow";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -43,6 +45,9 @@ const router = createBrowserRouter(
 
       <Route path="/pb/stories" element={<StoryList />} />
       <Route path="/pb/stories/:title" element={<StoryShow />} />
+
+      <Route path="/pb/strota" element={<StrotumList />} />
+      <Route path="/pb/strota/:title" element={<StrotumShow />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )

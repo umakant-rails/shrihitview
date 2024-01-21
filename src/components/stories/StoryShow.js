@@ -15,8 +15,8 @@ const StoryShow = () => {
   }, [title]);
 
   return (
-    <div className='grid grid-cols-12'>
-      <div className='col-start-2 col-span-10'>
+    <div className='grid md:grid-cols-12'>
+      <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           भक्ति प्रसंग - {story ? story.title : 'NA'}
         </div>
@@ -32,7 +32,7 @@ const StoryShow = () => {
         </div>
         <div className='text-blue-700 text-xl px-6'>
           {
-            stories && stories.map( (story, index) =>
+            stories.length > 0 && stories.map( (story, index) =>
               <Link key={index} to={`/pb/stories/${story.title}y`}>{story.title}</Link>
             ).reduce((prev, curr) => [prev, ', ', curr])
           }

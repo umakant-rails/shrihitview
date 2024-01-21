@@ -56,8 +56,8 @@ const AuthorList = () => {
   }
 
   return (
-    <div className='grid grid-cols-12'>
-      <div className='col-start-2 col-span-10'>
+    <div className='grid md:grid-cols-12'>
+      <div className='md:col-start-2 md:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           रचनाकार/लेखक सूची 
         </div>
@@ -120,9 +120,9 @@ const AuthorList = () => {
               <table className="w-full text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
-                    <th scope="col" className="px-4 py-3">रचनाकार/लेखक</th>
-                    <th scope="col" className="px-4 py-3">रचनायें</th>
-                    <th scope="col" className="px-4 py-3">Action</th>
+                    <th scope="col" className="px-2 py-3">रचनाकार/लेखक</th>
+                    <th scope="col" className="px-2 py-3">रचनायें</th>
+                    <th scope="col" className="px-2 py-3">Action</th>
                   </tr>
                 </thead>
                 {
@@ -130,15 +130,15 @@ const AuthorList = () => {
                     <tbody key={index} className='text-xl'>
                       <tr  
                         onClick={()=> showArticles(author)}
-                        className="border-b dark:border-gray-700 text-blue-500" >
+                        className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <th scope="row" 
-                          className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {author.name}
                         </th>
-                        <td className="px-4 py-3">
+                        <td className="px-2 py-3">
                           उपलब्ध रचनाये - <span className='font-bold'>{author.articles ? author.articles.length : 0}</span>
                         </td>
-                        <td className="px-4 py-3 flex items-center justify-end">
+                        <td className="px-2 py-3 flex items-center justify-end">
                           <button className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                             {
                               authorId === author.id ? (<svg 
@@ -153,13 +153,13 @@ const AuthorList = () => {
                         </td>
                       </tr>
                       {authorId === author.id ? (
-                        <tr key={`detail-${index}`} >
+                        <tr key={`detail-${index}`}>
                           <td colSpan={3} 
                             className="p-5 border-b border-gray-200 dark:border-gray-700">
                               <div className='max-h-96 overflow-y-scroll'>
                                 {author.articles && author.articles.map((article, index)=>
                                   <p key={index} >
-                                    <Link to={`/pb/articles/${article.hindi_title}`}>
+                                    <Link to={`/pb/articles/${article.hindi_title}`} className='cursor-pointer' >
                                       {index+1}. <span className='text-blue-500'>
                                         {article.hindi_title}
                                       </span>

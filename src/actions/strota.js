@@ -1,13 +1,13 @@
 import baseUrl from "../services/AxiosService";
 import {
-  SCRIPTURE_LIST,
-  SCRIPTURE_SHOW,
+  STROTUM_LIST,
+  STROTUM_SHOW,
   SET_MESSAGE
 } from "../utils/types";
 
-export const getScriptures = () => async dispatch => {
-  const  response = await baseUrl.get(
-    "/pb/scriptures",
+export const getStrota = () => async dispatch => {
+  const response = await baseUrl.get(
+    '/pb/strota', 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -16,24 +16,23 @@ export const getScriptures = () => async dispatch => {
   
   if(response.status === 200){
     dispatch({
-      type: SCRIPTURE_LIST,
+      type: STROTUM_LIST, 
       payload: {
-        statusCode: response.status,
-        scriptures: response.data.scriptures,
+        strota: response.data.strota,
+        strota_types: response.data.strota_types,
       }
-    })
+    });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
     });
   }
-}
+};
 
-export const getScrArticles = (name) => async dispatch => {
-  const  response = await baseUrl.get(
-    `/pb/scriptures/${name}`,
+export const getStrotum = (id) => async(dispatch) => {
+  const response = await baseUrl.get(
+    `/pb/strota/${id}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -42,13 +41,13 @@ export const getScrArticles = (name) => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: SCRIPTURE_SHOW,
+      type: STROTUM_SHOW, 
       payload: {
         statusCode: response.status,
-        scripture: response.data.scripture,
-        articles: response.data.articles
+        strotum: response.data.strotum ,
+        strota: response.data.strota,
       }
-    })
+    });
   } else {
     dispatch({
       type: SET_MESSAGE,
@@ -56,4 +55,5 @@ export const getScrArticles = (name) => async dispatch => {
       payload: response.data.status.message,
     });
   }
+
 }
