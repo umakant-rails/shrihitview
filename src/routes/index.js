@@ -11,12 +11,13 @@ import Login from "../components/Auth/Login";
 
 import ArticleList from "../components/articles/ArticleList";
 import ArticleShow from "../components/articles/ArticleShow";
-
 import AuthorList from "../components/authors/AuthorList";
 import SantList from "../components/authors/SantList";
 import SantBiography from "../components/authors/SantBiography";
 import ScriptureList from "../components/scriptures/ScriptureList";
 import ScriptureShow from "../components/scriptures/ScriptureShow";
+import StoryList from "../components/stories/StoryList";
+import StoryShow from "../components/stories/StoryShow";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -39,6 +40,9 @@ const router = createBrowserRouter(
 
       <Route path="/pb/scriptures" element={<ScriptureList />}/>
       <Route path="/pb/scriptures/:id" element={<ScriptureShow />} />
+
+      <Route path="/pb/stories" element={<StoryList />} />
+      <Route path="/pb/stories/:title" element={<StoryShow />} />
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )

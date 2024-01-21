@@ -1,7 +1,7 @@
 export const TAB_LIST = [
     {url: '/pb/articles', label: 'रचनाये'}, {url: '/pb/authors', label:'रचनाकार/लेखक'}, 
     {url: '/pb/authors/sants', label: 'संत जीवनी'}, {url: '/pb/scriptures', label:'रसिक वाणी/ग्रन्थ'}, 
-    {url: 'stories', label:'भक्ति प्रसंग'}, {url: 'strota', label:'आरती/स्तोत्र'}, 
+    {url: '/pb/stories', label:'भक्ति प्रसंग'}, {url: 'strota', label:'आरती/स्तोत्र'}, 
     {url: 'panchangs', label: 'हितोत्सव पत्रिका'}, {url: 'suggestions', label:'सुझाव'}
 ]
 export const HOME_PAGE = "HOME_PAGE";
@@ -23,6 +23,8 @@ export const AUTHOR_SHOW = "AUTHOR_SHOW";
 export const SANT_LIST = "SANT_LIST";
 export const SANT_SHOW = "SANT_SHOW";
 
+export const STORY_LIST = "STORY_LIST";
+export const STORY_SHOW = "STORY_SHOW";
 
 export const SCRIPTURE_LIST = "SCRIPTURE_LIST";
 export const SCRIPTURE_SHOW = "SCRIPTURE_SHOW";
