@@ -40,7 +40,7 @@ const ArticleShow = () => {
                   <span className='font-bold text-red-500 text-medium'>रचना प्रकार - </span> {article.article_type} )
                 </p>
               </div>
-              <div className='text-xl overflow-hidden py-2 px-2 mb-3 mb-5'>
+              <div className='text-xl overflow-hidden shadow-2xl p-5 mb-3 mb-5'>
                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
               </div>
               <div id="comment-section" className='py-2 grid grid-cols-8'>

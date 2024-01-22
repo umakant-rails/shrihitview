@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuthors } from '../../actions/authors';
 import { useDispatch, useSelector } from 'react-redux';
-import Pagination from '../Pagination';
+import Pagination from '../shared/Pagination';
 
 const AuthorList = () => {
   const dispatch = useDispatch();

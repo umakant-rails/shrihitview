@@ -3,7 +3,7 @@ import React, {useEffect, useState } from 'react';
 const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) => {
   const [currentPage, setCurrentPage] = useState(1);
   //const [displayWidget, setDisplayWidget] = useState(showWidget);
-  //const [pageArr, setPageArr] = useState([]);
+  const [pageArr, setPageArr] = useState([]);
   const [firstDots, setFirstDots] = useState(false);
   const [lastDots, setLastDots] = useState(false);
   //const [totalPages, setTotalPages] = useState(0);
@@ -11,20 +11,23 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
   //const totalPages = Math.ceil(totalItems/itemsPerPage);
   
 
-  let pageArr = [];
+  let pgArr = [];
   let totalPages = Math.ceil(totalItems/itemsPerPage);
+  console.log(totalPages)
   let displayWidget = showWidget;
   if(totalPages > showWidget){
-    pageArr = Array.from(Array(showWidget), (e, i) => i+1);
-    //setPageArr(arr);
+    pgArr = Array.from(Array(showWidget), (e, i) => i+1);
   } else { 
-    pageArr = Array.from(Array(totalPages), (e, i) => i+1);
-    //setPageArr(arr);
+    pgArr = Array.from(Array(totalPages), (e, i) => i+1);
     displayWidget = totalPages;
   }
 
   useEffect( () => {
-    setCurrentPage(1);setFirstDots(false); setLastDots(false);
+    setPageArr(pgArr);
+    setCurrentPage(1);
+    setFirstDots(false);
+    (totalPages > displayWidget) ? setLastDots(true): setLastDots(false);
+    
   }, [totalItems]);
 
   // useEffect( () => {
@@ -50,15 +53,18 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
     if(totalPages > displayWidget){
       if(currentSelectPage > displayWidget/2 && totalPages-currentSelectPage >= displayWidget){
         // setPageArr(Array.from(Array(displayWidget), (e, i) => i+currentSelectPage));
-        pageArr = Array.from(Array(displayWidget), (e, i) => i+currentSelectPage)
+        pgArr = Array.from(Array(displayWidget), (e, i) => i+currentSelectPage);
+        setPageArr(pgArr);
         setFirstDots(true);setLastDots(true);
       } else if (totalPages-currentSelectPage+1 <= displayWidget){
         // setPageArr(Array.from(Array(displayWidget), (e, i) => i+(totalPages-displayWidget+1)));
-        pageArr = Array.from(Array(displayWidget), (e, i) => i+(totalPages-displayWidget+1))
+        pgArr = Array.from(Array(displayWidget), (e, i) => i+(totalPages-displayWidget+1));
+        setPageArr(pgArr);
         setFirstDots(true);setLastDots(false);
       } else if(currentSelectPage <= displayWidget/2){
         // setPageArr(Array.from(Array(displayWidget), (e, i) => i+1));
-        pageArr = Array.from(Array(displayWidget), (e, i) => i+1)
+        pgArr = Array.from(Array(displayWidget), (e, i) => i+1);
+        setPageArr(pgArr);
         setFirstDots(false);setLastDots(true);
       }
     } else {
