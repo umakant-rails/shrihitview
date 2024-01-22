@@ -6,10 +6,13 @@ import { getArticles } from '../../actions/articles';
 import SearchArticleList from './SearchArticleList';
 import shrihit from "../../assets/images/shrihit.png";
 import { dateFormat } from '../../utils/utilityFunctions';
+import Pagination from '../shared/Pagination';
 
 const ArticleList = () => {
   const dispatch = useDispatch();
-  const [searchArticles, setSearchArticles] = useState([]);
+  const [authorList, setAuthorList] = useState([]);
+  const [currentArticles, setCurrentArticles] = useState([]);
+  const [itemPerPage, setItemPerPage] = useState(10);
   const [searchApplied, setSearchApplied] = useState(false);
   const {articles, authors, tags, contexts, article_types } = useSelector( state => state.article);
 
@@ -18,11 +21,19 @@ const ArticleList = () => {
   }, []);
 
   useEffect( ()=> {
-    setSearchArticles(articles);
+    if(articles){
+      setAuthorList(articles);
+      setCurrentArticles(articles.slice(0, itemPerPage));
+    }
   }, [articles]);
   
   const setSearchAppliedState = (stateValue) => setSearchApplied(stateValue)
 
+  const handlePageClick = (event) => {
+    const newOffset = parseInt(event.target.getAttribute('value'));
+    const startingOffset = (newOffset > 0) ? (newOffset-1)*itemPerPage : 0;
+    setCurrentArticles(articles.slice(startingOffset, startingOffset+itemPerPage));
+  };
 
   return (
     <div>
@@ -41,7 +52,7 @@ const ArticleList = () => {
               <div className="grid md:grid-cols-10 gap-10">
                 <div className="md:col-span-7 sm:col-span-full">
                   {
-                    searchArticles && searchArticles.map((article, index) =>
+                    currentArticles && currentArticles.map((article, index) =>
                       <div key={index} className='grid md:grid-cols-12 shadow-xl sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
                         <div className='lg:col-span-4 md:col-span-full'>
                           <Link to={`/pb/articles/${article.hindi_title}`} >
@@ -75,6 +86,14 @@ const ArticleList = () => {
                         </div>
                       </div>
                     )
+                  }
+                  {
+                    authorList && <Pagination 
+                      showWidget={5} 
+                      totalItems={authorList.length}
+                      itemsPerPage={itemPerPage}
+                      pageChangeHandler= {handlePageClick}
+                    />
                   }
                 </div>
                 <div className="md:col-span-3 sm:col-span-full">
