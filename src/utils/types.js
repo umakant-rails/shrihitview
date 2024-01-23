@@ -4,6 +4,7 @@ export const TAB_LIST = [
     {url: '/pb/stories', label:'भक्ति प्रसंग'}, {url: '/pb/strota', label:'आरती/स्तोत्र'}, 
     {url: 'panchangs', label: 'हितोत्सव पत्रिका'}, {url: 'suggestions', label:'सुझाव'}
 ]
+export const ITEM_PER_PAGE = 10;
 export const HOME_PAGE = "HOME_PAGE";
 
 export const USER_REGISTRATION= "USEREGISTRATION";

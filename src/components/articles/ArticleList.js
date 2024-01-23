@@ -10,7 +10,7 @@ import Pagination from '../shared/Pagination';
 
 const ArticleList = () => {
   const dispatch = useDispatch();
-  const [authorList, setAuthorList] = useState([]);
+  const [articleList, setArticleList] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [searchApplied, setSearchApplied] = useState(false);
@@ -22,7 +22,7 @@ const ArticleList = () => {
 
   useEffect( ()=> {
     if(articles){
-      setAuthorList(articles);
+      setArticleList(articles);
       setCurrentArticles(articles.slice(0, itemPerPage));
     }
   }, [articles]);
@@ -88,9 +88,9 @@ const ArticleList = () => {
                     )
                   }
                   {
-                    authorList && <Pagination 
+                    articleList && <Pagination 
                       showWidget={5} 
-                      totalItems={authorList.length}
+                      totalItems={articleList.length}
                       itemsPerPage={itemPerPage}
                       pageChangeHandler= {handlePageClick}
                     />

@@ -16,7 +16,7 @@ const StrotumList = () => {
     <div className='grid md:grid-cols-12'>
       <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          भक्ति प्रसंग सूची
+          आरती/स्तोत्र सूची
         </div>
         {
           strota && strota.map((strotum, index)=>

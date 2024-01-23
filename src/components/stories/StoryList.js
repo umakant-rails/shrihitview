@@ -1,16 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getStories } from '../../actions/stories';
 import shrihit from "../../assets/images/shrihit.png"
+import { ITEM_PER_PAGE } from '../../utils/types';
+import Pagination from '../shared/Pagination';
 
 const StoryList = () => {
   const dispatch = useDispatch();
+  const [currentStories, setCurrentStories] = useState([]);
+  const [storyList, setStoryList] = useState([])
   const {stories} = useSelector( state => state.story );
 
   useEffect( () => {
     dispatch(getStories());
   }, []);
+
+  useEffect( () => {
+    setCurrentStories(stories.slice(0,ITEM_PER_PAGE));
+    setStoryList(stories);
+  }, [stories]);
+
+  const handlePageClick = (event) => {
+    const newOffset = parseInt(event.target.getAttribute('value'));
+    const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
+    setCurrentStories(stories.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
+  };
+
 
   return (
     <div className='grid md:grid-cols-12'>
@@ -19,7 +35,7 @@ const StoryList = () => {
           भक्ति प्रसंग सूची
         </div>
         {
-          stories && stories.map((story, index)=>
+          currentStories && currentStories.map((story, index)=>
             <div key={index} className='grid md:grid-cols-12 gap-5 px-4 border-b border-b-gray-500 mb-5 pb-5'>
               <div className='hidden lg:block lg:col-span-4'>
                 <Link to={`/pb/stories/${story.title}`} >
@@ -39,6 +55,15 @@ const StoryList = () => {
             </div>
           )
 
+        }
+        {
+          storyList &&
+          <Pagination 
+            showWidget={5} 
+            totalItems={storyList.length}
+            itemsPerPage={ITEM_PER_PAGE}
+            pageChangeHandler= {handlePageClick}
+          />
         }
       </div>
     </div>
