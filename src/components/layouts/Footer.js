@@ -1,11 +1,19 @@
 import React from 'react';
+import { useEffect } from 'react';
 import logo from "../../assets/images/hitlalju.png"
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFooterData } from '../../actions/home';
 
 const Footer = () => {
+  const dispatch = useDispatch();
+
   const {authors, tags, contexts, article_types } = useSelector( state => state.home);
 
+  useEffect( ()=> {
+    dispatch(getFooterData());
+  }, []);
+  
   return (
     <div className="bg-blue-800 pt-4 sm:pt-10 lg:pt-12">
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">

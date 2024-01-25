@@ -79,7 +79,7 @@ const Navbar = () => {
               ( 
                 <>
                   <li>
-                    <NavLink to="#" button key={'logoutBtn'} 
+                    <NavLink to="#" key={'logoutBtn'} 
                       className="relative bg-red-500 rounded-md text-white px-3 py-2 text-sm mx-2"
                       onClick={() => logoutUser()} >
                       Logout
