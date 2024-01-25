@@ -1,14 +1,14 @@
 import baseUrl from "../services/AxiosService";
 import {
-  ARTICLE_LIST,
-  ARTICLE_SHOW,
+    CONTEXT_LIST,
+    CONTEXT_SHOW,
   SET_MESSAGE
 } from "../utils/types";
 
-export const getArticles = () => async dispatch => {
-  // let statusCode = null; 
+export const getContexts = () => async dispatch => {
+ 
   const response = await baseUrl.get(
-    '/pb/articles', 
+    '/pb/contexts', 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -17,15 +17,10 @@ export const getArticles = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: ARTICLE_LIST, 
+      type: CONTEXT_LIST, 
       payload: {
         statusCode: response.status,
-        articles: response.data.articles,
-        authors: response.data.authors,
-        tags: response.data.tags,
         contexts: response.data.contexts,
-        article_types: response.data.article_types
-        // message: response.data.status.message
       }
     });
   } else {
@@ -38,30 +33,28 @@ export const getArticles = () => async dispatch => {
   // return Promise.resolve(response.data);
 };
 
-export const getArticle = (id) => async(dispatch) => {
-
+export const getContext = (name) => async dispatch => {
+ 
   const response = await baseUrl.get(
-    `/pb/articles/${id}`, 
+    `/pb/contexts/${name}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
     return error.response;
   });
-
+  console.log(name, response)
   if(response.status === 200){
     dispatch({
-      type: ARTICLE_SHOW, 
+      type: CONTEXT_SHOW, 
       payload: {
         statusCode: response.status,
-        article: response.data.article,
+        context: response.data.context,
       }
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
     });
   }
-
-}
+};

@@ -1,31 +1,26 @@
 import baseUrl from "../services/AxiosService";
 import {
-  ARTICLE_LIST,
-  ARTICLE_SHOW,
+  ARTICLE_TYPE_LIST,
+  ARTICLE_TYPE_SHOW,
   SET_MESSAGE
 } from "../utils/types";
 
-export const getArticles = () => async dispatch => {
-  // let statusCode = null; 
+export const getArticleTypes = () => async dispatch => {
+ 
   const response = await baseUrl.get(
-    '/pb/articles', 
+    '/pb/article_types', 
   ).then(response => {
     return response;
   }).catch(function (error) {
     return error.response;
   });
-
+  console.log(response);
   if(response.status === 200){
     dispatch({
-      type: ARTICLE_LIST, 
+      type: ARTICLE_TYPE_LIST, 
       payload: {
         statusCode: response.status,
-        articles: response.data.articles,
-        authors: response.data.authors,
-        tags: response.data.tags,
-        contexts: response.data.contexts,
-        article_types: response.data.article_types
-        // message: response.data.status.message
+        article_types: response.data.article_types,
       }
     });
   } else {
@@ -38,30 +33,30 @@ export const getArticles = () => async dispatch => {
   // return Promise.resolve(response.data);
 };
 
-export const getArticle = (id) => async(dispatch) => {
-
+export const getArticleType = (name) => async dispatch => {
+ 
   const response = await baseUrl.get(
-    `/pb/articles/${id}`, 
+    `/pb/article_types/${name}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
     return error.response;
   });
-
+  console.log(response);
   if(response.status === 200){
     dispatch({
-      type: ARTICLE_SHOW, 
+      type: ARTICLE_TYPE_SHOW, 
       payload: {
         statusCode: response.status,
-        article: response.data.article,
+        article_type: response.data.article_type,
       }
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
+      // payload: response.data.status.message,
     });
   }
-
-}
+  // return Promise.resolve(response.data);
+};

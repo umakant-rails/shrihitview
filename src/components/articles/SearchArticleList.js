@@ -46,7 +46,6 @@ const SearchArticleList = ({setSearchAppliedState}) => {
   const searchOnSubmit = async (term) => {
     const response = await searchToArticles(term)
     setSearchArticles(response.data.articles);
-    console.log(response.data.articles)
     setCurrentArticles(response.data.articles.slice(0,10));
     setSearchAppliedState(true);
     setAutoCompleteArticles([]);

@@ -10,17 +10,15 @@ const StrotumShow = () => {
   const { strota, strotum } = useSelector(state => state.strotum);
 
   useEffect( ()=> {
-    window.scrollTo({top: 0, behavior: 'instant'})
-    dispatch(getStrotum(title ));
+    window.scrollTo({top: 0, behavior: 'instant'});
+    dispatch(getStrotum(title));
   }, [title]);
   
-  const getStrotaList = (strota) => {
-    const strotaArr = strota.length !== 0 ? strota.map( (strotum, index) =>
-      <Link key={index} to={`/pb/strota/${strotum.title}`}>{strotum.title}</Link>
-    ).reduce((prev, curr) => [prev, ', ', curr]) : null;
-    //.reduce((prev, curr) => [prev, ', ', curr]) : null;
-    console.log(strotaArr);
-  }
+  // const getStrotaList = (strota) => {
+  //   const strotaArr = strota.length !== 0 ? strota.map( (strotum, index) =>
+  //     <Link key={index} to={`/pb/strota/${strotum.title}`}>{strotum.title}</Link>
+  //   ).reduce((prev, curr) => [prev, ', ', curr]) : null;
+  // }
 
   return (
     <div className='grid md:grid-cols-12'>

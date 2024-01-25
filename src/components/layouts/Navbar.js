@@ -1,6 +1,6 @@
 import React from 'react';
 import { TAB_LIST } from '../../utils/types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { AuthContext } from "../../services/AuthContext";
@@ -9,28 +9,30 @@ import logo from "../../assets/images/hitlalju.png"
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const {currentUser, setCurrentUser} = useContext(AuthContext);
   
   const getTabList = () =>{ 
+    const currentUrl = location.pathname;
     return TAB_LIST.map((tab, index) => {
-      // if (index === 0 ) {
-      //   return(
-      //     <li>
-      //       <a href="#" key={index} className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent">
-      //         {tabName}
-      //       </a>
-      //     </li>
-      //   );
-      // } else {
-
-        return(
-          <li key={index} >
-            <NavLink to={tab.url} className="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gray-200 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              {tab.label}
-            </NavLink>
-          </li>
-        );
-      //}
+      return(
+        <li key={index} >
+          {
+            (currentUrl === tab.url) ? (
+              <NavLink to={tab.url} className={`relative bg-yellow-500 rounded-md text-white px-3 py-2 text-sm `}>
+                {tab.label}
+              </NavLink>
+            ) : (
+              <NavLink to={tab.url} className={`block py-2 px-3 text-white rounded hover:bg-gray-100 
+                md:hover:bg-transparent md:border-0 md:hover:text-gray-200 md:p-0 dark:text-white 
+                md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white 
+                md:dark:hover:bg-transparent`}>
+                {tab.label}
+              </NavLink>
+            )
+          }
+        </li>
+      );
     });
   };
 
@@ -68,7 +70,9 @@ const Navbar = () => {
           </svg>
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-multi-level">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className={`flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 
+            rounded-lg md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 
+            dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
             { getTabList() }
             {
              (currentUser) ? 

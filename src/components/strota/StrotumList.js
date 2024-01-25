@@ -6,7 +6,7 @@ import shrihit from "../../assets/images/shrihit.png"
 
 const StrotumList = () => {
   const dispatch = useDispatch();
-  const {strota} = useSelector( state => state.strotum );
+  const { strota } = useSelector( state => state.strotum );
 
   useEffect( () => {
     dispatch(getStrota());
@@ -19,7 +19,7 @@ const StrotumList = () => {
           आरती/स्तोत्र सूची
         </div>
         {
-          strota && strota.map((strotum, index)=>
+          strota.length > 0 ? strota.map((strotum, index)=>
             <div key={index} className='grid md:grid-cols-12 gap-5 px-4 border-b border-b-gray-500 mb-5 pb-5'>
               <div className='hidden lg:block lg:col-span-4'>
                 <Link to={`/pb/strota/${strotum.title}`} >
@@ -41,7 +41,7 @@ const StrotumList = () => {
                 </div>
               </div>
             </div>
-          )
+          ) : (<div className='text-center text-xl'>अभी कोई आरती/स्तोत्र उपलब्ध नही है.</div>)
 
         }
       </div>

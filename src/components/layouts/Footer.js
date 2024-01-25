@@ -63,7 +63,7 @@ const Footer = () => {
                 )
               }
               <div>
-                <NavLink key={`author-6`} to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                <NavLink key={`author-6`} to="/pb/authors"  className="text-white transition duration-100 hover:text-gray-300 ">
                   View more ...
                 </NavLink>
               </div>
@@ -84,7 +84,7 @@ const Footer = () => {
                 )
               }
               <div>
-                <NavLink key={`article-type-6`} to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                <NavLink key={`article-type-6`} to="/pb/article_types"  className="text-white transition duration-100 hover:text-gray-300 ">
                   View more ...
                 </NavLink>
               </div>
@@ -105,7 +105,7 @@ const Footer = () => {
                 )         
               }
               <div>
-                <NavLink key={`context-6`} to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                <NavLink key={`context-6`} to="/pb/contexts"  className="text-white transition duration-100 hover:text-gray-300 ">
                   View more ...
                 </NavLink>
               </div>
@@ -126,7 +126,7 @@ const Footer = () => {
                 )
               }
               <div>
-                <NavLink key={`tag-6`} to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                <NavLink key={`tag-6`} to="/pb/tags"  className="text-white transition duration-100 hover:text-gray-300 ">
                   View more ...
                 </NavLink>
               </div>

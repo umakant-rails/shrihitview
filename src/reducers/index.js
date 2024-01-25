@@ -8,6 +8,9 @@ import authorReducer from "./authorReducer";
 import scriptureReducer from "./scriptureReducer";
 import storyReducer from "./storyReducer";
 import strotumReducer from "./strotumReducer";
+import articleTypeReducer from "./articleTypeReducer";
+import contextReducer from "./contextReducer";
+import tagReducer from "./tagReducer";
 
 export default combineReducers({
     home: homeReducer,
@@ -17,5 +20,8 @@ export default combineReducers({
     author: authorReducer,
     scripture: scriptureReducer,
     story: storyReducer,
-    strotum: strotumReducer
+    strotum: strotumReducer,
+    articleType: articleTypeReducer,
+    context: contextReducer,
+    tag: tagReducer
 });

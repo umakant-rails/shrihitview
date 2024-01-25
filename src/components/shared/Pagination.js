@@ -1,4 +1,5 @@
 import React, {useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,7 +14,6 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
 
   let pgArr = [];
   let totalPages = Math.ceil(totalItems/itemsPerPage);
-  console.log(totalPages)
   let displayWidget = showWidget;
   if(totalPages > showWidget){
     pgArr = Array.from(Array(showWidget), (e, i) => i+1);
@@ -51,12 +51,12 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
     }
 
     if(totalPages > displayWidget){
-      if(currentSelectPage > displayWidget/2 && totalPages-currentSelectPage >= displayWidget){
+      if(currentSelectPage > displayWidget/2 && totalPages-currentSelectPage+1 >= displayWidget){
         // setPageArr(Array.from(Array(displayWidget), (e, i) => i+currentSelectPage));
-        pgArr = Array.from(Array(displayWidget), (e, i) => i+currentSelectPage);
+        pgArr = Array.from(Array(displayWidget), (e, i) => i+(currentSelectPage-1));
         setPageArr(pgArr);
         setFirstDots(true);setLastDots(true);
-      } else if (totalPages-currentSelectPage+1 <= displayWidget){
+      } else if (totalPages-currentSelectPage <= displayWidget){
         // setPageArr(Array.from(Array(displayWidget), (e, i) => i+(totalPages-displayWidget+1)));
         pgArr = Array.from(Array(displayWidget), (e, i) => i+(totalPages-displayWidget+1));
         setPageArr(pgArr);
@@ -75,18 +75,18 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
   return (
     (totalPages > 1) && (
       <div className="flex w-full items-center justify-center mt-5">
-        <a href="#" value='1' 
+        <Link to="#" value='1' 
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 rounded-l border border-gray-500 ${currentPage === 1 ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
           {'<< First'}
-        </a>
-        <a href="#" value={(currentPage === 1) ? 1 : currentPage-1}
+        </Link>
+        <Link to="#" value={(currentPage === 1) ? 1 : currentPage-1}
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 border-y border-r border-gray-500 ${currentPage === 1 ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
           {'< Prev'}
-        </a>
+        </Link>
         {
           (firstDots) && (
             <button className='px-4 py-2 border-y border-r border-gray-500 hover:bg-blue-500 hover:text-white'>...</button>
@@ -94,11 +94,11 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
         }
         {
           pageArr.map((count, index) => 
-            <a href="#" value={count}
+            <Link to="#" value={count}
               onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
-              key={index} className={`px-4 py-2 border-y border-r ${currentPage === count ? 'border-blue-500 bg-blue-500 text-white' : 'border-gray-500'} hover:bg-blue-500 hover:text-white`} >
+              key={index} className={`px-4 py-2 border-y border-r ${currentPage === count ? 'border-amber-700 bg-amber-700 text-white' : 'border-gray-500'} hover:bg-blue-500 hover:text-white`} >
               {count}
-            </a>
+            </Link>
           )
         }
         {
@@ -106,18 +106,18 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
             <button className='px-4 py-2 border-y border-r border-gray-500 hover:bg-blue-500 hover:text-white'>...</button>
           )
         }
-        <a href="#" value={(currentPage === totalPages) ? totalPages : currentPage+1}
+        <Link to="#" value={(currentPage === totalPages) ? totalPages : currentPage+1}
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 border-y border-r border-gray-500 ${currentPage === totalPages ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
           {'Next >'}
-        </a>
-        <a href="#" value={totalPages}
+        </Link>
+        <Link to="#" value={totalPages}
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 rounded-r border-y border-r border-gray-500 ${currentPage === totalPages ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
           {'Last >>'}
-        </a>
+        </Link>
       </div>
     )
   );

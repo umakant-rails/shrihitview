@@ -20,6 +20,12 @@ import StoryList from "../components/stories/StoryList";
 import StoryShow from "../components/stories/StoryShow";
 import StrotumList from "../components/strota/StrotumList";
 import StrotumShow from "../components/strota/StrotumShow";
+import ArticleTypeList from "../components/article_types/ArticleTypeList";
+import TagList from "../components/tags/TagList";
+import ContextList from "../components/contexts/ContextList";
+import ArticleTypeShow from "../components/article_types/ArticleTypeShow";
+import ContextShow from "../components/contexts/ContextShow";
+import TagShow from "../components/tags/TagShow";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -48,6 +54,13 @@ const router = createBrowserRouter(
 
       <Route path="/pb/strota" element={<StrotumList />} />
       <Route path="/pb/strota/:title" element={<StrotumShow />} />
+      <Route path="/pb/article_types" element={<ArticleTypeList />} />
+      <Route path="/pb/article_types/:name" element={<ArticleTypeShow />} />
+      <Route path="/pb/contexts" element={<ContextList />} />
+      <Route path="/pb/contexts/:name" element={<ContextShow />} />
+      <Route path="/pb/tags" element={<TagList />} />
+      <Route path="/pb/tags/:name" element={<TagShow />} />
+
       <Route path="*" element={<ErrorPage />} />
     </Route>
   )

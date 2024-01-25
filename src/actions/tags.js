@@ -1,14 +1,14 @@
 import baseUrl from "../services/AxiosService";
 import {
-  ARTICLE_LIST,
-  ARTICLE_SHOW,
+  TAG_LIST,
+  TAG_SHOW,
   SET_MESSAGE
 } from "../utils/types";
 
-export const getArticles = () => async dispatch => {
-  // let statusCode = null; 
+export const getTags = () => async dispatch => {
+ 
   const response = await baseUrl.get(
-    '/pb/articles', 
+    '/pb/tags', 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -17,15 +17,36 @@ export const getArticles = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: ARTICLE_LIST, 
+      type: TAG_LIST, 
       payload: {
         statusCode: response.status,
-        articles: response.data.articles,
-        authors: response.data.authors,
         tags: response.data.tags,
-        contexts: response.data.contexts,
-        article_types: response.data.article_types
-        // message: response.data.status.message
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+    });
+  }
+};
+
+export const getTag = (name) => async dispatch => {
+ 
+  const response = await baseUrl.get(
+    `/pb/tags/${name}`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: TAG_SHOW, 
+      payload: {
+        statusCode: response.status,
+        tags: response.data.tag,
       }
     });
   } else {
@@ -37,31 +58,3 @@ export const getArticles = () => async dispatch => {
   }
   // return Promise.resolve(response.data);
 };
-
-export const getArticle = (id) => async(dispatch) => {
-
-  const response = await baseUrl.get(
-    `/pb/articles/${id}`, 
-  ).then(response => {
-    return response;
-  }).catch(function (error) {
-    return error.response;
-  });
-
-  if(response.status === 200){
-    dispatch({
-      type: ARTICLE_SHOW, 
-      payload: {
-        statusCode: response.status,
-        article: response.data.article,
-      }
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.status.message,
-    });
-  }
-
-}

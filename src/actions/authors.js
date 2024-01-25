@@ -15,7 +15,7 @@ export const getAuthors = () => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  console.log(" called")
+
   if(response.status === 200){
     dispatch({
       type: AUTHOR_LIST, 
