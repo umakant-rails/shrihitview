@@ -39,7 +39,6 @@ export const getArticles = () => async dispatch => {
 };
 
 export const getArticle = (id) => async(dispatch) => {
-
   const response = await baseUrl.get(
     `/pb/articles/${id}`, 
   ).then(response => {
@@ -64,4 +63,14 @@ export const getArticle = (id) => async(dispatch) => {
     });
   }
 
+}
+
+export const searchToArticles = (term) => async(dispatch) => {
+  const response = await baseUrl.get('/pb/articles/search_articles', {params: {term: term}});
+  // .then(response => {
+  //   return response;
+  // }).catch(function (error) {
+  //   return error.response;
+  // }); 
+  return Promise.resolve(response.data);
 }

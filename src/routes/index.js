@@ -27,6 +27,10 @@ import ArticleTypeShow from "../components/article_types/ArticleTypeShow";
 import ContextShow from "../components/contexts/ContextShow";
 import TagShow from "../components/tags/TagShow";
 
+
+import AdminLayout from "../components/layouts/AdminLayout";
+import Dashboard from "../components/admin/dashboard/Dashboard";
+
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -34,34 +38,40 @@ import TagShow from "../components/tags/TagShow";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<ApplicationLayout /> }>
-      <Route index element={<Home />}  exact />
-      <Route path="/users/register" element={<Register />} />
-      <Route path="/users/login" element={<Login />} />
-      <Route path="/aboutus" element={<Aboutus />} />
-      <Route path="/pb/articles" element={<ArticleList />} />
-      <Route path="/pb/articles/:id" element={<ArticleShow />} />
+    <Route>
+      <Route path="/" element={<ApplicationLayout /> }>
+        <Route index element={<Home />}  exact />
+        <Route path="/users/register" element={<Register />} />
+        <Route path="/users/login" element={<Login />} />
+        <Route path="/aboutus" element={<Aboutus />} />
+        <Route path="/pb/articles" element={<ArticleList />} />
+        <Route path="/pb/articles/:id" element={<ArticleShow />} />
 
-      <Route path="/pb/authors" element={<AuthorList />} />
-      <Route path="/pb/authors/sants" element={<SantList />} />
-      <Route path="/pb/authors/:name/sant_biography" element={<SantBiography />} />
+        <Route path="/pb/authors" element={<AuthorList />} />
+        <Route path="/pb/authors/sants" element={<SantList />} />
+        <Route path="/pb/authors/:name/sant_biography" element={<SantBiography />} />
 
-      <Route path="/pb/scriptures" element={<ScriptureList />}/>
-      <Route path="/pb/scriptures/:id" element={<ScriptureShow />} />
+        <Route path="/pb/scriptures" element={<ScriptureList />}/>
+        <Route path="/pb/scriptures/:id" element={<ScriptureShow />} />
 
-      <Route path="/pb/stories" element={<StoryList />} />
-      <Route path="/pb/stories/:title" element={<StoryShow />} />
+        <Route path="/pb/stories" element={<StoryList />} />
+        <Route path="/pb/stories/:title" element={<StoryShow />} />
 
-      <Route path="/pb/strota" element={<StrotumList />} />
-      <Route path="/pb/strota/:title" element={<StrotumShow />} />
-      <Route path="/pb/article_types" element={<ArticleTypeList />} />
-      <Route path="/pb/article_types/:name" element={<ArticleTypeShow />} />
-      <Route path="/pb/contexts" element={<ContextList />} />
-      <Route path="/pb/contexts/:name" element={<ContextShow />} />
-      <Route path="/pb/tags" element={<TagList />} />
-      <Route path="/pb/tags/:name" element={<TagShow />} />
+        <Route path="/pb/strota" element={<StrotumList />} />
+        <Route path="/pb/strota/:title" element={<StrotumShow />} />
 
-      <Route path="*" element={<ErrorPage />} />
+        <Route path="/pb/article_types" element={<ArticleTypeList />} />
+        <Route path="/pb/article_types/:name" element={<ArticleTypeShow />} />
+        <Route path="/pb/contexts" element={<ContextList />} />
+        <Route path="/pb/contexts/:name" element={<ContextShow />} />
+        <Route path="/pb/tags" element={<TagList />} />
+        <Route path="/pb/tags/:name" element={<TagShow />} />
+
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
+      <Route path="/" element={<AdminLayout /> }>
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+      </Route>
     </Route>
   )
 )

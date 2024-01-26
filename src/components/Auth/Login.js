@@ -18,7 +18,7 @@ const Login = () => {
   useEffect(() => {
     if(isLoggedIn){
       setCurrentUser(user);
-      navigate("/");
+      navigate("/admin/dashboard");
     }
   }, [isLoggedIn]);
 
