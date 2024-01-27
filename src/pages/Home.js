@@ -9,7 +9,7 @@ import shrijicharan from "../assets/images/shriji_charan.png";
 import shrihit from "../assets/images/shrihit.png";
 import { dateFormat } from '../utils/utilityFunctions';
 import { getHomePageData } from '../actions/home';
-import SearchArticleList from '../components/articles/SearchArticleList';
+import SearchArticleList from '../components/public/articles/SearchArticleList';
 import { ArticleSkelton } from '../components/sketons/articleSkelton';
 
 const Home = () => {

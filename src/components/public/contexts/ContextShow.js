@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContext } from '../../actions/context';
-import shrihit from "../../assets/images/shrihit.png";
-import { dateFormat } from '../../utils/utilityFunctions';
-import { ITEM_PER_PAGE } from '../../utils/types';
-import Pagination from '../shared/Pagination';
+import { getContext } from '../../../actions/context';
+import shrihit from "../../../assets/images/shrihit.png";
+import { dateFormat } from '../../../utils/utilityFunctions';
+import { ITEM_PER_PAGE } from '../../../utils/types';
+import Pagination from '../../shared/Pagination';
 
 
 const ContextShow = () => {

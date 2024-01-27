@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import AdminSideBar from './AdminSideBar';
 import { initFlowbite } from 'flowbite'
 import logo from "../../assets/images/hitlalju.png"
@@ -7,16 +7,18 @@ import { AuthContext } from "../../services/AuthContext";
 
 const AdminLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const {currentUser, setCurrentUser} = useContext(AuthContext);
 
   useEffect(() => {
     initFlowbite();
   }, [location]);
 
-  const logoutUser = (event) =>{ 
+  const logoutUser = () =>{ 
     localStorage.removeItem("token");
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
+    navigate("/");
     //dispatch(userLogout(currentUser));
   }
 

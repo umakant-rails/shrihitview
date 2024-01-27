@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { getScriptures } from '../../actions/scriptures';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { imageNamefromScrName } from '../../utils/utilityFunctions';
-
-let images = require.context('../../assets/images', true);
+import { imageNamefromScrName } from '../../../utils/utilityFunctions';
+import { getScriptures } from '../../../actions/scriptures';
+let images = require.context('../../../assets/images', true);
 
 const ScriptureList = () => {
   const dispatch = useDispatch();

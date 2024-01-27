@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { ReactTransliterate } from "react-transliterate";
 import axios from 'axios';
-import shrihit from "../../assets/images/shrihit.png";
-import { dateFormat } from '../../utils/utilityFunctions';
-import Pagination from '../shared/Pagination';
+import shrihit from "../../../assets/images/shrihit.png";
+import { dateFormat } from '../../../utils/utilityFunctions';
+import Pagination from '../../shared/Pagination';
 
 
 const SearchArticleList = ({setSearchAppliedState}) => {

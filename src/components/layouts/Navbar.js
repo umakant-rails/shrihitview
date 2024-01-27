@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { TAB_LIST } from '../../utils/types';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AuthContext } from "../../services/AuthContext";
 import { userLogout } from '../../actions/auth';
@@ -9,6 +9,7 @@ import logo from "../../assets/images/hitlalju.png"
 const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const {currentUser, setCurrentUser} = useContext(AuthContext);
   
   const getTabList = () =>{ 
@@ -35,11 +36,13 @@ const Navbar = () => {
     });
   };
 
-  const logoutUser = (event) =>{ 
+  const logoutUser = () =>{ 
     localStorage.removeItem("token");
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
-    dispatch(userLogout(currentUser));
+    navigate("/");
+    // dispatch(userLogout(currentUser));
+    
     // dispatch(userLogout(currentUser)).then(response => {
     //   if(response.status == 200) {
     //     setCurrentUser(null)

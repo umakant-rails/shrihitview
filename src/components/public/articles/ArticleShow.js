@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useContext } from 'react';
-import { getArticle } from '../../actions/articles';
-import { dateFormat } from '../../utils/utilityFunctions';
+import { getArticle } from '../../../actions/articles';
+import { dateFormat } from '../../../utils/utilityFunctions';
 import { ReactTransliterate } from "react-transliterate";
-import { AuthContext } from "../../services/AuthContext";
+import { AuthContext } from "../../../services/AuthContext";
 
 const ArticleShow = () => {
   const dispatch = useDispatch(); 

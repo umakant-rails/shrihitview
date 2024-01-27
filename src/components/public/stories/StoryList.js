@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getStories } from '../../actions/stories';
-import shrihit from "../../assets/images/shrihit.png"
-import { ITEM_PER_PAGE } from '../../utils/types';
-import Pagination from '../shared/Pagination';
+import { getStories } from '../../../actions/stories';
+import shrihit from "../../../assets/images/shrihit.png"
+import { ITEM_PER_PAGE } from '../../../utils/types';
+import Pagination from '../../shared/Pagination';
 
 const StoryList = () => {
   const dispatch = useDispatch();
