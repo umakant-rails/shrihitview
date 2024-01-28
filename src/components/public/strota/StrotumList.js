@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getStrota } from '../../../actions/strota';
+import { getStrota } from '../../../actions/public/strota';
 import shrihit from "../../../assets/images/shrihit.png"
 
 const StrotumList = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
-import { getScrArticles } from '../../../actions/scriptures';
+import { getScrArticles } from '../../../actions/public/scriptures';
 
 const ScriptureShow = () => {
   const dispatch = useDispatch();

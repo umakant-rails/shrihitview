@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useContext } from 'react';
-import { getArticle } from '../../../actions/articles';
+import { getArticle } from '../../../actions/public/articles';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { ReactTransliterate } from "react-transliterate";
 import { AuthContext } from "../../../services/AuthContext";
@@ -44,7 +44,7 @@ const ArticleShow = () => {
                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
               </div>
               <div id="comment-section" className='py-2 grid grid-cols-8'>
-                <label htmlFor="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
                 <div className="grid col-start-1 col-end-6">
                   <ReactTransliterate
                     value={comment}

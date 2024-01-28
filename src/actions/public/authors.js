@@ -1,11 +1,11 @@
-import baseUrl from "../services/AxiosService";
+import baseUrl from "../../services/AxiosService";
 import {
     AUTHOR_LIST,
     //AUTHOR_SHOW,
     SANT_LIST,
     SANT_SHOW,
     SET_MESSAGE
-} from "../utils/types";
+} from "../../utils/types";
 
 export const getAuthors = () => async dispatch => {
   const response = await baseUrl.get(

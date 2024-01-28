@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAuthors } from '../../../actions/authors';
+import { getAuthors } from '../../../actions/public/authors';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 
@@ -40,7 +40,7 @@ const AuthorList = () => {
 
   const resetFilteredAuthors = (e) => {
     setAuthorList(authors);
-    if(authors != authorList){
+    if(authors !== authorList){
       setAuthorList(authors);
       setCurrentAuthors(authors.slice(0,itemPerPage));
     } else {

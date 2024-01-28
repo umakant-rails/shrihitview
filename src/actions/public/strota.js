@@ -1,9 +1,9 @@
-import baseUrl from "../services/AxiosService";
+import baseUrl from "../../services/AxiosService";
 import {
   STROTUM_LIST,
   STROTUM_SHOW,
   SET_MESSAGE
-} from "../utils/types";
+} from "../../utils/types";
 
 export const getStrota = () => async dispatch => {
   const response = await baseUrl.get(

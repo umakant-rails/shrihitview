@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { createBrowserRouter, Route, createRoutesFromElements  } from "react-router-dom";
 
 import ApplicationLayout from "../components/layouts/ApplicationLayout";
+import ProtectedRoutes from "./ProtectedRoutes";
 import Home from "../pages/Home";
 import Aboutus from "../pages/Aboutus";
 import ErrorPage from "../pages/ErrorPage";
@@ -30,11 +31,13 @@ import TagShow from "../components/public/tags/TagShow";
 
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
+import AddArticle  from "../components/articles/AddArticle";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
 // ]);
+import { AuthContext } from '../services/AuthContext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -70,7 +73,8 @@ const router = createBrowserRouter(
         <Route path="*" element={<ErrorPage />} />
       </Route>
       <Route path="/" element={<AdminLayout /> }>
-        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
+        <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
       </Route>
     </Route>
   )

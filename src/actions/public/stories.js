@@ -1,9 +1,9 @@
-import baseUrl from "../services/AxiosService";
+import baseUrl from "../../services/AxiosService";
 import {
   STORY_LIST,
   STORY_SHOW,
   SET_MESSAGE
-} from "../utils/types";
+} from "../../utils/types";
 
 export const getStories = () => async dispatch => {
   // let statusCode = null; 

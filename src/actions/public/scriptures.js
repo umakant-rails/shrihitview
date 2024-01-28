@@ -1,9 +1,9 @@
-import baseUrl from "../services/AxiosService";
+import baseUrl from "../../services/AxiosService";
 import {
   SCRIPTURE_LIST,
   SCRIPTURE_SHOW,
   SET_MESSAGE
-} from "../utils/types";
+} from "../../utils/types";
 
 export const getScriptures = () => async dispatch => {
   const  response = await baseUrl.get(

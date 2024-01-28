@@ -1,9 +1,9 @@
-import baseUrl from "../services/AxiosService";
+import baseUrl from "../../services/AxiosService";
 import {
     CONTEXT_LIST,
     CONTEXT_SHOW,
   SET_MESSAGE
-} from "../utils/types";
+} from "../../utils/types";
 
 export const getContexts = () => async dispatch => {
  
@@ -42,7 +42,7 @@ export const getContext = (name) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  console.log(name, response)
+
   if(response.status === 200){
     dispatch({
       type: CONTEXT_SHOW, 

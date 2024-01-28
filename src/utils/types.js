@@ -5,8 +5,8 @@ export const TAB_LIST = [
   {url: '/pb/panchangs', label: 'हितोत्सव पत्रिका'}, {url: '/pb/suggestions', label:'सुझाव'}
 ]
 
-export const DEFAULT_ICON = `<svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-white dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-  <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd"></path>
+export const DEFAULT_ICON = `<svg className="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 3v4c0 .6-.4 1-1 1H5m4 8h6m-6-4h6m4-8v16c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1V8c0-.4.1-.6.3-.8l4-4 .6-.2H18c.6 0 1 .4 1 1Z"/>
 </svg>`;
 export const ADMIN_ACTIVITIES = [
   { 
@@ -85,7 +85,7 @@ export const ADMIN_ACTIVITIES = [
   {
     url: '#', label: 'रचना',
     childs: [
-      {url: '#', label: 'नई रचना जोड़े'},
+      {url: '/articles/new', label: 'नई रचना जोड़े'},
       {url: '#', label: 'रचना सूची'}
     ]
   },
@@ -139,7 +139,14 @@ export const ERROR_HANDLING = "ERROR_HANDLING";
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
-export const ARTICLE_LIST = "ARTICLE_LIST";
+/* admin namespace constant */
+
+
+/* REGISTERED USER constant */
+export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";
+
+/* public namespace constant */
+export const PB_ARTICLE_LIST = "ARTICLE_LIST";
 export const ARTICLE_SHOW = "ARTICLE_SHOW";
 
 

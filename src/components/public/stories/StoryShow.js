@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStory } from '../../../actions/stories';
+import { getStory } from '../../../actions/public/stories';
 
 const StoryShow = () => {
   const dispatch = useDispatch();

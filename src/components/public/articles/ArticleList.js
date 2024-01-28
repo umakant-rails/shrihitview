@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getArticles } from '../../../actions/articles';
+import { getArticles } from '../../../actions/public/articles';
 import SearchArticleList from './SearchArticleList';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';

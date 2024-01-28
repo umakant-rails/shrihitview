@@ -1,14 +1,14 @@
-import baseUrl from "../services/AxiosService";
+import baseUrl from "../../services/AxiosService";
 import {
-  TAG_LIST,
-  TAG_SHOW,
+  ARTICLE_TYPE_LIST,
+  ARTICLE_TYPE_SHOW,
   SET_MESSAGE
-} from "../utils/types";
+} from "../../utils/types";
 
-export const getTags = () => async dispatch => {
+export const getArticleTypes = () => async dispatch => {
  
   const response = await baseUrl.get(
-    '/pb/tags', 
+    '/pb/article_types', 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -17,24 +17,26 @@ export const getTags = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: TAG_LIST, 
+      type: ARTICLE_TYPE_LIST, 
       payload: {
         statusCode: response.status,
-        tags: response.data.tags,
+        article_types: response.data.article_types,
       }
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
+      // payload: response.data.status.message,
     });
   }
+  // return Promise.resolve(response.data);
 };
 
-export const getTag = (name) => async dispatch => {
+export const getArticleType = (name) => async dispatch => {
  
   const response = await baseUrl.get(
-    `/pb/tags/${name}`, 
+    `/pb/article_types/${name}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -43,10 +45,10 @@ export const getTag = (name) => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: TAG_SHOW, 
+      type: ARTICLE_TYPE_SHOW, 
       payload: {
         statusCode: response.status,
-        tags: response.data.tag,
+        article_type: response.data.article_type,
       }
     });
   } else {

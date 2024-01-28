@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from "../../assets/images/hitlalju.png"
 import { ADMIN_ACTIVITIES } from '../../utils/types';
 import { DEFAULT_ICON } from '../../utils/types';
@@ -14,7 +14,7 @@ const AdminSideBar = () => {
       <aside id="default-sidebar" 
         className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full 
           sm:translate-x-0`} aria-label="Sidenav">
-        <div className='h-16 bg-gray-800 border-b border-gray-600'>
+        <div className='h-16 bg-blue-900 border-b border-r border-gray-600'>
           <NavLink to="/" className="px-5 pt-2 flex justify-center items-center">
             <img className="h-11 w-11 w-auto rounded-full mr-4" src={logo}  alt="श्रीहित" />
             <span className="self-center text-2xl text-white font-semibold whitespace-nowrap dark:text-white">
@@ -29,10 +29,10 @@ const AdminSideBar = () => {
                 (activity.childs.length == 0) ? (
                   <li key={index} className='border-b border-gray-700' 
                     onClick={e => setActiveTab(`dropdown-${activity.label}`)}>
-                    <a href="#" className="flex items-center p-3 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:text-violet-400 dark:hover:bg-gray-600 group">
+                    <Link to={activity.url} className="flex items-center p-3 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:text-violet-400 dark:hover:bg-gray-600 group">
                       {<svg className='h-6 w-6' dangerouslySetInnerHTML={{__html: activity.icon ? activity.icon : DEFAULT_ICON}} />}
                       <span className="ml-3">{activity.label}</span>
-                    </a>
+                    </Link>
                   </li> 
                 ) : (
                   <li key={index} className='border-b border-gray-700'>
@@ -47,9 +47,9 @@ const AdminSideBar = () => {
                       {
                         activity.childs && activity.childs.map( (child, index) => 
                           <li key={index} className='border-t border-gray-900'>
-                            <a href="#" className="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-400 transition duration-75 group bg-gray-700 hover:text-violet-400 dark:text-white dark:hover:bg-gray-600">
+                            <Link to={child.url} className="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-400 transition duration-75 group bg-gray-700 hover:text-violet-400 dark:text-white dark:hover:bg-gray-600">
                               {child.label}
-                            </a>
+                            </Link>
                           </li>
                         )
                       }
