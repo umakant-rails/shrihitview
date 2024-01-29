@@ -1,7 +1,9 @@
 import baseUrl from "../services/AxiosService";
 import {
   ARTICLE_NEW,
+  TAG_CREATED,
   SET_MESSAGE
+
 } from "../utils/types";
 
 export const newArticle = () => async dispatch => {
@@ -22,6 +24,7 @@ export const newArticle = () => async dispatch => {
         raags: response.data.raags,
         contexts: response.data.contexts,
         authors: response.data.authors,
+        tags: response.data.tags
       }
     });
   } else {
@@ -32,6 +35,30 @@ export const newArticle = () => async dispatch => {
   }
 }
 
+export const createTag = (tag) => async dispatch => {
+  const response = await baseUrl.get(
+    '/tags/new', {tags: {name: tag}}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: TAG_CREATED, 
+      payload: {
+        statusCode: response.status,
+        tags: response.data.tags,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+    });
+  }
+}
 
 export const AddArticle = () => async dispatch => {
 

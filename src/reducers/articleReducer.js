@@ -12,6 +12,7 @@ import {
         return {
           ...state,
           article: action.payload.article,
+          raags: action.payload.raags,
           authors: action.payload.authors,
           tags: action.payload.tags,
           contexts: action.payload.contexts,

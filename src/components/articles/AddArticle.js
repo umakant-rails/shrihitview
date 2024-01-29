@@ -3,25 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../../services/AuthContext';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import {newArticle} from "../../actions/article";
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
+import { MultiSelect } from "react-multi-select-component";
+import {createTag, newArticle} from "../../actions/article";
+
 
 const AddArticle = () => {
   const dispatch = useDispatch();
-  const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: '', 
-    author_id: '', hindi_title: '', english_title: '', content: '', interpretation: ''
+  const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
+    author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
   };
   const [formValues, setFormValues] = useState(articleObj);
-  const {currentUser, setCurrentUser} = useContext(AuthContext);  
-  //const { createdBlog } = useSelector( (state) => state.blogs)
+  const [newTag, setNewTag] = useState('');
+  const [selectedTags, setSeletedTags] = useState([]);
+  const [tagFormDisplay,setTagFormDisplay] = useState(false);
+  const { article_types, raags, contexts, authors, tags } = useSelector( (state) => state.article)
 
   useEffect( () => {
     dispatch(newArticle());  
   }, []);
 
+  const createNewTag = () => {
+    dispatch(createTag(newTag));
+  }
   const onInputChange = event => {
     const { name, value } = event.target;
+    console.log(name, value);
     setFormValues({ ...formValues, [name]: value });
   }
 
@@ -47,27 +53,41 @@ const AddArticle = () => {
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 रचना का प्रकार <span title="required" className="text-red-600 font-bold">*</span>
               </label>
-              <input type="text" id="article_type_id" name="article_type_id" 
+              <select id="article_type_id" name="article_type_id" 
                 value={formValues.article_type_id}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                  dark:shadow-sm-light`} required />
+                  dark:shadow-sm-light`} required>
+                  <option value="">रचना प्रकार चुने</option>
+                  {
+                    article_types && article_types.map( (aType, index) => 
+                      <option key={index} value={aType.name}>{aType.name}</option>
+                    )
+                  }
+              </select>
             </div>
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 राग 
               </label>
-              <input type="text" id="raag_id" name="raag_id"
+              <select id="raag_id" name="raag_id" 
                 value={formValues.raag_id}
-                onChange={onInputChange} 
+                onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`} />
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  dark:shadow-sm-light`} required>
+                  <option value="">राग चुने</option>
+                  {
+                    raags && raags.map( (raag, index) => 
+                      <option key={index} value={raag.name}>{raag.name_eng} / {raag.name}</option>
+                    )
+                  }
+              </select>
             </div>
           </div>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
@@ -79,7 +99,7 @@ const AddArticle = () => {
                 value={formValues.scripture_id}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} />
@@ -88,11 +108,11 @@ const AddArticle = () => {
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 रसिक वाणी पद अनुक्रम 
               </label>
-              <input type="text" id="index" name="index"
+              <input type="number" id="index" name="index"
                 value={formValues.index}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} />
@@ -103,27 +123,43 @@ const AddArticle = () => {
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 प्रसंग
               </label>
-              <input type="text" id="context_id" name="context_id"
+              <select id="context_id" name="context_id" 
                 value={formValues.context_id}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`} required/>
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  dark:shadow-sm-light`} required>
+                  <option value="">प्रसंग चुने</option>
+                  {
+                    contexts && contexts.map( (context, index) => 
+                      <option key={index} value={context.id}>
+                        {context.name}
+                      </option>
+                    )
+                  }
+              </select>
             </div>
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 लेखक
               </label>
-              <input type="text" id="author_id" name="author_id"
+              <select id="author_id" name="author_id" 
                 value={formValues.author_id}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`} required/>
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  dark:shadow-sm-light`} required>
+                  <option value="">लेखक चुने</option>
+                  {
+                    raags && authors.map( (author, index) => 
+                      <option key={index} value={author.id}>{author.name_eng} / {author.name}</option>
+                    )
+                  }
+              </select>
             </div>
           </div>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
@@ -135,7 +171,7 @@ const AddArticle = () => {
                 value={formValues.hindi_title}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} required />
@@ -148,26 +184,79 @@ const AddArticle = () => {
                 value={formValues.english_title}
                 onChange={onInputChange} 
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 
+                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} required />
             </div>
           </div>
           <div className='grid md:grid-cols-12 mb-3'>
-            <div className='col-span-12'>
-              <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                टैग्स
-              </label>
-            </div>
-            <div className='col-span-10 mr-5'>
-              <input type="text" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
-            </div>
-            <div className='col-span-2'>
-              <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                नया टैग टाइप करे
-              </button>
-            </div>
+            {
+              tagFormDisplay ? (
+                <>
+                  <div className='col-span-12'>
+                    <label className="block mb-2 font-medium text-gray-900 dark:text-white">
+                      टैग फॉर्म
+                    </label>
+                  </div>
+                  <div className='col-span-8 mr-5'>
+                    <ReactTransliterate
+                      value={newTag}
+                      onChangeText={(text) => {setNewTag(text); }}
+                      lang={'hi'}
+                      type="text"
+                      className={`block w-full p-2 text-sm text-gray-900 border border-gray-300 
+                        rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
+                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                    />
+                  </div>
+                  <div className='col-span-2'>
+                    <button type="button" 
+                      onClick={() => createNewTag(newTag)}
+                      className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+                        focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 
+                        py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+                        dark:focus:ring-blue-800`}>
+                      टैग बनाये
+                    </button>
+                  </div>
+                  <div className='col-span-2'>
+                    <button type="button" 
+                      onClick={() => setTagFormDisplay(false)}
+                      className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+                        focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 
+                        py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+                        dark:focus:ring-blue-800`}>
+                      टैग सूची प्रदर्शित करे
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className='col-span-12'>
+                    <label className="block mb-2 font-medium text-gray-900 dark:text-white">
+                      टैग्स
+                    </label>
+                  </div>
+                  <div className='col-span-10 mr-5'>
+                    {tags && <MultiSelect
+                      options={tags.map( (tag) => ({label: tag.name, value: tag.id}))}
+                      value={selectedTags}
+                      onChange={setSeletedTags}
+                      labelledBy="Select"
+                    />}
+                  </div>
+                  <div className='col-span-2'>
+                    <button type="button" 
+                      onClick={() => setTagFormDisplay(true)}
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      नया टैग टाइप करे
+                    </button>
+                  </div>
+                </>
+              ) 
+            }
           </div>
           <div className='mb-3'>
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -191,7 +280,6 @@ const AddArticle = () => {
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );

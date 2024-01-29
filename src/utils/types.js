@@ -144,6 +144,7 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 /* REGISTERED USER constant */
 export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";
+export const TAG_CREATED = "TAG_CREATED";
 
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "ARTICLE_LIST";
