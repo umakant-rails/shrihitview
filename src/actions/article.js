@@ -36,8 +36,8 @@ export const newArticle = () => async dispatch => {
 }
 
 export const createTag = (tag) => async dispatch => {
-  const response = await baseUrl.get(
-    '/tags/new', {tags: {name: tag}}
+  const response = await baseUrl.post(
+    '/tags', {tag: {name: tag}}
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -45,6 +45,11 @@ export const createTag = (tag) => async dispatch => {
   });
 
   if(response.status === 200){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.status,
+    });
     dispatch({
       type: TAG_CREATED, 
       payload: {

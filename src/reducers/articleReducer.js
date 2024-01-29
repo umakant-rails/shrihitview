@@ -1,5 +1,6 @@
 import {
   ARTICLE_NEW,
+  TAG_CREATED,
   PB_ARTICLE_LIST,
   ARTICLE_SHOW
 } from "../utils/types";
@@ -18,6 +19,11 @@ import {
           contexts: action.payload.contexts,
           article_types: action.payload.article_types
         };
+      case TAG_CREATED:
+        return{
+          ...state,
+          tags: action.payload.tags
+        }
       case PB_ARTICLE_LIST:
         return {
           ...state,

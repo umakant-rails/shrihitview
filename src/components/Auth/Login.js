@@ -29,7 +29,7 @@ const Login = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    if(formValues.email.length == 0 || formValues.password.length == 0) return;
+    if(formValues.email.length === 0 || formValues.password.length === 0) return;
     dispatch(userLogin(formValues));
   }
 

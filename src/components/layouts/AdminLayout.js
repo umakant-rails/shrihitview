@@ -1,18 +1,34 @@
 import React, { useEffect, useContext } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import AdminSideBar from './AdminSideBar';
+import { ToastContainer, toast } from 'react-toastify';
 import { initFlowbite } from 'flowbite'
-import logo from "../../assets/images/hitlalju.png"
+//import logo from "../../assets/images/hitlalju.png"
 import { AuthContext } from "../../services/AuthContext";
+import { useDispatch } from 'react-redux';
+import { clearMessage } from '../../actions/message';
 
 const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const { type, message } = useSelector((state) => state.msg);
   const {currentUser, setCurrentUser} = useContext(AuthContext);
   
   useEffect(() => {
     initFlowbite();
   }, [location]);
+  
+  useEffect(()=> {
+    if(message !== undefined && type === "error"){
+      toast.error(message);
+      dispatch(clearMessage());
+    } else if(message !== undefined && type === "success"){
+      toast.success(message);
+      dispatch(clearMessage());
+    }
+  }, [type, message]);
 
   const logoutUser = () =>{ 
     localStorage.removeItem("token");
@@ -27,6 +43,18 @@ const AdminLayout = () => {
       <div className="flex h-screen bg-gray-100">
         <AdminSideBar />
         <div className="flex flex-col flex-1 overflow-y-auto sm:ml-64">
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <nav className="bg-blue-900 shadow shadow-gray-300 w-100 px-2 md:px-auto">
             <div className="md:h-16 h-16 pr-2 flex items-center justify-between flex-wrap md:flex-nowrap">
               <div className="text-indigo-500 md:order-1">
