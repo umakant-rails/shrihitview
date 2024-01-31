@@ -21,6 +21,7 @@ export const newArticle = () => async dispatch => {
       payload: {
         statusCode: response.status,
         article_types: response.data.article_types,
+        scriptures: response.data.scriptures,
         raags: response.data.raags,
         contexts: response.data.contexts,
         authors: response.data.authors,
@@ -43,7 +44,7 @@ export const createTag = (tag) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-
+ 
   if(response.status === 200){
     dispatch({
       type: SET_MESSAGE,

@@ -10,13 +10,18 @@ import {createTag, newArticle} from "../../actions/article";
 const AddArticle = () => {
   const dispatch = useDispatch();
   const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
-    author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
+    author_id: 9, hindi_title: '', english_title: '', content: null, interpretation: '', tags: []
   };
+  
   const [formValues, setFormValues] = useState(articleObj);
+
   const [newTag, setNewTag] = useState('');
+  const [content, setContent] = useState(null)
+  const [interpretation, setInterpretation]= useState(null);
+
   const [selectedTags, setSeletedTags] = useState([]);
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
-  const { article_types, raags, contexts, authors, tags } = useSelector( (state) => state.article)
+  const { article_types, raags, contexts, authors, tags, scriptures } = useSelector( (state) => state.article)
 
   useEffect( () => {
     dispatch(newArticle());  
@@ -25,9 +30,9 @@ const AddArticle = () => {
   const createNewTag = () => {
     dispatch(createTag(newTag));
   }
+
   const onInputChange = event => {
     const { name, value } = event.target;
-    console.log(name, value);
     setFormValues({ ...formValues, [name]: value });
   }
 
@@ -36,8 +41,10 @@ const AddArticle = () => {
     setFormValues(articleObj);  
   }
 
-  const onArticleSubmit = event => {
+  const onArticleSubmit = (event) => {
     event.preventDefault(); 
+    formValues["content"] = content;
+    formValues["interpretation"] = interpretation;
     console.log(formValues); 
   }
 
@@ -94,15 +101,22 @@ const AddArticle = () => {
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 रसिक वाणी
-              </label>
-              <input type="text" id="scripture_id" name="scripture_id" 
+              </label> 
+              <select id="scripture_id" name="scripture_id" 
                 value={formValues.scripture_id}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`} />
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  dark:shadow-sm-light`} required>
+                  <option value="">रसिक वाणी चुने</option>
+                  {
+                    scriptures && scriptures.map( (scripture, index) => 
+                      <option key={index} value={scripture.name}>{scripture.name}</option>
+                    )
+                  }
+              </select>
             </div>
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -262,16 +276,17 @@ const AddArticle = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               रचना <span title="required" className="text-red-600 font-bold">*</span>
             </label>
-            <Editor value={formValues.content} name="content" onTextChange={(e) => setFormValues({ ...formValues, ['content']: e.htmlValue }) } style={{ height: '220px' }} />
+            <Editor value={formValues.content} name="content" onTextChange={(e) => setContent(e.htmlValue)} style={{ height: '220px' }} />
           </div>
           <div className='mb-3'>
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               रचना का अर्थ
             </label>
-            <Editor value={formValues.interpretation} name="interpretation" onTextChange={(e) => setFormValues({ ...formValues, ['interpretation']: e.htmlValue }) } style={{ height: '220px' }} />
+            <Editor value={interpretation} name="interpretation" onTextChange={e => setInterpretation(e.htmlValue)} style={{ height: '220px' }} />
           </div>
           <div className='mb-3'>
-            <button type="submit" className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="submit" 
+              className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               रचना जोड़े
             </button>
             <button type="button" onClick={onCancel}

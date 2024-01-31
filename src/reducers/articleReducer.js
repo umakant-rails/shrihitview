@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import {
   ARTICLE_NEW,
   TAG_CREATED,
@@ -15,6 +16,7 @@ import {
           article: action.payload.article,
           raags: action.payload.raags,
           authors: action.payload.authors,
+          scriptures: action.payload.scriptures,
           tags: action.payload.tags,
           contexts: action.payload.contexts,
           article_types: action.payload.article_types
