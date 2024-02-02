@@ -1,51 +1,66 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthContext } from '../../services/AuthContext';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createTag, newArticle} from "../../actions/article";
+import {createArticle, createTag, newArticle} from "../../actions/article";
+import parse from 'html-react-parser';
 
+const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
+author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
+};
 
 const AddArticle = () => {
   const dispatch = useDispatch();
-  const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
-    author_id: 9, hindi_title: '', english_title: '', content: null, interpretation: '', tags: []
-  };
-  
+ 
+  const [content, setContent] = useState(null);
+  const [contentText, setContentText] = useState(null);
+  const [interpretation, setInterpretation] = useState(null);
   const [formValues, setFormValues] = useState(articleObj);
 
   const [newTag, setNewTag] = useState('');
-  const [content, setContent] = useState(null)
-  const [interpretation, setInterpretation]= useState(null);
+  const [selectedTags, setSelectedTags] = useState([]);
 
-  const [selectedTags, setSeletedTags] = useState([]);
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
-  const { article_types, raags, contexts, authors, tags, scriptures } = useSelector( (state) => state.article)
+  const { article_types, raags, contexts, authors, tags, scriptures, articleCreated } = useSelector( (state) => state.article)
 
   useEffect( () => {
     dispatch(newArticle());  
   }, []);
 
+  useEffect( () => {
+    if(articleCreated){ resetForm();} 
+  }, [articleCreated]);
+
   const createNewTag = () => {
     dispatch(createTag(newTag));
   }
-
+  const setArticleTitle = () => {
+    if (contentText){
+      setFormValues({...formValues, hindi_title: contentText.substring(0, contentText.indexOf("\n"))});
+    }
+  }
   const onInputChange = event => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   }
 
+  const resetForm = () => {
+    setContent('');setInterpretation('');setSelectedTags([]);
+    setFormValues(articleObj);  
+  }
   const onCancel = event => {
     event.preventDefault(); 
-    setFormValues(articleObj);  
+    resetForm() 
   }
 
   const onArticleSubmit = (event) => {
     event.preventDefault(); 
-    formValues["content"] = content;
-    formValues["interpretation"] = interpretation;
-    console.log(formValues); 
+    formValues['content'] = content;
+    formValues['interpretation'] = interpretation;
+    formValues['tags'] = selectedTags.map(tag => tag.value);
+    dispatch(createArticle(formValues));
+    
   }
 
   return (
@@ -87,7 +102,7 @@ const AddArticle = () => {
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                  dark:shadow-sm-light`} required>
+                  dark:shadow-sm-light`}>
                   <option value="">राग चुने</option>
                   {
                     raags && raags.map( (raag, index) => 
@@ -109,11 +124,11 @@ const AddArticle = () => {
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                  dark:shadow-sm-light`} required>
+                  dark:shadow-sm-light`}>
                   <option value="">रसिक वाणी चुने</option>
                   {
                     scriptures && scriptures.map( (scripture, index) => 
-                      <option key={index} value={scripture.name}>{scripture.name}</option>
+                      <option key={index} value={scripture.id}>{scripture.name}</option>
                     )
                   }
               </select>
@@ -184,6 +199,7 @@ const AddArticle = () => {
               <input type="text" id="hindi_title" name="hindi_title"
                 value={formValues.hindi_title}
                 onChange={onInputChange}
+                onFocus={setArticleTitle}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
@@ -257,7 +273,7 @@ const AddArticle = () => {
                     {tags && <MultiSelect
                       options={tags.map( (tag) => ({label: tag.name, value: tag.id}))}
                       value={selectedTags}
-                      onChange={setSeletedTags}
+                      onChange={setSelectedTags}
                       labelledBy="Select"
                     />}
                   </div>
@@ -276,13 +292,20 @@ const AddArticle = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               रचना <span title="required" className="text-red-600 font-bold">*</span>
             </label>
-            <Editor value={formValues.content} name="content" onTextChange={(e) => setContent(e.htmlValue)} style={{ height: '220px' }} />
+            <Editor  name="content" 
+              value={content}
+              onTextChange={ e => { setContent(e.htmlValue); setContentText(e.textValue);} }
+              style={{ height: '220px', fontSize: '16px'}} />
+
           </div>
           <div className='mb-3'>
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               रचना का अर्थ
             </label>
-            <Editor value={interpretation} name="interpretation" onTextChange={e => setInterpretation(e.htmlValue)} style={{ height: '220px' }} />
+            <Editor value={interpretation} 
+              name="interpretation" 
+              onTextChange={(e) => setInterpretation(interpretation)} 
+              style={{ height: '220px', fontSize: '16px'}} />
           </div>
           <div className='mb-3'>
             <button type="submit" 

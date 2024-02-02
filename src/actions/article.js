@@ -1,6 +1,7 @@
 import baseUrl from "../services/AxiosService";
 import {
   ARTICLE_NEW,
+  ARTICLE_CREATED,
   TAG_CREATED,
   SET_MESSAGE
 
@@ -32,6 +33,36 @@ export const newArticle = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
+    });
+  }
+}
+
+export const createArticle = (form) => async dispatch => {
+  const response = await baseUrl.post(
+    '/articles', {article: form}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: ARTICLE_CREATED, 
+      payload: {
+        articleCreated: (response.status === 200),
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error,
     });
   }
 }
