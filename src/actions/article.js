@@ -16,7 +16,7 @@ export const newArticle = () => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response && response.status === 200){
     dispatch({
       type: ARTICLE_NEW, 
       payload: {
@@ -29,10 +29,11 @@ export const newArticle = () => async dispatch => {
         tags: response.data.tags
       }
     });
-  } else {
+  } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
+      payload: response.statusText
     });
   }
 }

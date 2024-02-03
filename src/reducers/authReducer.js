@@ -1,5 +1,4 @@
 import {
-  USER_LOGIN,
   USER_LOGOUT,
   USER_REGISTRATION,
   ERROR_HANDLING
@@ -9,18 +8,10 @@ const stateObj = {currentUser: {}};
 
 const authReducer = (state=stateObj, action) => {
   switch (action.type) {
-    case USER_LOGIN:
-      return {
-        user: action.payload.user, 
-        token: action.payload.token,
-        message: action.payload.message,
-        statusCode: action.payload.statusCode,
-        isLoggedIn: (action.payload.statusCode === 200)
-      };
     case USER_LOGOUT:
       return {
-        user: action.payload.user, 
-        token: action.payload.token,
+        user: null, 
+        token: null,
         message: action.payload.message,
         statusCode: action.payload.statusCode,
         isLoggedIn: false

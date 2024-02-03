@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar';
 
@@ -62,7 +62,7 @@ const ApplicationLayout = () => {
             </Toaster>; */}
             <ToastContainer
               position="top-center"
-              autoClose={5000}
+              autoClose={3000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick

@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import {
   ARTICLE_NEW,
   ARTICLE_CREATED,
@@ -23,7 +22,6 @@ import {
           article_types: action.payload.article_types
         };
       case ARTICLE_CREATED:
-        console.log('reducer', action.payload, action.payload.articleCreated)
         return {
           ...state,
           articleCreated: action.payload.articleCreated

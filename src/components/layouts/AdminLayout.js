@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AdminSideBar from './AdminSideBar';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,10 +11,9 @@ import { clearMessage } from '../../actions/message';
 
 const AdminLayout = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch()
   const { type, message } = useSelector((state) => state.msg);
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
+  const {currentUser} = useContext(AuthContext);
   
   useEffect(() => {
     initFlowbite();
@@ -30,14 +29,6 @@ const AdminLayout = () => {
     }
   }, [type, message]);
 
-  const logoutUser = () =>{ 
-    localStorage.removeItem("token");
-    localStorage.removeItem("currentUser");
-    setCurrentUser(null);
-    navigate("/");
-    //dispatch(userLogout(currentUser));
-  }
-
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
@@ -45,7 +36,7 @@ const AdminLayout = () => {
         <div className="flex flex-col flex-1 overflow-y-auto sm:ml-64">
           <ToastContainer
             position="top-center"
-            autoClose={5000}
+            autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -87,9 +78,9 @@ const AdminLayout = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" onClick={() => logoutUser()} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                      <NavLink to="/users/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
                         Sign out
-                      </a>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import { createBrowserRouter, Route, createRoutesFromElements  } from "react-router-dom";
 
 import ApplicationLayout from "../components/layouts/ApplicationLayout";
@@ -9,6 +9,7 @@ import ErrorPage from "../pages/ErrorPage";
 
 import Register from "../components/Auth/Register";
 import Login from "../components/Auth/Login";
+import Logout from "../components/Auth/Logout";
 
 import ArticleList from "../components/public/articles/ArticleList";
 import ArticleShow from "../components/public/articles/ArticleShow";
@@ -28,7 +29,6 @@ import ArticleTypeShow from "../components/public/article_types/ArticleTypeShow"
 import ContextShow from "../components/public/contexts/ContextShow";
 import TagShow from "../components/public/tags/TagShow";
 
-
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
 import AddArticle  from "../components/articles/AddArticle";
@@ -37,7 +37,7 @@ import AddArticle  from "../components/articles/AddArticle";
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
 // ]);
-import { AuthContext } from '../services/AuthContext';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +46,8 @@ const router = createBrowserRouter(
         <Route index element={<Home />}  exact />
         <Route path="/users/register" element={<Register />} />
         <Route path="/users/login" element={<Login />} />
+        <Route path="/users/logout" element={<Logout />} />
+
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/pb/articles" element={<ArticleList />} />
         <Route path="/pb/articles/:id" element={<ArticleShow />} />
@@ -74,6 +76,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/" element={<AdminLayout /> }>
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
+        <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
       </Route>
     </Route>

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 //import toast from 'react-hot-toast';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import shricharan from "../../assets/images/shricharan.png";
 import { userLogin } from '../../actions/auth';
 import { AuthContext } from '../../services/AuthContext';
@@ -12,16 +12,8 @@ const Login = () => {
   const navigate = useNavigate();
   const loginCredential = {email: '', password: ''};
   const [formValues, setFormValues] = useState(loginCredential);
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
-  const {user, isLoggedIn} = useSelector( (state) => state.auth);
-
-  useEffect(() => {
-    if(isLoggedIn){
-      setCurrentUser(user);
-      navigate("/admin/dashboard");
-    }
-  }, [isLoggedIn]);
-
+  const {setCurrentUser} = useContext(AuthContext);
+ 
   const onInputChange = (event) => {
     const {name, value} = event.target;
     setFormValues({...formValues, [name]: value});
@@ -30,7 +22,13 @@ const Login = () => {
   const onFormSubmit = (event) => {
     event.preventDefault();
     if(formValues.email.length === 0 || formValues.password.length === 0) return;
-    dispatch(userLogin(formValues));
+    const response = dispatch(userLogin(formValues));
+    response.then( user => {
+      if(user){
+        setCurrentUser(user);
+        navigate("/admin/dashboard");
+      }
+    });
   }
 
 

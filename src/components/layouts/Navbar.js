@@ -1,17 +1,13 @@
 import React, {useContext} from 'react';
 import { TAB_LIST } from '../../utils/types';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from "../../services/AuthContext";
-import { userLogout } from '../../actions/auth';
 import logo from "../../assets/images/hitlalju.png"
 
 const Navbar = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
-  
+  const {currentUser} = useContext(AuthContext);
+
   const getTabList = () =>{ 
     const currentUrl = location.pathname;
     return TAB_LIST.map((tab, index) => {
@@ -35,24 +31,6 @@ const Navbar = () => {
       );
     });
   };
-
-  const logoutUser = () =>{ 
-    localStorage.removeItem("token");
-    localStorage.removeItem("currentUser");
-    setCurrentUser(null);
-    navigate("/");
-    // dispatch(userLogout(currentUser));
-    
-    // dispatch(userLogout(currentUser)).then(response => {
-    //   if(response.status == 200) {
-    //     setCurrentUser(null)
-    //     localStorage.removeItem("token");
-    //     localStorage.removeItem("currentUser");
-    //   }
-    // }).catch(error => {
-    //   console.log(error);
-    // })
-  }
 
   return (
     <nav className="bg-blue-800 fixed top-0 w-full z-100 border-gray-200 dark:bg-gray-900 dark:border-gray-700 border-b-2 border-gray-400 z-50">
@@ -81,9 +59,9 @@ const Navbar = () => {
               ( 
                 <>
                   <li>
-                    <NavLink to="#" key={'logoutBtn'} 
+                    <NavLink to="/users/logout" key={'logoutBtn'} 
                       className="relative bg-red-500 rounded-md text-white px-3 py-2 text-sm mx-2"
-                      onClick={() => logoutUser()} >
+                    >
                       Logout
                     </NavLink>
                   </li>

@@ -6,8 +6,8 @@ import { AuthContext } from "./services/AuthContext";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  const providerValue = useMemo(()=> ({currentUser, setCurrentUser}), [currentUser, setCurrentUser] )
-
+  const providerValue = useMemo(()=> ({currentUser, setCurrentUser}), [currentUser] )
+  
   useEffect(()=> {
     const token = localStorage.getItem("token");
     const currentUserObj = localStorage.getItem("currentUser");

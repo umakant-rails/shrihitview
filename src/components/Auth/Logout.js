@@ -1,0 +1,28 @@
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../../services/AuthContext';
+import { userLogout } from '../../actions/auth';
+import { useDispatch } from 'react-redux';
+
+const Logout = () => {
+  const {setCurrentUser} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    console.log("++++++++++++++++");
+    localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    dispatch(userLogout());
+    navigate("/", { replace: true });
+  };
+
+  setTimeout(() => {
+    handleLogout();
+  }, 100);
+
+  return <h2>You are Successfully Logout.</h2>;
+};
+
+export default Logout;

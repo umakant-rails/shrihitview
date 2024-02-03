@@ -1,14 +1,11 @@
 import baseUrl from "../services/AxiosService";
 import {
-  USER_LOGIN,
-  USER_LOGOUT,
   USER_REGISTRATION,
   ERROR_HANDLING,
   SET_MESSAGE
 } from "../utils/types";
 
 export const userRegister = (formValues) => async dispatch => {
-  let statusCode = null; 
   const response = await baseUrl.post(
     '/signup', 
     {user: formValues}, {}
@@ -18,7 +15,7 @@ export const userRegister = (formValues) => async dispatch => {
     return error.response;
   });
 
-  if(response.status == 200){
+  if(response.status === 200){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -57,58 +54,31 @@ export const userLogin = (formValues) => async dispatch => {
   }).catch( error => {
     return error.response;
   });  
-
-  if(response.status == 200){
+  if(response.status === 200){
     localStorage.setItem("token", response.headers.authorization);
-    localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+    localStorage.setItem("currentUser", JSON.stringify(response.data.user));
     
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
       payload: response.data.status.message,
     });
-
-    dispatch({
-      type: USER_LOGIN, 
-      payload: {
-        statusCode: response.status,
-        user: response.data.data, 
-        token: response.headers.authorization,
-        message: response.data.status.message
-      }
-    });
+    return response.data.user
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data,
-    });
-    dispatch({
-      type: ERROR_HANDLING, 
-      payload: {
-        statusCode: 401,
-        message: response.data
-      }
+      payload: response.data.error,
     });
   }
-}
+ }
 
-export const userLogout = (formValues) => async dispatch => {
+export const userLogout = () => async dispatch => {
   // const response = await baseUrl.delete('/logout', {user: formValues},{});
   // return Promise.resolve(response.data);
   dispatch({
     type: SET_MESSAGE,
     msg_type: "success",
     payload: 'Successfully logged out.',
-  });
-
-  dispatch({
-    type: USER_LOGOUT, 
-    payload: {
-      isLoggedOut: true,
-      user: null, 
-      token: null,
-      message: 'Successfully logged out.'
-    }
   });
 }

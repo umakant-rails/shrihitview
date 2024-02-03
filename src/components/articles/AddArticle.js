@@ -4,7 +4,6 @@ import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
 import {createArticle, createTag, newArticle} from "../../actions/article";
-import parse from 'html-react-parser';
 
 const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
 author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
