@@ -56,7 +56,7 @@ export const createArticle = (form) => async dispatch => {
      dispatch({
       type: ARTICLE_CREATED, 
       payload: {
-        articleCreated: (response.status === 200),
+        articleCreated: response.data.article,
       }
     });
   } else {

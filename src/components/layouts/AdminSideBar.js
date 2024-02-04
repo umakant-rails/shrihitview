@@ -5,10 +5,24 @@ import { ADMIN_ACTIVITIES } from '../../utils/types';
 import { DEFAULT_ICON } from '../../utils/types';
 
 const AdminSideBar = () => {
-  const [currentTab, setCurrentTab] = useState('');
-
-  const setActiveTab = (tabName) => (tabName !== currentTab) ? setCurrentTab(tabName) : setCurrentTab('')
+  const [expandTab, setExpandTab] = useState('');
+  const [activeTab, setActiveTab] = useState('Dashboard');
   
+  const updateExpandTab = (tabName) => (tabName !== expandTab) ? setExpandTab(tabName) : setExpandTab('')
+  // const updateActiveTab = (tabLabel) => (tabLabel !== activeTab) ? setActiveTab(tabLabel) : setActiveTab('')
+
+  const getExpandIcon = (activeTab) => {
+    if(expandTab === activeTab){
+      return (<svg class="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7"/>
+      </svg>)
+    } else {
+      return (<svg class="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 15 7-7 7 7"/>
+      </svg>)
+    }
+  }
+
   return (
     <>
       <aside id="default-sidebar" 
@@ -28,8 +42,11 @@ const AdminSideBar = () => {
               ADMIN_ACTIVITIES.map( (activity, index) => 
                 (activity.childs.length == 0) ? (
                   <li key={index} className='border-b border-gray-700' 
-                    onClick={e => setActiveTab(`dropdown-${activity.label}`)}>
-                    <Link to={activity.url} className="flex items-center p-3 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:text-violet-400 dark:hover:bg-gray-600 group">
+                    onClick={e => updateExpandTab(`dropdown-${activity.label}`)}>
+                    <Link to={activity.url} onClick={e => setActiveTab(activity.label)}
+                      className={`flex items-center p-3 text-base font-normal 
+                      text-gray-400 dark:text-white hover:text-violet-400 
+                      dark:hover:bg-gray-600 group ${activeTab === activity.label && 'bg-gradient-to-r from-blue-800 to-gray-800 to-gray-800'}`}>
                       {<svg className='h-6 w-6' dangerouslySetInnerHTML={{__html: activity.icon ? activity.icon : DEFAULT_ICON}} />}
                       <span className="ml-3">{activity.label}</span>
                     </Link>
@@ -38,16 +55,21 @@ const AdminSideBar = () => {
                   <li key={index} className='border-b border-gray-700'>
                     <button type="button" aria-controls={`dropdown-${activity.label}`} 
                       data-collapse-toggle={`dropdown-${activity.label}`}
-                      onClick={e => setActiveTab(`dropdown-${activity.label}`)}
+                      onClick={e => updateExpandTab(`dropdown-${activity.label}`)}
                       className="flex items-center p-3 w-full text-base font-normal text-gray-400 rounded-lg transition duration-75 group hover:text-violet-400 dark:text-white dark:hover:bg-gray-600" >
                       {<svg className='h-6 w-6' dangerouslySetInnerHTML={{__html: activity.icon ? activity.icon : DEFAULT_ICON}} />}
                       <span className="flex-1 ml-3 text-left whitespace-nowrap">{activity.label}</span>
+                      {getExpandIcon(`dropdown-${activity.label}`)}
                     </button>
-                    <ul id={`dropdown-${activity.label}`} className={currentTab !== `dropdown-${activity.label}` ? 'hidden' : ''}>
+                    <ul id={`dropdown-${activity.label}`} className={expandTab !== `dropdown-${activity.label}` ? 'hidden' : ''}>
                       {
                         activity.childs && activity.childs.map( (child, index) => 
                           <li key={index} className='border-t border-gray-900'>
-                            <Link to={child.url} className="flex items-center p-2 pl-8 w-full text-base font-normal text-gray-400 transition duration-75 group bg-gray-700 hover:text-violet-400 dark:text-white dark:hover:bg-gray-600">
+                            <Link to={child.url} onClick={e => setActiveTab(`${activity.label}-${child.label}`)}
+                              className={`flex items-center p-2 pl-8 w-full text-base 
+                              font-normal text-gray-400 transition duration-75 group bg-gray-700 
+                              hover:text-violet-400 dark:text-white dark:hover:bg-gray-600
+                              ${activeTab === `${activity.label}-${child.label}` && 'bg-gradient-to-r from-blue-800 to-gray-800 to-gray-800'}`}>
                               {child.label}
                             </Link>
                           </li>
