@@ -32,6 +32,7 @@ import TagShow from "../components/public/tags/TagShow";
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
 import AddArticle  from "../components/articles/AddArticle";
+import UnAuthenticate from "../components/Auth/UnAuthenticate";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
         <Route path="/users/register" element={<Register />} />
         <Route path="/users/login" element={<Login />} />
         <Route path="/users/logout" element={<Logout />} />
+        <Route path="/users/unauthrized" element={<UnAuthenticate />} />
 
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/pb/articles" element={<ArticleList />} />

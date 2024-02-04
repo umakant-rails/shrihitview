@@ -4,28 +4,28 @@ import { AuthContext } from '../../services/AuthContext';
 import { useDispatch } from 'react-redux';
 import { SET_MESSAGE } from '../../utils/types';
 
-const Logout = () => {
+const UnAuthenticate = () => {
   const {setCurrentUser} = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  console.log("Unauthrized Component")
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
     dispatch({
       type: SET_MESSAGE,
-      msg_type: "success",
-      payload: 'Successfully logged out.',
+      msg_type: "error",
+      payload: 'Unauthrized, May be your session has been expired.',
     });
-    navigate("/", { replace: true });
+    navigate("/users/login", { replace: true });
   };
-
+  console.log("Unauthrized Component")
   setTimeout(() => {
     handleLogout();
-  }, 100);
+  }, 10);
 
-  return <h2>You are Successfully Logout.</h2>;
+  return <h2>Unauthrized, May be your session has been expired.</h2>;
 };
 
-export default Logout;
+export default UnAuthenticate;

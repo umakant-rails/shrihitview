@@ -68,17 +68,7 @@ export const userLogin = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error,
+      payload: response.data,
     });
   }
- }
-
-export const userLogout = () => async dispatch => {
-  // const response = await baseUrl.delete('/logout', {user: formValues},{});
-  // return Promise.resolve(response.data);
-  dispatch({
-    type: SET_MESSAGE,
-    msg_type: "success",
-    payload: 'Successfully logged out.',
-  });
 }

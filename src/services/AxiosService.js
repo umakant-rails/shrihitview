@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 
 
 const AxiosObj =  axios.create({
@@ -19,7 +19,8 @@ AxiosObj.interceptors.response.use(
   response => response,
   error => {
     if (error.response.status === 401) {
-      return <Navigate to="/users/logout" replace={true} />
+      localStorage.removeItem("token");
+      localStorage.removeItem("currentUser");
     } 
     return Promise.reject(error);
   },
