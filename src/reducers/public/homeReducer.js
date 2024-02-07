@@ -1,6 +1,6 @@
 import {
   HOME_PAGE
-} from "../utils/types";
+} from "../../utils/types";
   
 const initialState = {};
 

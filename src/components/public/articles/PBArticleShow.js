@@ -12,7 +12,7 @@ const ArticleShow = () => {
   const { id } = useParams();
   const [comment, setComment] = useState("");
 
-  const { article } = useSelector( state => state.article );
+  const { article } = useSelector( state => state.pbArticle );
   const {currentUser, setCurrentUser} = useContext(AuthContext);
 
   useEffect(()=>{

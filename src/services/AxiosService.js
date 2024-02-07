@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router";
 
 
 const AxiosObj =  axios.create({

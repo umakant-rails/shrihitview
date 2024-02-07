@@ -1,7 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
   PB_ARTICLE_LIST,
-  ARTICLE_SHOW,
+  PB_ARTICLE_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
@@ -49,7 +49,7 @@ export const getArticle = (id) => async(dispatch) => {
 
   if(response.status === 200){
     dispatch({
-      type: ARTICLE_SHOW, 
+      type: PB_ARTICLE_SHOW, 
       payload: {
         statusCode: response.status,
         article: response.data.article,

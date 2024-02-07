@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createArticle, createTag, newArticle} from "../../actions/article";
+import {createArticle, createTag, newArticle} from "../../../actions/admin/admin_articles";
 import { useNavigate } from 'react-router';
 
 const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
-author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
+  author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
 };
 
 const AddArticle = () => {
@@ -23,7 +23,7 @@ const AddArticle = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
-  const { article_types, raags, contexts, authors, tags, scriptures, articleCreated } = useSelector( (state) => state.article)
+  const { article_types, raags, contexts, authors, tags, scriptures, articleCreated } = useSelector( (state) => state.adminArticle)
 
   useEffect( () => {
     dispatch(newArticle());  
@@ -87,7 +87,7 @@ const AddArticle = () => {
                   <option value="">रचना प्रकार चुने</option>
                   {
                     article_types && article_types.map( (aType, index) => 
-                      <option key={index} value={aType.name}>{aType.name}</option>
+                      <option key={index} value={aType.id}>{aType.name}</option>
                     )
                   }
               </select>

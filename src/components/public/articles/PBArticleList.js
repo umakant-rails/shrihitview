@@ -8,13 +8,13 @@ import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Pagination from '../../shared/Pagination';
 
-const ArticleList = () => {
+const PBArticleList = () => {
   const dispatch = useDispatch();
   const [articleList, setArticleList] = useState([]);
   const [currentArticles, setCurrentArticles] = useState([]);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [searchApplied, setSearchApplied] = useState(false);
-  const {articles, authors, tags, contexts, article_types } = useSelector( state => state.article);
+  const {articles, authors, tags, contexts, article_types } = useSelector( state => state.pbArticle);
 
   useEffect( ()=> {
     dispatch(getArticles());
@@ -114,7 +114,7 @@ const ArticleList = () => {
                   </div>
                   <div className='mb-5 shadow-xl'>
                     <div className='text-xl font-bold border-b-2 bg-blue-50 text-blue-800 px-4 py-2'>
-                      लेखक/रचनाकार
+                      लेखक/रचनाकार {authors && authors.length}
                     </div>
                     <fieldset className='max-h-64 overflow-y-scroll pb-4'>
                       { 
@@ -167,4 +167,4 @@ const ArticleList = () => {
   );
 };
 
-export default ArticleList;
+export default PBArticleList;

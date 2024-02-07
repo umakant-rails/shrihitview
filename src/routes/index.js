@@ -11,8 +11,8 @@ import Register from "../components/Auth/Register";
 import Login from "../components/Auth/Login";
 import Logout from "../components/Auth/Logout";
 
-import ArticleList from "../components/public/articles/ArticleList";
-import ArticleShow from "../components/public/articles/ArticleShow";
+import PBArticleList from "../components/public/articles/PBArticleList";
+import PBArticleShow from "../components/public/articles/PBArticleShow";
 import AuthorList from "../components/public/authors/AuthorList";
 import SantList from "../components/public/authors/SantList";
 import SantBiography from "../components/public/authors/SantBiography";
@@ -31,9 +31,11 @@ import TagShow from "../components/public/tags/TagShow";
 
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
-import AddArticle  from "../components/articles/AddArticle";
 import UnAuthenticate from "../components/Auth/UnAuthenticate";
 
+import ArticleList from "../components/admin/articles/ArticleList";
+import AddArticle  from "../components/admin/articles/AddArticle";
+import ArticleShow from "../components/admin/articles/ArticleShow";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -51,8 +53,8 @@ const router = createBrowserRouter(
         <Route path="/users/unauthrized" element={<UnAuthenticate />} />
 
         <Route path="/aboutus" element={<Aboutus />} />
-        <Route path="/pb/articles" element={<ArticleList />} />
-        <Route path="/pb/articles/:id" element={<ArticleShow />} />
+        <Route path="/pb/articles" element={<PBArticleList />} />
+        <Route path="/pb/articles/:id" element={<PBArticleShow />} />
 
         <Route path="/pb/authors" element={<AuthorList />} />
         <Route path="/pb/authors/sants" element={<SantList />} />
@@ -80,6 +82,7 @@ const router = createBrowserRouter(
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
+        <Route path="/articles/:id" element={<ProtectedRoutes><ArticleShow /></ProtectedRoutes>} />
       </Route>
     </Route>
   )

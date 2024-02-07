@@ -3,7 +3,7 @@ import {
   AUTHOR_SHOW,
   SANT_LIST,
   SANT_SHOW
-} from "../utils/types";
+} from "../../utils/types";
 
 const initialState = {authorList: []};
 const authorReducer = (state=initialState, action) => {

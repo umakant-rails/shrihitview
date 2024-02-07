@@ -86,7 +86,7 @@ export const ADMIN_ACTIVITIES = [
     url: '#', label: 'रचना',
     childs: [
       {url: '/articles/new', label: 'नई रचना जोड़े'},
-      {url: '#', label: 'रचना सूची'}
+      {url: '/articles', label: 'रचना सूची'}
     ]
   },
   {
@@ -146,10 +146,12 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";
 export const TAG_CREATED = "TAG_CREATED";
 export const ARTICLE_CREATED = "ARTICLE_CREATED";
+export const ARTICLE_LIST = "ARTICLE_LIST";
+export const ARTICLE_SHOW = "ARTICLE_SHOW";
 
 /* public namespace constant */
-export const PB_ARTICLE_LIST = "ARTICLE_LIST";
-export const ARTICLE_SHOW = "ARTICLE_SHOW";
+export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
+export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
 
 
 export const AUTHOR_LIST = "AUTHOR_LIST";

@@ -1,7 +1,7 @@
 import {
   STROTUM_LIST,
   STROTUM_SHOW,
-} from "../utils/types";
+} from "../../utils/types";
 
 const initialState = {strota: []};
 

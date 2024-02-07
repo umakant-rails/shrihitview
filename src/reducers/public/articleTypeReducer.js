@@ -1,7 +1,7 @@
 import {
     ARTICLE_TYPE_LIST,
     ARTICLE_TYPE_SHOW,
-  } from "../utils/types";
+  } from "../../utils/types";
   
   const initialState = {article_types: []};
   const articleTypeReducer = (state=initialState, action) => {

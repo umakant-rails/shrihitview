@@ -1,7 +1,7 @@
 import {
     SCRIPTURE_LIST,
     SCRIPTURE_SHOW,
-  } from "../utils/types";
+  } from "../../utils/types";
 
 const initialState = {articleList: []};
 

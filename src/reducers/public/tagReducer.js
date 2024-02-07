@@ -1,7 +1,7 @@
 import {
     TAG_LIST,
     TAG_SHOW,
-  } from "../utils/types";
+  } from "../../utils/types";
   
   const initialState = {tags: []};
   const tagReducer = (state=initialState, action) => {

@@ -1,7 +1,7 @@
 import {
   STORY_LIST,
   STORY_SHOW,
-} from "../utils/types";
+} from "../../utils/types";
 
 const initialState = {stories: []};
 

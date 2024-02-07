@@ -1,20 +1,21 @@
 //import { combineReducers } from "redux";
 import { combineReducers } from "@reduxjs/toolkit";
-import articleReducer from "./articleReducer";
-import authReducer from "./authReducer";
-import msgReducer from "./msgReducen";
-import homeReducer from "./homeReducer";
-import authorReducer from "./authorReducer";
-import scriptureReducer from "./scriptureReducer";
-import storyReducer from "./storyReducer";
-import strotumReducer from "./strotumReducer";
-import articleTypeReducer from "./articleTypeReducer";
-import contextReducer from "./contextReducer";
-import tagReducer from "./tagReducer";
+import articleReducer from "./public/articleReducer";
+import authReducer from "./public/authReducer";
+import msgReducer from "./msgReducer";
+import homeReducer from "./public/homeReducer";
+import authorReducer from "./public/authorReducer";
+import scriptureReducer from "./public/scriptureReducer";
+import storyReducer from "./public/storyReducer";
+import strotumReducer from "./public/strotumReducer";
+import articleTypeReducer from "./public/articleTypeReducer";
+import contextReducer from "./public/contextReducer";
+import tagReducer from "./public/tagReducer";
+import adminArticleReducer from "./admin/articleReducer";
 
 export default combineReducers({
     home: homeReducer,
-    article: articleReducer,
+    pbArticle: articleReducer,
     auth: authReducer,
     msg: msgReducer,
     author: authorReducer,
@@ -23,5 +24,7 @@ export default combineReducers({
     strotum: strotumReducer,
     articleType: articleTypeReducer,
     context: contextReducer,
-    tag: tagReducer
+    tag: tagReducer,
+    adminArticle: adminArticleReducer,
+
 });

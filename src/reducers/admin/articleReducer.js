@@ -1,14 +1,14 @@
 import {
   ARTICLE_NEW,
+  ARTICLE_LIST,
   ARTICLE_CREATED,
   TAG_CREATED,
-  PB_ARTICLE_LIST,
-  ARTICLE_SHOW
-} from "../utils/types";
+  ARTICLE_SHOW,
+} from "../../utils/types";
   
   const initialState = {articleList: []};
   
-  const articleReducer = (state=initialState, action) => {
+  const adminArticleReducer = (state=initialState, action) => {
     switch (action.type) {
       case ARTICLE_NEW:
         return {
@@ -31,23 +31,24 @@ import {
           ...state,
           tags: action.payload.tags
         }
-      case PB_ARTICLE_LIST:
+      case ARTICLE_LIST:
         return {
-          ...state,
           articles: action.payload.articles,
+          total_articles: action.payload.total_articles,
           authors: action.payload.authors,
+          raags: action.payload.raags,
           tags: action.payload.tags,
           contexts: action.payload.contexts,
-          article_types: action.payload.article_types
+          article_types: action.payload.article_types,
+          scriptures: action.payload.scriptures
         };
       case ARTICLE_SHOW:
         return {
-          ...state,
           article: action.payload.article
-        };
+        }
       default: 
         return state
     }
   };
   
-  export default articleReducer;
+  export default adminArticleReducer;

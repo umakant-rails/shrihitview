@@ -1,7 +1,7 @@
 import {
     CONTEXT_LIST,
     CONTEXT_SHOW,
-  } from "../utils/types";
+  } from "../../utils/types";
   
   const initialState = {contexts: []};
   const contextReducer = (state=initialState, action) => {

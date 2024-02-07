@@ -2,7 +2,7 @@ import {
   USER_LOGOUT,
   USER_REGISTRATION,
   ERROR_HANDLING
-} from "../utils/types";
+} from "../../utils/types";
 
 const stateObj = {currentUser: {}};
 
