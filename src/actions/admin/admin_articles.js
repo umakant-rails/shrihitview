@@ -5,7 +5,9 @@ import {
   ARTICLE_LIST,
   TAG_CREATED,
   SET_MESSAGE,
-  ARTICLE_SHOW
+  ARTICLE_SHOW,
+  ARTICLE_EDIT,
+  ARTICLE_UPDATED
 
 } from "../../utils/types";
 
@@ -41,7 +43,6 @@ export const newArticle = () => async dispatch => {
 }
 
 export const createArticle = (form) => async dispatch => {
-  console.log(form)
   const response = await baseUrl.post(
     '/articles', {article: form}
   ).then(response => {
@@ -50,7 +51,7 @@ export const createArticle = (form) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error == undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -60,6 +61,68 @@ export const createArticle = (form) => async dispatch => {
       type: ARTICLE_CREATED, 
       payload: {
         articleCreated: response.data.article,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
+
+export const editArticle = (id) => async dispatch => {
+  const response = await baseUrl.get(
+    `/articles/${id}?action_type=edit`,
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response && response.status === 200){
+    dispatch({
+      type: ARTICLE_EDIT, 
+      payload: {
+        statusCode: response.status,
+        article_types: response.data.article_types,
+        scriptures: response.data.scriptures,
+        raags: response.data.raags,
+        contexts: response.data.contexts,
+        authors: response.data.authors,
+        tags: response.data.tags,
+        article: response.data.article
+      }
+    });
+  } else if(response){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.statusText
+    });
+  }
+}
+
+export const updateArticle = (id, form) => async dispatch => {
+  const response = await baseUrl.put(
+    `/articles/${id}`, {article: form}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+  
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: ARTICLE_UPDATED, 
+      payload: {
+        articleUpdated: response.data.article,
       }
     });
   } else {

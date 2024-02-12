@@ -148,6 +148,8 @@ export const TAG_CREATED = "TAG_CREATED";
 export const ARTICLE_CREATED = "ARTICLE_CREATED";
 export const ARTICLE_LIST = "ARTICLE_LIST";
 export const ARTICLE_SHOW = "ARTICLE_SHOW";
+export const ARTICLE_EDIT = "ARTICLE_EDIT";
+export const ARTICLE_UPDATED = "ARTICLE_UPDATED";
 
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";

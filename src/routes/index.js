@@ -36,6 +36,7 @@ import UnAuthenticate from "../components/Auth/UnAuthenticate";
 import ArticleList from "../components/admin/articles/ArticleList";
 import AddArticle  from "../components/admin/articles/AddArticle";
 import ArticleShow from "../components/admin/articles/ArticleShow";
+import EditArticle from "../components/admin/articles/EditArticle";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -83,6 +84,7 @@ const router = createBrowserRouter(
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
         <Route path="/articles/:id" element={<ProtectedRoutes><ArticleShow /></ProtectedRoutes>} />
+        <Route path="/articles/:id/edit" element={<ProtectedRoutes><EditArticle /></ProtectedRoutes>} />
       </Route>
     </Route>
   )

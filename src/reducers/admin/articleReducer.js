@@ -4,6 +4,8 @@ import {
   ARTICLE_CREATED,
   TAG_CREATED,
   ARTICLE_SHOW,
+  ARTICLE_EDIT,
+  ARTICLE_UPDATED,
 } from "../../utils/types";
   
   const initialState = {articleList: []};
@@ -27,7 +29,7 @@ import {
           articleCreated: action.payload.articleCreated
         }
       case TAG_CREATED:
-        return{
+        return {
           ...state,
           tags: action.payload.tags
         }
@@ -45,6 +47,21 @@ import {
       case ARTICLE_SHOW:
         return {
           article: action.payload.article
+        }
+      case ARTICLE_EDIT:
+        return {
+          article: action.payload.article,
+          authors: action.payload.authors,
+          raags: action.payload.raags,
+          tags: action.payload.tags,
+          contexts: action.payload.contexts,
+          article_types: action.payload.article_types,
+          scriptures: action.payload.scriptures
+        };
+      case ARTICLE_UPDATED:
+        return {
+          ...state, 
+          updatedArticle: action.payload.articleUpdated 
         }
       default: 
         return state
