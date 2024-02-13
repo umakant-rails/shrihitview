@@ -22,7 +22,7 @@ const AddArticle = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
-  const { article_types, raags, contexts, authors, tags, scriptures, articleCreated } = useSelector( (state) => state.adminArticle)
+  const { articleTypes, raags, contexts, authors, tags, scriptures, articleCreated } = useSelector( (state) => state.adminArticle)
 
   useEffect( () => {
     dispatch(newArticle());  
@@ -84,7 +84,7 @@ const AddArticle = () => {
                   dark:shadow-sm-light`} required>
                   <option value="">रचना प्रकार चुने</option>
                   {
-                    article_types && article_types.map( (aType, index) => 
+                    articleTypes && articleTypes.map( (aType, index) => 
                       <option key={index} value={aType.id}>{aType.name}</option>
                     )
                   }
@@ -105,7 +105,7 @@ const AddArticle = () => {
                   <option value="">राग चुने</option>
                   {
                     raags && raags.map( (raag, index) => 
-                      <option key={index} value={raag.name}>{raag.name_eng} / {raag.name}</option>
+                      <option key={index} value={raag.id}>{raag.name_eng} / {raag.name}</option>
                     )
                   }
               </select>

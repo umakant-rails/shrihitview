@@ -21,7 +21,7 @@ const EditArticle = () => {
   const [contentText, setContentText] = useState(null);
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
 
-  const { article_types, raags, contexts, authors, tags, scriptures, article, updatedArticle } = useSelector( (state) => state.adminArticle)
+  const { articleTypes, raags, contexts, authors, tags, scriptures, article, updatedArticle } = useSelector( (state) => state.adminArticle)
 
   useEffect( () => {
     dispatch(editArticle(id));
@@ -100,7 +100,7 @@ const EditArticle = () => {
                   dark:shadow-sm-light`} required>
                   <option value="">रचना प्रकार चुने</option>
                   {
-                    article_types && article_types.map( (aType, index) => 
+                    articleTypes && articleTypes.map( (aType, index) => 
                       <option key={index} value={aType.id}>{aType.name}</option>
                     )
                   }

@@ -7,7 +7,8 @@ import {
   SET_MESSAGE,
   ARTICLE_SHOW,
   ARTICLE_EDIT,
-  ARTICLE_UPDATED
+  ARTICLE_UPDATED,
+  ARTICLE_DELETED,
 
 } from "../../utils/types";
 
@@ -86,7 +87,7 @@ export const editArticle = (id) => async dispatch => {
       type: ARTICLE_EDIT, 
       payload: {
         statusCode: response.status,
-        article_types: response.data.article_types,
+        articleTypes: response.data.article_types,
         scriptures: response.data.scriptures,
         raags: response.data.raags,
         contexts: response.data.contexts,
@@ -134,6 +135,38 @@ export const updateArticle = (id, form) => async dispatch => {
   }
 }
 
+export const deleteArticle = (id) => async dispatch => {
+  const response = await baseUrl.delete(
+    `/articles/${id}`
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+  
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: ARTICLE_DELETED, 
+      payload: {
+        articles: response.data.articles,
+        total_articles: response.data.total_articles,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
+
+
 export const createTag = (tag) => async dispatch => {
   const response = await baseUrl.post(
     '/tags', {tag: {name: tag}}
@@ -178,12 +211,12 @@ export const getArticles = () => async dispatch => {
       type: ARTICLE_LIST, 
       payload: {
         articles: response.data.articles,
-        total_articles: response.data.total_articles,
+        totalArticles: response.data.total_articles,
         authors: response.data.authors,
         tags: response.data.tags,
         raags: response.data.raags,
         contexts: response.data.contexts,
-        article_types: response.data.article_types,
+        articleTypes: response.data.article_types,
         scriptures: response.data.scriptures,
       }
     });
