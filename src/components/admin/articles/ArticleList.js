@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteArticle, getArticles } from '../../../actions/admin/admin_articles';
+import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/admin/admin_articles';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,8 +11,9 @@ const ArticleList = () => {
     articleTypes, raags, contexts, 
     authors, tags, scriptures, articles, 
     totalArticles } = useSelector( state => state.adminArticle );
+
   const [articleList, setArticleList] = useState(articles);
-  
+
   useEffect( () => {
     dispatch(getArticles());
   }, []);
@@ -25,8 +26,9 @@ const ArticleList = () => {
   const deleteToArticle = (id) => {
     dispatch(deleteArticle(id));
   }
-  const handlePageClick = () => {
-
+  const handlePageClick = (e) => {
+    const page = e.target.textContent;
+    dispatch(getArticlesByPage(page));
   }
 
   return (

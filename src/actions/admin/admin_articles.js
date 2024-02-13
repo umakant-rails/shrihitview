@@ -9,7 +9,7 @@ import {
   ARTICLE_EDIT,
   ARTICLE_UPDATED,
   ARTICLE_DELETED,
-
+  ARTICLE_LIST_BY_PAGE,
 } from "../../utils/types";
 
 export const newArticle = () => async dispatch => {
@@ -166,7 +166,6 @@ export const deleteArticle = (id) => async dispatch => {
   }
 }
 
-
 export const createTag = (tag) => async dispatch => {
   const response = await baseUrl.post(
     '/tags', {tag: {name: tag}}
@@ -218,6 +217,32 @@ export const getArticles = () => async dispatch => {
         contexts: response.data.contexts,
         articleTypes: response.data.article_types,
         scriptures: response.data.scriptures,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error,
+    });
+  }
+}
+
+export const getArticlesByPage = (page) => async dispatch => {
+  const response = await baseUrl.get(
+    `/articles/pages/${page}`,
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+     dispatch({
+      type: ARTICLE_LIST_BY_PAGE, 
+      payload: {
+        articles: response.data.articles,
+        totalArticles: response.data.total_articles,
       }
     });
   } else {

@@ -6,7 +6,8 @@ import {
   ARTICLE_SHOW,
   ARTICLE_EDIT,
   ARTICLE_UPDATED,
-  ARTICLE_DELETED
+  ARTICLE_DELETED,
+  ARTICLE_LIST_BY_PAGE,
 } from "../../utils/types";
   
   const initialState = {articleList: []};
@@ -69,6 +70,11 @@ import {
           ...state,
           articles: action.payload.articles,
           totalArticles: action.payload.total_articles,
+        }
+      case ARTICLE_LIST_BY_PAGE:
+        return {
+          ...state,
+          articles: action.payload.articles,
         }
       default: 
         return state

@@ -151,6 +151,7 @@ export const ARTICLE_SHOW = "ARTICLE_SHOW";
 export const ARTICLE_EDIT = "ARTICLE_EDIT";
 export const ARTICLE_UPDATED = "ARTICLE_UPDATED";
 export const ARTICLE_DELETED = "ARTICLE_DELETED";
+export const ARTICLE_LIST_BY_PAGE = "ARTICLE_LIST_BY_PAGE";
 
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
