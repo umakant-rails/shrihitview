@@ -204,7 +204,7 @@ export const getArticles = () => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-
+  
   if(response.status === 200){
      dispatch({
       type: ARTICLE_LIST, 
@@ -212,7 +212,6 @@ export const getArticles = () => async dispatch => {
         articles: response.data.articles,
         totalArticles: response.data.total_articles,
         authors: response.data.authors,
-        tags: response.data.tags,
         raags: response.data.raags,
         contexts: response.data.contexts,
         articleTypes: response.data.article_types,
@@ -228,15 +227,23 @@ export const getArticles = () => async dispatch => {
   }
 }
 
-export const getArticlesByPage = (page) => async dispatch => {
+export const getArticlesByPage = (searchAttr, page) => async dispatch => {
+  const arr = [];
+  Object.keys(searchAttr).map( key =>{
+    if(searchAttr[key]){
+      arr.push(`${key}=${searchAttr[key]}`)
+    }
+  })
+  const searchAttrStr = arr.join('&');
+  
   const response = await baseUrl.get(
-    `/articles/pages/${page}`,
+    `/articles/pages/${page}?${searchAttrStr}`,
   ).then(response => {
     return response;
   }).catch(function (error) {
     return error.response;
   });
-
+console.log(response)
   if(response.status === 200){
      dispatch({
       type: ARTICLE_LIST_BY_PAGE, 

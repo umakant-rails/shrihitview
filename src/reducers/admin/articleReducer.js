@@ -41,7 +41,6 @@ import {
           totalArticles: action.payload.totalArticles,
           authors: action.payload.authors,
           raags: action.payload.raags,
-          tags: action.payload.tags,
           contexts: action.payload.contexts,
           articleTypes: action.payload.articleTypes,
           scriptures: action.payload.scriptures
@@ -75,6 +74,7 @@ import {
         return {
           ...state,
           articles: action.payload.articles,
+          totalArticles: action.payload.totalArticles
         }
       default: 
         return state
