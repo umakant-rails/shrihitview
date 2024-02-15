@@ -243,7 +243,7 @@ export const getArticlesByPage = (searchAttr, page) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-console.log(response)
+
   if(response.status === 200){
      dispatch({
       type: ARTICLE_LIST_BY_PAGE, 

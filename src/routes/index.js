@@ -13,9 +13,9 @@ import Logout from "../components/Auth/Logout";
 
 import PBArticleList from "../components/public/articles/PBArticleList";
 import PBArticleShow from "../components/public/articles/PBArticleShow";
-import AuthorList from "../components/public/authors/AuthorList";
-import SantList from "../components/public/authors/SantList";
-import SantBiography from "../components/public/authors/SantBiography";
+import PBAuthorList from "../components/public/authors/PBAuthorList";
+import PBSantList from "../components/public/authors/PBSantList";
+import PBSantBiography from "../components/public/authors/PBSantBiography";
 import ScriptureList from "../components/public/scriptures/ScriptureList";
 import ScriptureShow from "../components/public/scriptures/ScriptureShow";
 import StoryList from "../components/public/stories/StoryList";
@@ -37,6 +37,7 @@ import ArticleList from "../components/admin/articles/ArticleList";
 import AddArticle  from "../components/admin/articles/AddArticle";
 import ArticleShow from "../components/admin/articles/ArticleShow";
 import EditArticle from "../components/admin/articles/EditArticle";
+import AuthorList from "../components/admin/authors/AuthorList";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -57,9 +58,9 @@ const router = createBrowserRouter(
         <Route path="/pb/articles" element={<PBArticleList />} />
         <Route path="/pb/articles/:id" element={<PBArticleShow />} />
 
-        <Route path="/pb/authors" element={<AuthorList />} />
-        <Route path="/pb/authors/sants" element={<SantList />} />
-        <Route path="/pb/authors/:name/sant_biography" element={<SantBiography />} />
+        <Route path="/pb/authors" element={<PBAuthorList />} />
+        <Route path="/pb/authors/sants" element={<PBSantList />} />
+        <Route path="/pb/authors/:name/sant_biography" element={<PBSantBiography />} />
 
         <Route path="/pb/scriptures" element={<ScriptureList />}/>
         <Route path="/pb/scriptures/:id" element={<ScriptureShow />} />
@@ -85,6 +86,8 @@ const router = createBrowserRouter(
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
         <Route path="/articles/:id" element={<ProtectedRoutes><ArticleShow /></ProtectedRoutes>} />
         <Route path="/articles/:id/edit" element={<ProtectedRoutes><EditArticle /></ProtectedRoutes>} />
+
+        <Route path="/authors" element={<ProtectedRoutes><AuthorList/></ProtectedRoutes>} />
       </Route>
     </Route>
   )

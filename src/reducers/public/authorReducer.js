@@ -1,29 +1,29 @@
 import {
-  AUTHOR_LIST,
-  AUTHOR_SHOW,
-  SANT_LIST,
-  SANT_SHOW
+  PB_AUTHOR_LIST,
+  PB_AUTHOR_SHOW,
+  PB_SANT_LIST,
+  PB_SANT_SHOW
 } from "../../utils/types";
 
 const initialState = {authorList: []};
 const authorReducer = (state=initialState, action) => {
     switch (action.type) {
-    case AUTHOR_LIST:
+    case PB_AUTHOR_LIST:
       return {
         ...state,
         authors: action.payload.authors,
       };  
-    case AUTHOR_SHOW:
+    case PB_AUTHOR_SHOW:
       return {
         ...state,
         author: action.payload.author,
       };
-    case SANT_LIST:
+    case PB_SANT_LIST:
       return {
         ...state,
         sants: action.payload.sants,
       };
-    case SANT_SHOW:
+    case PB_SANT_SHOW:
       return {
         ...state,
         related_sants: action.payload.sants,

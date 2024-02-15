@@ -1,10 +1,10 @@
 import baseUrl from "../../services/AxiosService";
 import {
-    AUTHOR_LIST,
-    //AUTHOR_SHOW,
-    SANT_LIST,
-    SANT_SHOW,
-    SET_MESSAGE
+  PB_AUTHOR_LIST,
+  //AUTHOR_SHOW,
+  PB_SANT_LIST,
+  PB_SANT_SHOW,
+  SET_MESSAGE
 } from "../../utils/types";
 
 export const getAuthors = () => async dispatch => {
@@ -18,7 +18,7 @@ export const getAuthors = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: AUTHOR_LIST, 
+      type: PB_AUTHOR_LIST, 
       payload: {
         statusCode: response.status,
         authors: response.data.authors,
@@ -44,7 +44,7 @@ export const getSants = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: SANT_LIST,
+      type: PB_SANT_LIST,
       payload: {
         statusCode: response.status,
         sants: response.data.sants,
@@ -70,7 +70,7 @@ export const getSantBiography = (name) => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: SANT_SHOW,
+      type: PB_SANT_SHOW,
       payload: {
         statusCode: response.status,
         sants: response.data.sants,

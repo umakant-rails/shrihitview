@@ -95,8 +95,8 @@ export const ADMIN_ACTIVITIES = [
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
     </svg>`,
     childs: [
-      {url: '#', label: 'रचनाकार जोड़े'},
-      {url: '#', label: 'रचनाकार सूची'}
+      {url: '/authors/new', label: 'रचनाकार जोड़े'},
+      {url: '/authors', label: 'रचनाकार सूची'}
     ]
   },
   {
@@ -153,15 +153,17 @@ export const ARTICLE_UPDATED = "ARTICLE_UPDATED";
 export const ARTICLE_DELETED = "ARTICLE_DELETED";
 export const ARTICLE_LIST_BY_PAGE = "ARTICLE_LIST_BY_PAGE";
 
+export const AUTHOR_LIST = "AUTHOR_LIST";
+export const AUTHOR_SHOW = "AUTHOR_SHOW";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
 
 
-export const AUTHOR_LIST = "AUTHOR_LIST";
-export const AUTHOR_SHOW = "AUTHOR_SHOW";
-export const SANT_LIST = "SANT_LIST";
-export const SANT_SHOW = "SANT_SHOW";
+export const PB_AUTHOR_LIST = "PB_AUTHOR_LIST";
+export const PB_AUTHOR_SHOW = "PB_AUTHOR_SHOW";
+export const PB_SANT_LIST = "PB_SANT_LIST";
+export const PB_SANT_SHOW = "PB_SANT_SHOW";
 
 export const STORY_LIST = "STORY_LIST";
 export const STORY_SHOW = "STORY_SHOW";
