@@ -7,26 +7,31 @@ import Pagination from '../../shared/Pagination';
 const AuthorList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
-  const [currentAuthors, setCurrentAuthors] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [authorId, setAuthorId] = useState(null);
   const [authorList, setAuthorList] = useState([]);
-  const { authors, totalAuthors } = useSelector( state => state.adminAuthor );
-  
-  useEffect( () => {
-    dispatch(getAuthors());
+  const [totalAuthorQnty, setTotalAuthorQnty] = useState(0);
+  const { authors, total_authors, current_page } = useSelector( state => state.adminAuthor );
+  const [searchAttr, setSearchAttr] = useState({page: 1});
+
+  useEffect( () => { 
+    dispatch(getAuthors(searchAttr));
   }, []);
 
   useEffect( () => {
     if(authors){
       setAuthorList(authors);
+      setTotalAuthorQnty(total_authors);
+      setCurrentPage(current_page);
     }
   }, [authors]);
   
   const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*itemPerPage : 0;
-    setCurrentAuthors(authorList.slice(startingOffset, startingOffset+itemPerPage));
+    const page = parseInt(event.target.getAttribute('value'));
+    let sAttrs = {...searchAttr, page: page};
+    setSearchAttr(sAttrs);
+    dispatch(getAuthors(sAttrs));
   };
 
   const showArticles = (author) => {
@@ -38,20 +43,16 @@ const AuthorList = () => {
   };
 
   const resetFilteredAuthors = (e) => {
-    setAuthorList(authors);
-    if(authors !== authorList){
-      setAuthorList(authors);
-      setCurrentAuthors(authors.slice(0,itemPerPage));
-    } else {
-      alert('No Filter Apply Now.')
-    }
+    setTotalAuthorQnty(null);
+    setSearchAttr({page: 1})
+    dispatch(getAuthors({page: 1}));
     document.getElementsByName("alphabet").forEach((el) => el.checked = false );
   }
   const filterAuthors = (e) => {
     const selectedAlbhabet = e.target.value;
-    let fileteredAuthors = authors.filter(author => author.name.startsWith(selectedAlbhabet));
-    setAuthorList(fileteredAuthors);
-    setCurrentAuthors(fileteredAuthors.slice(0,itemPerPage));
+    let sAttrs = {'start_with': selectedAlbhabet, page: 0};
+    setSearchAttr(sAttrs);
+    dispatch(getAuthors(sAttrs));
   }
 
   return (
@@ -126,11 +127,11 @@ const AuthorList = () => {
                   </tr>
                 </thead>
                 {
-                  authorList ? authorList.map( (author, index) => 
+                  authorList.length > 0 ? authorList.map( (author, index) => 
                     <tbody key={index} className='text-xl'>
                       <tr  
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
-                        <td className='px-2 py-3'>{index+1}</td>
+                        <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
                         <td scope="row" 
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {author.name}
@@ -174,8 +175,8 @@ const AuthorList = () => {
                   ) : (
                     <tbody>
                       <tr>
-                        <td colSpan="3" className='text-center py-5'>
-                          There is no Author availables.
+                        <td colSpan="4" className='text-center py-5'>
+                          There is no Authors available.
                         </td>
                       </tr>
                     </tbody>
@@ -185,13 +186,13 @@ const AuthorList = () => {
             </div>
             <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
               {
-                totalAuthors &&
-                <Pagination 
-                  showWidget={5} 
-                  totalItems={totalAuthors}
-                  itemsPerPage={itemPerPage}
-                  pageChangeHandler= {handlePageClick}
-                />
+                totalAuthorQnty ? (
+                  <Pagination 
+                    showWidget={5} 
+                    totalItems={totalAuthorQnty}
+                    itemsPerPage={itemPerPage}
+                    pageChangeHandler= {handlePageClick}
+                  />) : ''
               }
             </nav>
           </div>

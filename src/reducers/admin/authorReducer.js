@@ -1,5 +1,6 @@
 import {
   AUTHOR_LIST,
+  AUTHORS_BY_PAGE
 } from "../../utils/types";
   
   const initialState = {authorList: []};
@@ -30,7 +31,8 @@ import {
       case AUTHOR_LIST:
         return {
           authors: action.payload.authors,
-          totalAuthors: action.payload.totalAuthors,
+          total_authors: action.payload.total_authors,
+          current_page: action.payload.current_page
         };
       // case ARTICLE_SHOW:
       //   return {
@@ -56,12 +58,6 @@ import {
       //     ...state,
       //     articles: action.payload.articles,
       //     totalArticles: action.payload.total_articles,
-      //   }
-      // case ARTICLE_LIST_BY_PAGE:
-      //   return {
-      //     ...state,
-      //     articles: action.payload.articles,
-      //     totalArticles: action.payload.totalArticles
       //   }
       default: 
         return state

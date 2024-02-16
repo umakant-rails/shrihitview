@@ -14,8 +14,6 @@ const ArticleList = () => {
     totalArticles } = useSelector( state => state.adminArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
-  const [searchAtrrName, setSearchAttrName] = useState('');
-  const [searchAtrrValue, setSearchAttrValue] = useState('');
   const [searchAttr, setSearchAttr] = useState({});
   
   useEffect( () => {
@@ -33,13 +31,10 @@ const ArticleList = () => {
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');
     setCurrentPage(page);
-    //dispatch(getArticlesByPage(page));
   }
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    // setSearchAttrName(name);
-    // setSearchAttrValue(value);
     const sAttrs = {...searchAttr, [name]: value};
 
     setSearchAttr(sAttrs);

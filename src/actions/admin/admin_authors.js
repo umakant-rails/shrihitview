@@ -4,22 +4,30 @@ import {
   SET_MESSAGE
 } from "../../utils/types";
 
-export const getAuthors = () => async dispatch => {
+export const getAuthors = (searchAttr) => async dispatch => {
+  const arr = [];
+  Object.keys(searchAttr).map( key =>{
+    if(searchAttr[key]){
+      arr.push(`${key}=${searchAttr[key]}`)
+    }
+  })
+  const searchAttrStr = arr.join('&');
+
   const response = await baseUrl.get(
-    '/authors', 
+    `/authors?${searchAttrStr}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
     return error.response;
   });
-  console.log(response)
   if(response.status === 200){
     dispatch({
       type: AUTHOR_LIST, 
       payload: {
         statusCode: response.status,
         authors: response.data.authors,
-        totalAuthors: response.data.total_authors
+        total_authors: response.data.total_authors,
+        current_page: response.data.page
       }
     });
   } else {
