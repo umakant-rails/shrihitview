@@ -155,6 +155,9 @@ export const ARTICLE_LIST_BY_PAGE = "ARTICLE_LIST_BY_PAGE";
 
 export const AUTHOR_LIST = "AUTHOR_LIST";
 export const AUTHOR_SHOW = "AUTHOR_SHOW";
+export const AUTHOR_NEW = "AUTHOR_NEW";
+export const AUTHOR_CREATED = "AUTHOR_CREATED";
+export const SAMPRADAYA_CREATED = "SAMPRADAYA_CREATED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";

@@ -1,28 +1,24 @@
 import {
+  AUTHOR_CREATED,
   AUTHOR_LIST,
-  AUTHORS_BY_PAGE
+  AUTHOR_NEW,
+  SAMPRADAYA_CREATED
 } from "../../utils/types";
   
   const initialState = {authorList: []};
   
   const adminAuthorReducer = (state=initialState, action) => {
     switch (action.type) {
-      // case ARTICLE_NEW:
-      //   return {
-      //     ...state,
-      //     article: action.payload.article,
-      //     raags: action.payload.raags,
-      //     authors: action.payload.authors,
-      //     scriptures: action.payload.scriptures,
-      //     tags: action.payload.tags,
-      //     contexts: action.payload.contexts,
-      //     articleTypes: action.payload.article_types
-      //   };
-      // case ARTICLE_CREATED:
-      //   return {
-      //     ...state,
-      //     articleCreated: action.payload.articleCreated
-      //   }
+      case AUTHOR_NEW:
+        return {
+          ...state,
+          sampradayas: action.payload.sampradayas,
+        };
+      case SAMPRADAYA_CREATED:
+        return {
+          sampradayas: action.payload.sampradayas,
+          sampradayaCreated: action.payload.sampradaya_created,
+        }
       // case TAG_CREATED:
       //   return {
       //     ...state,
@@ -34,6 +30,10 @@ import {
           total_authors: action.payload.total_authors,
           current_page: action.payload.current_page
         };
+      case AUTHOR_CREATED:
+        return {
+          authorCreated: action.payload.author_created
+        }
       // case ARTICLE_SHOW:
       //   return {
       //     article: action.payload.article

@@ -38,6 +38,7 @@ import AddArticle  from "../components/admin/articles/AddArticle";
 import ArticleShow from "../components/admin/articles/ArticleShow";
 import EditArticle from "../components/admin/articles/EditArticle";
 import AuthorList from "../components/admin/authors/AuthorList";
+import AddAuthor from "../components/admin/authors/AddAuthor";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -88,6 +89,7 @@ const router = createBrowserRouter(
         <Route path="/articles/:id/edit" element={<ProtectedRoutes><EditArticle /></ProtectedRoutes>} />
 
         <Route path="/authors" element={<ProtectedRoutes><AuthorList/></ProtectedRoutes>} />
+        <Route path="/authors/new" element={<ProtectedRoutes><AddAuthor/></ProtectedRoutes>} />
       </Route>
     </Route>
   )
