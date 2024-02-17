@@ -23,11 +23,12 @@ import StoryShow from "../components/public/stories/StoryShow";
 import StrotumList from "../components/public/strota/StrotumList";
 import StrotumShow from "../components/public/strota/StrotumShow";
 import ArticleTypeList from "../components/public/article_types/ArticleTypeList";
-import TagList from "../components/public/tags/TagList";
+import PBTagList from "../components/public/tags/PBTagList";
+import PBTagShow from "../components/public/tags/PBTagShow";
 import ContextList from "../components/public/contexts/ContextList";
 import ArticleTypeShow from "../components/public/article_types/ArticleTypeShow";
 import ContextShow from "../components/public/contexts/ContextShow";
-import TagShow from "../components/public/tags/TagShow";
+import TagShow from "../components/public/tags/PBTagShow";
 
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
@@ -40,6 +41,7 @@ import EditArticle from "../components/admin/articles/EditArticle";
 import AuthorList from "../components/admin/authors/AuthorList";
 import AddAuthor from "../components/admin/authors/AddAuthor";
 import EditAuthor from "../components/admin/authors/EditAuthor";
+import TagList from "../components/admin/tags/TagList";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -77,8 +79,8 @@ const router = createBrowserRouter(
         <Route path="/pb/article_types/:name" element={<ArticleTypeShow />} />
         <Route path="/pb/contexts" element={<ContextList />} />
         <Route path="/pb/contexts/:name" element={<ContextShow />} />
-        <Route path="/pb/tags" element={<TagList />} />
-        <Route path="/pb/tags/:name" element={<TagShow />} />
+        <Route path="/pb/tags" element={<PBTagList />} />
+        <Route path="/pb/tags/:name" element={<PBTagShow />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Route>
@@ -92,7 +94,9 @@ const router = createBrowserRouter(
         <Route path="/authors" element={<ProtectedRoutes><AuthorList/></ProtectedRoutes>} />
         <Route path="/authors/new" element={<ProtectedRoutes><AddAuthor/></ProtectedRoutes>} />
         <Route path="/authors/:id/edit" element={<ProtectedRoutes><EditAuthor/></ProtectedRoutes>} />
-      </Route>
+
+        <Route path="/tags" element={<ProtectedRoutes><TagList/></ProtectedRoutes>} />
+       </Route>
     </Route>
   )
 )

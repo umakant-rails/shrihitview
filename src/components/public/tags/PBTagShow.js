@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TagShow = () => {
+const PBTagShow = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const TagShow = () => {
     );
 };
 
-export default TagShow;
+export default PBTagShow;

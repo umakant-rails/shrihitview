@@ -3,7 +3,7 @@ import {
   ARTICLE_NEW,
   ARTICLE_CREATED,
   ARTICLE_LIST,
-  TAG_CREATED,
+  ARTICLE_TAG_CREATED,
   SET_MESSAGE,
   ARTICLE_SHOW,
   ARTICLE_EDIT,
@@ -182,7 +182,7 @@ export const createTag = (tag) => async dispatch => {
       payload: response.data.status,
     });
     dispatch({
-      type: TAG_CREATED, 
+      type: ARTICLE_TAG_CREATED, 
       payload: {
         statusCode: response.status,
         tags: response.data.tags,

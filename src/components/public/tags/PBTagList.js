@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTags } from '../../../actions/public/tags';
 
 
-const TagList = () => {
+const PBTagList = () => {
   const dispatch = useDispatch();
   const { tags } = useSelector(state => state.tag );
   
@@ -66,4 +66,4 @@ const TagList = () => {
   );
 };
 
-export default TagList;
+export default PBTagList;

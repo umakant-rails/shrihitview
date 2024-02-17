@@ -1,7 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  TAG_LIST,
-  TAG_SHOW,
+  PB_TAG_LIST,
+  PB_TAG_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
@@ -17,7 +17,7 @@ export const getTags = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: TAG_LIST, 
+      type: PB_TAG_LIST, 
       payload: {
         statusCode: response.status,
         tags: response.data.tags,
@@ -43,7 +43,7 @@ export const getTag = (name) => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: TAG_SHOW, 
+      type: PB_TAG_SHOW, 
       payload: {
         statusCode: response.status,
         tags: response.data.tag,

@@ -13,6 +13,7 @@ import contextReducer from "./public/contextReducer";
 import tagReducer from "./public/tagReducer";
 import adminArticleReducer from "./admin/articleReducer";
 import adminAuthorReducer from "./admin/authorReducer";
+import adminTagReducer from "./admin/tagReducer";
 
 export default combineReducers({
     home: homeReducer,
@@ -27,6 +28,7 @@ export default combineReducers({
     context: contextReducer,
     tag: tagReducer,
     adminArticle: adminArticleReducer,
-    adminAuthor: adminAuthorReducer
+    adminAuthor: adminAuthorReducer,
+    adminTag: adminTagReducer,
 
 });

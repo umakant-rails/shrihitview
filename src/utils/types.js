@@ -105,8 +105,8 @@ export const ADMIN_ACTIVITIES = [
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.6 8.4h0m-4.7 11.3-6.6-6.6a1 1 0 0 1 0-1.4l7.3-7.4a1 1 0 0 1 .7-.3H18a2 2 0 0 1 2 2v5.5a1 1 0 0 1-.3.7l-7.5 7.5a1 1 0 0 1-1.3 0Z"/>
     </svg>`,
     childs: [
-      {url: '#', label: 'टैग्स जोड़े'},
-      {url: '#', label: 'टैग्स सूची'}
+      {url: '/tags/new', label: 'टैग्स जोड़े'},
+      {url: '/tags', label: 'टैग्स सूची'}
     ]
   },
   {
@@ -144,7 +144,7 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 /* REGISTERED USER constant */
 export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";
-export const TAG_CREATED = "TAG_CREATED";
+export const ARTICLE_TAG_CREATED = "TAG_CREATED";
 export const ARTICLE_CREATED = "ARTICLE_CREATED";
 export const ARTICLE_LIST = "ARTICLE_LIST";
 export const ARTICLE_SHOW = "ARTICLE_SHOW";
@@ -161,6 +161,13 @@ export const SAMPRADAYA_CREATED = "SAMPRADAYA_CREATED";
 export const AUTHOR_EDIT = "AUTHOR_EDIT";
 export const AUTHOR_UPDATED = "AUTHOR_UPDATED";
 export const AUTHOR_DELETED = "AUTHOR_DELETED";
+
+export const TAG_LIST = "TAG_LIST";
+export const TAG_NEW = "TAG_NEW";
+export const TAG_CREATED = "TAG_CREATED";
+export const TAG_EDIT = "TAG_EDIT";
+export const TAG_UPDATED = "TAG_UPDATED";
+export const TAG_DELETED = "TAG_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
@@ -186,5 +193,5 @@ export const ARTICLE_TYPE_SHOW = "ARTICLE_TYPE_SHOW";
 export const CONTEXT_LIST = "CONTEXT_LIST";
 export const CONTEXT_SHOW = "CONTEXT_SHOW";
 
-export const TAG_LIST = "TAG_LIST";
-export const TAG_SHOW = "TAG_SHOW";
+export const PB_TAG_LIST = "TAG_LIST";
+export const PB_TAG_SHOW = "TAG_SHOW";

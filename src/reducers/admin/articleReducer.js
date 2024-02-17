@@ -2,7 +2,7 @@ import {
   ARTICLE_NEW,
   ARTICLE_LIST,
   ARTICLE_CREATED,
-  TAG_CREATED,
+  ARTICLE_TAG_CREATED,
   ARTICLE_SHOW,
   ARTICLE_EDIT,
   ARTICLE_UPDATED,
@@ -30,7 +30,7 @@ import {
           ...state,
           articleCreated: action.payload.articleCreated
         }
-      case TAG_CREATED:
+      case ARTICLE_TAG_CREATED:
         return {
           ...state,
           tags: action.payload.tags
