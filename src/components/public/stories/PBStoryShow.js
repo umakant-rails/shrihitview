@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStory } from '../../../actions/public/stories';
 
-const StoryShow = () => {
+const PBStoryShow = () => {
   const dispatch = useDispatch();
   const {title} = useParams();
   const { story, stories } = useSelector(state => state.story);
@@ -42,4 +42,4 @@ const StoryShow = () => {
   );
 };
 
-export default StoryShow;
+export default PBStoryShow;

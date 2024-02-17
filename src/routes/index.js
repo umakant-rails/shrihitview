@@ -18,8 +18,8 @@ import PBSantList from "../components/public/authors/PBSantList";
 import PBSantBiography from "../components/public/authors/PBSantBiography";
 import ScriptureList from "../components/public/scriptures/ScriptureList";
 import ScriptureShow from "../components/public/scriptures/ScriptureShow";
-import StoryList from "../components/public/stories/StoryList";
-import StoryShow from "../components/public/stories/StoryShow";
+import PBStoryList from "../components/public/stories/PBStoryList";
+import PBStoryShow from "../components/public/stories/PBStoryShow";
 import StrotumList from "../components/public/strota/StrotumList";
 import StrotumShow from "../components/public/strota/StrotumShow";
 import ArticleTypeList from "../components/public/article_types/ArticleTypeList";
@@ -69,8 +69,8 @@ const router = createBrowserRouter(
         <Route path="/pb/scriptures" element={<ScriptureList />}/>
         <Route path="/pb/scriptures/:id" element={<ScriptureShow />} />
 
-        <Route path="/pb/stories" element={<StoryList />} />
-        <Route path="/pb/stories/:title" element={<StoryShow />} />
+        <Route path="/pb/stories" element={<PBStoryList />} />
+        <Route path="/pb/stories/:title" element={<PBStoryShow />} />
 
         <Route path="/pb/strota" element={<StrotumList />} />
         <Route path="/pb/strota/:title" element={<StrotumShow />} />

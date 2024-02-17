@@ -100,14 +100,15 @@ export const ADMIN_ACTIVITIES = [
     ]
   },
   {
-    url: '#', label: 'टैग्स',
+    url: '/tags', label: 'टैग्स',
     icon: `<svg className="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.6 8.4h0m-4.7 11.3-6.6-6.6a1 1 0 0 1 0-1.4l7.3-7.4a1 1 0 0 1 .7-.3H18a2 2 0 0 1 2 2v5.5a1 1 0 0 1-.3.7l-7.5 7.5a1 1 0 0 1-1.3 0Z"/>
     </svg>`,
-    childs: [
-      {url: '/tags/new', label: 'टैग्स जोड़े'},
-      {url: '/tags', label: 'टैग्स सूची'}
-    ]
+    childs: []
+    // childs: [
+    //   {url: '/tags/new', label: 'टैग्स जोड़े'},
+    //   {url: '/tags', label: 'टैग्स सूची'}
+    // ]
   },
   {
     url: '#', label: 'संत चरित्र/प्रेरक प्रसंग',

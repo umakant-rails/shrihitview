@@ -6,7 +6,7 @@ import shrihit from "../../../assets/images/shrihit.png"
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 
-const StoryList = () => {
+const PBStoryList = () => {
   const dispatch = useDispatch();
   const [currentStories, setCurrentStories] = useState([]);
   const [storyList, setStoryList] = useState([])
@@ -70,4 +70,4 @@ const StoryList = () => {
   );
 };
 
-export default StoryList;
+export default PBStoryList;
