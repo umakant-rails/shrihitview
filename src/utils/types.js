@@ -158,6 +158,9 @@ export const AUTHOR_SHOW = "AUTHOR_SHOW";
 export const AUTHOR_NEW = "AUTHOR_NEW";
 export const AUTHOR_CREATED = "AUTHOR_CREATED";
 export const SAMPRADAYA_CREATED = "SAMPRADAYA_CREATED";
+export const AUTHOR_EDIT = "AUTHOR_EDIT";
+export const AUTHOR_UPDATED = "AUTHOR_UPDATED";
+export const AUTHOR_DELETED = "AUTHOR_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";

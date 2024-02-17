@@ -3,30 +3,40 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createAuthor, createSampradaya, newAuthor} from "../../../actions/admin/admin_authors";
-import { useNavigate } from 'react-router';
+import {createAuthor, createSampradaya, editAuthor, updateAuthor} from "../../../actions/admin/admin_authors";
+import { useNavigate, useParams } from 'react-router';
+import { deleteArticle } from '../../../actions/admin/admin_articles';
 
 const authorObj = {name: '', name_eng: '', sampradaya_id: '', biography: ''};
 
-const AddAuthor = () => {
+const EditAuthor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
+  const { id } = useParams();
+
   const [formValues, setFormValues] = useState(authorObj);
   const [sampradaya, setSampradaya] = useState('');
   const [sampradayaFormDisplay, setSampradayaFormDisplay] = useState(false);
-  const { sampradayas, author, sampradayaCreated } = useSelector( (state) => state.adminAuthor)
+  const { author, sampradayas, authorUpdated } = useSelector( (state) => state.adminAuthor)
 
   useEffect( () => {
-    dispatch(newAuthor());  
-  }, []);
+    dispatch(editAuthor(id));  
+  }, [id]);
 
   useEffect( () => {
-    if(author){resetForm();/*navigate('/articles/new');*/ } 
-    if(sampradayaCreated){
-      setSampradayaFormDisplay(false);
+    if(authorUpdated){ navigate('/authors'); } 
+  }, [authorUpdated]);
+
+  useEffect( () => {
+    if(author){
+      setFormValues( formValues => ({...formValues, 
+        name: author.name, 
+        name_eng: author.name_eng, 
+        sampradaya_id: author.sampradaya_id, 
+        biography: author.biography
+      }));
     }
-  }, [author, sampradayaCreated]);
+  }, [author]);
 
   const createNewSampradaya = () => {
     if(sampradaya){
@@ -43,19 +53,23 @@ const AddAuthor = () => {
     setFormValues({ ...formValues, [name]: value });
   }
 
-  const resetForm = () => {setFormValues(authorObj); }
+  const resetForm = () => { setFormValues(authorObj); }
   const onCancel = event => { event.preventDefault(); resetForm();}
 
   const onAuthorSubmit = (event) => {
     event.preventDefault();
-    dispatch(createAuthor(formValues));
+    dispatch(updateAuthor(id, formValues));
+  }
+
+  const deleteToAuthor = (id) => {
+    dispatch(deleteArticle(id));
   }
 
   return (
     <div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
-        रचनाकार फॉर्म
+        रचनाकार अद्यतन फॉर्म
         </div>
         <form className="py-5 px-10" onSubmit={onAuthorSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
@@ -145,7 +159,7 @@ const AddAuthor = () => {
                         rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                         dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                         dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                        dark:shadow-sm-light`}>
+                        dark:shadow-sm-light`} required>
                         <option value="">सम्प्रदाय चुने</option>
                         {
                           sampradayas && sampradayas.map( (sampradaya, index) => 
@@ -192,4 +206,4 @@ const AddAuthor = () => {
   );
 };
 
-export default AddAuthor;
+export default EditAuthor;

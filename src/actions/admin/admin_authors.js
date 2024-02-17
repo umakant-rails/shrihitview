@@ -4,7 +4,10 @@ import {
   AUTHOR_LIST,
   AUTHOR_NEW,
   SAMPRADAYA_CREATED,
-  SET_MESSAGE
+  AUTHOR_EDIT,
+  AUTHOR_UPDATED,
+  AUTHOR_DELETED,
+  SET_MESSAGE,
 } from "../../utils/types";
 
 export const getAuthors = (searchAttr) => async dispatch => {
@@ -50,7 +53,7 @@ export const createAuthor = (formValues) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
- 
+
   if(response && response.status === 200){
     dispatch({
       type: SET_MESSAGE,
@@ -61,7 +64,7 @@ export const createAuthor = (formValues) => async dispatch => {
       type: AUTHOR_CREATED, 
       payload: {
         statusCode: response.status,
-        author_created: true
+        author: response.data.author
       }
     });
   } else if(response){
@@ -119,6 +122,95 @@ export const newAuthor = () => async dispatch => {
       type: SET_MESSAGE,
       msg_type: "error",
       payload: response.statusText
+    });
+  }
+}
+
+export const editAuthor = (id) => async dispatch => {
+  const response = await baseUrl.get(
+    `/authors/${id}?action_type=edit`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+  if(response && response.status === 200){
+    dispatch({
+      type: AUTHOR_EDIT, 
+      payload: {
+        statusCode: response.status,
+        author: response.data.author,
+        sampradayas: response.data.sampradayas,
+      }
+    });
+  } else if(response){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.statusText
+    });
+  }
+}
+
+export const updateAuthor = (id, form) => async dispatch => {
+  const response = await baseUrl.put(
+    `/authors/${id}`, {author: form}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+  
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: AUTHOR_UPDATED, 
+      payload: {
+        authorUpdated: true,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
+
+export const deleteAuthor = (id) => async dispatch => {
+  const response = await baseUrl.delete(
+    `/authors/${id}`
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: AUTHOR_DELETED, 
+      payload: {
+        authors: response.data.authors,
+        total_authors: response.data.total_authors,
+        current_page: response.data.current_page,
+        articleDeleted: true
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
     });
   }
 }
