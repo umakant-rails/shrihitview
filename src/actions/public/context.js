@@ -1,7 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
-    CONTEXT_LIST,
-    CONTEXT_SHOW,
+  PB_CONTEXT_LIST,
+  PB_CONTEXT_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
@@ -17,7 +17,7 @@ export const getContexts = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: CONTEXT_LIST, 
+      type: PB_CONTEXT_LIST, 
       payload: {
         statusCode: response.status,
         contexts: response.data.contexts,
@@ -45,7 +45,7 @@ export const getContext = (name) => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: CONTEXT_SHOW, 
+      type: PB_CONTEXT_SHOW, 
       payload: {
         statusCode: response.status,
         context: response.data.context,

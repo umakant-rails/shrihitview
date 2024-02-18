@@ -199,8 +199,8 @@ export const STROTUM_SHOW = "STROTUM_SHOW";
 export const ARTICLE_TYPE_LIST = "ARTICLE_TYPE_LIST";
 export const ARTICLE_TYPE_SHOW = "ARTICLE_TYPE_SHOW";
 
-export const CONTEXT_LIST = "CONTEXT_LIST";
-export const CONTEXT_SHOW = "CONTEXT_SHOW";
+export const PB_CONTEXT_LIST = "PB_CONTEXT_LIST";
+export const PB_CONTEXT_SHOW = "PB_CONTEXT_SHOW";
 
 export const PB_TAG_LIST = "TAG_LIST";
 export const PB_TAG_SHOW = "TAG_SHOW";
