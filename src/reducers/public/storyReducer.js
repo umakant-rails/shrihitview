@@ -1,18 +1,18 @@
 import {
-  STORY_LIST,
-  STORY_SHOW,
+  PB_STORY_LIST,
+  PB_STORY_SHOW,
 } from "../../utils/types";
 
 const initialState = {stories: []};
 
 const storyReducer = (state=initialState, action) => {
   switch (action.type) {
-    case STORY_LIST:
+    case PB_STORY_LIST:
       return {
         ...state,
         stories: action.payload.stories,
       };
-    case STORY_SHOW:
+    case PB_STORY_SHOW:
       return {
         ...state,
         story: action.payload.story,

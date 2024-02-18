@@ -1,7 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  STORY_LIST,
-  STORY_SHOW,
+  PB_STORY_LIST,
+  PB_STORY_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
@@ -17,7 +17,7 @@ export const getStories = () => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: STORY_LIST, 
+      type: PB_STORY_LIST, 
       payload: {
         stories: response.data.stories,
       }
@@ -43,7 +43,7 @@ export const getStory = (id) => async(dispatch) => {
 
   if(response.status === 200){
     dispatch({
-      type: STORY_SHOW, 
+      type: PB_STORY_SHOW, 
       payload: {
         statusCode: response.status,
         story: response.data.story,

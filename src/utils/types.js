@@ -113,8 +113,8 @@ export const ADMIN_ACTIVITIES = [
   {
     url: '#', label: 'संत चरित्र/प्रेरक प्रसंग',
     childs: [
-      {url: '#', label: 'संत चरित्र/प्रेरक प्रसंग जोड़े'},
-      {url: '#', label: 'संत चरित्र/प्रेरक प्रसंग सूची'}
+      {url: '/stories/new', label: 'संत चरित्र/प्रेरक प्रसंग जोड़े'},
+      {url: '/stories', label: 'संत चरित्र/प्रेरक प्रसंग सूची'}
     ]
   },
   {
@@ -169,6 +169,14 @@ export const TAG_CREATED = "TAG_CREATED";
 export const TAG_EDIT = "TAG_EDIT";
 export const TAG_UPDATED = "TAG_UPDATED";
 export const TAG_DELETED = "TAG_DELETED";
+
+export const STORY_LIST = "STORY_LIST";
+export const STORY_NEW = "STORY_NEW";
+export const STORY_SHOW = "STORY_SHOW";
+export const STORY_CREATED = "STORY_CREATED";
+export const STORY_EDIT = "STORY_EDIT";
+export const STORY_UPDATED = "STORY_UPDATED";
+export const STORY_DELETED = "STORY_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
@@ -179,8 +187,8 @@ export const PB_AUTHOR_SHOW = "PB_AUTHOR_SHOW";
 export const PB_SANT_LIST = "PB_SANT_LIST";
 export const PB_SANT_SHOW = "PB_SANT_SHOW";
 
-export const STORY_LIST = "STORY_LIST";
-export const STORY_SHOW = "STORY_SHOW";
+export const PB_STORY_LIST = "PB_STORY_LIST";
+export const PB_STORY_SHOW = "PB_STORY_SHOW";
 
 export const SCRIPTURE_LIST = "SCRIPTURE_LIST";
 export const SCRIPTURE_SHOW = "SCRIPTURE_SHOW";

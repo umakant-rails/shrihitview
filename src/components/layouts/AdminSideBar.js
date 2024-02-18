@@ -82,7 +82,7 @@ const AdminSideBar = () => {
             }
           </ul>
         </div>
-        <div className="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-gray-800 dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700">
+        {/* <div className="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-gray-800 dark:bg-gray-800 z-20 border-r border-gray-200 dark:border-gray-700">
           <a href="#" className="inline-flex justify-center p-2 text-white rounded cursor-pointer dark:text-gray-400 hover:text-white dark:hover:text-white hover:bg-gray-600 dark:hover:bg-gray-600">
             <svg aria-hidden="true" className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path>
@@ -97,7 +97,7 @@ const AdminSideBar = () => {
             Settings page
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div>
-        </div>
+        </div> */}
       </aside>
     </>
   );

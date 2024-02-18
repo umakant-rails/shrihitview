@@ -42,6 +42,10 @@ import AuthorList from "../components/admin/authors/AuthorList";
 import AddAuthor from "../components/admin/authors/AddAuthor";
 import EditAuthor from "../components/admin/authors/EditAuthor";
 import TagList from "../components/admin/tags/TagList";
+import StoryList from "../components/admin/stories/StoryList";
+import AddStory from "../components/admin/stories/AddStory";
+import EditStory from "../components/admin/stories/EditStory";
+import StoryShow from "../components/admin/stories/StoryShow";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -96,6 +100,11 @@ const router = createBrowserRouter(
         <Route path="/authors/:id/edit" element={<ProtectedRoutes><EditAuthor/></ProtectedRoutes>} />
 
         <Route path="/tags" element={<ProtectedRoutes><TagList/></ProtectedRoutes>} />
+
+        <Route path="/stories" element={<ProtectedRoutes><StoryList/></ProtectedRoutes>} />
+        <Route path="/stories/new" element={<ProtectedRoutes><AddStory/></ProtectedRoutes>} />
+        <Route path="/stories/:id" element={<ProtectedRoutes><StoryShow/></ProtectedRoutes>} />
+        <Route path="/stories/:id/edit" element={<ProtectedRoutes><EditStory/></ProtectedRoutes>} />
        </Route>
     </Route>
   )
