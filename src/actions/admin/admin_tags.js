@@ -2,7 +2,6 @@ import baseUrl from "../../services/AxiosService";
 import {
   TAG_LIST,
   TAG_CREATED,
-  TAG_EDIT,
   TAG_UPDATED,
   TAG_DELETED,
   SET_MESSAGE,
@@ -66,32 +65,6 @@ export const createTag = (formValues) => async dispatch => {
         tags: response.data.tags,
         total_tags: response.data.total_tags,
         current_page: response.data.current_page
-      }
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.statusText
-    });
-  }
-}
-
-export const editTag = (id) => async dispatch => {
-  const response = await baseUrl.get(
-    `/tags/${id}?action_type=edit`, 
-  ).then(response => {
-    return response;
-  }).catch(function (error) {
-    return error.response;
-  });
-  if(response && response.status === 200){
-    dispatch({
-      type: TAG_EDIT, 
-      payload: {
-        statusCode: response.status,
-        author: response.data.author,
-        sampradayas: response.data.sampradayas,
       }
     });
   } else if(response){

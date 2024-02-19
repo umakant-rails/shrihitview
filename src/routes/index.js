@@ -28,7 +28,6 @@ import PBTagList from "../components/public/tags/PBTagList";
 import PBTagShow from "../components/public/tags/PBTagShow";
 import PBContextList from "../components/public/contexts/PBContextList";
 import PBContextShow from "../components/public/contexts/PBContextShow";
-import TagShow from "../components/public/tags/PBTagShow";
 
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
@@ -47,6 +46,7 @@ import AddStory from "../components/admin/stories/AddStory";
 import EditStory from "../components/admin/stories/EditStory";
 import StoryShow from "../components/admin/stories/StoryShow";
 import ContextList from "../components/admin/contexts/ContextList";
+import ArticleTypeList from "../components/admin/article_types/ArticleTypeList";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -92,6 +92,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<AdminLayout /> }>
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
 
+        <Route path="/admin/article_types" element={<ProtectedRoutes><ArticleTypeList/></ProtectedRoutes>} />
         <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />

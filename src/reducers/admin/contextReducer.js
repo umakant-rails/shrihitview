@@ -1,10 +1,8 @@
 import {
   CONTEXT_LIST,
   CONTEXT_CREATED,
-  CONTEXT_EDIT,
   CONTEXT_UPDATED,
   CONTEXT_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
   
   const initialState = {contextList: []};

@@ -1,13 +1,13 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  CONTEXT_LIST,
-  CONTEXT_CREATED,
-  CONTEXT_UPDATED,
-  CONTEXT_DELETED,
+  ARTICLE_TYPE_LIST,
+  ARTICLE_TYPE_CREATED,
+  ARTICLE_TYPE_UPDATED,
+  ARTICLE_TYPE_DELETED,
   SET_MESSAGE,
 } from "../../utils/types";
 
-export const getContexts = (searchAttr) => async dispatch => {
+export const getTypes = (searchAttr) => async dispatch => {
   const arr = [];
   Object.keys(searchAttr).map( key =>{
     if(searchAttr[key]){
@@ -17,7 +17,7 @@ export const getContexts = (searchAttr) => async dispatch => {
   const searchAttrStr = arr.join('&');
 
   const response = await baseUrl.get(
-    `/admin/contexts?${searchAttrStr}`, 
+    `/admin/article_types?${searchAttrStr}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -26,11 +26,11 @@ export const getContexts = (searchAttr) => async dispatch => {
  
   if(response.status === 200){
     dispatch({
-      type: CONTEXT_LIST, 
+      type: ARTICLE_TYPE_LIST, 
       payload: {
         statusCode: response.status,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
+        types: response.data.types,
+        total_types: response.data.total_types,
         current_page: response.data.current_page
       }
     });
@@ -43,9 +43,9 @@ export const getContexts = (searchAttr) => async dispatch => {
   }
 }
 
-export const createContext = (formValues) => async dispatch => {
+export const createType = (formValues) => async dispatch => {
   const response = await baseUrl.post(
-    '/admin/contexts', {context: formValues}
+    '/admin/article_types', {article_type: formValues}
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -59,11 +59,11 @@ export const createContext = (formValues) => async dispatch => {
       payload: response.data.notice,
     });
     dispatch({
-      type: CONTEXT_CREATED, 
+      type: ARTICLE_TYPE_CREATED, 
       payload: {
-        context: response.data.context,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
+        type: response.data.type,
+        types: response.data.types,
+        total_types: response.data.total_types,
         current_page: response.data.current_page
       }
     });
@@ -76,9 +76,9 @@ export const createContext = (formValues) => async dispatch => {
   }
 }
 
-export const updateContext = (id, form) => async dispatch => {
+export const updateType = (id, form) => async dispatch => {
   const response = await baseUrl.put(
-    `/admin/contexts/${id}`, {context: form}
+    `/admin/article_types/${id}`, {article_type: form}
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -92,11 +92,11 @@ export const updateContext = (id, form) => async dispatch => {
       payload: response.data.notice,
     });
      dispatch({
-      type: CONTEXT_UPDATED, 
+      type: ARTICLE_TYPE_UPDATED, 
       payload: {
-        context: response.data.context,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
+        type: response.data.type,
+        types: response.data.types,
+        total_types: response.data.total_types,
         current_page: response.data.current_page
       }
     });
@@ -109,9 +109,9 @@ export const updateContext = (id, form) => async dispatch => {
   }
 }
 
-export const deleteContext = (id) => async dispatch => {
+export const deleteType = (id) => async dispatch => {
   const response = await baseUrl.delete(
-    `/admin/contexts/${id}`
+    `/admin/article_types/${id}`
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -125,11 +125,11 @@ export const deleteContext = (id) => async dispatch => {
       payload: response.data.notice,
     });
      dispatch({
-      type: CONTEXT_DELETED,
+      type: ARTICLE_TYPE_DELETED,
       payload: {
-        context: response.data.context,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
+        type: response.data.context,
+        types: response.data.types,
+        total_types: response.data.total_types,
         current_page: response.data.current_page
       }
     });

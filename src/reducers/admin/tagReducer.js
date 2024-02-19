@@ -1,10 +1,8 @@
 import {
   TAG_LIST,
   TAG_CREATED,
-  TAG_EDIT,
   TAG_UPDATED,
   TAG_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
   
   const initialState = {tags: []};

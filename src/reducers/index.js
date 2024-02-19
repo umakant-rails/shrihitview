@@ -16,6 +16,7 @@ import adminAuthorReducer from "./admin/authorReducer";
 import adminTagReducer from "./admin/tagReducer";
 import adminStoryReducer from "./admin/storyReducer";
 import adminContextReducer from "./admin/contextReducer";
+import adminArticleTypeReducer from "./admin/articleTypeReducer";
 
 export default combineReducers({
     home: homeReducer,
@@ -33,6 +34,7 @@ export default combineReducers({
     adminAuthor: adminAuthorReducer,
     adminTag: adminTagReducer,
     adminStory: adminStoryReducer,
-    adminContext: adminContextReducer
+    adminContext: adminContextReducer,
+    adminAType: adminArticleTypeReducer,
 
 });

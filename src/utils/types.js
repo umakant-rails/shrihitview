@@ -31,14 +31,14 @@ export const ADMIN_ACTIVITIES = [
     ]
   },
   {
-    url: '#', label: 'रचना प्रकार',
+    url: '/admin/article_types', label: 'रचना प्रकार', childs: [],
     icon: `<svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0a4 4 0 0 1-4 4h-1a3 3 0 0 0-3 3"/>
     </svg>`,
-    childs: [
-      {url: '#', label: 'रचना प्रकार जोड़े'},
-      {url: '#', label: 'रचना प्रकार सूची'}
-    ]
+    // childs: [
+    //   {url: '#', label: 'रचना प्रकार जोड़े'},
+    //   {url: '#', label: 'रचना प्रकार सूची'}
+    // ]
   },
   {
     url: '/admin/contexts', label: 'प्रसंग', childs: []
@@ -184,6 +184,13 @@ export const CONTEXT_CREATED = "CONTEXT_CREATED";
 export const CONTEXT_EDIT = "CONTEXT_EDIT";
 export const CONTEXT_UPDATED = "CONTEXT_UPDATED";
 export const CONTEXT_DELETED = "CONTEXT_DELETED";
+
+export const ARTICLE_TYPE_LIST = "ARTICLE_TYPE_LIST";
+export const ARTICLE_TYPE_NEW = "ARTICLE_TYPENEW";
+export const ARTICLE_TYPE_CREATED = "ARTICLE_TYPECREATED";
+export const ARTICLE_TYPE_EDIT = "ARTICLE_TYPEEDIT";
+export const ARTICLE_TYPE_UPDATED = "ARTICLE_TYPEUPDATED";
+export const ARTICLE_TYPE_DELETED = "ARTICLE_TYPEDELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
