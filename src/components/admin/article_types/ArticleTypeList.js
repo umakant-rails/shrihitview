@@ -48,28 +48,6 @@ const ArticleTypeList = () => {
     dispatch(getTypes(sAttrs));
   };
 
-  // const showArticles = (author) => {
-  //   if (authorId !== author.id) {
-  //     setAuthorId(author.id);
-  //   } else {
-  //     setAuthorId(null);
-  //   }
-  // };
-
-  const resetFilteredAuthors = (e) => {
-    setTotalTypeQnty(null);
-    setSearchAttr({page: 1})
-    dispatch(getTypes({page: 1}));
-    document.getElementsByName("alphabet").forEach((el) => el.checked = false );
-  }
-
-  const filterAuthors = (e) => {
-    const selectedAlbhabet = e.target.value;
-    let sAttrs = {'start_with': selectedAlbhabet, page: 0};
-    setSearchAttr(sAttrs);
-    dispatch(getTypes(sAttrs));
-  }
-
   const deleteToTag = (id) => {
     dispatch(deleteType(id));
   }

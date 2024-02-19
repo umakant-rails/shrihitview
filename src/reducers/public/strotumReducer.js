@@ -1,19 +1,19 @@
 import {
-  STROTUM_LIST,
-  STROTUM_SHOW,
+  PB_STROTUM_LIST,
+  PB_STROTUM_SHOW,
 } from "../../utils/types";
 
 const initialState = {strota: []};
 
 const strotumReducer = (state=initialState, action) => {
   switch (action.type) {
-    case STROTUM_LIST:
+    case PB_STROTUM_LIST:
       return {
         ...state,
         strota: action.payload.strota,
         strota_types: action.payload.strota_types
       };
-    case STROTUM_SHOW:
+    case PB_STROTUM_SHOW:
       return {
         ...state,
         strota: action.payload.strota,

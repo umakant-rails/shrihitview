@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStrotum } from '../../../actions/public/strota';
 
-const StrotumShow = () => {
+const PBStrotumShow = () => {
   const dispatch = useDispatch();
   const {title} = useParams();
   const { strota, strotum } = useSelector(state => state.strotum);
@@ -50,4 +50,4 @@ const StrotumShow = () => {
   );
 };
 
-export default StrotumShow;
+export default PBStrotumShow;

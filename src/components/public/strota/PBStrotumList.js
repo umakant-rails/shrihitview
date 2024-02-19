@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getStrota } from '../../../actions/public/strota';
 import shrihit from "../../../assets/images/shrihit.png"
 
-const StrotumList = () => {
+const PBStrotumList = () => {
   const dispatch = useDispatch();
   const { strota } = useSelector( state => state.strotum );
 
@@ -49,4 +49,4 @@ const StrotumList = () => {
   );
 };
 
-export default StrotumList;
+export default PBStrotumList;

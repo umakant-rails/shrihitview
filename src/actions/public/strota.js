@@ -1,7 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  STROTUM_LIST,
-  STROTUM_SHOW,
+  PB_STROTUM_LIST,
+  PB_STROTUM_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
@@ -16,7 +16,7 @@ export const getStrota = () => async dispatch => {
   
   if(response.status === 200){
     dispatch({
-      type: STROTUM_LIST, 
+      type: PB_STROTUM_LIST, 
       payload: {
         strota: response.data.strota,
         strota_types: response.data.strota_types,
@@ -41,7 +41,7 @@ export const getStrotum = (id) => async(dispatch) => {
 
   if(response.status === 200){
     dispatch({
-      type: STROTUM_SHOW, 
+      type: PB_STROTUM_SHOW, 
       payload: {
         statusCode: response.status,
         strotum: response.data.strotum ,
