@@ -9,7 +9,7 @@ import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 
 
-const ContextShow = () => {
+const PBContextShow = () => {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [articleList, setArticleList] = useState([]);
@@ -91,4 +91,4 @@ const ContextShow = () => {
   )
 };
 
-export default ContextShow;
+export default PBContextShow;

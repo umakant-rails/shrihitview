@@ -7,20 +7,10 @@ import {
   SET_MESSAGE,
 } from "../../utils/types";
   
-  const initialState = {authorList: []};
+  const initialState = {tags: []};
   
   const adminTagReducer = (state=initialState, action) => {
     switch (action.type) {
-      // case AUTHOR_NEW:
-      //   return {
-      //     ...state,
-      //     sampradayas: action.payload.sampradayas,
-      //   };
-      // case SAMPRADAYA_CREATED:
-      //   return {
-      //     sampradayas: action.payload.sampradayas,
-      //     sampradayaCreated: action.payload.sampradaya_created,
-      //   }
       case TAG_LIST:
         return {
           tags: action.payload.tags,

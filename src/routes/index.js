@@ -25,9 +25,9 @@ import StrotumShow from "../components/public/strota/StrotumShow";
 import ArticleTypeList from "../components/public/article_types/ArticleTypeList";
 import PBTagList from "../components/public/tags/PBTagList";
 import PBTagShow from "../components/public/tags/PBTagShow";
-import ContextList from "../components/public/contexts/ContextList";
+import PBContextList from "../components/public/contexts/PBContextList";
 import ArticleTypeShow from "../components/public/article_types/ArticleTypeShow";
-import ContextShow from "../components/public/contexts/ContextShow";
+import ContextShow from "../components/public/contexts/PBContextShow";
 import TagShow from "../components/public/tags/PBTagShow";
 
 import AdminLayout from "../components/layouts/AdminLayout";
@@ -46,6 +46,7 @@ import StoryList from "../components/admin/stories/StoryList";
 import AddStory from "../components/admin/stories/AddStory";
 import EditStory from "../components/admin/stories/EditStory";
 import StoryShow from "../components/admin/stories/StoryShow";
+import ContextList from "../components/admin/contexts/ContextList";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -81,7 +82,7 @@ const router = createBrowserRouter(
 
         <Route path="/pb/article_types" element={<ArticleTypeList />} />
         <Route path="/pb/article_types/:name" element={<ArticleTypeShow />} />
-        <Route path="/pb/contexts" element={<ContextList />} />
+        <Route path="/pb/contexts" element={<PBContextList />} />
         <Route path="/pb/contexts/:name" element={<ContextShow />} />
         <Route path="/pb/tags" element={<PBTagList />} />
         <Route path="/pb/tags/:name" element={<PBTagShow />} />
@@ -90,6 +91,9 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/" element={<AdminLayout /> }>
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
+
+        <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />
+
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
         <Route path="/articles/:id" element={<ProtectedRoutes><ArticleShow /></ProtectedRoutes>} />

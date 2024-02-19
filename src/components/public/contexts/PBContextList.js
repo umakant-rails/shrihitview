@@ -5,7 +5,7 @@ import Pagination from '../../shared/Pagination';
 import { getContexts } from '../../../actions/public/context';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 
-const ContextList = () => {
+const PBContextList = () => {
   const dispatch = useDispatch();
   const [contextList, setContextList] = useState([]);
   const [currentContexts, setCurrentContexts] = useState([]);
@@ -76,4 +76,4 @@ const ContextList = () => {
   );
 };
 
-export default ContextList;
+export default PBContextList;

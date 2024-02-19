@@ -8,7 +8,7 @@ import {
   STORY_DELETED,
 } from "../../utils/types";
   
-  const initialState = {authorList: []};
+  const initialState = {stories: []};
   
   const adminStoryReducer = (state=initialState, action) => {
     switch (action.type) {

@@ -41,11 +41,11 @@ export const ADMIN_ACTIVITIES = [
     ]
   },
   {
-    url: '#', label: 'प्रसंग',
-    childs: [
-      {url: '#', label: 'प्रसंग जोड़े'},
-      {url: '#', label: 'प्रसंग सूची'}
-    ]
+    url: '/admin/contexts', label: 'प्रसंग', childs: []
+    // childs: [
+    //   {url: '/admin/contexts', label: 'प्रसंग जोड़े'},
+    //   {url: '#', label: 'प्रसंग सूची'}
+    // ]
   },
   {
     url: '#', label: 'रसिक वाणी/ग्रन्थ',
@@ -177,6 +177,13 @@ export const STORY_CREATED = "STORY_CREATED";
 export const STORY_EDIT = "STORY_EDIT";
 export const STORY_UPDATED = "STORY_UPDATED";
 export const STORY_DELETED = "STORY_DELETED";
+
+export const CONTEXT_LIST = "CONTEXT_LIST";
+export const CONTEXT_NEW = "CONTEXT_NEW";
+export const CONTEXT_CREATED = "CONTEXT_CREATED";
+export const CONTEXT_EDIT = "CONTEXT_EDIT";
+export const CONTEXT_UPDATED = "CONTEXT_UPDATED";
+export const CONTEXT_DELETED = "CONTEXT_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
