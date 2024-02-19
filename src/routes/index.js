@@ -22,12 +22,12 @@ import PBStoryList from "../components/public/stories/PBStoryList";
 import PBStoryShow from "../components/public/stories/PBStoryShow";
 import StrotumList from "../components/public/strota/StrotumList";
 import StrotumShow from "../components/public/strota/StrotumShow";
-import ArticleTypeList from "../components/public/article_types/ArticleTypeList";
+import PBArticleTypeList from "../components/public/article_types/PBArticleTypeList";
+import PBArticleTypeShow from "../components/public/article_types/PBArticleTypeShow";
 import PBTagList from "../components/public/tags/PBTagList";
 import PBTagShow from "../components/public/tags/PBTagShow";
 import PBContextList from "../components/public/contexts/PBContextList";
-import ArticleTypeShow from "../components/public/article_types/ArticleTypeShow";
-import ContextShow from "../components/public/contexts/PBContextShow";
+import PBContextShow from "../components/public/contexts/PBContextShow";
 import TagShow from "../components/public/tags/PBTagShow";
 
 import AdminLayout from "../components/layouts/AdminLayout";
@@ -80,10 +80,10 @@ const router = createBrowserRouter(
         <Route path="/pb/strota" element={<StrotumList />} />
         <Route path="/pb/strota/:title" element={<StrotumShow />} />
 
-        <Route path="/pb/article_types" element={<ArticleTypeList />} />
-        <Route path="/pb/article_types/:name" element={<ArticleTypeShow />} />
+        <Route path="/pb/article_types" element={<PBArticleTypeList />} />
+        <Route path="/pb/article_types/:name" element={<PBArticleTypeShow />} />
         <Route path="/pb/contexts" element={<PBContextList />} />
-        <Route path="/pb/contexts/:name" element={<ContextShow />} />
+        <Route path="/pb/contexts/:name" element={<PBContextShow />} />
         <Route path="/pb/tags" element={<PBTagList />} />
         <Route path="/pb/tags/:name" element={<PBTagShow />} />
 

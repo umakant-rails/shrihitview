@@ -10,7 +10,7 @@ import Pagination from '../../shared/Pagination';
 
 //import { getArticleType } from '../../../actions/article_types';
 
-const ArticleTypeShow = () => {
+const PBArticleTypeShow = () => {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [articleList, setAirticleList] = useState([]);
@@ -92,4 +92,4 @@ const ArticleTypeShow = () => {
   );
 };
 
-export default ArticleTypeShow;
+export default PBArticleTypeShow;

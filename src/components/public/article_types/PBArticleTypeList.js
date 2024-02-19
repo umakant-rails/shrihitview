@@ -5,7 +5,7 @@ import Pagination from '../../shared/Pagination';
 import { getArticleTypes } from '../../../actions/public/article_types'; 
 import { ITEM_PER_PAGE } from '../../../utils/types';
 
-const ArticleTypeList = () => {
+const PBArticleTypeList = () => {
   const dispatch = useDispatch();
   const [articleTypeList, setArticleTypeList] = useState([]);
   const [currentTypes, setCurrentTypes] = useState([]);
@@ -78,4 +78,4 @@ const ArticleTypeList = () => {
   );
 };
 
-export default ArticleTypeList;
+export default PBArticleTypeList;
