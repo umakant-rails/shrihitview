@@ -78,8 +78,8 @@ export const ADMIN_ACTIVITIES = [
   {
     url: '#', label: 'स्त्रोत/आरती',
     childs: [
-      {url: '#', label: 'स्त्रोत/आरती जोड़े'},
-      {url: '#', label: 'स्त्रोत/आरती सूची'}
+      {url: '/admin/strota/new', label: 'स्त्रोत/आरती जोड़े'},
+      {url: '/admin/strota', label: 'स्त्रोत/आरती सूची'}
     ]
   },
   {
@@ -186,11 +186,18 @@ export const CONTEXT_UPDATED = "CONTEXT_UPDATED";
 export const CONTEXT_DELETED = "CONTEXT_DELETED";
 
 export const ARTICLE_TYPE_LIST = "ARTICLE_TYPE_LIST";
-export const ARTICLE_TYPE_NEW = "ARTICLE_TYPENEW";
-export const ARTICLE_TYPE_CREATED = "ARTICLE_TYPECREATED";
-export const ARTICLE_TYPE_EDIT = "ARTICLE_TYPEEDIT";
-export const ARTICLE_TYPE_UPDATED = "ARTICLE_TYPEUPDATED";
-export const ARTICLE_TYPE_DELETED = "ARTICLE_TYPEDELETED";
+export const ARTICLE_TYPE_NEW = "ARTICLE_TYPE_NEW";
+export const ARTICLE_TYPE_CREATED = "ARTICLE_TYPE_CREATED";
+export const ARTICLE_TYPE_EDIT = "ARTICLE_TYPE_EDIT";
+export const ARTICLE_TYPE_UPDATED = "ARTICLE_TYPE_UPDATED";
+export const ARTICLE_TYPE_DELETED = "ARTICLE_TYPE_DELETED";
+
+export const STROTUM_LIST = "STROTUM_LIST";
+export const STROTUM_NEW = "STROTUM_NEW";
+export const STROTUM_CREATED = "STROTUM_CREATED";
+export const STROTUM_EDIT = "STROTUM_EDIT";
+export const STROTUM_UPDATED = "STROTUM_UPDATED";
+export const STROTUM_DELETED = "STROTUM_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";

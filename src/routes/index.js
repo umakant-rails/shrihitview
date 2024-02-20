@@ -47,6 +47,10 @@ import EditStory from "../components/admin/stories/EditStory";
 import StoryShow from "../components/admin/stories/StoryShow";
 import ContextList from "../components/admin/contexts/ContextList";
 import ArticleTypeList from "../components/admin/article_types/ArticleTypeList";
+import StrotumList from "../components/admin/strota/StrotumList";
+import AddStroum from "../components/admin/strota/AddStrotum";
+import EditStrotum from "../components/admin/strota/EditStrotum";
+import StrotumShow from "../components/admin/strota/StrotumShow";
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -94,6 +98,11 @@ const router = createBrowserRouter(
 
         <Route path="/admin/article_types" element={<ProtectedRoutes><ArticleTypeList/></ProtectedRoutes>} />
         <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />
+
+        <Route path="/admin/strota" element={<ProtectedRoutes><StrotumList /></ProtectedRoutes>} />
+        <Route path="/admin/strota/new" element={<ProtectedRoutes><AddStroum /></ProtectedRoutes>} />
+        <Route path="/admin/strota/:id" element={<ProtectedRoutes><StrotumShow /></ProtectedRoutes>} />
+        <Route path="/admin/strota/:id/edit" element={<ProtectedRoutes><EditStrotum /></ProtectedRoutes>} />
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
