@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
-import { Editor } from 'primereact/editor';
 import {newStrotum, createStrotum} from "../../../actions/admin/admin_strota";
-import { useNavigate } from 'react-router';
 
 const authorObj = {title: '', strota_type_id: '', source: '', keyword: ''};
 
 const AddStroum = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
- 
+  const dispatch = useDispatch(); 
   const [formValues, setFormValues] = useState(authorObj);
   const { strotum, strota_types } = useSelector( (state) => state.adminStrotum)
 

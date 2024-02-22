@@ -3,6 +3,7 @@ import {
   STROTUM_LIST,
   STROTUM_NEW,
   STROTUM_CREATED,
+  STROTUM_SHOW,
   STROTUM_EDIT,
   STROTUM_UPDATED,
   STROTUM_DELETED,
@@ -32,8 +33,37 @@ export const getStrota = (searchAttr) => async dispatch => {
       payload: {
         statusCode: response.status,
         strota: response.data.strota,
+        strota_types: response.data.strota_types,
         total_strota: response.data.total_strota,
         current_page: response.data.current_page
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
+
+export const getStrotum = (id) => async dispatch => {
+  const response = await baseUrl.get(
+    `/admin/strota/${id}`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.data.error === undefined){
+    dispatch({
+      type: STROTUM_SHOW, 
+      payload: {
+        statusCode: response.status,
+        strotum: response.data.strotum,
+        strotum_articles: response.data.strotum_articles,
+        article_types: response.data.article_types,
       }
     });
   } else {
@@ -53,7 +83,7 @@ export const createStrotum = (formValues) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  console.log(response)
+
   if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
@@ -188,4 +218,12 @@ export const deleteStrotum = (id) => async dispatch => {
       payload: response.data.error.join("\n"),
     });
   }
+}
+
+export const getStrotumArticles =(id, page) => async dispatch => {
+
+}
+
+export const deleteStrotumArticle =(id) => async dispatch => {
+
 }

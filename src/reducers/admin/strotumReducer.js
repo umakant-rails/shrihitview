@@ -2,6 +2,7 @@ import {
   STROTUM_LIST,
   STROTUM_NEW,
   STROTUM_CREATED,
+  STROTUM_SHOW,
   STROTUM_EDIT,
   STROTUM_UPDATED,
   STROTUM_DELETED
@@ -18,15 +19,22 @@ import {
         };
       case STROTUM_LIST:
         return {
+          strota_types: action.payload.strota_types,
           strota: action.payload.strota,
           total_strota: action.payload.total_strota,
           current_page: action.payload.current_page
         };
       case STROTUM_CREATED:
-        console.log(action.payload)
         return {
           ...state,
           strotum: action.payload.strotum,
+        }
+      case STROTUM_SHOW:
+        return {
+          ...state,
+          strotum: action.payload.strotum,
+          strotum_articles: action.payload.strotum_articles,
+          article_types: action.payload.article_types,
         }
       case STROTUM_EDIT:
         return {
