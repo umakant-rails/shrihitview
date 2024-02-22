@@ -5,7 +5,11 @@ import {
   STROTUM_SHOW,
   STROTUM_EDIT,
   STROTUM_UPDATED,
-  STROTUM_DELETED
+  STROTUM_DELETED,
+  STROTUM_ARTICLE_CREATED,
+  STROTUM_ARTICLE_UPDATED,
+  STROTUM_ARTICLE_DELETED,
+  STROTUM_ARTICLE_INDEX_UPDATED,
 } from "../../utils/types";
   
   const initialState = {strota: []};
@@ -53,6 +57,27 @@ import {
           strota: action.payload.strota,
           total_strota: action.payload.total_strota,
           current_page: action.payload.current_page
+        }
+      case STROTUM_ARTICLE_CREATED:
+        return {
+          ...state,
+          strotum_article: action.payload.strotum_article,
+          strotum_articles: action.payload.strotum_articles
+        }
+      case STROTUM_ARTICLE_UPDATED:
+        return {
+          ...state,
+          strotum_article: action.payload.strotum_article,
+          strotum_articles: action.payload.strotum_articles
+        }
+      case STROTUM_ARTICLE_INDEX_UPDATED:
+        return{
+          ...state,
+          strotum_articles: action.payload.strotum_articles
+        }
+      case STROTUM_ARTICLE_DELETED:
+        return {
+          ...state
         }
       default: 
         return state

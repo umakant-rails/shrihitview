@@ -8,6 +8,10 @@ import {
   STROTUM_UPDATED,
   STROTUM_DELETED,
   SET_MESSAGE,
+  STROTUM_ARTICLE_CREATED,
+  STROTUM_ARTICLE_UPDATED,
+  STROTUM_ARTICLE_DELETED,
+  STROTUM_ARTICLE_INDEX_UPDATED,
 } from "../../utils/types";
 
 export const getStrota = (searchAttr) => async dispatch => {
@@ -219,11 +223,102 @@ export const deleteStrotum = (id) => async dispatch => {
     });
   }
 }
-
+/* start - actions for strotum's articles */
 export const getStrotumArticles =(id, page) => async dispatch => {
 
 }
+export const createStrotumArticle =(strotum_id, formValues) => async dispatch => {
+  const response = await baseUrl.post(
+    `/admin/strota/${strotum_id}/strota_articles`, {strota_article: formValues}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
 
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: STROTUM_ARTICLE_CREATED, 
+      payload: {
+        strotum_article: response.data.strotum_article,
+        strotum_articles: response.data.strotum_articles
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
+export const updateStrotumArticle =(strotum_id, article_id, formValues) => async dispatch => {
+  const response = await baseUrl.put(
+    `/admin/strota/${strotum_id}/strota_articles/${article_id}`, {strota_article: formValues}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: STROTUM_ARTICLE_UPDATED, 
+      payload: {
+        strotum_article: response.data.strotum_article,
+        strotum_articles: response.data.strotum_articles
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
+export const updateAritcleIndex = (strotum_id, article_id, new_index) => async dispatch => {
+  const response = await baseUrl.post(
+    `/admin/strota/${strotum_id}/strota_articles/${article_id}/update_index`, 
+    {new_index: new_index}
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: STROTUM_ARTICLE_INDEX_UPDATED, 
+      payload: {
+        strotum_articles: response.data.strotum_articles
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+}
 export const deleteStrotumArticle =(id) => async dispatch => {
 
 }
+
+/* end - actions for strotum's articles */

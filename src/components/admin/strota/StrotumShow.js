@@ -2,7 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
-import { deleteStrotumArticle, getStrotum, getStrotumArticles } from '../../../actions/admin/admin_strota';
+import { 
+  createStrotumArticle, 
+  deleteStrotumArticle, 
+  getStrotum, 
+  updateAritcleIndex, 
+  updateStrotumArticle
+} from '../../../actions/admin/admin_strota';
 import { Modal } from 'flowbite';
 
 const strotumArticleObj = {index: '', content: '', interpretation: '', article_type_id: ''};
@@ -22,16 +28,14 @@ const StrotumShow = () => {
   }, [id]);
 
   useEffect( () => {
-    if(strotum_articles){ setStrotumArticles(strotum_articles); }
+    if(strotum_articles){ 
+      setStrotumArticles(strotum_articles);
+      if(popup.current){
+        popup.current.hide(); popup.current = null;
+      }
+    }
   }, [strotum_articles]);
   
-  const handlePageClick = (event) => {
-    const page = parseInt(event.target.getAttribute('value'));
-    // let sAttrs = {...searchAttr, page: page};
-    // setSearchAttr(sAttrs);
-    dispatch(getStrotumArticles(page));
-  };
-
   const resetFilteredAuthors = (e) => {
     // setTotalAuthorQnty(null);
     // setSearchAttr({page: 1})
@@ -49,17 +53,32 @@ const StrotumShow = () => {
     dispatch(deleteStrotumArticle(id));
   }
 
+  const createToStrotumArticle = () => {
+    dispatch(createStrotumArticle(strotum.id, formValues));
+  }
+
+  const updateToStrotumArticle = () => {
+    dispatch(updateStrotumArticle(strotum.id, editableSArticle.id, formValues));
+  }
+
+  const updateToAritcleIndex = (id) => {
+    const article = strotumArticles.filter((article) => article.id === id )[0];
+    dispatch(updateAritcleIndex(strotum.id, article.id, article.index));
+    //updateAritcleIndex(strotum.id, article.id, article.index);
+  }
+
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
   }
 
-  const setArticleIndex = (id, value) =>{
-    setStrotumArticles(strotumArticles.map((article) => {
+  const setArticleIndex = (id, value) => {
+    const tmp = strotumArticles.map((article) => {
       if(article.id === id){
         return {...article, index: value};
       }
       return article;
-    }))
+    });
+    setStrotumArticles(tmp);
   }
   const setArticleForEdit = (id) => {
     if(id){
@@ -87,9 +106,9 @@ const StrotumShow = () => {
       <div id="add-edit-st-article-modal" tabIndex="-1" aria-hidden="true" 
         className={`hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
         justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}>
-        <div className="relative p-4 w-full max-w-7xl max-h-full">
+        <div className="relative p-2 w-full max-w-7xl max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <div className="flex items-center justify-between py-3 md:p-3 md:px-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center">
                 {editableSArticle ? 'स्त्रोत/आरती रचना अद्यतन फॉर्म' :  'स्त्रोत/आरती रचना फॉर्म' }
               </h3>
@@ -104,9 +123,8 @@ const StrotumShow = () => {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-
-            <div className="p-4 md:p-5 space-y-4">
-              <form className="py-5 px-10">
+            <form className="py-3 px-10">
+              <div className="pb-2 md:pb-2 space-y-2">
                 <div className='grid md:grid-cols-12 mb-3 gap-6'>
                   <div className='col-span-6'>
                     <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -150,7 +168,7 @@ const StrotumShow = () => {
                     onTextChange={ e => { 
                       setEditorValues('content', e.htmlValue); 
                     }}
-                    style={{ height: '200px', fontSize: '16px'}} />
+                    style={{ height: '160px', fontSize: '16px'}} />
                 </div>
                 <div className='mb-3'>
                   <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -161,24 +179,34 @@ const StrotumShow = () => {
                     onTextChange={(e) => {
                       setEditorValues('interpretation', e.htmlValue);
                     }} 
-                    style={{ height: '200px', fontSize: '16px'}} />
+                    style={{ height: '160px', fontSize: '16px'}} />
                 </div>
-              </form>
-            </div>
-            <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-              <button type="button"
-                onClick={hidePopup} 
-                className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                स्त्रोत/आरती जोड़े
-              </button> 
-              <button 
-                onClick={hidePopup} 
-                className={`py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none 
-                  bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 
-                  focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 
-                  dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
-                  dark:hover:bg-gray-700`}>Cancel</button>
-            </div>
+              </div>
+              <div className="flex items-center p-3 md:p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                {
+                  editableSArticle ? (
+                    <button type="button"
+                      onClick={updateToStrotumArticle}
+                      className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                       स्त्रोत/आरती अद्यतन करें
+                    </button>
+                  ) : (
+                    <button type="button"
+                      onClick={createToStrotumArticle}
+                      className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      स्त्रोत/आरती जोड़े
+                    </button>
+                  )
+                }
+                <button 
+                  onClick={hidePopup} 
+                  className={`py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none 
+                    bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 
+                    focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 
+                    dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
+                    dark:hover:bg-gray-700`}>Cancel</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -277,7 +305,9 @@ const StrotumShow = () => {
                         <td>
                           <input type="number" value={article.index } className='w-20 mr-3'
                             onChange={e => setArticleIndex(article.id, e.target.value)} />
-                          <button className='bg-blue-500 text-white px-3 py-2'>अनुक्रम बदलें</button>
+                          <button onClick={e => updateToAritcleIndex(article.id)} className='bg-blue-500 text-white px-3 py-2'>
+                            अनुक्रम बदलें
+                          </button>
                         </td>
                         <td className="px-2 py-3 flex items-center justify-center justify-end">
                           <Link to='' onClick={e => {showPopup(); setArticleForEdit(article.id)}}>
