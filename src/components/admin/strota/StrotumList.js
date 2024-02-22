@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { deleteStrotum, getStrota } from '../../../actions/admin/admin_strota';
+import { deleteStrotum, getStrota, createStrotumArticle } from '../../../actions/admin/admin_strota';
 import { Modal } from 'flowbite';
 
 const strotumArticleObj = {index: '', content: '', interpretation: '', article_type_id: ''};
@@ -13,9 +13,10 @@ const StrotumList = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [strotumList, setStrotumList] = useState([]);
-  const[strotaType, setStrotaType] = useState('');
+  const [strotaType, setStrotaType] = useState('');
+  const [strotum, setStrotum] = useState(null);
   const [totalStrotumQnty, setTotalStrotumQnty] = useState(0);
-  const { strota, total_strota, current_page, strota_types } = useSelector( state => state.adminStrotum );
+  const {strota, total_strota, current_page, article_types, strota_types } = useSelector( state => state.adminStrotum );
   const [searchAttr, setSearchAttr] = useState({page: 1});
   const [formValues, setFormValues] = useState(strotumArticleObj);
   const popup = useRef(null);
@@ -60,7 +61,11 @@ const StrotumList = () => {
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
   }
-
+  const createToStrotumArticle = () => {
+    dispatch(createStrotumArticle(strotum.id, formValues));
+    popup.current.hide(); popup.current = null;
+    setFormValues(strotumArticleObj);
+  }
   const showPopup = () => {
     const modalEl = document.getElementById('new-st-article-modal');
     const privacyModal = new Modal(modalEl, { placement: 'center' });
@@ -98,13 +103,21 @@ const StrotumList = () => {
                     <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                       रचना प्रकार <span title="required" className="text-red-600 font-bold">*</span>
                     </label>
-                    <input type="text" 
+                    <select id="article_type_id" name="article_type_id" 
+                      value={formValues.article_type_id || ''}
                       onChange={e => setEditorValues('article_type_id', e.target.value)}
-                      className={`block w-full p-2.5 text-gray-900 border border-gray-300 
-                      rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
-                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                      value={formValues.article_type_id || ''} required/>
+                      className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
+                        rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                        dark:shadow-sm-light`} required>
+                        <option value="">रचना प्रकार चुने</option>
+                        {
+                          article_types && article_types.map( (strota_type, index) => 
+                            <option key={index} value={strota_type.id}>{strota_type.name}</option>
+                          )
+                        }
+                    </select>
                   </div>
                   <div className='col-span-6'>
                     <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -144,7 +157,7 @@ const StrotumList = () => {
               </div>
               <div className="flex items-center p-3 md:p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button type="button"
-                  onClick={hidePopup} 
+                  onClick={createToStrotumArticle} 
                   className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   स्त्रोत/आरती जोड़े
                 </button> 
@@ -241,7 +254,7 @@ const StrotumList = () => {
                         </td>
                         <td className="px-2 py-3">
                           <button 
-                            onClick={showPopup}
+                            onClick={ e=> {showPopup(); setStrotum(strotum);}}
                             className='flex bg-blue-600 rounded p-2 text-sm text-white'>
                             Add Articles&nbsp;&nbsp;
                             <svg className="w-[18px] h-[18px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

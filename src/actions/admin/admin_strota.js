@@ -39,7 +39,8 @@ export const getStrota = (searchAttr) => async dispatch => {
         strota: response.data.strota,
         strota_types: response.data.strota_types,
         total_strota: response.data.total_strota,
-        current_page: response.data.current_page
+        current_page: response.data.current_page,
+        article_types: response.data.article_types,
       }
     });
   } else {
@@ -61,7 +62,7 @@ export const getStrotum = (id) => async dispatch => {
   });
 
   if(response.data.error === undefined){
-    dispatch({
+     dispatch({
       type: STROTUM_SHOW, 
       payload: {
         statusCode: response.status,
@@ -317,8 +318,34 @@ export const updateAritcleIndex = (strotum_id, article_id, new_index) => async d
     });
   }
 }
-export const deleteStrotumArticle =(id) => async dispatch => {
+export const deleteStrotumArticle =(strotum_id, article_id) => async dispatch => {
+  const response = await baseUrl.delete(
+    `/admin/strota/${strotum_id}/strota_articles/${article_id}`
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
 
+  if(response.data.error === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+     dispatch({
+      type: STROTUM_ARTICLE_DELETED, 
+      payload: {
+        strotum_articles: response.data.strotum_articles
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
 }
 
 /* end - actions for strotum's articles */

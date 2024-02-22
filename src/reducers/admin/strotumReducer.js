@@ -23,6 +23,8 @@ import {
         };
       case STROTUM_LIST:
         return {
+          ...state,
+          article_types: action.payload.article_types,
           strota_types: action.payload.strota_types,
           strota: action.payload.strota,
           total_strota: action.payload.total_strota,
@@ -77,7 +79,8 @@ import {
         }
       case STROTUM_ARTICLE_DELETED:
         return {
-          ...state
+          ...state,
+          strotum_articles: action.payload.strotum_articles
         }
       default: 
         return state

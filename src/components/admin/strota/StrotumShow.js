@@ -49,8 +49,8 @@ const StrotumShow = () => {
     // dispatch(getAuthors(sAttrs));
   }
 
-  const deleteToStrotumArticle = (id) => {
-    dispatch(deleteStrotumArticle(id));
+  const deleteToStrotumArticle = (article_id) => {
+    dispatch(deleteStrotumArticle(strotum.id, article_id));
   }
 
   const createToStrotumArticle = () => {
@@ -64,7 +64,6 @@ const StrotumShow = () => {
   const updateToAritcleIndex = (id) => {
     const article = strotumArticles.filter((article) => article.id === id )[0];
     dispatch(updateAritcleIndex(strotum.id, article.id, article.index));
-    //updateAritcleIndex(strotum.id, article.id, article.index);
   }
 
   const setEditorValues = (name, value) => {
