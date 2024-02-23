@@ -54,7 +54,7 @@ export const ADMIN_ACTIVITIES = [
     </svg>`,
     childs: [
       {url: '#', label: 'रसिक वाणी/ग्रन्थ जोड़े'},
-      {url: '#', label: 'रसिक वाणी/ग्रन्थ सूची'},
+      {url: '/admin/scriptures', label: 'रसिक वाणी/ग्रन्थ सूची'},
       {url: '#', label: 'अध्याय जोड़े'},
       {url: '#', label: 'अध्याय सूची'},
       {url: '#', label: 'सेक्शन में अध्याय जोड़े'},
@@ -204,6 +204,13 @@ export const STROTUM_ARTICLE_CREATED = "STROTUM_ARTICLE_CREATED";
 export const STROTUM_ARTICLE_UPDATED = "STROTUM_ARTICLE_UPDATED";
 export const STROTUM_ARTICLE_DELETED = "STROTUM_ARTICLE_DELETED";
 export const STROTUM_ARTICLE_INDEX_UPDATED = "STROTUM_ARTICLE_INDEX_UPDATED";
+
+export const SCRIPTURE_LIST = "SCRIPTURE_LIST";
+export const SCRIPTURE_SHOW = "SCRIPTURE_SHOW";
+export const SCRIPTURE_CREATED = "SCRIPTURE_CREATED";
+export const SCRIPTURE_UPDATED = "SCRIPTURE_UPDATED";
+export const SCRIPTURE_DELETED = "SCRIPTURE_DELETED";
+export const SCRIPTURE_NEW = "SCRIPTURE_NEW";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
@@ -217,8 +224,8 @@ export const PB_SANT_SHOW = "PB_SANT_SHOW";
 export const PB_STORY_LIST = "PB_STORY_LIST";
 export const PB_STORY_SHOW = "PB_STORY_SHOW";
 
-export const SCRIPTURE_LIST = "SCRIPTURE_LIST";
-export const SCRIPTURE_SHOW = "SCRIPTURE_SHOW";
+export const PB_SCRIPTURE_LIST = "PB_SCRIPTURE_LIST";
+export const PB_SCRIPTURE_SHOW = "PB_SCRIPTURE_SHOW";
 
 export const PB_STROTUM_LIST = "PB_STROTUM_LIST";
 export const PB_STROTUM_SHOW = "PB_STROTUM_SHOW";

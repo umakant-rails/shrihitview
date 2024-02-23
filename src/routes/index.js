@@ -16,8 +16,8 @@ import PBArticleShow from "../components/public/articles/PBArticleShow";
 import PBAuthorList from "../components/public/authors/PBAuthorList";
 import PBSantList from "../components/public/authors/PBSantList";
 import PBSantBiography from "../components/public/authors/PBSantBiography";
-import ScriptureList from "../components/public/scriptures/ScriptureList";
-import ScriptureShow from "../components/public/scriptures/ScriptureShow";
+import PBScriptureList from "../components/public/scriptures/PBScriptureList";
+import PBScriptureShow from "../components/public/scriptures/PBScriptureShow";
 import PBStoryList from "../components/public/stories/PBStoryList";
 import PBStoryShow from "../components/public/stories/PBStoryShow";
 import PBStrotumList from "../components/public/strota/PBStrotumList";
@@ -51,6 +51,8 @@ import StrotumList from "../components/admin/strota/StrotumList";
 import AddStroum from "../components/admin/strota/AddStrotum";
 import EditStrotum from "../components/admin/strota/EditStrotum";
 import StrotumShow from "../components/admin/strota/StrotumShow";
+import ScriptureList from "../components/admin/scriptures/ScriptureList";
+
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -75,8 +77,8 @@ const router = createBrowserRouter(
         <Route path="/pb/authors/sants" element={<PBSantList />} />
         <Route path="/pb/authors/:name/sant_biography" element={<PBSantBiography />} />
 
-        <Route path="/pb/scriptures" element={<ScriptureList />}/>
-        <Route path="/pb/scriptures/:id" element={<ScriptureShow />} />
+        <Route path="/pb/scriptures" element={<PBScriptureList />}/>
+        <Route path="/pb/scriptures/:id" element={<PBScriptureShow />} />
 
         <Route path="/pb/stories" element={<PBStoryList />} />
         <Route path="/pb/stories/:title" element={<PBStoryShow />} />
@@ -104,6 +106,8 @@ const router = createBrowserRouter(
         <Route path="/admin/strota/:id" element={<ProtectedRoutes><StrotumShow /></ProtectedRoutes>} />
         <Route path="/admin/strota/:id/edit" element={<ProtectedRoutes><EditStrotum /></ProtectedRoutes>} />
 
+        <Route path="/admin/scriptures" element={<ProtectedRoutes><ScriptureList/></ProtectedRoutes>} />
+
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
         <Route path="/articles/:id" element={<ProtectedRoutes><ArticleShow /></ProtectedRoutes>} />
@@ -119,7 +123,8 @@ const router = createBrowserRouter(
         <Route path="/stories/new" element={<ProtectedRoutes><AddStory/></ProtectedRoutes>} />
         <Route path="/stories/:id" element={<ProtectedRoutes><StoryShow/></ProtectedRoutes>} />
         <Route path="/stories/:id/edit" element={<ProtectedRoutes><EditStory/></ProtectedRoutes>} />
-       </Route>
+      
+      </Route>
     </Route>
   )
 )

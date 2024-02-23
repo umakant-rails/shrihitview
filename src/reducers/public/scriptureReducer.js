@@ -1,18 +1,18 @@
 import {
-    SCRIPTURE_LIST,
-    SCRIPTURE_SHOW,
+    PB_SCRIPTURE_LIST,
+    PB_SCRIPTURE_SHOW,
   } from "../../utils/types";
 
 const initialState = {articleList: []};
 
 const scriptureReducer = (state=initialState, action) => {
   switch (action.type) {
-    case SCRIPTURE_LIST:
+    case PB_SCRIPTURE_LIST:
       return {
         ...state,
         scriptures: action.payload.scriptures,
       }
-    case SCRIPTURE_SHOW:
+    case PB_SCRIPTURE_SHOW:
         return {
           ...state,
           scripture: action.payload.scripture,

@@ -1,7 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  SCRIPTURE_LIST,
-  SCRIPTURE_SHOW,
+  PB_SCRIPTURE_LIST,
+  PB_SCRIPTURE_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
@@ -16,7 +16,7 @@ export const getScriptures = () => async dispatch => {
   
   if(response.status === 200){
     dispatch({
-      type: SCRIPTURE_LIST,
+      type: PB_SCRIPTURE_LIST,
       payload: {
         statusCode: response.status,
         scriptures: response.data.scriptures,
@@ -42,7 +42,7 @@ export const getScrArticles = (name) => async dispatch => {
 
   if(response.status === 200){
     dispatch({
-      type: SCRIPTURE_SHOW,
+      type: PB_SCRIPTURE_SHOW,
       payload: {
         statusCode: response.status,
         scripture: response.data.scripture,

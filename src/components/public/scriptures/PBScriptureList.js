@@ -5,7 +5,7 @@ import { imageNamefromScrName } from '../../../utils/utilityFunctions';
 import { getScriptures } from '../../../actions/public/scriptures';
 let images = require.context('../../../assets/images', true);
 
-const ScriptureList = () => {
+const PBScriptureList = () => {
   const dispatch = useDispatch();
   const { scriptures } = useSelector(state => state.scripture );
 
@@ -37,4 +37,4 @@ const ScriptureList = () => {
   );
 };
 
-export default ScriptureList;
+export default PBScriptureList;
