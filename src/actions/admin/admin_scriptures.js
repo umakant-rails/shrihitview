@@ -1,7 +1,11 @@
 import baseUrl from "../../services/AxiosService";
 import {
+  SCRIPTURE_CREATED,
+  SCRIPTURE_DELETED,
   SCRIPTURE_LIST,
   SCRIPTURE_NEW,
+  SCRIPTURE_EDIT,
+  SCRIPTURE_UPDATED,
   SET_MESSAGE,
 } from "../../utils/types";
 
@@ -69,15 +73,111 @@ export const newScripture = () => async dispatch => {
   }
 }
 
-export const createScripture = (id, formValues) => async dispatch => {
+export const createScripture = (formValues) => async dispatch => {
+  const response = await baseUrl.post(
+    `/admin/scriptures`, {scripture: formValues} 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
 
+  if(response.status === 200){
+    dispatch({
+      type: SCRIPTURE_CREATED, 
+      payload: {
+        scriptureCreated: response.data.scripture,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      // payload: response.data.status.message,
+    });
+  }
+}
+
+export const editScripture = (id) => async dispatch => {
+  const response = await baseUrl.get(
+    `/admin/scriptures/${id}?action_type=edit`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: SCRIPTURE_EDIT, 
+      payload: {
+        statusCode: response.status,
+        scripture: response.data.scripture,
+        scripture_types: response.data.scripture_types,
+        authors: response.data.authors
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      // payload: response.data.status.message,
+    });
+  }
 }
 export const updateScripture = (id, formValues) => async dispatch => {
+  const response = await baseUrl.put(
+    `/admin/scriptures/${id}`, {scripture: formValues},
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
 
+  if(response.status === 200){
+    dispatch({
+      type: SCRIPTURE_UPDATED, 
+      payload: {
+        statusCode: response.status,
+        scriptureUpdated: response.data.scripture,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      // payload: response.data.status.message,
+    });
+  }
 }
 
 export const deleteScripture = (id) => async dispatch => {
+  const response = await baseUrl.delete(
+    `/admin/scriptures/${id}`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
 
+  if(response.status === 200){
+    dispatch({
+      type: SCRIPTURE_DELETED, 
+      payload: {
+        statusCode: response.status,
+        scriptures: response.data.scriptures,
+        total_scriptures: response.data.total_scriptures,
+        scripture_types: response.data.scripture_types,
+        current_page: response.data.current_page
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      // payload: response.data.status.message,
+    });
+  }
 }
 
 // export const createTag = (formValues) => async dispatch => {

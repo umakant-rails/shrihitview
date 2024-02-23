@@ -16,7 +16,6 @@ import {
           current_page: action.payload.current_page
         };
       case ARTICLE_TYPE_CREATED:
-        console.log(action.payload)
         return {
           ...state,
           type: action.payload.type,
@@ -25,7 +24,6 @@ import {
           current_page: action.payload.current_page,
         }
       case ARTICLE_TYPE_UPDATED:
-        console.log(action.payload)
         return {
           ...state,
           type: action.payload.type,

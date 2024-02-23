@@ -2,26 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import {newScripture, createScripture} from "../../../actions/admin/admin_scriptures";
-import { useNavigate } from 'react-router';
+import {editScripture, updateScripture} from "../../../actions/admin/admin_scriptures";
+import { useNavigate, useParams } from 'react-router';
 
 const scriptureObj = {scripture_type_id: '', author_id: '', name: '', name_eng: '', description: ''};
 
-const AddScripture = () => {
+const EditScripture = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const [formValues, setFormValues] = useState(scriptureObj);
-  const { scriptureCreated, scripture_types, authors } = useSelector( (state) => state.adminScripture)
+  const { scripture, scripture_types, authors, scriptureUpdated } = useSelector( (state) => state.adminScripture)
 
   useEffect( () => {
-    dispatch(newScripture());  
-  }, []);
+    dispatch(editScripture(id));
+  }, [dispatch, id]);
+
+  useEffect( () => {   
+    if(scriptureUpdated){navigate('/admin/scriptures'); } 
+  }, [scriptureUpdated]);
 
   useEffect( () => {
-    if(scriptureCreated){navigate('/admin/scriptures'); } 
-  }, [navigate, scriptureCreated]);
-  
+    if(scripture){
+      setFormValues(formValues => ({
+        ...formValues,
+        scripture_type_id: scripture.scripture_type_id, 
+        author_id: scripture.author_id,
+        name: scripture.name, 
+        name_eng: scripture.name_eng, 
+        description: scripture.description
+      }))
+    }
+  }, [scripture]);
+
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
   }
@@ -36,7 +49,7 @@ const AddScripture = () => {
 
   const onScriptureSubmit = (event) => {
     event.preventDefault();
-    dispatch(createScripture(formValues));
+    dispatch(updateScripture(id, formValues));
   }
 
   return (
@@ -45,6 +58,7 @@ const AddScripture = () => {
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
           रसिक वाणी/ग्रन्थ फॉर्म
         </div>
+        {
         <form className="py-5 px-10" onSubmit={onScriptureSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
             <div className='col-span-6'>
@@ -140,9 +154,10 @@ const AddScripture = () => {
             </button>
           </div>
         </form>
+        }
       </div>
     </div>
   );
 };
 
-export default AddScripture;
+export default EditScripture;

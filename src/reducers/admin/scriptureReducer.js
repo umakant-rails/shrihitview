@@ -1,6 +1,10 @@
 import {
   SCRIPTURE_LIST,
   SCRIPTURE_NEW,
+  SCRIPTURE_CREATED,
+  SCRIPTURE_DELETED,
+  SCRIPTURE_UPDATED,
+  SCRIPTURE_EDIT,
 } from "../../utils/types";
 
 const initialState = {scriptures: []};
@@ -10,7 +14,7 @@ const adminScriputureReducer = (state=initialState, action) => {
     case SCRIPTURE_LIST:
       return {
         scriptures: action.payload.scriptures,
-        total_scriptures: action.payload.total_tscriptures,
+        total_scriptures: action.payload.total_scriptures,
         scripture_types: action.payload.scripture_types,
         current_page: action.payload.current_page
       };
@@ -20,30 +24,28 @@ const adminScriputureReducer = (state=initialState, action) => {
         scripture_types: action.payload.scripture_types,
         authors: action.payload.authors,
       };
-    // case TAG_CREATED:
-    //   return {
-    //     ...state,
-    //     tag: action.payload.tag,
-    //     tags: action.payload.tags,
-    //     total_tags: action.payload.total_tags,
-    //     current_page: action.payload.current_page,
-    //   }
-    // case TAG_UPDATED:
-    //   return {
-    //     ...state,
-    //     tag: action.payload.tag,
-    //     tags: action.payload.tags,
-    //     total_tags: action.payload.total_tags,
-    //     current_page: action.payload.current_page, 
-    //   }
-    // case TAG_DELETED:
-    //   return{
-    //     ...state,
-    //     tag: action.payload.tag,
-    //     tags: action.payload.tags,
-    //     total_tags: action.payload.total_tags,
-    //     current_page: action.payload.current_page,
-    //   }
+    case SCRIPTURE_CREATED:
+      return {
+        scriptureCreated: action.payload.scriptureCreated,
+      }
+    case SCRIPTURE_EDIT:
+      return {
+        scripture: action.payload.scripture,
+        scripture_types: action.payload.scripture_types,
+        authors: action.payload.authors,
+      };
+    case SCRIPTURE_UPDATED:
+      return {
+        scriptureUpdated: action.payload.scriptureUpdated,
+      }
+    case SCRIPTURE_DELETED:
+      return{
+        ...state,
+        scriptures: action.payload.scriptures,
+        total_scriptures: action.payload.total_scriptures,
+        scripture_types: action.payload.scripture_types,
+        current_page: action.payload.current_page
+      }
     default: 
       return state
   }
