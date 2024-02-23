@@ -1,6 +1,6 @@
 import {
   SCRIPTURE_LIST,
-
+  SCRIPTURE_NEW,
 } from "../../utils/types";
 
 const initialState = {scriptures: []};
@@ -13,6 +13,12 @@ const adminScriputureReducer = (state=initialState, action) => {
         total_scriptures: action.payload.total_tscriptures,
         scripture_types: action.payload.scripture_types,
         current_page: action.payload.current_page
+      };
+    case SCRIPTURE_NEW:
+      return {
+        ...state,
+        scripture_types: action.payload.scripture_types,
+        authors: action.payload.authors,
       };
     // case TAG_CREATED:
     //   return {

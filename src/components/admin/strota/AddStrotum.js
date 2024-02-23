@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import {newStrotum, createStrotum} from "../../../actions/admin/admin_strota";
 
-const authorObj = {title: '', strota_type_id: '', source: '', keyword: ''};
+const strotumObj = {title: '', strota_type_id: '', source: '', keyword: ''};
 
 const AddStroum = () => {
   const dispatch = useDispatch(); 
-  const [formValues, setFormValues] = useState(authorObj);
+  const [formValues, setFormValues] = useState(strotumObj);
   const { strotum, strota_types } = useSelector( (state) => state.adminStrotum)
 
   useEffect( () => {
@@ -27,7 +27,7 @@ const AddStroum = () => {
     setFormValues({ ...formValues, [name]: value });
   }
 
-  const resetForm = () => {setFormValues(authorObj); }
+  const resetForm = () => {setFormValues(strotumObj); }
   const onCancel = event => { event.preventDefault(); resetForm();}
 
   const onStrotaSubmit = (event) => {

@@ -1,6 +1,7 @@
 import baseUrl from "../../services/AxiosService";
 import {
   SCRIPTURE_LIST,
+  SCRIPTURE_NEW,
   SET_MESSAGE,
 } from "../../utils/types";
 
@@ -41,6 +42,36 @@ export const getScriptures = (searchAttr) => async dispatch => {
   }
 }
 
+export const newScripture = () => async dispatch => {
+  const response = await baseUrl.get(
+    `/admin/scriptures/new`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: SCRIPTURE_NEW, 
+      payload: {
+        statusCode: response.status,
+        scripture_types: response.data.scripture_types,
+        authors: response.data.authors,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      // payload: response.data.status.message,
+    });
+  }
+}
+
+export const createScripture = (id, formValues) => async dispatch => {
+
+}
 export const updateScripture = (id, formValues) => async dispatch => {
 
 }

@@ -52,6 +52,7 @@ import AddStroum from "../components/admin/strota/AddStrotum";
 import EditStrotum from "../components/admin/strota/EditStrotum";
 import StrotumShow from "../components/admin/strota/StrotumShow";
 import ScriptureList from "../components/admin/scriptures/ScriptureList";
+import AddScripture from "../components/admin/scriptures/AddScripture";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -107,6 +108,8 @@ const router = createBrowserRouter(
         <Route path="/admin/strota/:id/edit" element={<ProtectedRoutes><EditStrotum /></ProtectedRoutes>} />
 
         <Route path="/admin/scriptures" element={<ProtectedRoutes><ScriptureList/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/new" element={<ProtectedRoutes><AddScripture/></ProtectedRoutes>} />
+
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
