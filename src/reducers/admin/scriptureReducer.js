@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import {
   SCRIPTURE_LIST,
   SCRIPTURE_NEW,
@@ -5,6 +6,7 @@ import {
   SCRIPTURE_DELETED,
   SCRIPTURE_UPDATED,
   SCRIPTURE_EDIT,
+  SCRIPTURE_SHOW,
 } from "../../utils/types";
 
 const initialState = {scriptures: []};
@@ -18,6 +20,16 @@ const adminScriputureReducer = (state=initialState, action) => {
         scripture_types: action.payload.scripture_types,
         current_page: action.payload.current_page
       };
+    case SCRIPTURE_SHOW:
+      return{
+        ...state,
+        scripture: action.payload.scripture,
+        scriptures: [action.payload.scripture],
+        sections: action.payload.sections,
+        chapters: action.payload.chapters,
+        total_chapters: action.payload.total_chapters,
+        current_page: action.payload.current_page
+      }
     case SCRIPTURE_NEW:
       return {
         ...state,

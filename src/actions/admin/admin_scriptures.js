@@ -7,6 +7,7 @@ import {
   SCRIPTURE_EDIT,
   SCRIPTURE_UPDATED,
   SET_MESSAGE,
+  SCRIPTURE_SHOW,
 } from "../../utils/types";
 
 export const getScriptures = (searchAttr) => async dispatch => {
@@ -35,6 +36,36 @@ export const getScriptures = (searchAttr) => async dispatch => {
         total_scriptures: response.data.total_scriptures,
         scripture_types: response.data.scripture_types,
         current_page: response.data.current_page
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      // payload: response.data.status.message,
+    });
+  }
+}
+
+export const getScripture = (id) => async dispatch => {
+  const response = await baseUrl.get(
+    `/admin/scriptures/${id}`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.status === 200){
+    dispatch({
+      type: SCRIPTURE_SHOW, 
+      payload: {
+        statusCode: response.status,
+        scripture: response.data.scripture,
+        sections: response.data.sections,
+        chapters: response.data.chapters,
+        total_chapters: response.data.total_chapters,
+        current_page: response.data.current_page,
       }
     });
   } else {
@@ -125,6 +156,7 @@ export const editScripture = (id) => async dispatch => {
     });
   }
 }
+
 export const updateScripture = (id, formValues) => async dispatch => {
   const response = await baseUrl.put(
     `/admin/scriptures/${id}`, {scripture: formValues},
