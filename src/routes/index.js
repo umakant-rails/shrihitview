@@ -55,6 +55,9 @@ import ScriptureList from "../components/admin/scriptures/ScriptureList";
 import AddScripture from "../components/admin/scriptures/AddScripture";
 import EditScripture from "../components/admin/scriptures/EditScripture";
 import ScriptureShow from "../components/admin/scriptures/ScriptureShow";
+import ScriptureChapterList from "../components/admin/scripture_chapters/ScriptureChapterList";
+import AddScrArticle from "../components/admin/scripture_articles/AddScrArticle";
+import EditScrArticle from "../components/admin/scripture_articles/EditScrArticle";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -113,7 +116,9 @@ const router = createBrowserRouter(
         <Route path="/admin/scriptures/new" element={<ProtectedRoutes><AddScripture/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:id/edit" element={<ProtectedRoutes><EditScripture/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:id" element={<ProtectedRoutes><ScriptureShow/></ProtectedRoutes>} />
-
+        <Route path="/admin/scriptures/:id/chapters" element={<ProtectedRoutes><ScriptureChapterList/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:scripture_id/articles/new" element={<ProtectedRoutes><AddScrArticle/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:scripture_id/aricles/:id/edit" element={<ProtectedRoutes><EditScrArticle/></ProtectedRoutes>} />
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />

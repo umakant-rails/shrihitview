@@ -31,7 +31,7 @@ export const getStrota = (searchAttr) => async dispatch => {
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: STROTUM_LIST, 
       payload: {
@@ -47,7 +47,7 @@ export const getStrota = (searchAttr) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -61,7 +61,7 @@ export const getStrotum = (id) => async dispatch => {
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
      dispatch({
       type: STROTUM_SHOW, 
       payload: {
@@ -75,7 +75,7 @@ export const getStrotum = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -89,7 +89,7 @@ export const createStrotum = (formValues) => async dispatch => {
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -106,7 +106,7 @@ export const createStrotum = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -119,7 +119,7 @@ export const newStrotum = () => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: STROTUM_NEW, 
       payload: {
@@ -131,7 +131,7 @@ export const newStrotum = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -144,7 +144,7 @@ export const editStrotum = (id) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: STROTUM_EDIT, 
       payload: {
@@ -157,7 +157,7 @@ export const editStrotum = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -171,7 +171,7 @@ export const updateStrotum = (id, form) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -187,7 +187,7 @@ export const updateStrotum = (id, form) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -201,7 +201,7 @@ export const deleteStrotum = (id) => async dispatch => {
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -220,7 +220,7 @@ export const deleteStrotum = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -237,7 +237,7 @@ export const createStrotumArticle =(strotum_id, formValues) => async dispatch =>
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -254,7 +254,7 @@ export const createStrotumArticle =(strotum_id, formValues) => async dispatch =>
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -267,7 +267,7 @@ export const updateStrotumArticle =(strotum_id, article_id, formValues) => async
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -284,7 +284,7 @@ export const updateStrotumArticle =(strotum_id, article_id, formValues) => async
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -298,7 +298,7 @@ export const updateAritcleIndex = (strotum_id, article_id, new_index) => async d
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -314,7 +314,7 @@ export const updateAritcleIndex = (strotum_id, article_id, new_index) => async d
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -327,7 +327,7 @@ export const deleteStrotumArticle =(strotum_id, article_id) => async dispatch =>
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -343,7 +343,7 @@ export const deleteStrotumArticle =(strotum_id, article_id) => async dispatch =>
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }

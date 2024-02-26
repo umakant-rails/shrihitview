@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import {
   SCRIPTURE_LIST,
   SCRIPTURE_NEW,
@@ -7,13 +6,9 @@ import {
   SCRIPTURE_UPDATED,
   SCRIPTURE_EDIT,
   SCRIPTURE_SHOW,
-  CHAPTER_LIST,
-  CHAPTER_CREATED,
-  CHAPTER_UPDATED,
-  CHAPTER_DELETED,
 } from "../../utils/types";
 
-const initialState = {scriptures: []};
+const initialState = {scripure: null, chapters: []};
 
 const adminScriputureReducer = (state=initialState, action) => {
   switch (action.type) {
@@ -61,40 +56,6 @@ const adminScriputureReducer = (state=initialState, action) => {
         total_scriptures: action.payload.total_scriptures,
         scripture_types: action.payload.scripture_types,
         current_page: action.payload.current_page
-      }
-    case CHAPTER_LIST:
-      return {
-        ...state,
-        chapters: action.payload.chapters,
-        total_chapters: action.payload.total_chapters,
-        current_page: action.payload.current_page,
-      }
-    case CHAPTER_CREATED:
-      return {
-        ...state,
-        chapter: action.payload.chapter,
-        chapters: action.payload.chapters,
-        sections: action.payload.sections,
-        total_chapters: action.payload.total_chapters,
-        current_page: action.payload.current_page,
-      }
-    case CHAPTER_UPDATED:
-      console.log(action.payload)
-      return {
-        ...state,
-        chapters: action.payload.chapters,
-        sections: action.payload.sections,
-        total_chapters: action.payload.total_chapters,
-        current_page: action.payload.current_page,
-      }
-    case CHAPTER_DELETED:
-      return {
-        ...state,
-        chapter: action.payload.chapter,
-        chapters: action.payload.chapters,
-        sections: action.payload.sections,
-        total_chapters: action.payload.total_chapters,
-        current_page: action.payload.current_page,
       }
     default: 
       return state

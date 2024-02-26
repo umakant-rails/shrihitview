@@ -102,6 +102,7 @@ const ScriptureList = () => {
                     <th scope="col" className="px-2 py-3">रसिक वाणी/ग्रन्थ</th>
                     <th scope="col" className="px-2 py-3">रसिक वाणी/ग्रन्थ प्रकार</th>
                     <th scope="col" className="px-2 py-3">लेखक</th>
+                    <th scope="col" className="px-2 py-3">Activities</th>
                     <th scope="col" className="px-2 py-3 text-center">Action</th>
                   </tr>
                 </thead>
@@ -122,6 +123,23 @@ const ScriptureList = () => {
                         </td>
                         <td className="px-2 py-3">
                           {scripture.author}
+                        </td>
+                        <td className="px-2 py-3">
+                          <Link to={`/admin/scriptures/${scripture.id}/chapters`} 
+                            className={`inline-flex text-sm bg-blue-600 text-white rounded font-bold 
+                            px-3 py-2 mr-2 hover:bg-blue-700`}>
+                            Add Chapters&nbsp;&nbsp;
+                            <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+                          </Link>
+                          <Link to={`/admin/scriptures/${scripture.id}/articles/new`} className={`inline-flex text-sm bg-blue-600 text-white rounded font-bold 
+                            px-3 py-2 mr-2 hover:bg-blue-700`}>
+                            Add Articles&nbsp;&nbsp;
+                            <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+                          </Link>
                         </td>
                         <td className="px-2 py-3 flex items-center  justify-center">
                           <Link to={`/admin/scriptures/${scripture.id}/edit`}>

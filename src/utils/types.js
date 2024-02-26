@@ -55,10 +55,10 @@ export const ADMIN_ACTIVITIES = [
     childs: [
       {url: '/admin/scriptures/new', label: 'रसिक वाणी/ग्रन्थ जोड़े'},
       {url: '/admin/scriptures', label: 'रसिक वाणी/ग्रन्थ सूची'},
-      {url: '#', label: 'अध्याय जोड़े'},
-      {url: '#', label: 'अध्याय सूची'},
-      {url: '#', label: 'सेक्शन में अध्याय जोड़े'},
-      {url: '#', label: 'सेक्शन से अध्याय हटायें'},
+      // {url: '#', label: 'अध्याय जोड़े'},
+      // {url: '#', label: 'अध्याय सूची'},
+      // {url: '#', label: 'सेक्शन में अध्याय जोड़े'},
+      // {url: '#', label: 'सेक्शन से अध्याय हटायें'},
     ]
   },
   {
@@ -216,6 +216,12 @@ export const CHAPTER_LIST = "CHAPTER_LIST";
 export const CHAPTER_CREATED = "CHAPTER_CREATED";
 export const CHAPTER_UPDATED = "CHAPTER_UPDATED";
 export const CHAPTER_DELETED = "CHAPTER_DELETED";
+export const SCR_ARTICLE_NEW = "SCR_ARTICLE_NEW";
+export const SCR_ARTICLE_CREATED = "SCR_ARTICLE_CREATED";
+export const SCR_ARTICLE_UPDATED = "SCR_ARTICLE_UPDATED";
+export const SCR_ARTICLE_DELETED = "SCR_ARTICLE_DELETED";
+// export const SCR_ARTICLE_NEW = "SCR_ARTICLE_NEW";
+// export const SCR_ARTICLE_NEW = "SCR_ARTICLE_NEW";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
