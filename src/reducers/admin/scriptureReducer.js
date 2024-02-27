@@ -6,6 +6,7 @@ import {
   SCRIPTURE_UPDATED,
   SCRIPTURE_EDIT,
   SCRIPTURE_SHOW,
+  SCR_CHAPTER_ARTICLES,
 } from "../../utils/types";
 
 const initialState = {scripure: null, chapters: []};
@@ -23,10 +24,10 @@ const adminScriputureReducer = (state=initialState, action) => {
       return{
         ...state,
         scripture: action.payload.scripture,
-        scriptures: [action.payload.scripture],
         sections: action.payload.sections,
         chapters: action.payload.chapters,
-        total_chapters: action.payload.total_chapters,
+        articles: action.payload.articles,
+        total_articles: action.payload.total_articles,
         current_page: action.payload.current_page
       }
     case SCRIPTURE_NEW:
@@ -56,6 +57,12 @@ const adminScriputureReducer = (state=initialState, action) => {
         total_scriptures: action.payload.total_scriptures,
         scripture_types: action.payload.scripture_types,
         current_page: action.payload.current_page
+      }
+    case SCR_CHAPTER_ARTICLES:
+      return {
+        ...state,
+        articles: action.payload.articles,
+        total_articles: action.payload.total_articles
       }
     default: 
       return state

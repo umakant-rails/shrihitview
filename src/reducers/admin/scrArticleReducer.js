@@ -14,20 +14,18 @@ const initialState = {scriptures: []};
 
 const adminScrArticleReducer = (state=initialState, action) => {
   switch (action.type) {
-    case CHAPTER_LIST:
-      return {
-        ...state,
-        scripture: action.payload.scripture,
-        arti: action.payload.chapters,
-        total_chapters: action.payload.total_chapters,
-        current_page: action.payload.current_page,
-      }
     case SCR_ARTICLE_NEW:
-      console.log(action.payload)
       return {
         ...state,
         scripture: action.payload.scripture,
+        sections: action.payload.sections,
+        chapters: action.payload.chapters,
         article_types: action.payload.article_types,
+      }
+    case SCR_ARTICLE_CREATED:
+      return {
+        ...state,
+        scripture_article: action.payload.scripture_article
       }
     case CHAPTER_UPDATED:
       return {

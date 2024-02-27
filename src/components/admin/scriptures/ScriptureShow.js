@@ -1,214 +1,67 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Modal } from 'flowbite';
-import { ReactTransliterate } from "react-transliterate";
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { getScripture, createChapter, updateChapter, deleteChapter, getChapters } from '../../../actions/admin/admin_scriptures';
-import { dateFormat } from '../../../utils/utilityFunctions';
+import { getScripture, getChapterArticles } from '../../../actions/admin/admin_scriptures';
 
-const chapterObj = {scripture_id: '', name: '', is_section: '', index: '', parent_id: ''};
 
 const ScriptureShow = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
 
-  const { scripture, scriptures, sections, chapters, total_chapters, current_page } = useSelector( state => state.adminScripture);
-  const [chapterList, setChapterList] = useState(chapters);
-  const [totalChapterQnty, setTotalChapterQnty] = useState(total_chapters);
+  const { scripture, sections, chapters, total_articles, articles, current_page } = useSelector( state => state.adminScripture);
+  const [articleList, setArticleList] = useState([]);
+  const [chapterList, setChapterList] = useState([]);
+  const [selectedChapterId, setSelectedChapterId] = useState('');
+  const [totalArticleQnty, setTotalArticleQnty] = useState(total_articles);
   const [currentPage, setCurrentPage] = useState(current_page || 1);
-  const [formValues, setFormValues] = useState(chapterObj);
-  const [editableChapter, setEditableChapter]= useState(null);
   const [searchAttr, setSearchAttr] = useState({page: 1});
-  const [popupForm, setPopupForm] = useState('chapter');
-  const popup = useRef(null);
 
   useEffect( () => {
     dispatch(getScripture(id));
   }, [id]);
 
   useEffect( () => {
-    if(chapters){
-      setChapterList(chapters);
-      setTotalChapterQnty(total_chapters);
+    if(articles){
+      setArticleList(articles);
+      setTotalArticleQnty(total_articles);
+      if(selectedChapterId === ''){
+        setChapterList(chapters);
+      }
       setCurrentPage(current_page);
-      setFormValues(formValues => ({...formValues, scripture_id: scripture.id}))
-      if(popup.current){ setFormValues(chapterObj); popup.current.hide();}
     }
-  }, [chapters])
+  }, [articles])
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
     let sAttrs = {...searchAttr, page: page};
     setSearchAttr(sAttrs);
-    dispatch(getChapters(scripture.id, sAttrs));
+    dispatch(getChapterArticles(scripture.id, sAttrs));
   };
-  const getChaptersOrSections = (dataType) => {
-    let sAttrs = {...searchAttr, is_chapter: dataType==='chapter', page: 1};
-    setSearchAttr(sAttrs);
-    setPopupForm(dataType);
-    setTotalChapterQnty(null);
-    dispatch(getChapters(scripture.id, sAttrs));
-  }
-  const createToChapter = () => {
-    formValues['is_section'] = (popupForm !== 'chapter')
-    dispatch(createChapter(scripture.id, formValues));
-  }
-  const updateToChapter = () => {
-    formValues['is_section'] = (popupForm !== 'chapter')
-    dispatch(updateChapter(scripture.id, editableChapter.id, formValues));
-  }
-  const deleteToChapter = (id) => {
-    dispatch(deleteChapter(scripture.id, id));
-  }
-
-  const setEditorValues = (name, value) => {
-    setFormValues(formValues => ({ ...formValues, [name]: value }));
-  }
-
-  const setChapterForEditing = (id, formType) => {
-    setPopupForm(formType);
-    if(id){
-      const chapter = chapters.filter((context) => context.id === id)[0];
-      setFormValues(formValues => ({
-        ...formValues, 
-        name: chapter.name,
-        scripture_id: chapter.scripture_id,
-        index: chapter.index,
-        parent_id: chapter.parent_id,
-      }));
-      setEditableChapter(chapter);
-    } else{
-      setFormValues(chapterObj);setEditableChapter(null);
+ 
+  const filterChapters = (e) => {
+    let sectionId = e.target.value;
+    
+    if(sectionId) {
+      setSearchAttr(searchAttr => ({...searchAttr, section_id: sectionId}));
+      let filteredChapter = chapters.filter((chapter) => sectionId+'' === chapter.parent_id+'');
+      setChapterList(filteredChapter);
+    } else {
+      setChapterList(chapters);
     }
-  }
-  const showPopup = () => {
-    const modalEl = document.getElementById('new-scr-chapter-modal');
-    const privacyModal = new Modal(modalEl, { placement: 'center' });
-    popup.current = privacyModal;
-    privacyModal.show();
-  }
-  const hidePopup = () => { popup.current.hide(); popup.current = null; }
-
-  const popupFunc = () => {  
-    return (
-      <div id="new-scr-chapter-modal" tabIndex="-1" aria-hidden="true" 
-        className={`hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
-        justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}>
-        <div className="relative p-2 w-full max-w-3xl max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-center justify-between p-3 md:p-3 md:px-5 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center">
-                { popupForm === 'chapter' ? 'अध्याय फॉर्म' : 'सेक्शन फॉर्म'}
-              </h3>
-              <button type="button" 
-                onClick={hidePopup}
-                className={`text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 
-                  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center 
-                  dark:hover:bg-gray-600 dark:hover:text-white`}>
-                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                </svg>
-                <span className="sr-only">Close modal</span>
-              </button>
-            </div>
-            <form className="py-3 px-10">
-              <div className="pb-4 md:pb-4 space-y-4">
-                <div className='mb-3'>
-                  <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                    रसिक वाणी/ग्रन्थ <span title="required" className="text-red-600 font-bold">*</span>
-                  </label>
-                  { scripture && 
-                    <input type='text' value={scripture.name} className={`bg-gray-200 border 
-                    border-gray-300 text-gray-900 rounded block w-full p-2`} disabled />
-                  }
-                </div>
-                { (popupForm === 'chapter') && (
-                  <div className='mb-3'>
-                    <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                      सेक्शन का चुने
-                    </label>
-                    <select id="parent_id" name="parent_id" 
-                      value={formValues.parent_id || ''}
-                      onChange={e => setEditorValues('parent_id', e.target.value)}
-                      className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                        rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
-                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                        dark:shadow-sm-light`} required>
-                        <option value="">सेक्शन चुने</option>
-                        {
-                          sections && sections.map( (section, index) => 
-                            <option key={index} value={section.id}>{section.name}</option>
-                          )
-                        }
-                    </select>
-                  </div>
-                  )
-                }
-                <div className='mb-3'>
-                  <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                    { popupForm === 'chapter' ? 'अध्याय का अनुक्रम' : 'सेक्शन का अनुक्रम'}&nbsp;&nbsp;  
-                    <span title="required" className="text-red-600 font-bold">*</span>
-                  </label>
-                  <input type="number" id="name" name="name"
-                    onChange={e => setEditorValues('index', e.target.value)}
-                    className={`block w-full p-2.5 text-gray-900 border border-gray-300 
-                    rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
-                    dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                    value={formValues.index || ''} />
-                </div>
-                <div className='mb-3'>
-                  <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                    { popupForm === 'chapter' ? 'अध्याय का नाम' : 'सेक्शन का नाम'} 
-                    <span title="required" className="text-red-600 font-bold">*</span>
-                  </label>
-                  <ReactTransliterate
-                    value={formValues.name || ''}
-                    onChangeText={(text) => {setEditorValues('name', text) }}
-                    lang={'hi'}
-                    type="text"
-                    className={`block w-full p-2 text-sm text-gray-900 border border-gray-300 
-                      rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
-                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center p-3 md:p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
-                {
-                 editableChapter ? (
-                    <button type="button"
-                      onClick={updateToChapter} 
-                      className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      { popupForm === 'chapter' ? 'अध्याय अद्यतन करें' : 'सेक्शन अद्यतन करें'}
-                    </button>
-                  ) : (
-                    <button type="button"
-                      onClick={createToChapter} 
-                      className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      { popupForm === 'chapter' ? 'अध्याय जोड़े' : 'सेक्शन जोड़े'}
-                    </button>
-                  )
-                }
-                <button 
-                  onClick={hidePopup} 
-                  className={`py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none 
-                    bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 
-                    focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 
-                    dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
-                    dark:hover:bg-gray-700`}>Cancel</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    )
+    setSelectedChapterId('');
   }
 
+  const fetchChapterArticles = (event) => {
+    let chapterId = event.target.value;
+    setSelectedChapterId(chapterId);
+  
+    let sAttrs = {...searchAttr, chapter_id: chapterId};
+    setSearchAttr(searchAttr => ({...searchAttr, chapter_id: chapterId}));
+    dispatch(getChapterArticles(scripture.id, sAttrs));
+  }
 
   return (
     <div className='grid md:grid-cols-12 mt-5'>
@@ -222,53 +75,37 @@ const ScriptureShow = () => {
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
               <div className="w-full md:w-1/2"></div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                <div className="inline-flex rounded-md shadow-sm">
-                  <Link to="#" aria-current="page" 
-                    onClick={e => getChaptersOrSections('chapter')}
-                    className={`
-                    ${popupForm === 'chapter' ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-blue-700 bg-white hover:text-blue-700 hover:bg-gray-100'}
-                    px-4 py-2 text-sm font-bold border-gray-400 border
-                    border-gray-200 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 
-                    dark:text-white dark:hover:text-white dark:hover:bg-gray-700 
-                    dark:focus:ring-blue-500 dark:focus:text-white`}>
-                    अध्याय
-                  </Link>
-                  <Link to="#" 
-                    onClick={e => getChaptersOrSections('section')}
-                    className={`${popupForm === 'section' ? 'text-white bg-blue-600 hover:text-white hover:bg-blue-500' : 'text-blue-700 bg-white hover:text-blue-700 hover:bg-gray-100'}
-                    px-4 py-2 text-sm font-bold border-gray-400 border
-                    border-gray-200 rounded-e-lg 
-                    dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white 
-                    dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}>
-                    सेक्शन
-                  </Link>
-                </div>
                 <div className="flex items-center space-x-3 w-full md:w-auto">
-                  <button 
-                    onClick={ e =>{showPopup();setChapterForEditing(null, 'chapter');}}
-                    data-form-type='chapter'
-                    className='flex bg-blue-600 rounded p-2 text-sm text-white font-bold'>
-                    अध्याय जोड़े
-                  </button>
-                  <button 
-                    onClick={ e =>{showPopup();setChapterForEditing(null, 'section');}}
-                    data-form-type='section'
-                    className='flex bg-blue-600 rounded p-2 text-sm text-white font-bold'>
-                    सेक्शन जोड़े
-                  </button>
-                  {/* <button
-                    //onClick={resetFilteredAuthors}
-                    className={`w-full md:w-auto flex items-center justify-center py-2 px-4 
-                      text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg 
-                      border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 
-                      focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 
-                      dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
-                      dark:hover:bg-gray-700`} type="button">
-                    Refresh&nbsp;&nbsp;
-                    <svg className="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97"/>
-                    </svg>
-                  </button> */}
+                  <select id="section_id" name="section_id" 
+                    // value={formValues.chapter_id || ''}
+                    onChange={filterChapters}
+                    className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
+                      rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                      dark:shadow-sm-light`}>
+                      <option value="">सेक्शन चुने</option>
+                      {
+                        sections && sections.map( (section, index) => 
+                          <option key={index} value={section.id}>{section.name}</option>
+                        )
+                      }
+                  </select>
+                  <select id="chapter_id" name="chapter_id" 
+                    value={selectedChapterId}
+                    onChange={fetchChapterArticles}
+                    className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
+                      rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                      dark:shadow-sm-light`}>
+                      <option value="">अध्याय चुने</option>
+                      {
+                        chapterList && chapterList.map( (chapter, index) => 
+                          <option key={index} value={chapter.id}>{chapter.name}</option>
+                        )
+                      }
+                  </select>
                 </div>
               </div>
             </div>
@@ -277,34 +114,34 @@ const ScriptureShow = () => {
                 <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
                   <th scope="col" className="px-2 py-3">क्रमांक</th>
-                    <th scope="col" className="px-2 py-3">अध्याय</th>
+                    <th scope="col" className="px-2 py-3">रचना</th>
                     <th scope="col" className="px-2 py-3">अनुक्रम</th>
-                    <th scope="col" className="px-2 py-3">सेक्शन</th>
+                    <th scope="col" className="px-2 py-3">रचना प्रकार</th>
                     <th scope="col" className="px-2 py-3 text-center">गतिविधि</th>
                   </tr>
                 </thead>
                 <tbody className='text-xl'>
                   {
-                    chapterList && chapterList.length > 0 ? chapterList.map( (chapter, index) => 
+                    articleList && articleList.length > 0 ? articleList.map( (article, index) => 
                       <tr key={index}
                         className="border-b dark:border-gray-700" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
                         <td className="px-2 py-3">
-                          {chapter.name}
+                          {<div dangerouslySetInnerHTML={{__html: article.content}} />}
                         </td>
                         <td className="px-2 py-3">
-                          {chapter.index}
+                          {article.index}
                         </td>
                         <td className="px-2 py-3">
-                          {chapter.section ? chapter.section : '-'}
+                          {article.article_type_id}
                         </td>
                         <td className="px-2 py-3 flex items-center  justify-center">
-                          <Link to='#' onClick={e => {setChapterForEditing(chapter.id, popupForm);showPopup(e); }}>
+                          <Link to='#'>
                             <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
                             </svg>
                           </Link>
-                          <Link to="#" onClick={e => deleteToChapter(chapter.id)}>
+                          <Link to="#">
                             <svg className="w-[30px] h-[30px] text-red-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                             </svg>
@@ -314,7 +151,7 @@ const ScriptureShow = () => {
                     ) : (
                       <tr>
                         <td colSpan="4" className='text-center py-5'>
-                          There is no chapters available.
+                          There is no articles available.
                         </td>
                       </tr>
                     )
@@ -324,10 +161,10 @@ const ScriptureShow = () => {
             </div>
             <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
               {
-                totalChapterQnty ? (
+                totalArticleQnty ? (
                   <Pagination 
                     showWidget={5} 
-                    totalItems={totalChapterQnty}
+                    totalItems={totalArticleQnty}
                     itemsPerPage={ITEM_PER_PAGE}
                     pageChangeHandler= {handlePageClick}
                   />) : ''
@@ -335,7 +172,7 @@ const ScriptureShow = () => {
             </nav>
           </div>
         </section>
-        {popupFunc()}
+        
       </div>
     </div>
   );

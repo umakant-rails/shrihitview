@@ -4,7 +4,7 @@ import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 
 import { useNavigate, useParams } from 'react-router';
-import { newScrArticle } from '../../../actions/admin/admin_scr_articles';
+import { newScrArticle, createScrArticle } from '../../../actions/admin/admin_scr_articles';
 
 const articleObj = {
   scripture_id: '', chapter_id: '', article_type_id: '', 
@@ -16,20 +16,27 @@ const AddScrArticle = () => {
   const {scripture_id, chapter_id} = useParams();
 
   const [formValues, setFormValues] = useState(articleObj);
-  const { scripture, article_types, scrArticleCreated } = useSelector( (state) => state.adminScrArticle)
+  const [chapterList, setChapterlist] = useState([]);
+  const { scripture, sections, chapters, article_types, scripture_article } = useSelector( (state) => state.adminScrArticle)
 
   useEffect( () => {
-    setFormValues(formValues => ({
-      ...formValues, 
-      scripture_id: scripture_id,
-      chapter_id: chapter_id,
-    }));
     dispatch(newScrArticle(scripture_id));
   }, [scripture_id]);
 
   useEffect( () => {
-    if(scrArticleCreated){resetForm(); } 
-  }, [navigate, scrArticleCreated]);
+    if(chapters){ setChapterlist(chapters); }
+  }, [chapters]);
+
+  useEffect( () => {
+    if(scripture_article){
+      setFormValues(formValues => ({
+        ...formValues,
+        index: scripture_article.index+1,
+        content: '',
+        interpretation: ''
+      }));
+    } 
+  }, [navigate, scripture_article]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
@@ -45,35 +52,52 @@ const AddScrArticle = () => {
 
   const onScriptureSubmit = (event) => {
     event.preventDefault();
-    //dispatch(createScripture(formValues));
+    dispatch(createScrArticle(scripture.id, formValues));
   }
 
-  if(chapter_id){
-
+  const filterChapters = (e) => {
+    const sectionId = e.target.value;
+    if(sectionId){
+      let filteredChapters = chapters.filter((chapter) => chapter.parent_id == sectionId)
+      setChapterlist(filteredChapters);
+    } else {
+      setChapterlist(chapters);
+    }
   }
 
   return (
     <div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
-          रसिक वाणी/ग्रन्थ रचना फॉर्म
+          रसिक वाणी/ग्रन्थ ( {scripture ? scripture.name : ''}) रचना फॉर्म
         </div>
         <form className="py-5 px-10" onSubmit={onScriptureSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
             <div className='col-span-6'>
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                रसिक वाणी/ग्रन्थ का प्रकार <span title="required" className="text-red-600 font-bold">*</span>
+                सेक्शन का नाम
               </label>
-              { scripture && 
-                <input type='text' value={scripture.name} className={`bg-gray-200 border 
-                border-gray-300 text-gray-900 rounded block w-full p-2`} disabled />
-              }
+              <select id="section_id" name="section_id" 
+                // value={formValues.chapter_id || ''}
+                onChange={filterChapters}
+                className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  dark:shadow-sm-light`}>
+                  <option value="">सेक्शन चुने</option>
+                  {
+                    sections && sections.map( (section, index) => 
+                      <option key={index} value={section.id}>{section.name}</option>
+                    )
+                  }
+              </select>
             </div>
             <div className='col-span-6'>
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 अध्याय का नाम
               </label>
-              <select id="author_id" name="author_id" 
+              <select id="chapter_id" name="chapter_id" 
                 value={formValues.chapter_id || ''}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
@@ -83,7 +107,7 @@ const AddScrArticle = () => {
                   dark:shadow-sm-light`}>
                   <option value="">अध्याय चुने</option>
                   {
-                    scripture && scripture.chapters && scripture.chapters.map( (chapter, index) => 
+                    chapterList && chapterList.map( (chapter, index) => 
                       <option key={index} value={chapter.id}>{chapter.name}</option>
                     )
                   }
@@ -95,8 +119,8 @@ const AddScrArticle = () => {
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 रचना प्रकार <span title="required" className="text-red-600 font-bold">*</span>
               </label>
-              <select id="author_id" name="author_id" 
-                value={formValues.chapter_id || ''}
+              <select id="article_type_id" name="article_type_id" 
+                value={formValues.article_type_id || ''}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 

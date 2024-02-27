@@ -73,6 +73,8 @@ export const newScrArticle = (scripture_id) => async dispatch => {
       type: SCR_ARTICLE_NEW,
       payload: {
         scripture: response.data.scripture,
+        sections: response.data.sections,
+        chapters: response.data.chapters,
         article_types: response.data.article_types,
       }
     });
@@ -88,12 +90,13 @@ export const newScrArticle = (scripture_id) => async dispatch => {
 
 export const createScrArticle = (scripture_id, formValues) => async dispatch => {
   const response = await baseUrl.post(
-    `/admin/scriptures/${scripture_id}/chapters`, {chapter: formValues} 
+    `/admin/scriptures/${scripture_id}/scripture_articles`, {scripture_article: formValues} 
   ).then(response => {
     return response;
   }).catch(function (error) {
     return error.response;
   });
+
   if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
@@ -101,12 +104,9 @@ export const createScrArticle = (scripture_id, formValues) => async dispatch => 
       payload: response.data.notice,
     });
     dispatch({
-      type: CHAPTER_CREATED, 
+      type: SCR_ARTICLE_CREATED, 
       payload: {
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
+        scripture_article: response.data.scripture_article
       }
     });
   } else {
