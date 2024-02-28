@@ -6,6 +6,7 @@ import {
   CHAPTER_DELETED,
   SCR_ARTICLE_NEW,
   SCR_ARTICLE_CREATED,
+  SCR_ARTICLE_EDIT,
   SCR_ARTICLE_UPDATED,
   SCR_ARTICLE_DELETED,
   SET_MESSAGE,
@@ -88,6 +89,42 @@ export const newScrArticle = (scripture_id) => async dispatch => {
   }
 }
 
+export const getScrArticle = (scripture_id, id) => async dispatch => {
+
+  const response = await baseUrl.get(
+    `/admin/scriptures/${scripture_id}/scripture_articles/${id}` 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.data.errors === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+    dispatch({
+      type: SCR_ARTICLE_EDIT, 
+      payload: {
+        scripture: response.data.scripture,
+        sections: response.data.sections,
+        chapters: response.data.chapters,
+        article_types: response.data.article_types,
+        scripture_article: response.data.scripture_article,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.errors.join("\n"),
+      // payload: response.data.status.message,
+    });
+  }
+}
+
 export const createScrArticle = (scripture_id, formValues) => async dispatch => {
   const response = await baseUrl.post(
     `/admin/scriptures/${scripture_id}/scripture_articles`, {scripture_article: formValues} 
@@ -119,9 +156,9 @@ export const createScrArticle = (scripture_id, formValues) => async dispatch => 
   }
 }
 
-export const updateScrArticle = (scripture_id, chapter_id, formValues) => async dispatch => {
+export const updateScrArticle = (scripture_id, article_id, formValues) => async dispatch => {
   const response = await baseUrl.put(
-    `/admin/scriptures/${scripture_id}/chapters/${chapter_id}`, {chapter: formValues} 
+    `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}`, {scripture_article: formValues} 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -135,12 +172,9 @@ export const updateScrArticle = (scripture_id, chapter_id, formValues) => async 
       payload: response.data.notice,
     });
     dispatch({
-      type: CHAPTER_UPDATED, 
+      type: SCR_ARTICLE_UPDATED, 
       payload: {
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
+        scripture_article: response.data.scripture_article
       }
     });
   } else {
@@ -152,9 +186,9 @@ export const updateScrArticle = (scripture_id, chapter_id, formValues) => async 
   }
 }
 
-export const deleteScrArticle = (scripture_id, chapter_id) => async dispatch => {
+export const deleteScrArticle = (scripture_id, id) => async dispatch => {
   const response = await baseUrl.delete(
-    `/admin/scriptures/${scripture_id}/chapters/${chapter_id}`, 
+    `/admin/scriptures/${scripture_id}/scripture_articles/${id}`, 
   ).then(response => {
     return response;
   }).catch(function (error) {
@@ -168,11 +202,9 @@ export const deleteScrArticle = (scripture_id, chapter_id) => async dispatch => 
       payload: response.data.notice,
     });
     dispatch({
-      type: CHAPTER_DELETED, 
+      type: SCR_ARTICLE_DELETED, 
       payload: {
-        chapters: response.data.chapters,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
+        scripture_article: response.data.scripture_article
       }
     });
   } else {

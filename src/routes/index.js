@@ -118,7 +118,7 @@ const router = createBrowserRouter(
         <Route path="/admin/scriptures/:id" element={<ProtectedRoutes><ScriptureShow/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:id/chapters" element={<ProtectedRoutes><ScriptureChapterList/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:scripture_id/articles/new" element={<ProtectedRoutes><AddScrArticle/></ProtectedRoutes>} />
-        <Route path="/admin/scriptures/:scripture_id/aricles/:id/edit" element={<ProtectedRoutes><EditScrArticle/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:scripture_id/scripture_articles/:id/edit" element={<ProtectedRoutes><EditScrArticle/></ProtectedRoutes>} />
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />

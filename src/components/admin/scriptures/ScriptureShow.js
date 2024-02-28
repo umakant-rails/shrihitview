@@ -50,6 +50,9 @@ const ScriptureShow = () => {
       setChapterList(filteredChapter);
     } else {
       setChapterList(chapters);
+      let sAttrs = {...searchAttr, chapter_id: ''};
+      setSearchAttr(searchAttr => ({...searchAttr, chapter_id: ''}));
+      dispatch(getChapterArticles(scripture.id, sAttrs));
     }
     setSelectedChapterId('');
   }
@@ -136,7 +139,7 @@ const ScriptureShow = () => {
                           {article.article_type_id}
                         </td>
                         <td className="px-2 py-3 flex items-center  justify-center">
-                          <Link to='#'>
+                          <Link to={`/admin/scriptures/${scripture.id}/scripture_articles/${article.id}/edit`}>
                             <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
                             </svg>

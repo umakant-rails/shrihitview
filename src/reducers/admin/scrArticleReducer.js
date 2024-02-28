@@ -6,6 +6,7 @@ import {
   CHAPTER_DELETED,
   SCR_ARTICLE_NEW,
   SCR_ARTICLE_CREATED,
+  SCR_ARTICLE_EDIT,
   SCR_ARTICLE_UPDATED,
   SCR_ARTICLE_DELETED,
 } from "../../utils/types";
@@ -27,13 +28,18 @@ const adminScrArticleReducer = (state=initialState, action) => {
         ...state,
         scripture_article: action.payload.scripture_article
       }
-    case CHAPTER_UPDATED:
+    case SCR_ARTICLE_EDIT:
+      console.log(action.payload)
       return {
-        ...state,
-        chapters: action.payload.chapters,
+        scripture: action.payload.scripture,
         sections: action.payload.sections,
-        total_chapters: action.payload.total_chapters,
-        current_page: action.payload.current_page,
+        chapters: action.payload.chapters,
+        article_types: action.payload.article_types,
+        scripture_article: action.payload.scripture_article,
+      }
+    case SCR_ARTICLE_UPDATED:
+      return {
+        scripture_article_updated: action.payload.scripture_article
       }
     case CHAPTER_DELETED:
       return {
