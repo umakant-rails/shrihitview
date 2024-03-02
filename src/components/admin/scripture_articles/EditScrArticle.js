@@ -82,7 +82,7 @@ const EditScrArticle = () => {
     <div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
-          रसिक वाणी/ग्रन्थ ( {scripture ? scripture.name : ''}) रचना फॉर्म
+          रसिक वाणी/ग्रन्थ ( {scripture ? scripture.name : ''}) रचना अद्यतन फॉर्म
         </div>
         <form className="py-5 px-10" onSubmit={onScriptureSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
@@ -187,7 +187,7 @@ const EditScrArticle = () => {
           <div className='mb-3'>
             <button type="submit" 
               className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              रसिक वाणी/ग्रन्थ जोड़े
+              रसिक वाणी/ग्रन्थ अद्यतन करें
             </button>
             <button type="button" onClick={onCancel}
               className="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

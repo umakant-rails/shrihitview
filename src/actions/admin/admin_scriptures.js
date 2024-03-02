@@ -9,6 +9,7 @@ import {
   SET_MESSAGE,
   SCRIPTURE_SHOW,
   SCR_CHAPTER_ARTICLES,
+  SCR_ARTICLE_DELETED,
 } from "../../utils/types";
 
 export const getScriptures = (searchAttr) => async dispatch => {
@@ -250,6 +251,47 @@ export const getChapterArticles = (scripture_id, searchAttr) => async dispatch =
       msg_type: "error",
       payload: response.data.errors.join("\n"),
       // payload: response.data.status.message,
+    });
+  }
+}
+
+export const deleteScrArticle = (scripture_id, article_id, searchAttr) => async dispatch => {
+  const arr = [];
+  Object.keys(searchAttr).map( key =>{
+    let str = `${searchAttr[key]}`
+    if(str.length > 0){
+      arr.push(`${key}=${searchAttr[key]}`)
+    }
+  })
+  const searchAttrStr = arr.join('&');
+
+  const response = await baseUrl.delete(
+    `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}?${searchAttrStr}`, 
+  ).then(response => {
+    return response;
+  }).catch(function (error) {
+    return error.response;
+  });
+
+  if(response.data.errors === undefined){
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "success",
+      payload: response.data.notice,
+    });
+    dispatch({
+      type: SCR_ARTICLE_DELETED, 
+      payload: {
+        articles: response.data.articles,
+        total_articles: response.data.total_articles,
+        current_page: response.data.current_page,
+      }
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.errors.join("\n"),
     });
   }
 }

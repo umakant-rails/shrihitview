@@ -1,9 +1,6 @@
 import baseUrl from "../../services/AxiosService";
 import {
   CHAPTER_LIST,
-  CHAPTER_CREATED,
-  CHAPTER_UPDATED,
-  CHAPTER_DELETED,
   SCR_ARTICLE_NEW,
   SCR_ARTICLE_CREATED,
   SCR_ARTICLE_EDIT,
@@ -11,50 +8,6 @@ import {
   SCR_ARTICLE_DELETED,
   SET_MESSAGE,
 } from "../../utils/types";
-
-export const getScrArticles = (scripture_id, searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
-    let str = `${searchAttr[key]}`
-    if(str.length > 0){
-      arr.push(`${key}=${searchAttr[key]}`)
-    }
-  })
-  const searchAttrStr = arr.join('&');
-  
-  const response = await baseUrl.get(
-    `/admin/scriptures/${scripture_id}/chapters?${searchAttrStr}` 
-  ).then(response => {
-    return response;
-  }).catch(function (error) {
-    return error.response;
-  });
-
-  if(response.data.errors === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: CHAPTER_LIST, 
-      payload: {
-        scripture: response.data.scripture,
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
-      }
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.errors.join("\n"),
-      // payload: response.data.status.message,
-    });
-  }
-}
 
 export const newScrArticle = (scripture_id) => async dispatch => {
   const response = await baseUrl.get(
@@ -186,32 +139,3 @@ export const updateScrArticle = (scripture_id, article_id, formValues) => async 
   }
 }
 
-export const deleteScrArticle = (scripture_id, id) => async dispatch => {
-  const response = await baseUrl.delete(
-    `/admin/scriptures/${scripture_id}/scripture_articles/${id}`, 
-  ).then(response => {
-    return response;
-  }).catch(function (error) {
-    return error.response;
-  });
-
-  if(response.data.errors === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: SCR_ARTICLE_DELETED, 
-      payload: {
-        scripture_article: response.data.scripture_article
-      }
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.errors.join("\n"),
-    });
-  }
-}

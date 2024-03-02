@@ -7,6 +7,7 @@ import {
   SCRIPTURE_EDIT,
   SCRIPTURE_SHOW,
   SCR_CHAPTER_ARTICLES,
+  SCR_ARTICLE_DELETED,
 } from "../../utils/types";
 
 const initialState = {scripure: null, chapters: []};
@@ -63,6 +64,13 @@ const adminScriputureReducer = (state=initialState, action) => {
         ...state,
         articles: action.payload.articles,
         total_articles: action.payload.total_articles
+      }
+    case SCR_ARTICLE_DELETED:
+      return {
+        ...state,
+        articles: action.payload.articles,
+        total_articles: action.payload.total_articles,
+        current_page: action.payload.current_page
       }
     default: 
       return state
