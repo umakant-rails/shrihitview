@@ -61,17 +61,17 @@ export const ADMIN_ACTIVITIES = [
       // {url: '#', label: 'सेक्शन से अध्याय हटायें'},
     ]
   },
-  {
-    url: '#', label: 'ग्रन्थ की रचना',
-    childs: [
-      {url: '#', label: 'ग्रन्थ रचना जोड़े'},
-      {url: '#', label: 'ग्रन्थ रचना सूची'}
-    ]
-  },
+  // {
+  //   url: '#', label: 'ग्रन्थ की रचना',
+  //   childs: [
+  //     {url: '#', label: 'ग्रन्थ रचना जोड़े'},
+  //     {url: '#', label: 'ग्रन्थ रचना सूची'}
+  //   ]
+  // },
   {
     url: '#', label: 'संकलित ग्रन्थ रचना',
     childs: [
-      {url: '#', label: 'संकलित ग्रन्थ में रचनायें जोड़े'},
+      {url: '/admin/compile_strutctures/add_article', label: 'संकलित ग्रन्थ में रचनायें जोड़े'},
       {url: '#', label: 'रचना अनुक्रम का अद्यतन'}
     ]
   },
@@ -225,6 +225,11 @@ export const SCR_ARTICLE_UPDATED = "SCR_ARTICLE_UPDATED";
 export const SCR_ARTICLE_DELETED = "SCR_ARTICLE_DELETED";
 // export const SCR_ARTICLE_NEW = "SCR_ARTICLE_NEW";
 // export const SCR_ARTICLE_NEW = "SCR_ARTICLE_NEW";
+
+export const CS_ARTICLE_LIST = "CS_ARTICLE_LIST";
+export const CS_FILTERED_ARTICLE = "CS_FILTERED_ARTICLE";
+export const CS_ARTICLE_ADD = "CS_ARTICLE_ADD0";
+export const CS_ARTICLE_REMOVE = "CS_ARTICLE_REMOVE";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";

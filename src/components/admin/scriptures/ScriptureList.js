@@ -52,6 +52,16 @@ const ScriptureList = () => {
     dispatch(deleteScripture(id));
   }
 
+  const getAddArticleUrl = (scripture) => {
+    if(scripture.scripture_type_id === 5 || scripture.scripture_type_id === 6){
+      return `/admin/compiled_scriptures/${scripture.id}/add_article_page`;
+    } if (scripture.scripture_type_id === 4) {
+      return "#";
+    }else {
+      return `/admin/scriptures/${scripture.id}/articles/new`;
+    }
+  }
+
   return (
     <div className='grid md:grid-cols-12'>
       <div className='md:col-start-2 md:col-span-10'>
@@ -133,7 +143,7 @@ const ScriptureList = () => {
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
                           </Link>
-                          <Link to={`/admin/scriptures/${scripture.id}/articles/new`} className={`inline-flex text-sm bg-blue-600 text-white rounded font-bold 
+                          <Link to={getAddArticleUrl(scripture)} className={`inline-flex text-sm bg-blue-600 text-white rounded font-bold 
                             px-3 py-2 mr-2 hover:bg-blue-700`}>
                             Add Articles&nbsp;&nbsp;
                             <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
