@@ -1,6 +1,6 @@
 import { act } from "react-dom/test-utils";
 import {
-  CS_ARTICLE_LIST,
+  CS_ARTICLE_ADD_PAGE,
   CS_FILTERED_ARTICLE,
   CS_ARTICLE_ADD,
   CS_ARTICLE_REMOVE,
@@ -10,7 +10,7 @@ const initialState = {articles: []};
 
 const adminCSArticleReducer = (state=initialState, action) => {
   switch (action.type) {
-    case CS_ARTICLE_LIST:
+    case CS_ARTICLE_ADD_PAGE:
       return {
         articles: action.payload.articles,
         totalArticles: action.payload.total_articles,
@@ -19,6 +19,7 @@ const adminCSArticleReducer = (state=initialState, action) => {
         contexts: action.payload.contexts,
         articleTypes: action.payload.article_types,
         scripture: action.payload.scripture,
+        chapters: action.payload.chapters,
         added_articles: action.payload.added_articles,
       };
     case CS_FILTERED_ARTICLE:

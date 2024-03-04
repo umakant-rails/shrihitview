@@ -16,21 +16,26 @@ const AddCSArticle = () => {
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const { 
-    articleTypes, raags, contexts, 
-    authors, scripture, articles, 
-    totalArticles, added_articles 
+    articleTypes, raags, contexts, authors, 
+    scripture, chapters,
+    articles, totalArticles, added_articles 
   } = useSelector( state => state.adminCSArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
   const [searchText, setSearchText] = useState('');
   const [searchAttrs, setSearchAttrs] = useState({});
+  const [chapterExist, setChapterExist] = useState(false);
   
   useEffect( () => {
     dispatch(getAddArticlePageData(id));
   }, []);
   
   useEffect( () => {
-    if(articles){ setArticleList(articles); setTotalArticle(totalArticles);}
+    if(articles){ 
+      setArticleList(articles); 
+      setTotalArticle(totalArticles);
+      setChapterExist(chapters && chapters.length > 0 ? true : false)
+    }
   }, [articles, totalArticles]);
 
   const handlePageClick = (e) => {
@@ -55,7 +60,16 @@ const AddCSArticle = () => {
     dispatch(getFilteredAritcles({}));
   }
   const addArticleIntoCS = (article_id) => {
-    dispatch(addArticleInCS(scripture.id, article_id, searchAttrs));
+    console.log(searchAttrs.chapter_id)
+    if(chapterExist && 
+        (searchAttrs.chapter_id == undefined || searchAttrs.chapter_id.length == 0)
+    ){
+      alert(
+        `कृपया पहले "${scripture.name}" के अध्याय को सेलेक्ट करे।`
+      );
+    } else {
+      dispatch(addArticleInCS(scripture.id, article_id, searchAttrs));
+    }
   }
   const removeCSArticle = (article_id) => {
     dispatch(removeArticleFromCS(scripture.id, article_id, searchAttrs));
@@ -70,7 +84,7 @@ const AddCSArticle = () => {
     <div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
-          नवीन संकलन ({scripture && scripture.name }) में रचनाये जोड़े
+          नवीन संकलन ({scripture && scripture.name }) में रचनायें जोड़े
         </div>
         <div className="grid md:grid-cols-5 mb-4 gap-2">
           <div>
@@ -177,13 +191,39 @@ const AddCSArticle = () => {
             </button>
           </div>
         </div>
+        { chapters && chapters.length > 0 ? (
+          <div className="grid md:grid-cols-12 mb-4 gap-6">
+            <div className='col-start-7 col-span-2 pt-2 font-bold'>
+              <span className='text-red-900'>
+                { scripture.name }</span> के अध्याय 
+            </div>
+            <div className='col-span-4'>
+              <select id="chapter_id" name="chapter_id" 
+                value={searchAttrs.chapter_id ? searchAttrs.chapter_id : ''}
+                onChange={e => setSearchAttrs(searchAttrs => ({...searchAttrs, chapter_id: e.target.value}))}
+                className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
+                  rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                  dark:shadow-sm-light`}>
+                  <option value="">लेखक चुने</option>
+                  {
+                    chapters && chapters.map( (chapter, index) => 
+                      <option key={index} value={chapter.id}>{chapter.name}</option>
+                    )
+                  }
+              </select>
+            </div>
+          </div>) : null
+        }
         <div className='grid md:grid-cols-2 gap-6'>
-          <div className="col-sspan-6">
-            <table className="w-full text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr className="border-b dark:border-gray-700 bg-yellow-500">
-                  <th scope="col" className="px-2 py-3">रचनायें</th>
-                  <th scope="col" className="px-2 py-3">गतिविधि</th>
+          <div className="">
+            <table className="w-full text-gray-500 dark:text-gray-400">
+              <thead className="text-white uppercase dark:bg-gray-700 dark:text-gray-400">
+                <tr className="border-b dark:border-gray-700 bg-yellow-900">
+                  <th scope="col" className="text-left px-2 py-3" colSpan="2">
+                    Search Articles
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -191,14 +231,14 @@ const AddCSArticle = () => {
                     articleList.map( (article, index) => 
                       <tr key={index}
                         className="border-b dark:border-gray-700 text-black" >
-                        <td className="px-2 py-3">
+                        <td className="text-left px-2 py-3">
                           { ((currentPage-1) * 10) + index+1}. &nbsp; &nbsp;
                           {article.hindi_title} &nbsp; &nbsp;
                           <span className='font-bold text-red-600'>
                             ( {article.article_type} )
                           </span>
                         </td>
-                        <td className="px-2 py-2">
+                        <td className="text-right px-2 py-2">
                           <button onClick={e => addArticleIntoCS(article.id)}
                             className='bg-blue-600 inline-flex px-2 py-1 cursor-pointer'>
                             <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -229,12 +269,14 @@ const AddCSArticle = () => {
               }
             </nav>
           </div>
-          <div className="col-sspan-6">
-            <table className="w-full text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr className="border-b dark:border-gray-700 bg-yellow-500">
-                  <th scope="col" className="px-2 py-3">रचनायें</th>
-                  <th scope="col" className="px-2 py-3">गतिविधि</th>
+          <div className="">
+            <table className="w-full text-gray-500 dark:text-gray-400">
+              <thead className="text-white uppercase dark:bg-gray-700 dark:text-gray-400">
+                <tr className="border-b dark:border-gray-700 bg-yellow-900">
+                  <th scope="col" className="text-left px-2 py-3" colSpan="2">
+                    <span className='text-green-400'>{scripture && scripture.name }</span> की रचनायें 
+                  </th>
+                  {/* <th scope="col" className="text-right px-2 py-3">गतिविधि</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -243,14 +285,14 @@ const AddCSArticle = () => {
                     added_articles.map( (article, index) => 
                       <tr key={index}
                         className="border-b dark:border-gray-700 text-black" >
-                        <td className="px-2 py-3">
+                        <td className="text-left px-2 py-3">
                           { ((currentPage-1) * 10) + index+1}. &nbsp; &nbsp;
                           {article.hindi_title} &nbsp; &nbsp;
                           <span className='font-bold text-red-600'>
                             ( {article.article_type} )
                           </span>
                         </td>
-                        <td className="px-2 py-2">
+                        <td className="text-right px-2 py-2">
                           <button 
                             onClick={e => removeCSArticle(article.cs_article_id)}
                             className='bg-red-600 inline-flex px-2 py-1 cursor-pointer'>

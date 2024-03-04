@@ -1,6 +1,6 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  CS_ARTICLE_LIST,
+  CS_ARTICLE_ADD_PAGE,
   CS_FILTERED_ARTICLE,
   CS_ARTICLE_ADD,
   SET_MESSAGE,
@@ -26,7 +26,7 @@ export const getAddArticlePageData = (scripture_id) => async dispatch => {
   
   if(response.status === 200){
      dispatch({
-      type: CS_ARTICLE_LIST, 
+      type: CS_ARTICLE_ADD_PAGE, 
       payload: response.data
     });
   } else {
