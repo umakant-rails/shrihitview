@@ -61,6 +61,15 @@ const ScriptureList = () => {
       return `/admin/scriptures/${scripture.id}/articles/new`;
     }
   }
+  const getShowPageUrl = (scripture) => {
+    if(scripture.scripture_type_id === 5 || scripture.scripture_type_id === 6){
+      return `/admin/compiled_scriptures/${scripture.id}`;
+    } if (scripture.scripture_type_id === 4) {
+      return "#";
+    }else {
+      return `/admin/scriptures/${scripture.id}`
+    }
+  }
 
   return (
     <div className='grid md:grid-cols-12'>
@@ -124,7 +133,7 @@ const ScriptureList = () => {
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
                         <td
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <Link to={`/admin/scriptures/${scripture.id}`} className="text-blue-500 cursor-pointer">
+                            <Link to={getShowPageUrl(scripture)} className="text-blue-500 cursor-pointer">
                               {scripture.name}
                             </Link>
                         </td>

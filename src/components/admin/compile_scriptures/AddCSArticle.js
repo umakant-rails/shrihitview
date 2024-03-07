@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ReactTransliterate } from "react-transliterate";
 import { 
   getAddArticlePageData, 
@@ -12,7 +12,6 @@ import {
 
 const AddCSArticle = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const { 
@@ -48,7 +47,8 @@ const AddCSArticle = () => {
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttrs, term: '', [name]: value, page: 1};
+    let term = (name === 'chapter_id') ? searchAttrs.term : '';
+    let sAttrs = {...searchAttrs, term: term, [name]: value, page: 1};
     setSearchAttrs(sAttrs);
     setCurrentPage(1);
     setTotalArticle(null);
@@ -60,9 +60,8 @@ const AddCSArticle = () => {
     dispatch(getFilteredAritcles({}));
   }
   const addArticleIntoCS = (article_id) => {
-    console.log(searchAttrs.chapter_id)
     if(chapterExist && 
-        (searchAttrs.chapter_id == undefined || searchAttrs.chapter_id.length == 0)
+        (searchAttrs.chapter_id === undefined || searchAttrs.chapter_id.length === 0)
     ){
       alert(
         `कृपया पहले "${scripture.name}" के अध्याय को सेलेक्ट करे।`
@@ -200,13 +199,13 @@ const AddCSArticle = () => {
             <div className='col-span-4'>
               <select id="chapter_id" name="chapter_id" 
                 value={searchAttrs.chapter_id ? searchAttrs.chapter_id : ''}
-                onChange={e => setSearchAttrs(searchAttrs => ({...searchAttrs, chapter_id: e.target.value}))}
+                onChange={onSearchInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                   dark:shadow-sm-light`}>
-                  <option value="">लेखक चुने</option>
+                  <option value="">अध्याय चुने</option>
                   {
                     chapters && chapters.map( (chapter, index) => 
                       <option key={index} value={chapter.id}>{chapter.name}</option>
@@ -294,7 +293,7 @@ const AddCSArticle = () => {
                         </td>
                         <td className="text-right px-2 py-2">
                           <button 
-                            onClick={e => removeCSArticle(article.cs_article_id)}
+                            onClick={e => removeCSArticle(article.id)}
                             className='bg-red-600 inline-flex px-2 py-1 cursor-pointer'>
                             <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>

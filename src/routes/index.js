@@ -59,6 +59,7 @@ import ScriptureChapterList from "../components/admin/scripture_chapters/Scriptu
 import AddScrArticle from "../components/admin/scripture_articles/AddScrArticle";
 import EditScrArticle from "../components/admin/scripture_articles/EditScrArticle";
 import AddCSArticle from "../components/admin/compile_scriptures/AddCSArticle";
+import CSScriptureShow from "../components/admin/compile_scriptures/CSScriptureShow";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -122,6 +123,7 @@ const router = createBrowserRouter(
         <Route path="/admin/scriptures/:scripture_id/scripture_articles/:id/edit" element={<ProtectedRoutes><EditScrArticle/></ProtectedRoutes>} />
 
         <Route path="/admin/compiled_scriptures/:id/add_article_page" element={<ProtectedRoutes><AddCSArticle/></ProtectedRoutes>} />
+        <Route path="/admin/compiled_scriptures/:id" element={<ProtectedRoutes><CSScriptureShow/></ProtectedRoutes>} />
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />

@@ -48,14 +48,6 @@ const ContextList = () => {
     dispatch(getContexts(sAttrs));
   };
 
-  // const showArticles = (author) => {
-  //   if (authorId !== author.id) {
-  //     setAuthorId(author.id);
-  //   } else {
-  //     setAuthorId(null);
-  //   }
-  // };
-
   const resetFilteredAuthors = (e) => {
     setTotalContextQnty(null);
     setSearchAttr({page: 1})

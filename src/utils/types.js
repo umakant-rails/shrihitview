@@ -68,13 +68,13 @@ export const ADMIN_ACTIVITIES = [
   //     {url: '#', label: 'ग्रन्थ रचना सूची'}
   //   ]
   // },
-  {
-    url: '#', label: 'संकलित ग्रन्थ रचना',
-    childs: [
-      {url: '/admin/compile_strutctures/add_article', label: 'संकलित ग्रन्थ में रचनायें जोड़े'},
-      {url: '#', label: 'रचना अनुक्रम का अद्यतन'}
-    ]
-  },
+  // {
+  //   url: '#', label: 'संकलित ग्रन्थ रचना',
+  //   childs: [
+  //     {url: '/admin/compile_strutctures/add_article', label: 'संकलित ग्रन्थ में रचनायें जोड़े'},
+  //     {url: '#', label: 'रचना अनुक्रम का अद्यतन'}
+  //   ]
+  // },
   {
     url: '#', label: 'स्त्रोत/आरती',
     childs: [
@@ -230,6 +230,10 @@ export const CS_ARTICLE_ADD_PAGE = "CS_ARTICLE_ADD_PAGE";
 export const CS_FILTERED_ARTICLE = "CS_FILTERED_ARTICLE";
 export const CS_ARTICLE_ADD = "CS_ARTICLE_ADD0";
 export const CS_ARTICLE_REMOVE = "CS_ARTICLE_REMOVE";
+export const CS_SCRIPTURE_SHOW = "CS_SCRIPTURE_SHOW";
+export const CS_ARTICLE_FOR_INDEXING = "CS_ARTICLE_FOR_INDEXING";
+export const CS_ARTICLE_INDEX_UPDATED= "CS_ARTICLE_INDEX_UPDATED";
+export const CS_ARTICLE_DELETED = "CS_ARTICLE_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_SHOW = "PB_ARTICLE_SHOW";
