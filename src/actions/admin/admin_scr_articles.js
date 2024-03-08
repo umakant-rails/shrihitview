@@ -14,10 +14,8 @@ export const newScrArticle = (scripture_id) => async dispatch => {
     `/admin/scriptures/${scripture_id}/scripture_articles/new`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -25,18 +23,13 @@ export const newScrArticle = (scripture_id) => async dispatch => {
     });
     dispatch({
       type: SCR_ARTICLE_NEW,
-      payload: {
-        scripture: response.data.scripture,
-        sections: response.data.sections,
-        chapters: response.data.chapters,
-        article_types: response.data.article_types,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -47,11 +40,9 @@ export const getScrArticle = (scripture_id, id) => async dispatch => {
     `/admin/scriptures/${scripture_id}/scripture_articles/${id}` 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -59,19 +50,13 @@ export const getScrArticle = (scripture_id, id) => async dispatch => {
     });
     dispatch({
       type: SCR_ARTICLE_EDIT, 
-      payload: {
-        scripture: response.data.scripture,
-        sections: response.data.sections,
-        chapters: response.data.chapters,
-        article_types: response.data.article_types,
-        scripture_article: response.data.scripture_article,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
       // payload: response.data.status.message,
     });
   }
@@ -82,11 +67,9 @@ export const createScrArticle = (scripture_id, formValues) => async dispatch => 
     `/admin/scriptures/${scripture_id}/scripture_articles`, {scripture_article: formValues} 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -94,15 +77,13 @@ export const createScrArticle = (scripture_id, formValues) => async dispatch => 
     });
     dispatch({
       type: SCR_ARTICLE_CREATED, 
-      payload: {
-        scripture_article: response.data.scripture_article
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
       // payload: response.data.status.message,
     });
   }
@@ -113,11 +94,9 @@ export const updateScrArticle = (scripture_id, article_id, formValues) => async 
     `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}`, {scripture_article: formValues} 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -125,15 +104,13 @@ export const updateScrArticle = (scripture_id, article_id, formValues) => async 
     });
     dispatch({
       type: SCR_ARTICLE_UPDATED, 
-      payload: {
-        scripture_article: response.data.scripture_article
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

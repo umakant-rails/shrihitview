@@ -51,7 +51,7 @@ import {
       case STROTUM_UPDATED:
         return {
           ...state,
-          updatedStrotum: action.payload.updatedStrotum,
+          updatedStrotum: action.payload.strotum,
         }
       case STROTUM_DELETED:
         return{

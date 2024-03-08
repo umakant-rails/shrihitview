@@ -10,23 +10,18 @@ export const getStrota = () => async dispatch => {
     '/pb/strota', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_STROTUM_LIST, 
-      payload: {
-        strota: response.data.strota,
-        strota_types: response.data.strota_types,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 };
@@ -36,24 +31,18 @@ export const getStrotum = (id) => async(dispatch) => {
     `/pb/strota/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_STROTUM_SHOW, 
-      payload: {
-        statusCode: response.status,
-        strotum: response.data.strotum ,
-        strota: response.data.strota,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 

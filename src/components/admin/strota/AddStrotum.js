@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import {newStrotum, createStrotum} from "../../../actions/admin/admin_strota";
+import { flushSync } from 'react-dom';
 
 const strotumObj = {title: '', strota_type_id: '', source: '', keyword: ''};
 

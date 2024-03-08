@@ -42,7 +42,7 @@ import {
       case AUTHOR_UPDATED:
         return {
           ...state,
-          authorUpdated: action.payload.authorUpdated 
+          authorUpdated: action.payload.author 
         }
       case AUTHOR_DELETED:
         return{
@@ -50,7 +50,7 @@ import {
           authors: action.payload.authors,
           total_authors: action.payload.total_authors,
           current_page: action.payload.current_page,
-          articleDeleted: action.payload.articleDeleted
+          authorDeleted: action.payload.author
         }
       default: 
         return state

@@ -43,14 +43,14 @@ import {
       case STORY_UPDATED:
         return {
           ...state,
-          storyUpdated: action.payload.storyUpdated 
+          storyUpdated: action.payload.story 
         }
       case STORY_DELETED:
         return{
           ...state,
           stories: action.payload.stories,
           total_stories: action.payload.total_stories,
-          storyDeleted: action.payload.storyDeleted
+          storyDeleted: action.payload.story
         }
       default: 
         return state

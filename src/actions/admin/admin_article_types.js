@@ -20,25 +20,18 @@ export const getTypes = (searchAttr) => async dispatch => {
     `/admin/article_types?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
  
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: ARTICLE_TYPE_LIST, 
-      payload: {
-        statusCode: response.status,
-        types: response.data.types,
-        total_types: response.data.total_types,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -48,11 +41,9 @@ export const createType = (formValues) => async dispatch => {
     '/admin/article_types', {article_type: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -60,18 +51,13 @@ export const createType = (formValues) => async dispatch => {
     });
     dispatch({
       type: ARTICLE_TYPE_CREATED, 
-      payload: {
-        type: response.data.type,
-        types: response.data.types,
-        total_types: response.data.total_types,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -81,11 +67,9 @@ export const updateType = (id, form) => async dispatch => {
     `/admin/article_types/${id}`, {article_type: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -93,18 +77,13 @@ export const updateType = (id, form) => async dispatch => {
     });
      dispatch({
       type: ARTICLE_TYPE_UPDATED, 
-      payload: {
-        type: response.data.type,
-        types: response.data.types,
-        total_types: response.data.total_types,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -114,11 +93,9 @@ export const deleteType = (id) => async dispatch => {
     `/admin/article_types/${id}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -126,18 +103,13 @@ export const deleteType = (id) => async dispatch => {
     });
      dispatch({
       type: ARTICLE_TYPE_DELETED,
-      payload: {
-        type: response.data.context,
-        types: response.data.types,
-        total_types: response.data.total_types,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

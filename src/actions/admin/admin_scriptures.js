@@ -25,26 +25,18 @@ export const getScriptures = (searchAttr) => async dispatch => {
     `/admin/scriptures?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_LIST, 
-      payload: {
-        statusCode: response.status,
-        scriptures: response.data.scriptures,
-        total_scriptures: response.data.total_scriptures,
-        scripture_types: response.data.scripture_types,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -54,27 +46,18 @@ export const getScripture = (id) => async dispatch => {
     `/admin/scriptures/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_SHOW, 
-      payload: {
-        scripture: response.data.scripture,
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        articles: response.data.articles,
-        total_articles: response.data.total_articles,
-        current_page: response.data.current_page,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -84,24 +67,18 @@ export const newScripture = () => async dispatch => {
     `/admin/scriptures/new`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_NEW, 
-      payload: {
-        statusCode: response.status,
-        scripture_types: response.data.scripture_types,
-        authors: response.data.authors,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -111,22 +88,18 @@ export const createScripture = (formValues) => async dispatch => {
     `/admin/scriptures`, {scripture: formValues} 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_CREATED, 
-      payload: {
-        scriptureCreated: response.data.scripture,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -136,25 +109,18 @@ export const editScripture = (id) => async dispatch => {
     `/admin/scriptures/${id}?action_type=edit`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_EDIT, 
-      payload: {
-        statusCode: response.status,
-        scripture: response.data.scripture,
-        scripture_types: response.data.scripture_types,
-        authors: response.data.authors
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -164,23 +130,18 @@ export const updateScripture = (id, formValues) => async dispatch => {
     `/admin/scriptures/${id}`, {scripture: formValues},
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_UPDATED, 
-      payload: {
-        statusCode: response.status,
-        scriptureUpdated: response.data.scripture,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -190,26 +151,18 @@ export const deleteScripture = (id) => async dispatch => {
     `/admin/scriptures/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SCRIPTURE_DELETED, 
-      payload: {
-        statusCode: response.status,
-        scriptures: response.data.scriptures,
-        total_scriptures: response.data.total_scriptures,
-        scripture_types: response.data.scripture_types,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -228,11 +181,9 @@ export const getChapterArticles = (scripture_id, searchAttr) => async dispatch =
     `/admin/scriptures/${scripture_id}/scripture_articles?${searchAttrStr}` 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -240,16 +191,13 @@ export const getChapterArticles = (scripture_id, searchAttr) => async dispatch =
     });
     dispatch({
       type: SCR_CHAPTER_ARTICLES,
-      payload: {
-        articles: response.data.articles,
-        total_articles: response.data.total_articles
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
       // payload: response.data.status.message,
     });
   }
@@ -269,11 +217,9 @@ export const deleteScrArticle = (scripture_id, article_id, searchAttr) => async 
     `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -281,17 +227,13 @@ export const deleteScrArticle = (scripture_id, article_id, searchAttr) => async 
     });
     dispatch({
       type: SCR_ARTICLE_DELETED, 
-      payload: {
-        articles: response.data.articles,
-        total_articles: response.data.total_articles,
-        current_page: response.data.current_page,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

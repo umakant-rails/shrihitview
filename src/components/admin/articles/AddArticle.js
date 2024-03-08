@@ -195,15 +195,17 @@ const AddArticle = () => {
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 हिंदी शीर्षक <span title="required" className="text-red-600 font-bold">*</span>
               </label>
-              <input type="text" id="hindi_title" name="hindi_title"
-                value={formValues.hindi_title}
-                onChange={onInputChange}
-                onFocus={setArticleTitle}
+              <ReactTransliterate
+                value={formValues.hindi_title || ''}
+                onChangeText={(text) => { setFormValues(formValues => ({...formValues, hindi_title: text})) }}
+                lang={'hi'}
+                type="text"
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`} required />
+                dark:shadow-sm-light`}
+              />
             </div>
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">

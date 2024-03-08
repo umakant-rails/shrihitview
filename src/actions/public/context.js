@@ -11,23 +11,18 @@ export const getContexts = () => async dispatch => {
     '/pb/contexts', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_CONTEXT_LIST, 
-      payload: {
-        statusCode: response.status,
-        contexts: response.data.contexts,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
   // return Promise.resolve(response.data);
@@ -39,23 +34,18 @@ export const getContext = (name) => async dispatch => {
     `/pb/contexts/${name}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_CONTEXT_SHOW, 
-      payload: {
-        statusCode: response.status,
-        context: response.data.context,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 };

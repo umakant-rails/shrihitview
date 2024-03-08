@@ -23,23 +23,17 @@ export const getStories = (searchAttr) => async dispatch => {
     `/stories?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STORY_LIST, 
-      payload: {
-        stories: response.data.stories,
-        total_stories: response.data.total_stories,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -49,22 +43,18 @@ export const getStory = (id) => async dispatch => {
     `/stories/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STORY_SHOW, 
-      payload: {
-        story: response.data.story,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -74,11 +64,9 @@ export const createStory = (formValues) => async dispatch => {
     '/stories', {story: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -86,16 +74,13 @@ export const createStory = (formValues) => async dispatch => {
     });
     dispatch({
       type: STORY_CREATED, 
-      payload: {
-        statusCode: response.status,
-        story: response.data.story
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -105,24 +90,18 @@ export const newStory = () => async dispatch => {
     '/stories/new', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STORY_NEW, 
-      payload: {
-        statusCode: response.status,
-        sants: response.data.sants,
-        scriptures: response.data.scriptures,
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -132,24 +111,18 @@ export const editStory = (id) => async dispatch => {
     `/stories/${id}?action_type=edit`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STORY_EDIT, 
-      payload: {
-        sants: response.data.sants,
-        scriptures: response.data.scriptures,
-        story: response.data.story,
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -159,11 +132,9 @@ export const updateStory = (id, form) => async dispatch => {
     `/stories/${id}`, {story: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -171,15 +142,13 @@ export const updateStory = (id, form) => async dispatch => {
     });
      dispatch({
       type: STORY_UPDATED, 
-      payload: {
-        storyUpdated: response.data.story,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -190,11 +159,9 @@ export const deleteStory = (id, origin_page) => async dispatch => {
     `/stories/${id}?origin_page=${origin_page}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -202,18 +169,13 @@ export const deleteStory = (id, origin_page) => async dispatch => {
     });
      dispatch({
       type: STORY_DELETED,
-      payload: {
-        stories: response.data.stories,
-        total_stories: response.data.total_stories,
-        current_page: response.data.current_page,
-        storyDeleted: response.data.story
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

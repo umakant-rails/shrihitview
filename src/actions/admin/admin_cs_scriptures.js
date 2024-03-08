@@ -24,11 +24,9 @@ export const getAddArticlePageData = (scripture_id) => async dispatch => {
     `/admin/compiled_scriptures/${scripture_id}/add_articles_page`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: CS_ARTICLE_ADD_PAGE, 
       payload: response.data
@@ -37,7 +35,7 @@ export const getAddArticlePageData = (scripture_id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -55,11 +53,9 @@ export const getFilteredAritcles = (scripture_id, searchAttrs) => async dispatch
     `/admin/compiled_scriptures/${scripture_id}/filter_articles?${searchAttrStr}`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: CS_FILTERED_ARTICLE, 
       payload: response.data
@@ -68,7 +64,7 @@ export const getFilteredAritcles = (scripture_id, searchAttrs) => async dispatch
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -83,11 +79,9 @@ export const addArticleInCS = (scripture_id, article_id, searchAttrs) => async d
     `/admin/compiled_scriptures/${scripture_id}/add_article`, searchAttrs      
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: CS_ARTICLE_ADD, 
       payload: response.data
@@ -96,7 +90,7 @@ export const addArticleInCS = (scripture_id, article_id, searchAttrs) => async d
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -107,11 +101,9 @@ export const removeArticleFromCS = (scripture_id, article_id, searchAttrs) => as
     `/admin/compiled_scriptures/${scripture_id}/remove_article`, searchAttrs,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: CS_ARTICLE_REMOVE, 
       payload: response.data
@@ -120,7 +112,7 @@ export const removeArticleFromCS = (scripture_id, article_id, searchAttrs) => as
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -130,11 +122,9 @@ export const showCSScripture = (scripture_id, searchAttrs) => async dispatch => 
     `/admin/compiled_scriptures/${scripture_id}`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: CS_SCRIPTURE_SHOW, 
       payload: response.data
@@ -143,7 +133,7 @@ export const showCSScripture = (scripture_id, searchAttrs) => async dispatch => 
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 
@@ -162,11 +152,9 @@ export const getArticleForIndexing = (scripture_id, searchAttrs) => async dispat
     `/admin/compiled_scriptures/${scripture_id}/get_articles_for_indexing?${searchAttrsStr}`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: CS_ARTICLE_FOR_INDEXING, 
       payload: response.data
@@ -175,7 +163,7 @@ export const getArticleForIndexing = (scripture_id, searchAttrs) => async dispat
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -187,11 +175,9 @@ export const updateIndex = (scripture_id, params) => async dispatch => {
     params,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: CS_ARTICLE_INDEX_UPDATED, 
       payload: response.data
@@ -200,7 +186,7 @@ export const updateIndex = (scripture_id, params) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -211,11 +197,9 @@ export const deleteCSArticle = (scripture_id, params) => async dispatch => {
     params,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: CS_ARTICLE_DELETED, 
       payload: response.data
@@ -224,7 +208,7 @@ export const deleteCSArticle = (scripture_id, params) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

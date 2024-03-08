@@ -11,11 +11,9 @@ export const userRegister = (formValues) => async dispatch => {
     {user: formValues}, {}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -32,7 +30,7 @@ export const userRegister = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
     // dispatch({
     //   type: ERROR_HANDLING, 
@@ -51,10 +49,8 @@ export const userLogin = (formValues) => async dispatch => {
     {user: formValues}, {}
   ).then( response => {
     return response;
-  }).catch( error => {
-    return error.response;
   });  
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     localStorage.setItem("token", response.headers.authorization);
     localStorage.setItem("currentUser", JSON.stringify(response.data.user));
     
@@ -68,7 +64,7 @@ export const userLogin = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

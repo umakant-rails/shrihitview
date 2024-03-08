@@ -39,7 +39,7 @@ const adminScriputureReducer = (state=initialState, action) => {
       };
     case SCRIPTURE_CREATED:
       return {
-        scriptureCreated: action.payload.scriptureCreated,
+        scriptureCreated: action.payload.scripture,
       }
     case SCRIPTURE_EDIT:
       return {
@@ -49,7 +49,7 @@ const adminScriputureReducer = (state=initialState, action) => {
       };
     case SCRIPTURE_UPDATED:
       return {
-        scriptureUpdated: action.payload.scriptureUpdated,
+        scriptureUpdated: action.payload.scripture,
       }
     case SCRIPTURE_DELETED:
       return{

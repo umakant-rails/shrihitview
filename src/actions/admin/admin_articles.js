@@ -17,28 +17,18 @@ export const newArticle = () => async dispatch => {
     '/articles/new', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response && response.data.errors === undefined){
+  if(response && response.data.error === undefined){
     dispatch({
       type: ARTICLE_NEW, 
-      payload: {
-        statusCode: response.status,
-        article_types: response.data.article_types,
-        scriptures: response.data.scriptures,
-        raags: response.data.raags,
-        contexts: response.data.contexts,
-        authors: response.data.authors,
-        tags: response.data.tags
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -48,11 +38,9 @@ export const createArticle = (form) => async dispatch => {
     '/articles', {article: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -60,15 +48,13 @@ export const createArticle = (form) => async dispatch => {
     });
      dispatch({
       type: ARTICLE_CREATED, 
-      payload: {
-        articleCreated: response.data.article,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -78,29 +64,18 @@ export const editArticle = (id) => async dispatch => {
     `/articles/${id}?action_type=edit`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response && response.data.errors === undefined){
+  if(response && response.data.error === undefined){
     dispatch({
       type: ARTICLE_EDIT, 
-      payload: {
-        statusCode: response.status,
-        articleTypes: response.data.article_types,
-        scriptures: response.data.scriptures,
-        raags: response.data.raags,
-        contexts: response.data.contexts,
-        authors: response.data.authors,
-        tags: response.data.tags,
-        article: response.data.article
-      }
+      payload: response.data,
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -110,11 +85,9 @@ export const updateArticle = (id, form) => async dispatch => {
     `/articles/${id}`, {article: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -122,15 +95,13 @@ export const updateArticle = (id, form) => async dispatch => {
     });
      dispatch({
       type: ARTICLE_UPDATED, 
-      payload: {
-        articleUpdated: response.data.article,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -140,11 +111,9 @@ export const deleteArticle = (id) => async dispatch => {
     `/articles/${id}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -152,16 +121,13 @@ export const deleteArticle = (id) => async dispatch => {
     });
      dispatch({
       type: ARTICLE_DELETED, 
-      payload: {
-        articles: response.data.articles,
-        total_articles: response.data.total_articles,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -171,11 +137,9 @@ export const createTag = (tag) => async dispatch => {
     '/tags', {tag: {name: tag}}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
  
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -183,16 +147,13 @@ export const createTag = (tag) => async dispatch => {
     });
     dispatch({
       type: ARTICLE_TAG_CREATED, 
-      payload: {
-        statusCode: response.status,
-        tags: response.data.tags,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -202,28 +163,18 @@ export const getArticles = () => async dispatch => {
     '/articles',
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: ARTICLE_LIST, 
-      payload: {
-        articles: response.data.articles,
-        totalArticles: response.data.total_articles,
-        authors: response.data.authors,
-        raags: response.data.raags,
-        contexts: response.data.contexts,
-        articleTypes: response.data.article_types,
-        scriptures: response.data.scriptures,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors,
+      payload: response.data.error,
     });
   }
 }
@@ -241,23 +192,18 @@ export const getArticlesByPage = (searchAttr, page) => async dispatch => {
     `/articles/pages/${page}?${searchAttrStr}`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: ARTICLE_LIST_BY_PAGE, 
-      payload: {
-        articles: response.data.articles,
-        totalArticles: response.data.total_articles,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -267,22 +213,18 @@ export const getArticle = (id) => async dispatch => {
     `/articles/${id}`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: ARTICLE_SHOW, 
-      payload: {
-        article: response.data.article,
-      }
+      payload: response.data,
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

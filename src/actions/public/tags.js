@@ -11,50 +11,40 @@ export const getTags = () => async dispatch => {
     '/pb/tags', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_TAG_LIST, 
-      payload: {
-        statusCode: response.status,
-        tags: response.data.tags,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 };
 
-export const getTag = (name) => async dispatch => {
+export const getTagArticles = (name) => async dispatch => {
  
   const response = await baseUrl.get(
     `/pb/tags/${name}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_TAG_SHOW, 
-      payload: {
-        statusCode: response.status,
-        tags: response.data.tag,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
   // return Promise.resolve(response.data);

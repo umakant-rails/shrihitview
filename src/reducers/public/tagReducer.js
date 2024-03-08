@@ -15,6 +15,8 @@ import {
         return {
           ...state,
           tag: action.payload.tag,
+          tags: action.payload.tags,
+          articles: action.payload.articles,
         };
       default: 
         return state

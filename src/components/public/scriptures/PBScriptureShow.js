@@ -9,11 +9,11 @@ const ScriptureShow = () => {
   const {id} = useParams()
   const [currentArticle, setCurrentArticle] = useState(1);
   const [indexing, setIndexing] = useState(false);
-  const { scripture } = useSelector(state => state.scripture);
+  const { scripture, articles } = useSelector(state => state.scripture);
   const [titleAttr, setTitleAtrr] = useState(null);
   const [contentAttr, setContentArr] = useState(null);
 
-  const nextCls = (scripture && currentArticle === scripture.articles.length) ? 'text-gray-400' : 'text-gray-800';;
+  const nextCls = (articles && currentArticle === articles.length) ? 'text-gray-400' : 'text-gray-800';;
   const prevCls = (currentArticle === 1) ? 'text-gray-400' : 'text-gray-800';
 
   useEffect( () => { dispatch(getScrArticles(id)); }, [id]);
@@ -34,8 +34,8 @@ const ScriptureShow = () => {
 
     if(articleIndex < 1){
       setCurrentArticle(1);
-    } else if(articleIndex > scripture.articles.length) {
-      setCurrentArticle(scripture.articles.length);
+    } else if(articleIndex > articles.length) {
+      setCurrentArticle(articles.length);
     } else {
       setCurrentArticle(articleIndex);
     }
@@ -57,7 +57,7 @@ const ScriptureShow = () => {
               {scripture && scripture.name}
             </div>
             <div className={`${indexing && 'hidden'}`}>
-              {scripture && scripture.articles && scripture.articles.map((article, index) =>
+              {articles && articles.map((article, index) =>
                 (currentArticle === index+1 ) && (
                   <div key={article.id} className='grid md:grid-cols-12'>
                     <div className='hidden md:flex flex justify-center items-center page-fixed' >
@@ -95,8 +95,8 @@ const ScriptureShow = () => {
                 </div>
                 <ul className='grid grid-cols-12 mx-3'>
                   {
-                    scripture && scripture.articles && scripture.articles.map((article, index) =>
-                      <Link to="#" onClick={e => navigateArticle(index+1)} className={`col-span-6 text-xl text-blue-800 px-4 py-2 border-b ${index%2 === 0 && 'border-r'} ${[0,1].includes(index) && 'border-t'} border-gray-500`}>
+                    articles && articles.map((article, index) =>
+                      <Link to="#" key={index} onClick={e => navigateArticle(index+1)} className={`col-span-6 text-xl text-blue-800 px-4 py-2 border-b ${index%2 === 0 && 'border-r'} ${[0,1].includes(index) && 'border-t'} border-gray-500`}>
                         <li>
                           {index+1}. {article[titleAttr]}
                         </li>

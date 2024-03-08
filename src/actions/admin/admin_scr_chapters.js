@@ -21,11 +21,9 @@ export const getChapters = (scripture_id, searchAttr) => async dispatch => {
     `/admin/scriptures/${scripture_id}/chapters?${searchAttrStr}` 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -33,19 +31,13 @@ export const getChapters = (scripture_id, searchAttr) => async dispatch => {
     });
     dispatch({
       type: CHAPTER_LIST, 
-      payload: {
-        scripture: response.data.scripture,
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
       // payload: response.data.status.message,
     });
   }
@@ -56,10 +48,8 @@ export const createChapter = (scripture_id, formValues) => async dispatch => {
     `/admin/scriptures/${scripture_id}/chapters`, {chapter: formValues} 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -67,18 +57,13 @@ export const createChapter = (scripture_id, formValues) => async dispatch => {
     });
     dispatch({
       type: CHAPTER_CREATED, 
-      payload: {
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
       // payload: response.data.status.message,
     });
   }
@@ -89,11 +74,9 @@ export const updateChapter = (scripture_id, chapter_id, formValues) => async dis
     `/admin/scriptures/${scripture_id}/chapters/${chapter_id}`, {chapter: formValues} 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -101,18 +84,13 @@ export const updateChapter = (scripture_id, chapter_id, formValues) => async dis
     });
     dispatch({
       type: CHAPTER_UPDATED, 
-      payload: {
-        chapters: response.data.chapters,
-        sections: response.data.sections,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -122,11 +100,9 @@ export const deleteChapter = (scripture_id, chapter_id) => async dispatch => {
     `/admin/scriptures/${scripture_id}/chapters/${chapter_id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -134,17 +110,13 @@ export const deleteChapter = (scripture_id, chapter_id) => async dispatch => {
     });
     dispatch({
       type: CHAPTER_DELETED, 
-      payload: {
-        chapters: response.data.chapters,
-        total_chapters: response.data.total_chapters,
-        current_page: response.data.current_page,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

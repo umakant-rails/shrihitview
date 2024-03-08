@@ -28,7 +28,7 @@ import {
       case ARTICLE_CREATED:
         return {
           ...state,
-          articleCreated: action.payload.articleCreated
+          articleCreated: action.payload.article
         }
       case ARTICLE_TAG_CREATED:
         return {
@@ -38,11 +38,11 @@ import {
       case ARTICLE_LIST:
         return {
           articles: action.payload.articles,
-          totalArticles: action.payload.totalArticles,
+          totalArticles: action.payload.total_articles,
           authors: action.payload.authors,
           raags: action.payload.raags,
           contexts: action.payload.contexts,
-          articleTypes: action.payload.articleTypes,
+          articleTypes: action.payload.article_types,
           scriptures: action.payload.scriptures
         };
       case ARTICLE_SHOW:
@@ -56,13 +56,13 @@ import {
           raags: action.payload.raags,
           tags: action.payload.tags,
           contexts: action.payload.contexts,
-          articleTypes: action.payload.articleTypes,
+          articleTypes: action.payload.article_types,
           scriptures: action.payload.scriptures
         };
       case ARTICLE_UPDATED:
         return {
           ...state,
-          updatedArticle: action.payload.articleUpdated 
+          updatedArticle: action.payload.article 
         }
       case ARTICLE_DELETED:
         return{
@@ -74,7 +74,7 @@ import {
         return {
           ...state,
           articles: action.payload.articles,
-          totalArticles: action.payload.totalArticles
+          totalArticles: action.payload.total_articles
         }
       default: 
         return state

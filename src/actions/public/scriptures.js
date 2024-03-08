@@ -10,23 +10,18 @@ export const getScriptures = () => async dispatch => {
     "/pb/scriptures",
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_SCRIPTURE_LIST,
-      payload: {
-        statusCode: response.status,
-        scriptures: response.data.scriptures,
-      }
+      payload: response.data
     })
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -36,24 +31,18 @@ export const getScrArticles = (name) => async dispatch => {
     `/pb/scriptures/${name}`,
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_SCRIPTURE_SHOW,
-      payload: {
-        statusCode: response.status,
-        scripture: response.data.scripture,
-        articles: response.data.articles
-      }
+      payload: response.data
     })
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

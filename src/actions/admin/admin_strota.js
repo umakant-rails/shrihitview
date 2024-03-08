@@ -27,27 +27,18 @@ export const getStrota = (searchAttr) => async dispatch => {
     `/admin/strota?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STROTUM_LIST, 
-      payload: {
-        statusCode: response.status,
-        strota: response.data.strota,
-        strota_types: response.data.strota_types,
-        total_strota: response.data.total_strota,
-        current_page: response.data.current_page,
-        article_types: response.data.article_types,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -57,25 +48,18 @@ export const getStrotum = (id) => async dispatch => {
     `/admin/strota/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
      dispatch({
       type: STROTUM_SHOW, 
-      payload: {
-        statusCode: response.status,
-        strotum: response.data.strotum,
-        strotum_articles: response.data.strotum_articles,
-        article_types: response.data.article_types,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -85,11 +69,9 @@ export const createStrotum = (formValues) => async dispatch => {
     '/admin/strota', {strotum: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -97,16 +79,13 @@ export const createStrotum = (formValues) => async dispatch => {
     });
     dispatch({
       type: STROTUM_CREATED, 
-      payload: {
-        statusCode: response.status,
-        strotum: response.data.strotum,
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -116,22 +95,17 @@ export const newStrotum = () => async dispatch => {
     '/admin/strota/new', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STROTUM_NEW, 
-      payload: {
-        statusCode: response.status,
-        strota_types: response.data.strota_types,
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -141,23 +115,17 @@ export const editStrotum = (id) => async dispatch => {
     `/admin/strota/${id}?action_type=edit`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: STROTUM_EDIT, 
-      payload: {
-        statusCode: response.status,
-        strotum: response.data.strotum,
-        strota_types: response.data.strota_types,
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -167,11 +135,9 @@ export const updateStrotum = (id, form) => async dispatch => {
     `/admin/strota/${id}`, {strotum: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -179,15 +145,13 @@ export const updateStrotum = (id, form) => async dispatch => {
     });
      dispatch({
       type: STROTUM_UPDATED, 
-      payload: {
-        updatedStrotum: response.data.strotum,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -197,11 +161,9 @@ export const deleteStrotum = (id) => async dispatch => {
     `/admin/strota/${id}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -209,18 +171,13 @@ export const deleteStrotum = (id) => async dispatch => {
     });
      dispatch({
       type: STROTUM_DELETED,
-      payload: {
-        deletedStrotum: response.data.strotum,
-        strota: response.data.strota,
-        total_strota: response.data.total_strota,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -233,11 +190,9 @@ export const createStrotumArticle =(strotum_id, formValues) => async dispatch =>
     `/admin/strota/${strotum_id}/strota_articles`, {strota_article: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -245,16 +200,13 @@ export const createStrotumArticle =(strotum_id, formValues) => async dispatch =>
     });
      dispatch({
       type: STROTUM_ARTICLE_CREATED, 
-      payload: {
-        strotum_article: response.data.strotum_article,
-        strotum_articles: response.data.strotum_articles
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -263,11 +215,9 @@ export const updateStrotumArticle =(strotum_id, article_id, formValues) => async
     `/admin/strota/${strotum_id}/strota_articles/${article_id}`, {strota_article: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -275,16 +225,13 @@ export const updateStrotumArticle =(strotum_id, article_id, formValues) => async
     });
      dispatch({
       type: STROTUM_ARTICLE_UPDATED, 
-      payload: {
-        strotum_article: response.data.strotum_article,
-        strotum_articles: response.data.strotum_articles
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -294,11 +241,9 @@ export const updateAritcleIndex = (strotum_id, article_id, new_index) => async d
     {new_index: new_index}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -306,15 +251,13 @@ export const updateAritcleIndex = (strotum_id, article_id, new_index) => async d
     });
      dispatch({
       type: STROTUM_ARTICLE_INDEX_UPDATED, 
-      payload: {
-        strotum_articles: response.data.strotum_articles
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -323,11 +266,9 @@ export const deleteStrotumArticle =(strotum_id, article_id) => async dispatch =>
     `/admin/strota/${strotum_id}/strota_articles/${article_id}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -335,15 +276,13 @@ export const deleteStrotumArticle =(strotum_id, article_id) => async dispatch =>
     });
      dispatch({
       type: STROTUM_ARTICLE_DELETED, 
-      payload: {
-        strotum_articles: response.data.strotum_articles
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

@@ -9,6 +9,11 @@ const PBScriptureList = () => {
   const dispatch = useDispatch();
   const { scriptures } = useSelector(state => state.scripture );
 
+  const imageExist = (scripture) => {
+    let imageArr = require.context('../../../assets/images', false).keys();
+    let scrImage = `./${imageNamefromScrName(scripture.name_eng)}.png`;
+    return imageArr.indexOf(scrImage) >= 0;
+  }
   useEffect(() => {
     dispatch(getScriptures());
   }, []);
@@ -24,9 +29,17 @@ const PBScriptureList = () => {
             scriptures && scriptures.map( (scripture, index) => 
               <div key={index} className='md:col-span-4 lg:col-span-3 flex justify-center'>
                 <Link to={`/pb/scriptures/${scripture.name_eng}`}>
-                  <img 
-                    src={images(`./${imageNamefromScrName(scripture.name_eng)}.png`)} 
-                    alt="shit-hit" className='border h-60 border-violet-400 items-center'/>
+                  {
+                    imageExist(scripture) ? (
+                      <img 
+                        src={images(`./${imageNamefromScrName(scripture.name_eng)}.png`)} 
+                        alt="shit-hit" className='border h-60 border-violet-400 items-center'/>
+                    ): (
+                      <img 
+                        src='' alt={scripture.name_eng} 
+                        className='border min-w-40 max-w-40 h-60 border-violet-400 items-center'/>
+                    )
+                  }
                 </Link>
               </div>
             )

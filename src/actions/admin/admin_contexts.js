@@ -20,25 +20,18 @@ export const getContexts = (searchAttr) => async dispatch => {
     `/admin/contexts?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
  
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: CONTEXT_LIST, 
-      payload: {
-        statusCode: response.status,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -48,11 +41,9 @@ export const createContext = (formValues) => async dispatch => {
     '/admin/contexts', {context: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response && response.data.errors === undefined){
+  if(response && response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -60,18 +51,13 @@ export const createContext = (formValues) => async dispatch => {
     });
     dispatch({
       type: CONTEXT_CREATED, 
-      payload: {
-        context: response.data.context,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -81,11 +67,9 @@ export const updateContext = (id, form) => async dispatch => {
     `/admin/contexts/${id}`, {context: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -93,18 +77,13 @@ export const updateContext = (id, form) => async dispatch => {
     });
      dispatch({
       type: CONTEXT_UPDATED, 
-      payload: {
-        context: response.data.context,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -114,11 +93,9 @@ export const deleteContext = (id) => async dispatch => {
     `/admin/contexts/${id}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -126,18 +103,13 @@ export const deleteContext = (id) => async dispatch => {
     });
      dispatch({
       type: CONTEXT_DELETED,
-      payload: {
-        context: response.data.context,
-        contexts: response.data.contexts,
-        total_contexts: response.data.total_contexts,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

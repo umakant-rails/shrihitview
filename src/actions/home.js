@@ -9,11 +9,9 @@ export const getHomePageData = () => async dispatch => {
     '/pb/home', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: HOME_PAGE, 
       payload: response.data
@@ -22,7 +20,7 @@ export const getHomePageData = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 };
@@ -32,11 +30,9 @@ export const getFooterData = () => async dispatch => {
     '/pb/home/get_footer_data', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: HOME_PAGE, 
       payload: response.data
@@ -45,7 +41,7 @@ export const getFooterData = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

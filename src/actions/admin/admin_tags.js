@@ -20,25 +20,18 @@ export const getTags = (searchAttr) => async dispatch => {
     `/tags?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: TAG_LIST, 
-      payload: {
-        statusCode: response.status,
-        tags: response.data.tags,
-        total_tags: response.data.total_tags,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -48,11 +41,9 @@ export const createTag = (formValues) => async dispatch => {
     '/tags', {tag: formValues}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -60,18 +51,13 @@ export const createTag = (formValues) => async dispatch => {
     });
     dispatch({
       type: TAG_CREATED, 
-      payload: {
-        tag: response.data.tag,
-        tags: response.data.tags,
-        total_tags: response.data.total_tags,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else if(response){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -81,11 +67,9 @@ export const updateTag = (id, form) => async dispatch => {
     `/tags/${id}`, {tag: form}
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
   
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -93,18 +77,13 @@ export const updateTag = (id, form) => async dispatch => {
     });
      dispatch({
       type: TAG_UPDATED, 
-      payload: {
-        tag: response.data.tag,
-        tags: response.data.tags,
-        total_tags: response.data.total_tags,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }
@@ -114,11 +93,9 @@ export const deleteTag = (id) => async dispatch => {
     `/tags/${id}`
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -126,18 +103,13 @@ export const deleteTag = (id) => async dispatch => {
     });
      dispatch({
       type: TAG_DELETED,
-      payload: {
-        tag: response.data.tag,
-        tags: response.data.tags,
-        total_tags: response.data.total_tags,
-        current_page: response.data.current_page
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 }

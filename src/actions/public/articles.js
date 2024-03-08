@@ -11,28 +11,18 @@ export const getArticles = () => async dispatch => {
     '/pb/articles', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_ARTICLE_LIST, 
-      payload: {
-        statusCode: response.status,
-        articles: response.data.articles,
-        authors: response.data.authors,
-        tags: response.data.tags,
-        contexts: response.data.contexts,
-        article_types: response.data.article_types
-        // message: response.data.status.message
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
   // return Promise.resolve(response.data);
@@ -43,23 +33,18 @@ export const getArticle = (id) => async(dispatch) => {
     `/pb/articles/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_ARTICLE_SHOW, 
-      payload: {
-        statusCode: response.status,
-        article: response.data.article,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 

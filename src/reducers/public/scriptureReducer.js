@@ -16,7 +16,7 @@ const scriptureReducer = (state=initialState, action) => {
         return {
           ...state,
           scripture: action.payload.scripture,
-          scr_articles: action.payload.articles
+          articles: action.payload.articles
         }
     default: 
       return state

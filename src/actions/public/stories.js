@@ -11,22 +11,18 @@ export const getStories = () => async dispatch => {
     '/pb/stories', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_STORY_LIST, 
-      payload: {
-        stories: response.data.stories,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
   // return Promise.resolve(response.data);
@@ -37,24 +33,18 @@ export const getStory = (id) => async(dispatch) => {
     `/pb/stories/${id}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_STORY_SHOW, 
-      payload: {
-        statusCode: response.status,
-        story: response.data.story,
-        stories: response.data.stories,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
 

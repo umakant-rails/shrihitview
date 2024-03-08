@@ -30,11 +30,13 @@ const CSScriptureShow = () => {
 
   useEffect( () => {
     if(articles){
+      let chapter_id = chapter && chapter.id;
       setArticleList(articles);
       setTotalArticleQnty(total_articles);
       setChapterList(chapters);
+      setSearchAttrs(searchAttrs => ({...searchAttrs, chapter_id: chapter_id}))
       setCurrentPage(current_page);
-      setSelectedChapterId(chapter && chapter.id);
+      setSelectedChapterId(chapter_id);
     }
   }, [articles])
 

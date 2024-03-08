@@ -11,23 +11,18 @@ export const getArticleTypes = () => async dispatch => {
     '/pb/article_types', 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_ARTICLE_TYPE_LIST, 
-      payload: {
-        statusCode: response.status,
-        article_types: response.data.article_types,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
   // return Promise.resolve(response.data);
@@ -39,23 +34,18 @@ export const getArticleType = (name) => async dispatch => {
     `/pb/article_types/${name}`, 
   ).then(response => {
     return response;
-  }).catch(function (error) {
-    return error.response;
   });
 
-  if(response.data.errors === undefined){
+  if(response.data.error === undefined){
     dispatch({
       type: PB_ARTICLE_TYPE_SHOW, 
-      payload: {
-        statusCode: response.status,
-        article_type: response.data.article_type,
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.errors.join("\n"),
+      payload: response.data.error.join("\n"),
     });
   }
   // return Promise.resolve(response.data);

@@ -29,12 +29,12 @@ const ArticleShow = () => {
 
   return (
     <div className='grid grid-cols-12'>
-      <div className='col-start-2 col-end-11'>
+      <div className='md:col-start-2 md:col-span-10'>
         { article ?
           ( <>
               <div className='article-header-violet'>
-                <p className='text-2xl font-bold text-cyan-800 mb-1'>{article.hindi_title}</p>
-                <p>
+                <p className='text-2xl font-bold text-cyan-800 mb-1 px-2'>{article.hindi_title}</p>
+                <p className='px-2'>
                   ( <span className='font-bold text-red-500 text-medium'>रचनाकार - </span>{article.author},&nbsp;&nbsp;  
                   <span className='font-bold text-red-500 text-medium'>सृजन तिथि - </span>{dateFormat(article.created_at)},&nbsp;&nbsp;  
                   <span className='font-bold text-red-500 text-medium'>रचना प्रकार - </span> {article.article_type} )
@@ -43,7 +43,7 @@ const ArticleShow = () => {
               <div className='text-xl overflow-hidden shadow-2xl p-5 mb-3 mb-5'>
                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
               </div>
-              <div id="comment-section" className='py-2 grid grid-cols-8'>
+              <div id="comment-section" className='py-2 px-4 grid grid-cols-8'>
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
                 <div className="grid col-start-1 col-end-6">
                   <ReactTransliterate
@@ -94,7 +94,7 @@ const ArticleShow = () => {
                   }
                 </div>
               </div>
-              <div className='py-2'>
+              <div className='py-2 px-4'>
                 <div className='font-bold mb-2'>Comments:</div>
                 {
                   (article.comments.length === 0) ? 
