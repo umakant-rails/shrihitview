@@ -13,23 +13,16 @@ export const getHomePageData = () => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: HOME_PAGE, 
-      payload: {
-        statusCode: response.status,
-        articles: response.data.articles,
-        authors: response.data.authors,
-        tags: response.data.tags,
-        contexts: response.data.contexts,
-        article_types: response.data.article_types
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 };
@@ -43,22 +36,16 @@ export const getFooterData = () => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: HOME_PAGE, 
-      payload: {
-        statusCode: response.status,
-        authors: response.data.authors,
-        tags: response.data.tags,
-        contexts: response.data.contexts,
-        article_types: response.data.article_types
-      }
+      payload: response.data
     });
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }

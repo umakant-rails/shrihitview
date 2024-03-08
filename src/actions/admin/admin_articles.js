@@ -21,7 +21,7 @@ export const newArticle = () => async dispatch => {
     return error.response;
   });
 
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: ARTICLE_NEW, 
       payload: {
@@ -38,7 +38,7 @@ export const newArticle = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -52,7 +52,7 @@ export const createArticle = (form) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -68,7 +68,7 @@ export const createArticle = (form) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -82,7 +82,7 @@ export const editArticle = (id) => async dispatch => {
     return error.response;
   });
 
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: ARTICLE_EDIT, 
       payload: {
@@ -100,7 +100,7 @@ export const editArticle = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -114,7 +114,7 @@ export const updateArticle = (id, form) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -130,7 +130,7 @@ export const updateArticle = (id, form) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -144,7 +144,7 @@ export const deleteArticle = (id) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -161,7 +161,7 @@ export const deleteArticle = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -175,7 +175,7 @@ export const createTag = (tag) => async dispatch => {
     return error.response;
   });
  
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -192,6 +192,7 @@ export const createTag = (tag) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -205,7 +206,7 @@ export const getArticles = () => async dispatch => {
     return error.response;
   });
   
-  if(response.status === 200){
+  if(response.data.errors === undefined){
      dispatch({
       type: ARTICLE_LIST, 
       payload: {
@@ -222,7 +223,7 @@ export const getArticles = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error,
+      payload: response.data.errors,
     });
   }
 }
@@ -244,7 +245,7 @@ export const getArticlesByPage = (searchAttr, page) => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
      dispatch({
       type: ARTICLE_LIST_BY_PAGE, 
       payload: {
@@ -256,7 +257,7 @@ export const getArticlesByPage = (searchAttr, page) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -270,7 +271,7 @@ export const getArticle = (id) => async dispatch => {
     return error.response;
   });
   
-  if(response.status === 200){
+  if(response.data.errors === undefined){
      dispatch({
       type: ARTICLE_SHOW, 
       payload: {
@@ -281,7 +282,7 @@ export const getArticle = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error,
+      payload: response.data.errors.join("\n"),
     });
   }
 }

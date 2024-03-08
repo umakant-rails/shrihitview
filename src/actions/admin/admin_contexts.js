@@ -24,7 +24,7 @@ export const getContexts = (searchAttr) => async dispatch => {
     return error.response;
   });
  
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: CONTEXT_LIST, 
       payload: {
@@ -38,7 +38,7 @@ export const getContexts = (searchAttr) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -52,7 +52,7 @@ export const createContext = (formValues) => async dispatch => {
     return error.response;
   });
 
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -71,7 +71,7 @@ export const createContext = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -85,7 +85,7 @@ export const updateContext = (id, form) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -104,7 +104,7 @@ export const updateContext = (id, form) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -118,7 +118,7 @@ export const deleteContext = (id) => async dispatch => {
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -137,7 +137,7 @@ export const deleteContext = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }

@@ -14,7 +14,7 @@ export const getStrota = () => async dispatch => {
     return error.response;
   });
   
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_STROTUM_LIST, 
       payload: {
@@ -26,6 +26,7 @@ export const getStrota = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
+      payload: response.data.errors.join("\n"),
     });
   }
 };
@@ -39,7 +40,7 @@ export const getStrotum = (id) => async(dispatch) => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_STROTUM_SHOW, 
       payload: {
@@ -52,7 +53,7 @@ export const getStrotum = (id) => async(dispatch) => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 

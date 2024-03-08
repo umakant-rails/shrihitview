@@ -14,7 +14,7 @@ export const getScriptures = () => async dispatch => {
     return error.response;
   });
   
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_SCRIPTURE_LIST,
       payload: {
@@ -26,7 +26,7 @@ export const getScriptures = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -40,7 +40,7 @@ export const getScrArticles = (name) => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_SCRIPTURE_SHOW,
       payload: {
@@ -53,7 +53,7 @@ export const getScrArticles = (name) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }

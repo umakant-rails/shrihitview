@@ -26,7 +26,7 @@ export const getAuthors = (searchAttr) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: AUTHOR_LIST, 
       payload: {
@@ -40,7 +40,7 @@ export const getAuthors = (searchAttr) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -54,7 +54,7 @@ export const createAuthor = (formValues) => async dispatch => {
     return error.response;
   });
 
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -71,7 +71,7 @@ export const createAuthor = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -84,7 +84,7 @@ export const createSampradaya = (sampradaya) => async dispatch => {
     return error.response;
   });
  
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: SAMPRADAYA_CREATED, 
       payload: {
@@ -97,7 +97,7 @@ export const createSampradaya = (sampradaya) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 } 
@@ -109,7 +109,7 @@ export const newAuthor = () => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: AUTHOR_NEW, 
       payload: {
@@ -121,7 +121,7 @@ export const newAuthor = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -134,7 +134,7 @@ export const editAuthor = (id) => async dispatch => {
   }).catch(function (error) {
     return error.response;
   });
-  if(response && response.status === 200){
+  if(response && response.data.errors === undefined){
     dispatch({
       type: AUTHOR_EDIT, 
       payload: {
@@ -147,7 +147,7 @@ export const editAuthor = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.statusText
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -161,7 +161,7 @@ export const updateAuthor = (id, form) => async dispatch => {
     return error.response;
   });
   
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -177,7 +177,7 @@ export const updateAuthor = (id, form) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -191,14 +191,14 @@ export const deleteAuthor = (id) => async dispatch => {
     return error.response;
   });
 
-  if(response.data.error === undefined){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
       payload: response.data.notice,
     });
      dispatch({
-      type: AUTHOR_DELETED, 
+      type: AUTHOR_DELETED,
       payload: {
         authors: response.data.authors,
         total_authors: response.data.total_authors,
@@ -210,7 +210,7 @@ export const deleteAuthor = (id) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data.errors.join("\n"),
     });
   }
 }

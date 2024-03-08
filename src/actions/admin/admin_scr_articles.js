@@ -37,7 +37,6 @@ export const newScrArticle = (scripture_id) => async dispatch => {
       type: SET_MESSAGE,
       msg_type: "error",
       payload: response.data.errors.join("\n"),
-      // payload: response.data.status.message,
     });
   }
 }

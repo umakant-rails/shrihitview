@@ -16,7 +16,7 @@ export const getAuthors = () => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_AUTHOR_LIST, 
       payload: {
@@ -28,7 +28,7 @@ export const getAuthors = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -42,7 +42,7 @@ export const getSants = () => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_SANT_LIST,
       payload: {
@@ -54,7 +54,7 @@ export const getSants = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
@@ -68,7 +68,7 @@ export const getSantBiography = (name) => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_SANT_SHOW,
       payload: {
@@ -81,7 +81,7 @@ export const getSantBiography = (name) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 }

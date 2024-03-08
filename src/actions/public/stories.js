@@ -15,7 +15,7 @@ export const getStories = () => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_STORY_LIST, 
       payload: {
@@ -26,7 +26,7 @@ export const getStories = () => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      // payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
   // return Promise.resolve(response.data);
@@ -41,7 +41,7 @@ export const getStory = (id) => async(dispatch) => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: PB_STORY_SHOW, 
       payload: {
@@ -54,7 +54,7 @@ export const getStory = (id) => async(dispatch) => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
   }
 

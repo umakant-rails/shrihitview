@@ -15,7 +15,7 @@ export const userRegister = (formValues) => async dispatch => {
     return error.response;
   });
 
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     dispatch({
       type: SET_MESSAGE,
       msg_type: "success",
@@ -32,15 +32,15 @@ export const userRegister = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.status.message,
+      payload: response.data.errors.join("\n"),
     });
-    dispatch({
-      type: ERROR_HANDLING, 
-      payload: {
-        statusCode: 401,
-        message: response.data.status.message
-      }
-    });
+    // dispatch({
+    //   type: ERROR_HANDLING, 
+    //   payload: {
+    //     statusCode: 401,
+    //     message: response.data.status.message
+    //   }
+    // });
   }
   // return Promise.resolve(response.data);
 };
@@ -54,7 +54,7 @@ export const userLogin = (formValues) => async dispatch => {
   }).catch( error => {
     return error.response;
   });  
-  if(response.status === 200){
+  if(response.data.errors === undefined){
     localStorage.setItem("token", response.headers.authorization);
     localStorage.setItem("currentUser", JSON.stringify(response.data.user));
     
@@ -68,7 +68,7 @@ export const userLogin = (formValues) => async dispatch => {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data,
+      payload: response.data.errors.join("\n"),
     });
   }
 }
