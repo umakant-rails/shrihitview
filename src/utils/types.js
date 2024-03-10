@@ -141,7 +141,7 @@ export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 /* admin namespace constant */
-
+export const DASHBOARD_DATA = "DASHBOARD_DATA";
 
 /* REGISTERED USER constant */
 export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";
