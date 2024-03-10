@@ -13,9 +13,9 @@ import {
           total_authors: action.payload.total_authors,
           total_tags: action.payload.total_tags,
           total_contexts: action.payload.total_contexts,
-          articles_by_count: action.payload.articles_by_count,
+          articles_by_time: action.payload.articles_by_time,
           articles_by_type: action.payload.articles_by_type,
-          artcles_by_context: action.payload.artcles_by_context,
+          articles_by_context: action.payload.articles_by_context,
           contexts_by_approval: action.payload.contexts_by_approval,
         };
       default: 
