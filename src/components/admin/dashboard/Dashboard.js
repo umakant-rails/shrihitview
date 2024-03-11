@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDashboardData } from '../../../actions/admin/admin_dashboards';
-import Chart from 'react-apexcharts'
+import Chart from 'react-apexcharts';
+import { Link } from 'react-router-dom';
 //https://demos.creative-tim.com/soft-ui-flowbite-pro/?_ga=2.87194584.1539948244.1710005126-243909173.1706023041
 
 const Dashboard = () => {
@@ -82,22 +83,21 @@ const Dashboard = () => {
       return '0%'
     }
   }
-  console.log(articles_by_type)
   return (
     <div>
       <div className="px-4 pt-6">
         <div className="grid grid-cols-1 gap-6 mb-6 w-full xl:grid-cols-2 2xl:grid-cols-4">
-          <div className="bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400 ">
+          <div className={`bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400
+            bg-gradient-to-br from-stone-400 to-stone-600`}>
             <div className="flex items-center">
               <div className={`inline-flex flex-shrink-0 justify-center items-center w-12 h-12 
-                text-white bg-gradient-to-br from-pink-500 to-violet-500 rounded-lg shadow-md 
-                shadow-gray-300`}>
+                text-white bg-gradient-to-br from-pink-500 to-violet-500 rounded-lg shadow-md shadow-gray-300`}>
                 <svg className="w-[24px] h-[24px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeLinejoin="round" strokeWidth="2" d="M10 3v4c0 .6-.4 1-1 1H5m14-4v16c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1V8c0-.4.1-.6.3-.8l4-4 .6-.2H18c.6 0 1 .4 1 1Z"/>
                 </svg>
               </div>
               <div className="flex-shrink-0 ml-3">
-                <span className="text-2xl font-bold leading-none text-gray-500">
+                <span className="text-2xl font-bold leading-none text-lime-500">
                   {total_articles || ''}
                 </span>
                 <h3 className="text-base font-normal text-gray-800">Articles</h3>
@@ -110,11 +110,11 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400">
+          <div className={`bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400
+            bg-gradient-to-br from-stone-400 to-stone-600`}>
             <div className="flex items-center">
               <div className={`inline-flex flex-shrink-0 justify-center items-center w-12 h-12 
-                text-white bg-gradient-to-br from-pink-500 to-violet-500 rounded-lg shadow-md 
-                shadow-gray-300`}>
+                text-white bg-gradient-to-br from-pink-500 to-violet-500 rounded-lg shadow-md shadow-gray-300`}>
                 <svg className="w-[30px] h-[30px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" strokeWidth="2" d="M7 17v1c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                 </svg>
@@ -133,7 +133,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400">
+          <div className={`bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400
+            bg-gradient-to-br from-stone-400 to-stone-600`}>
             <div className="flex items-center">
               <div className={`inline-flex flex-shrink-0 justify-center items-center w-12 h-12 
                 text-white bg-gradient-to-br from-pink-500 to-violet-500 rounded-lg shadow-md 
@@ -156,7 +157,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400 ">
+          <div className={`bg-white shadow-lg shadow-gray-200 rounded-xl p-4 border border-blue-400
+            bg-gradient-to-br from-stone-400 to-stone-600`}>
             <div className="flex items-center">
               <div className={`inline-flex flex-shrink-0 justify-center items-center w-12 h-12 
                 text-white bg-gradient-to-br from-pink-500 to-violet-500 rounded-lg shadow-md 
@@ -230,23 +232,23 @@ const Dashboard = () => {
                   </div>
                   <ul className="py-1" role="none">
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Yesterday</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Yesterday</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Today</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Today</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 7 days</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 7 days</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 30 days</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 30 days</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 90 days</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 90 days</Link>
                     </li>
                   </ul>
                   <div className="py-1" role="none">
-                    <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Custom...</a>
+                    <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Custom...</Link>
                   </div>
                 </div>
               </div>
@@ -297,23 +299,23 @@ const Dashboard = () => {
                   </div>
                   <ul className="py-1" role="none">
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Yesterday</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Yesterday</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Today</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Today</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 7 days</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 7 days</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 30 days</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 30 days</Link>
                     </li>
                     <li>
-                      <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 90 days</a>
+                      <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 90 days</Link>
                     </li>
                   </ul>
                   <div className="py-1" role="none">
-                    <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Custom...</a>
+                    <Link to="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Custom...</Link>
                   </div>
                 </div>
               </div>
@@ -334,7 +336,7 @@ const Dashboard = () => {
                 </span>
               </div>
               <div className="flex-shrink-0">
-                <a href="#" className="p-2 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-100">View all</a>
+                <Link to="#" className="p-2 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-100">View all</Link>
               </div>
             </div>
             <div className="flex flex-col mt-8">
@@ -356,7 +358,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex grids items-center pt-3 border-t sm:pt-6">
+            <div className="flex grids justify-center items-center pt-3 border-t sm:pt-6">
               <div className='text-white text-2xl text-center text-yellow-300 font-bold'>
                 Articles Report : By Type
               </div>
