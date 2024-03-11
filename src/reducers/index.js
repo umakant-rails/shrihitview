@@ -11,10 +11,12 @@ import strotumReducer from "./public/strotumReducer";
 import articleTypeReducer from "./public/articleTypeReducer";
 import contextReducer from "./public/contextReducer";
 import tagReducer from "./public/tagReducer";
-import adminArticleReducer from "./admin/articleReducer";
-import adminAuthorReducer from "./admin/authorReducer";
-import adminTagReducer from "./admin/tagReducer";
-import adminStoryReducer from "./admin/storyReducer";
+
+import userArticleReducer from "./user/articleReducer";
+import userAuthorReducer from "./user/authorReducer";
+import userTagReducer from "./user/tagReducer";
+import userStoryReducer from "./user/storyReducer";
+
 import adminContextReducer from "./admin/contextReducer";
 import adminArticleTypeReducer from "./admin/articleTypeReducer";
 import adminStrotumReducer from "./admin/strotumReducer";
@@ -37,10 +39,11 @@ export default combineReducers({
     context: contextReducer,
     tag: tagReducer,
     
-    adminArticle: adminArticleReducer,
-    adminAuthor: adminAuthorReducer,
-    adminTag: adminTagReducer,
-    adminStory: adminStoryReducer,
+    userArticle: userArticleReducer,
+    userAuthor: userAuthorReducer,
+    userTag: userTagReducer,
+    userStory: userStoryReducer,
+    
     adminContext: adminContextReducer,
     adminAType: adminArticleTypeReducer,
     adminStrotum: adminStrotumReducer,

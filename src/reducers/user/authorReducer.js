@@ -10,7 +10,7 @@ import {
   
   const initialState = {authorList: []};
   
-  const adminAuthorReducer = (state=initialState, action) => {
+  const userAuthorReducer = (state=initialState, action) => {
     switch (action.type) {
       case AUTHOR_NEW:
         return {
@@ -57,4 +57,4 @@ import {
     }
   };
   
-  export default adminAuthorReducer;
+  export default userAuthorReducer;

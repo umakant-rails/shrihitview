@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { deleteStory, getStories } from '../../../actions/admin/admin_stories';
+import { deleteStory, getStories } from '../../../actions/user/user_stories';
 
 const StoryList = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [storyList, setStoryList] = useState([]);
   const [totalStoriesQnty, setTotalStoriesQnty] = useState(0);
-  const { stories, total_stories, current_page } = useSelector( state => state.adminStory );
+  const { stories, total_stories, current_page } = useSelector( state => state.userStory );
   const [searchAttr, setSearchAttr] = useState({page: 1});
 
   useEffect( () => { 

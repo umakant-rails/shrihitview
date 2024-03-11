@@ -12,7 +12,7 @@ import {
   
   const initialState = {articleList: []};
   
-  const adminArticleReducer = (state=initialState, action) => {
+  const userArticleReducer = (state=initialState, action) => {
     switch (action.type) {
       case ARTICLE_NEW:
         return {
@@ -81,4 +81,4 @@ import {
     }
   };
   
-  export default adminArticleReducer;
+  export default userArticleReducer;

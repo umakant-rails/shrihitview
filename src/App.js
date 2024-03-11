@@ -25,3 +25,7 @@ const App = () => {
 }
 
 export default App;
+
+
+//set error message logic from strota action to all other action
+// add delete at edit page and radd kare par vapas action par bheje

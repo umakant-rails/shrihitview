@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { useNavigate } from 'react-router';
-import { createStory, newStory } from '../../../actions/admin/admin_stories';
+import { createStory, newStory } from '../../../actions/user/user_stories';
 
 const storyObj = {scripture_id: '', title: '', story: '', author_id: '', index: ''};
 
@@ -12,7 +12,7 @@ const AddStory = () => {
   const navigate = useNavigate();
  
   const [formValues, setFormValues] = useState(storyObj);
-  const { sants, scriptures, story } = useSelector( (state) => state.adminStory)
+  const { sants, scriptures, story } = useSelector( (state) => state.userStory)
 
   useEffect( () => {
     dispatch(newStory());  

@@ -3,88 +3,72 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createTag, editArticle, updateArticle} from "../../../actions/admin/admin_articles";
-import { useNavigate, useParams } from 'react-router';
+import {createArticle, createTag, newArticle} from "../../../actions/user/user_articles";
+import { useNavigate } from 'react-router';
 
-const articleObj = {article_type_id: 0, raag_id: 0, scripture_id: '', index: 0, context_id: 1, 
+const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
   author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
 };
 
-const EditArticle = () => {
+const AddArticle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
+ 
+
+  const [contentText, setContentText] = useState(null);
+  const [formValues, setFormValues] = useState(articleObj);
+
   const [newTag, setNewTag] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
 
-  const [formValues, setFormValues] = useState(articleObj);
-  const [contentText, setContentText] = useState(null);
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
-
-  const { articleTypes, raags, contexts, authors, tags, scriptures, article, updatedArticle } = useSelector( (state) => state.adminArticle)
-
-  useEffect( () => {
-    dispatch(editArticle(id));
-  }, [id]);
+  const { articleTypes, raags, contexts, authors, tags, scriptures, articleCreated } = useSelector( (state) => state.userArticle)
 
   useEffect( () => {
-    if(updatedArticle){
-      navigate(`/articles/${updatedArticle.id}`);
-    } 
-  }, [updatedArticle]);
+    dispatch(newArticle());  
+  }, []);
 
   useEffect( () => {
-    if(article){
-      setFormValues( formValues => ({...formValues, 
-        article_type_id: article.article_type_id, 
-        raag_id: article.raag_id, 
-        scripture_id: article.scripture_id, 
-        index: article.index, 
-        context_id: article.context_id, 
-        author_id: article.author_id, 
-        hindi_title: article.hindi_title,
-        english_title: article.english_title, 
-        content: article.content, 
-        interpretation: article, 
-        tags: []
-      }));
-      setSelectedTags(article.tags.map(tag => ({'label': tag.name, 'value': tag.id})));
-    }
-    
-  }, [article]);
+    if(articleCreated){ resetForm();/*navigate('/articles/new');*/ } 
+  }, [articleCreated]);
 
   const createNewTag = () => {
     dispatch(createTag(newTag));
   }
-
   const setArticleTitle = () => {
     if (contentText){
-      setFormValues({...formValues, hindi_title: contentText.substring(0, contentText.indexOf("\n"))});
+      setFormValues(formValues => ({
+        ...formValues, 
+        hindi_title: contentText.substring(0, contentText.indexOf("\n"))
+      }));
     }
   }
+
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
   }
+
   const onInputChange = event => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   }
-  const resetForm = () => { setSelectedTags([]); setFormValues(articleObj); }
-  const onCancel = event => { event.preventDefault(); resetForm() }
+
+  const resetForm = () => { setSelectedTags([]);setFormValues(articleObj); }
+  const onCancel = event => { event.preventDefault(); resetForm();}
 
   const onArticleSubmit = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     formValues['tags'] = selectedTags.map(tag => tag.value);
-    dispatch(updateArticle(article.id, formValues));
+    dispatch(createArticle(formValues));
   }
 
   return (
     <div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
-          रचना अद्यतन फार्म
+          रचना फॉर्म
         </div>
-        <form id="edit_article" name="article" className="py-5 px-10" onSubmit={onArticleSubmit}>
+        <form className="py-5 px-10" onSubmit={onArticleSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
@@ -121,7 +105,7 @@ const EditArticle = () => {
                   <option value="">राग चुने</option>
                   {
                     raags && raags.map( (raag, index) => 
-                      <option key={index} value={raag.name}>{raag.name_eng} / {raag.name}</option>
+                      <option key={index} value={raag.id}>{raag.name_eng} / {raag.name}</option>
                     )
                   }
               </select>
@@ -190,7 +174,7 @@ const EditArticle = () => {
                 लेखक
               </label>
               <select id="author_id" name="author_id" 
-                value={formValues.author_id ||''}
+                value={formValues.author_id || ''}
                 onChange={onInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -199,7 +183,7 @@ const EditArticle = () => {
                   dark:shadow-sm-light`} required>
                   <option value="">लेखक चुने</option>
                   {
-                    authors && authors.map( (author, index) => 
+                    raags && authors.map( (author, index) => 
                       <option key={index} value={author.id}>{author.name_eng} / {author.name}</option>
                     )
                   }
@@ -345,4 +329,4 @@ const EditArticle = () => {
   );
 };
 
-export default EditArticle;
+export default AddArticle;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/admin/admin_articles';
+import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/user/user_articles';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ const ArticleList = () => {
   const { 
     articleTypes, raags, contexts, 
     authors, scriptures, articles, 
-    totalArticles } = useSelector( state => state.adminArticle );
+    totalArticles } = useSelector( state => state.userArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
   const [searchAttr, setSearchAttr] = useState({});

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { getArticle } from '../../../actions/admin/admin_articles';
+import { getArticle } from '../../../actions/user/user_articles';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
 
 const ArticleShow = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const { article } = useSelector( state => state.adminArticle);
+  const { article } = useSelector( state => state.userArticle);
 
   useEffect( () => {
     dispatch(getArticle(id));

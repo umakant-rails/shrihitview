@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
-import { getStory, deleteStory } from '../../../actions/admin/admin_stories';
+import { getStory, deleteStory } from '../../../actions/user/user_stories';
 
 const StoryShow = () => {
   const navigate = useNavigate();
   const {id} = useParams();
   const dispatch = useDispatch();
-  const { story, storyDeleted } = useSelector( state => state.adminStory);
+  const { story, storyDeleted } = useSelector( state => state.userStory);
 
   useEffect( () => {
     dispatch(getStory(id));

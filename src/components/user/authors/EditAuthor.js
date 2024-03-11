@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createAuthor, createSampradaya, editAuthor, updateAuthor} from "../../../actions/admin/admin_authors";
+import {createAuthor, createSampradaya, editAuthor, updateAuthor} from "../../../actions/user/user_authors";
 import { useNavigate, useParams } from 'react-router';
 import { deleteArticle } from '../../../actions/admin/admin_articles';
 
@@ -17,7 +17,7 @@ const EditAuthor = () => {
   const [formValues, setFormValues] = useState(authorObj);
   const [sampradaya, setSampradaya] = useState('');
   const [sampradayaFormDisplay, setSampradayaFormDisplay] = useState(false);
-  const { author, sampradayas, authorUpdated } = useSelector( (state) => state.adminAuthor)
+  const { author, sampradayas, authorUpdated } = useSelector( (state) => state.userAuthor)
 
   useEffect( () => {
     dispatch(editAuthor(id));  
