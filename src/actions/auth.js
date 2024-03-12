@@ -49,22 +49,34 @@ export const userLogin = (formValues) => async dispatch => {
     {user: formValues}, {}
   ).then( response => {
     return response;
-  });  
-  if(response.data.error === undefined){
-    localStorage.setItem("token", response.headers.authorization);
-    localStorage.setItem("currentUser", JSON.stringify(response.data.user));
-    
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.status.message,
-    });
-    return response.data.user
+  }).catch( error => {
+    console.log(error)
+    return error.response
+  });
+
+  if(response.status === 200){
+    if (response.data.error === undefined) {
+      localStorage.setItem("token", response.headers.authorization);
+      localStorage.setItem("currentUser", JSON.stringify(response.data.user));
+
+      dispatch({
+        type: SET_MESSAGE,
+        msg_type: "success",
+        payload: response.data.status.message,
+      });
+      return response.data.user
+    } else {
+      dispatch({
+        type: SET_MESSAGE,
+        msg_type: "error",
+        payload: response.data.error.join("\n"),
+      });
+    }
   } else {
     dispatch({
       type: SET_MESSAGE,
       msg_type: "error",
-      payload: response.data.error.join("\n"),
+      payload: response.data,
     });
   }
 }

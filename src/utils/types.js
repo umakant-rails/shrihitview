@@ -17,19 +17,19 @@ export const ADMIN_ACTIVITIES = [
   },
   { url: '#', label: 'App विषय-सूची', 
     childs : [
-      {url: '#', label: 'रचना'},
+      {url: '/admin/articles', label: 'रचना'},
       {url: '#', label: 'रचनाकार'},
       {url: '#', label: 'टैग्स'}
     ] 
   },
-  {
-    url: '#', label: 'रिपोर्ट्स',
-    childs: [
-      {url: '#', label: 'रचना'},
-      {url: '#', label: 'रचनाकार'},
-      {url: '#', label: 'प्रसंग'}
-    ]
-  },
+  // {
+  //   url: '#', label: 'रिपोर्ट्स',
+  //   childs: [
+  //     {url: '#', label: 'रचना'},
+  //     {url: '#', label: 'रचनाकार'},
+  //     {url: '#', label: 'प्रसंग'}
+  //   ]
+  // },
   {
     url: '/admin/article_types', label: 'रचना प्रकार', childs: [],
     icon: `<svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

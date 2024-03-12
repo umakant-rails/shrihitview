@@ -33,6 +33,8 @@ import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
 import UnAuthenticate from "../components/Auth/UnAuthenticate";
 
+import AdminArticleList from "../components/admin/articles/AdminArticleList";
+
 import ArticleList from "../components/user/articles/ArticleList";
 import AddArticle  from "../components/user/articles/AddArticle";
 import ArticleShow from "../components/user/articles/ArticleShow";
@@ -106,6 +108,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/" element={<AdminLayout /> }>
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
+        <Route path="/admin/articles" element={<ProtectedRoutes><AdminArticleList /></ProtectedRoutes>} />
 
         <Route path="/admin/article_types" element={<ProtectedRoutes><ArticleTypeList/></ProtectedRoutes>} />
         <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />

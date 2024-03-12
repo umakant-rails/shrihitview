@@ -42,6 +42,7 @@ const ArticleList = () => {
   }
   const refreshFilteredData = () => {
     setSearchAttr({});
+    setCurrentPage(1);
     dispatch(getArticlesByPage({}, 0));
   }
 
