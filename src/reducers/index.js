@@ -25,6 +25,8 @@ import adminScrChapterReducer from "./admin/scrChapterReducer";
 import adminScrArticleReducer from "./admin/scrArticleReducer";
 import adminCSArticleReducer from "./admin/csArticleReducer";
 import adminDashboardReducer from "./admin/dashboardReducer";
+import adminArticleReducer from "./admin/articleReducer";
+import adminAuthorReducer from "./admin/authorReducer";
 
 export default combineReducers({
     home: homeReducer,
@@ -44,6 +46,8 @@ export default combineReducers({
     userTag: userTagReducer,
     userStory: userStoryReducer,
     
+    adminArticle: adminArticleReducer,
+    adminAuthor: adminAuthorReducer,
     adminContext: adminContextReducer,
     adminAType: adminArticleTypeReducer,
     adminStrotum: adminStrotumReducer,

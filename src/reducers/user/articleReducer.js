@@ -42,8 +42,7 @@ import {
           authors: action.payload.authors,
           raags: action.payload.raags,
           contexts: action.payload.contexts,
-          articleTypes: action.payload.article_types,
-          scriptures: action.payload.scriptures
+          articleTypes: action.payload.article_types
         };
       case ARTICLE_SHOW:
         return {

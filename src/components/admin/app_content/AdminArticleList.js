@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/user/user_articles';
+import { approveArticle, deleteAdminArticle, getAdminArticles, getArticlesByPage } from '../../../actions/admin/admin_articles';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { Link, useNavigate } from 'react-router-dom';
 
 const AdminArticleList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(1);
   const { 
     articleTypes, raags, contexts, 
     authors, scriptures, articles, 
-    totalArticles } = useSelector( state => state.userArticle );
+    totalArticles } = useSelector( state => state.adminArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
   const [searchAttr, setSearchAttr] = useState({});
   
   useEffect( () => {
-    dispatch(getArticles());
+    dispatch(getAdminArticles());
   }, []);
   
   useEffect( () => {
     if(articles){ setArticleList(articles); setTotalArticle(totalArticles);}
   }, [articles, totalArticles]);
 
+  const approveToArticle = (id) => {
+  dispatch(approveArticle(id, searchAttr));
+  }
   const deleteToArticle = (id) => {
-    dispatch(deleteArticle(id));
+    dispatch(deleteAdminArticle(id));
   }
 
   const handlePageClick = (e) => {
@@ -42,6 +45,7 @@ const AdminArticleList = () => {
   }
   const refreshFilteredData = () => {
     setSearchAttr({});
+    setCurrentPage(1)
     dispatch(getArticlesByPage({}, 0));
   }
 
@@ -104,23 +108,6 @@ const AdminArticleList = () => {
             </select>
           </div>
           <div>
-            <select id="raag_id" name="raag_id" 
-              value={searchAttr.raag_id ? searchAttr.raag_id : ''}
-              onChange={onSearchInputChange}
-              className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`}>
-                <option value="">राग चुने</option>
-                {
-                  raags && raags.map( (raag, index) => 
-                    <option key={index} value={raag.id}>{raag.name}</option>
-                  )
-                }
-            </select>
-          </div>
-          <div>
             <select id="scripture_id" name="scripture_id" 
               value={searchAttr.scripture_id ? searchAttr.scripture_id : ''}
               onChange={onSearchInputChange}
@@ -135,6 +122,20 @@ const AdminArticleList = () => {
                     <option key={index} value={scripture.id}>{scripture.name}</option>
                   )
                 }
+            </select>
+          </div>
+          <div>
+            <select id="status" name="status" 
+              value={searchAttr.status ? searchAttr.status : ''}
+              onChange={onSearchInputChange}
+              className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
+                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
+                dark:shadow-sm-light`}>
+                <option value="">All Articles</option>
+                <option value="approved">स्वीकृत</option>
+                <option value="pending">लंबित</option>
             </select>
           </div>
           <div className='flex items-center justify-center'>
@@ -156,6 +157,7 @@ const AdminArticleList = () => {
               <th scope="col" className="px-2 py-3">रचनायें</th>
               <th scope="col" className="px-2 py-3">रचना प्रकार</th>
               <th scope="col" className="px-2 py-3">रचनाकार/लेखक</th>
+              <th scope="col" className="px-2 py-3">Status</th>
               <th scope="col" className="px-2 py-3">Action</th>
             </tr>
           </thead>
@@ -179,14 +181,25 @@ const AdminArticleList = () => {
                     <td className="px-2 py-3">
                       {article.author}
                     </td>
+                    <td className="px-2 py-3">
+                      {article.is_approved  === null ? 'लंबित' : 'स्वीकृत'}
+                    </td>
                     <td className="px-2 py-3 flex items-center justify-end">
-                      <Link to={`/articles/${article.id}`}>
+                      { article.is_approved  === null && (
+                        <button onClick={e => approveToArticle(article.id)} className='mr-2'>
+                          <svg className="w-[25px] h-[25px] text-green-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                          </svg>
+                        </button>)
+                      }
+
+                      <Link to={`/articles/${article.id}`} target='_blank' >
                         <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" strokeWidth="2" d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z"/>
                           <path stroke="currentColor" strokeWidth="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                         </svg>
                       </Link>
-                      <Link to={`/articles/${article.id}/edit`}>
+                      <Link to={`/articles/${article.id}/edit`} target='_blank' >
                         <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
                         </svg>

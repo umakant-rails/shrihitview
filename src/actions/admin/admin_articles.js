@@ -1,230 +1,118 @@
 import baseUrl from "../../services/AxiosService";
 import {
+  ADMIN_ARTICLE_LIST,
+  ADMIN_ARTICLES_BY_PAGE,
+  ADMIN_ARTICLE_APPROVED,
+  ADMIN_ARTICLE_DELETED,
+  SET_MESSAGE,
+
   ARTICLE_NEW,
   ARTICLE_CREATED,
-  ARTICLE_LIST,
   ARTICLE_TAG_CREATED,
-  SET_MESSAGE,
   ARTICLE_SHOW,
   ARTICLE_EDIT,
   ARTICLE_UPDATED,
-  ARTICLE_DELETED,
   ARTICLE_LIST_BY_PAGE,
 } from "../../utils/types";
 
-export const newArticle = () => async dispatch => {
+export const getAdminArticles = () => async dispatch => {
   const response = await baseUrl.get(
-    '/articles/new', 
-  ).then(response => {
-    return response;
-  });
-
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: ARTICLE_NEW, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-}
-
-export const createArticle = (form) => async dispatch => {
-  const response = await baseUrl.post(
-    '/articles', {article: form}
-  ).then(response => {
-    return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_CREATED, 
-      payload: response.data,
-    });
+    `/admin/articles`,
+  ).then(response => response)
+  .catch(error => error.response);
+  console.log(response)
+  if(response.status === 200){
+    if(response.data.error === undefined){
+      dispatch({ type: ADMIN_ARTICLE_LIST, payload: response.data, });
+    } else {
+      dispatch({
+        type: SET_MESSAGE, msg_type: "error",
+        payload: response.data.error.join("\n"),
+      });
+    }
   } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
+    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data});
   }
 }
 
-export const editArticle = (id) => async dispatch => {
-  const response = await baseUrl.get(
-    `/articles/${id}?action_type=edit`,
-  ).then(response => {
-    return response;
-  });
-
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: ARTICLE_EDIT, 
-      payload: response.data,
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-}
-
-export const updateArticle = (id, form) => async dispatch => {
-  const response = await baseUrl.put(
-    `/articles/${id}`, {article: form}
-  ).then(response => {
-    return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_UPDATED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-}
-
-export const deleteArticle = (id) => async dispatch => {
-  const response = await baseUrl.delete(
-    `/articles/${id}`
-  ).then(response => {
-    return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_DELETED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-}
-
-export const createTag = (tag) => async dispatch => {
-  const response = await baseUrl.post(
-    '/tags', {tag: {name: tag}}
-  ).then(response => {
-    return response;
-  });
- 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.status,
-    });
-    dispatch({
-      type: ARTICLE_TAG_CREATED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-}
-
-export const getArticles = () => async dispatch => {
-  const response = await baseUrl.get(
-    '/articles',
-  ).then(response => {
-    return response;
-  });
-  
-  if(response.data.error === undefined){
-     dispatch({
-      type: ARTICLE_LIST, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error,
-    });
-  }
-}
-
-export const getArticlesByPage = (searchAttr, page) => async dispatch => {
+export const getArticlesByPage = (searchAttrs) => async dispatch => {
   const arr = [];
-  Object.keys(searchAttr).map( key =>{
-    if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+  Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      arr.push(`${key}=${searchAttrs[key]}`)
     }
   })
   const searchAttrStr = arr.join('&');
-  
+
   const response = await baseUrl.get(
-    `/articles/pages/${page}?${searchAttrStr}`,
+    `/admin/articles/articles_by_page?${searchAttrStr}`,
   ).then(response => {
     return response;
-  });
-
-  if(response.data.error === undefined){
-     dispatch({
-      type: ARTICLE_LIST_BY_PAGE, 
-      payload: response.data,
-    });
+  }).catch(error => error.response);
+ 
+  if(response.status === 200){
+    if(response.data.error === undefined){
+      dispatch({ type: ADMIN_ARTICLES_BY_PAGE, payload: response.data });
+    } else {
+      dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data.error.join("\n") });
+    }
   } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
+    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.statusText});
   }
 }
 
-export const getArticle = (id) => async dispatch => {
-  const response = await baseUrl.get(
-    `/articles/${id}`,
+export const approveArticle = (id, searchAttrs) => async dispatch => {
+  const response = await baseUrl.post(
+    `/admin/articles/${id}/article_approved`, searchAttrs
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-     dispatch({
-      type: ARTICLE_SHOW, 
-      payload: response.data,
-    });
+  }).catch( error => error.response);
+
+  if(response.status === 200){
+    if(response.data.error === undefined){
+      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
+      dispatch({ type: ADMIN_ARTICLE_APPROVED, payload: response.data });
+    } else {
+      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
+    }
   } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
+    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
   }
 }
+
+export const deleteAdminArticle = (id) => async dispatch => {
+  const response = await baseUrl.delete(
+    `/admin/articles/${id}`
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+
+  if(response.status === 200){
+    if(response.data.error === undefined){
+      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
+      dispatch({ type: ADMIN_ARTICLE_DELETED, payload: response.data });
+    } else {
+      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
+    }
+  } else {
+    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

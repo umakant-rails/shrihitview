@@ -33,7 +33,7 @@ import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
 import UnAuthenticate from "../components/Auth/UnAuthenticate";
 
-import AdminArticleList from "../components/admin/articles/AdminArticleList";
+import AdminArticleList from "../components/admin/app_content/AdminArticleList";
 
 import ArticleList from "../components/user/articles/ArticleList";
 import AddArticle  from "../components/user/articles/AddArticle";
@@ -63,6 +63,9 @@ import AddScrArticle from "../components/admin/scripture_articles/AddScrArticle"
 import EditScrArticle from "../components/admin/scripture_articles/EditScrArticle";
 import AddCSArticle from "../components/admin/compile_scriptures/AddCSArticle";
 import CSScriptureShow from "../components/admin/compile_scriptures/CSScriptureShow";
+import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
+import AdminTagList from "../components/admin/app_content/AdminTagList";
+import AdminStoryList from "../components/admin/app_content/AdminStoryList";
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -109,6 +112,9 @@ const router = createBrowserRouter(
       <Route path="/" element={<AdminLayout /> }>
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
         <Route path="/admin/articles" element={<ProtectedRoutes><AdminArticleList /></ProtectedRoutes>} />
+        <Route path="/admin/authors" element={<ProtectedRoutes><AdminAuthorList /></ProtectedRoutes>} />
+        <Route path="/admin/tags" element={<ProtectedRoutes><AdminTagList /></ProtectedRoutes>} />
+        <Route path="/admin/stories" element={<ProtectedRoutes><AdminStoryList /></ProtectedRoutes>} />
 
         <Route path="/admin/article_types" element={<ProtectedRoutes><ArticleTypeList/></ProtectedRoutes>} />
         <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />

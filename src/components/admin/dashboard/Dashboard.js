@@ -97,12 +97,12 @@ const Dashboard = () => {
                 </svg>
               </div>
               <div className="flex-shrink-0 ml-3">
-                <span className="text-2xl font-bold leading-none text-lime-500">
+                <span className="text-2xl font-bold leading-none text-gray-700">
                   {total_articles || ''}
                 </span>
-                <h3 className="text-base font-normal text-gray-800">Articles</h3>
+                <h3 className="text-base font-normal text-gray-900">Articles</h3>
               </div>
-              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-500">
+              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-400">
                 +16%
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -120,12 +120,12 @@ const Dashboard = () => {
                 </svg>
               </div>
               <div className="flex-shrink-0 ml-3">
-                <span className="text-2xl font-bold leading-none text-gray-500">
+                <span className="text-2xl font-bold leading-none text-gray-700">
                 {total_authors || ''}
                 </span>
-                <h3 className="text-base font-normal text-gray-800">Authors</h3>
+                <h3 className="text-base font-normal text-gray-900">Authors</h3>
               </div>
-              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-500">
+              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-400">
                 +3%
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -144,12 +144,12 @@ const Dashboard = () => {
                 </svg>
               </div>
               <div className="flex-shrink-0 ml-3">
-                <span className="text-2xl font-bold leading-none text-gray-500">
+                <span className="text-2xl font-bold leading-none text-gray-700">
                 {total_tags || ''}
                 </span>
-                <h3 className="text-base font-normal text-gray-800">Tags</h3>
+                <h3 className="text-base font-normal text-gray-900">Tags</h3>
               </div>
-              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-500">
+              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-400">
                 +3%
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -168,12 +168,12 @@ const Dashboard = () => {
                 </svg>
               </div>
               <div className="flex-shrink-0 ml-3">
-                <span className="text-2xl font-bold leading-none text-gray-500">
+                <span className="text-2xl font-bold leading-none text-gray-700">
                   {total_contexts || ''}
                 </span>
-                <h3 className="text-base font-normal text-gray-800">Contexts/Collections</h3>
+                <h3 className="text-base font-normal text-gray-900">Contexts/Collections</h3>
               </div>
-              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-500">
+              <div className="flex flex-1 justify-end items-center ml-5 w-0 text-base font-bold text-green-400">
                 +3%
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fillRule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clipRule="evenodd" />

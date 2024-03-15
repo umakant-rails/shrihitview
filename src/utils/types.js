@@ -18,8 +18,9 @@ export const ADMIN_ACTIVITIES = [
   { url: '#', label: 'App विषय-सूची', 
     childs : [
       {url: '/admin/articles', label: 'रचना'},
-      {url: '#', label: 'रचनाकार'},
-      {url: '#', label: 'टैग्स'}
+      {url: '/admin/authors', label: 'रचनाकार'},
+      {url: '/admin/tags', label: 'टैग्स'},
+      {url: '/admin/stories', label: 'संत चरित्र/प्रेरक प्रसंग'},
     ] 
   },
   // {
@@ -142,6 +143,14 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 /* admin namespace constant */
 export const DASHBOARD_DATA = "DASHBOARD_DATA";
+export const ADMIN_ARTICLE_LIST = "ADMIN_ARTICLE_LIST";
+export const ADMIN_ARTICLES_BY_PAGE = "ADMIN_ARTICLES_BY_PAGE";
+export const ADMIN_ARTICLE_APPROVED = "ARTICLE_APPROVED";
+export const ADMIN_ARTICLE_DELETED = "ARTICLE_APPROVED";
+
+export const ADMIN_AUTHOR_LIST = "ADMIN_ARTICLE_LIST";
+export const ADMIN_AUTHOR_APPROVED = "ARTICLE_APPROVED";
+export const ADMIN_AUTHOR_DELETED = "ARTICLE_APPROVED";
 
 /* REGISTERED USER constant */
 export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";

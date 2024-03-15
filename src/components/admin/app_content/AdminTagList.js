@@ -8,7 +8,7 @@ import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
 const tagObj = {name: '', name_eng: ''};
 
-const TagList = () => {
+const AdminTagList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [currentPage, setCurrentPage] = useState(1);
@@ -314,4 +314,4 @@ const TagList = () => {
   );
 };
 
-export default TagList;
+export default AdminTagList;

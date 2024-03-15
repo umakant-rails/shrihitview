@@ -5,7 +5,7 @@ import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
 import {createAuthor, createSampradaya, editAuthor, updateAuthor} from "../../../actions/user/user_authors";
 import { useNavigate, useParams } from 'react-router';
-import { deleteArticle } from '../../../actions/admin/admin_articles';
+import { deleteArticle } from '../../../actions/user/user_articles';
 
 const authorObj = {name: '', name_eng: '', sampradaya_id: '', biography: ''};
 

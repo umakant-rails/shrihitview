@@ -50,7 +50,6 @@ export const userLogin = (formValues) => async dispatch => {
   ).then( response => {
     return response;
   }).catch( error => {
-    console.log(error)
     return error.response
   });
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/user/user_articles';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
+import { ReactTransliterate } from "react-transliterate";
 import { Link, useNavigate } from 'react-router-dom';
 
 const ArticleList = () => {
@@ -10,11 +11,12 @@ const ArticleList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { 
     articleTypes, raags, contexts, 
-    authors, scriptures, articles, 
-    totalArticles } = useSelector( state => state.userArticle );
+    authors, articles, totalArticles 
+  } = useSelector( state => state.userArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
-  const [searchAttr, setSearchAttr] = useState({});
+  const [searchAttrs, setSearchAttrs] = useState({});
+  const [searchText, setSearchText] = useState('');
   
   useEffect( () => {
     dispatch(getArticles());
@@ -31,19 +33,26 @@ const ArticleList = () => {
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');
     setCurrentPage(page);
+    dispatch(getArticlesByPage(searchAttrs, page));
   }
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttr, [name]: value};
-
-    setSearchAttr(sAttrs);
-    dispatch(getArticlesByPage(sAttrs, 0));
+    const sAttrs = {...searchAttrs, [name]: value};
+    setSearchText('');
+    setSearchAttrs(sAttrs);
+    dispatch(getArticlesByPage(sAttrs, 1));
   }
   const refreshFilteredData = () => {
-    setSearchAttr({});
+    setSearchAttrs({});
     setCurrentPage(1);
-    dispatch(getArticlesByPage({}, 0));
+    setSearchText('');
+    dispatch(getArticlesByPage({}, 1));
+  }
+  const searchArticles = () => {
+    const sAttrs = {...searchAttrs, term: searchText.trim(), page: 1};
+    //setSearchAttrs(sAttrs);
+    dispatch(getArticlesByPage(sAttrs, 1));
   }
 
   return (
@@ -52,10 +61,10 @@ const ArticleList = () => {
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
           रचना सूची
         </div>
-        <div className="grid md:grid-cols-6 mb-4 gap-2">
+        <div className="grid md:grid-cols-5 mb-4 gap-2">
           <div>
             <select id="article_type_id" name="article_type_id" 
-              value={searchAttr.article_type_id ? searchAttr.article_type_id : ''}
+              value={searchAttrs.article_type_id ? searchAttrs.article_type_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -72,7 +81,7 @@ const ArticleList = () => {
           </div>
           <div>
             <select id="author_id" name="author_id" 
-              value={searchAttr.author_id ? searchAttr.author_id : ''}
+              value={searchAttrs.author_id ? searchAttrs.author_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -89,7 +98,7 @@ const ArticleList = () => {
           </div>
           <div>
             <select id="context_id" name="context_id" 
-              value={searchAttr.context_id ? searchAttr.context_id : ''}
+              value={searchAttrs.context_id ? searchAttrs.context_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -106,7 +115,7 @@ const ArticleList = () => {
           </div>
           <div>
             <select id="raag_id" name="raag_id" 
-              value={searchAttr.raag_id ? searchAttr.raag_id : ''}
+              value={searchAttrs.raag_id ? searchAttrs.raag_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -117,23 +126,6 @@ const ArticleList = () => {
                 {
                   raags && raags.map( (raag, index) => 
                     <option key={index} value={raag.id}>{raag.name}</option>
-                  )
-                }
-            </select>
-          </div>
-          <div>
-            <select id="scripture_id" name="scripture_id" 
-              value={searchAttr.scripture_id ? searchAttr.scripture_id : ''}
-              onChange={onSearchInputChange}
-              className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                dark:shadow-sm-light`}>
-                <option value="">रसिक वाणी चुने</option>
-                {
-                  scriptures && scriptures.map( (scripture, index) => 
-                    <option key={index} value={scripture.id}>{scripture.name}</option>
                   )
                 }
             </select>
@@ -150,6 +142,31 @@ const ArticleList = () => {
             </button>
           </div>
         </div>
+        <div className="grid md:grid-cols-5 mb-4 gap-2">
+          <div className='col-span-4'>
+            <ReactTransliterate
+              value={searchText}
+              onChangeText={(text) => {setSearchText(text);}}
+              lang={'hi'}
+              type="text"
+              className={`block w-full p-2 text-sm text-gray-900 border border-gray-300 
+                rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
+                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+            />
+          </div>
+          <div className='flex items-center justify-center'>
+            <button
+              onClick={searchArticles}
+              className={`w-full md:w-auto flex items-center justify-center pt-2 pb-3 px-4 text-sm 
+                font-medium text-white focus:outline-none bg-blue-600 rounded hover:bg-blue-700`} type="button">
+              <svg className="w-[18px] h-[18px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+              </svg>&nbsp;&nbsp;Search
+            </button>
+          </div>
+        </div>
+
         <table className="w-full text-left text-gray-500 dark:text-gray-400">
           <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="border-b dark:border-gray-700 bg-yellow-500">
