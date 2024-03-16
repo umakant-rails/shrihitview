@@ -38,9 +38,9 @@ const StoryList = () => {
 
   return (
     <div className='grid md:grid-cols-12'>
-      <div className='md:col-start-2 md:col-span-10'>
+      <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          संत चरित्र/प्रेरक प्रसंग सूची 
+          संत चरित्र/प्रेरक प्रसंग सूची
         </div>
         <section className="bg-gray-50 dark:bg-gray-900 ">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">

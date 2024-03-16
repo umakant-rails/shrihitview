@@ -54,7 +54,7 @@ const EditStory = () => {
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
           संत चरित्र/प्रेरक प्रसंग अद्यतन फॉर्म
         </div>
-        <form id="story-new-form" className="py-5 px-10" onSubmit={onStorySubmit}>
+        <form id="story-new-form" className="py-5 px-5" onSubmit={onStorySubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
             <div className="col-span-6">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { deleteTag, getTags, createTag, updateTag } from '../../../actions/user/user_tags';
+import { deleteAdminTag, getAdminTags, approveToTag } from '../../../actions/admin/admin_tags';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
 const tagObj = {name: '', name_eng: ''};
@@ -12,7 +12,6 @@ const AdminTagList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [currentPage, setCurrentPage] = useState(1);
-  // const [authorId, setAuthorId] = useState(null);
   const [tagList, setTagList] = useState([]);
   const [totalTagQnty, setTotalTagQnty] = useState(0);
 
@@ -21,10 +20,10 @@ const AdminTagList = () => {
   const [searchAttr, setSearchAttr] = useState({page: 1});
   const popup = useRef(null);
 
-  const { tag, tags, total_tags, current_page } = useSelector( state => state.userTag );
+  const { tag, tags, total_tags, current_page } = useSelector( state => state.adminTag );
 
   useEffect( () => { 
-    dispatch(getTags({page: 1}));
+    dispatch(getAdminTags({page: 1}));
   }, []);
 
   useEffect( () => {
@@ -45,21 +44,13 @@ const AdminTagList = () => {
     const page = parseInt(event.target.getAttribute('value'));
     let sAttrs = {...searchAttr, page: page};
     setSearchAttr(sAttrs);
-    dispatch(getTags(sAttrs));
+    dispatch(getAdminTags(sAttrs));
   };
-
-  // const showArticles = (author) => {
-  //   if (authorId !== author.id) {
-  //     setAuthorId(author.id);
-  //   } else {
-  //     setAuthorId(null);
-  //   }
-  // };
 
   const resetFilteredAuthors = (e) => {
     setTotalTagQnty(null);
     setSearchAttr({page: 1})
-    dispatch(getTags({page: 1}));
+    dispatch(getAdminTags({page: 1}));
     document.getElementsByName("alphabet").forEach((el) => el.checked = false );
   }
 
@@ -67,13 +58,19 @@ const AdminTagList = () => {
     const selectedAlbhabet = e.target.value;
     let sAttrs = {'start_with': selectedAlbhabet, page: 0};
     setSearchAttr(sAttrs);
-    dispatch(getTags(sAttrs));
+    dispatch(getAdminTags(sAttrs));
   }
 
   const deleteToTag = (id) => {
-    dispatch(deleteTag(id));
+    dispatch(deleteAdminTag(id));
   }
+  const onSearchInputChange = (event) => {
+    const { name, value } = event.target;
+    const sAttrs = {...searchAttr, [name]: value};
 
+    setSearchAttr(sAttrs);
+    dispatch(getAdminTags(sAttrs, 1));
+  }
   const setTagForEditing = (id) => {
     if(id){
       const tag = tags.filter((tag) => tag.id === id)[0];
@@ -83,9 +80,10 @@ const AdminTagList = () => {
       setFormValues(tagObj);setEditableTag(null);
     }
   }
-
-  const createNewTag = () => { dispatch(createTag(formValues));}
-  const updateToTag = () => { dispatch(updateTag(editableTag.id, formValues)); }
+  const approveTag = (id) => {
+    dispatch(approveToTag(id, searchAttr));
+  }
+  const updateToTag = () => { /*dispatch(updateTag(editableTag.id, formValues));*/ }
   
   const showPopup = () => {
     const modalEl = document.getElementById('new-tag-modal');
@@ -97,47 +95,36 @@ const AdminTagList = () => {
 
   return (
     <div className='grid md:grid-cols-12'>
-      <div className='md:col-start-2 md:col-span-10'>
+      <div className='md:col-start-2 md:col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           रचनाकार/लेखक सूची 
         </div>
         <section className="bg-gray-50 dark:bg-gray-900">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-              <div className="w-full md:w-1/2">
-                <form className="flex items-center">
-                  <label htmlFor="simple-search" className="sr-only">Search</label>
-                  <div className="relative w-full">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required=""/>
-                  </div>
-                </form>
-              </div>
+              <div className="w-full md:w-1/2"></div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <div className="flex items-center space-x-3 w-full md:w-auto">
-                  <button onClick={ e => { showPopup(); setTagForEditing();}} 
-                    className={`flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 
-                    py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
-                    dark:focus:ring-blue-800`} type="button">
-                    Add New Tag &nbsp;&nbsp;
-                    <svg className="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
-                  </button>
                   <button
                     onClick={resetFilteredAuthors}
-                    className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                    className={`w-full md:w-auto flex items-center justify-betweeen py-2 px-4 
+                      text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg 
+                      border border-gray-400 hover:bg-gray-100 hover:text-primary-700 focus:z-10 
+                      focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 
+                      dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
+                      dark:hover:bg-gray-700`} type="button">
                     Refresh&nbsp;&nbsp;
                     <svg className="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97"/>
                     </svg>
                   </button>
-                  <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                  <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" 
+                    className={`w-full md:w-auto flex items-center justify-center py-2 px-4 
+                      text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg 
+                      border border-gray-400 hover:bg-gray-100 hover:text-primary-700 focus:z-10 
+                      focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 
+                      dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
+                      dark:hover:bg-gray-700`} type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="h-4 w-4 mr-2 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
                     </svg>
@@ -146,7 +133,8 @@ const AdminTagList = () => {
                       <path clipRule="evenodd" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                     </svg>
                   </button>
-                  <div id="filterDropdown" className="z-10 hidden w-96 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                  <div id="filterDropdown" 
+                    className={`z-10 hidden w-96 p-3 bg-white rounded-lg shadow dark:bg-gray-700`}>
                     <h6 className="mb-3 text-center text-sm font-medium text-gray-900 dark:text-white pb-2 border-b border-b-2">
                       Choose alphabet
                     </h6>
@@ -163,16 +151,31 @@ const AdminTagList = () => {
                       }
                     </div>
                   </div>
+                  <select id="status" name="status" 
+                    value={searchAttr.status ? searchAttr.status : ''}
+                    onChange={onSearchInputChange}
+                    className={`w-full md:w-auto flex items-center justify-center py-2 px-4 
+                    text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg 
+                    border border-gray-400 hover:bg-gray-100 hover:text-primary-700 focus:z-10 
+                    focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 
+                    dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
+                    dark:hover:bg-gray-700`}>
+                      <option value="">All Authors</option>
+                      <option value="approved">स्वीकृत</option>
+                      <option value="pending">लंबित</option>
+                  </select>
                 </div>
               </div>
+              
             </div>
             <div className="overflow-x-auto min-h-72 px-3">
               <table className="w-full text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
-                  <th scope="col" className="px-2 py-3">क्रमांक</th>
+                    <th scope="col" className="px-2 py-3">क्रमांक</th>
                     <th scope="col" className="px-2 py-3">रचनाकार/लेखक</th>
-                    <th scope="col" className="px-2 py-3">Action</th>
+                    <th scope="col" className="px-2 py-3">Status</th>
+                    <th scope="col" className="px-2 py-3 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className='text-xl'>
@@ -185,7 +188,21 @@ const AdminTagList = () => {
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {tag.name}
                         </td>
-                        <td className="px-2 py-3 flex items-center justify-end">
+                        <td className="px-2 py-3">
+                          { tag.is_approved  === false ? 
+                            (<span className='text-red-500'>लंबित</span>) 
+                            : (<span className='text-green-500'>स्वीकृत</span>)
+                          }
+                        </td>
+                        <td className="px-2 py-3 flex items-center justify-center">
+                           
+                          {tag.is_approved  === false && (
+                            <button onClick={e => approveTag(tag.id)} className='mr-2'>
+                              <svg className="w-[25px] h-[25px] text-green-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                              </svg>
+                            </button>)
+                          }
                           <button onClick={e => {showPopup(); setTagForEditing(tag.id);}} >
                             <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
@@ -200,7 +217,7 @@ const AdminTagList = () => {
                       </tr>
                     ) : (
                       <tr>
-                        <td colSpan="3" className='text-center py-5'>
+                        <td colSpan="4" className='text-center py-5'>
                           There is no Authors available.
                         </td>
                       </tr>
@@ -266,36 +283,15 @@ const AdminTagList = () => {
                     />
                   </div>
                 </div>
-                {/* <div className='grid md:grid-cols-12 mb-3'>
-                  <div className='col-span-12'>
-                    <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                      नाम (अंग्रेजी) <span title="required" className="text-red-600 font-bold">*</span>
-                    </label>
-                  </div>
-                  <div className='col-span-12'>
-                    <input id="name_eng" name="name_eng" 
-                      value={formValues.name_eng || ''}
-                      onChange={(e) => { setFormValues(formValues => ({...formValues, name_eng: e.target.value})) }}
-                      className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                        rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
-                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                        dark:shadow-sm-light`} />
-                  </div>
-                </div> */}
               </form>
             </div>
             <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
               { 
-                editableTag ? ( <button type="button"
+                <button type="button"
                   onClick={updateToTag} 
                   className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   टैग्स अद्यतन करें
-                </button>) : ( <button type="button"
-                  onClick={createNewTag} 
-                  className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  टैग्स जोड़े
-                </button> ) 
+                </button>
               }
               <button 
                 onClick={hidePopup} 

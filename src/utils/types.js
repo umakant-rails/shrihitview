@@ -20,7 +20,6 @@ export const ADMIN_ACTIVITIES = [
       {url: '/admin/articles', label: 'रचना'},
       {url: '/admin/authors', label: 'रचनाकार'},
       {url: '/admin/tags', label: 'टैग्स'},
-      {url: '/admin/stories', label: 'संत चरित्र/प्रेरक प्रसंग'},
     ] 
   },
   // {
@@ -149,9 +148,13 @@ export const ADMIN_ARTICLE_APPROVED = "ARTICLE_APPROVED";
 export const ADMIN_ARTICLE_DELETED = "ARTICLE_APPROVED";
 
 export const ADMIN_AUTHOR_LIST = "ADMIN_ARTICLE_LIST";
-export const ADMIN_AUTHOR_APPROVED = "ARTICLE_APPROVED";
-export const ADMIN_AUTHOR_DELETED = "ARTICLE_APPROVED";
+export const ADMIN_AUTHOR_APPROVED = "ADMIN_AUTHOR_APPROVED";
+export const ADMIN_AUTHOR_DELETED = "ADMIN_AUTHOR_DELETED";
 
+export const ADMIN_TAG_LIST = "ADMIN_TAG_LIST";
+export const ADMIN_TAG_APPROVED = "ADMIN_TAG_APPROVED";
+export const ADMIN_TAG_UPDATED = "ADMIN_TAG_UPDATED";
+export const ADMIN_TAG_DELETED = "ADMIN_TAG_DELETED";
 /* REGISTERED USER constant */
 export const ARTICLE_NEW = "ADMIN_ARTICLE_NEW";
 export const ARTICLE_TAG_CREATED = "TAG_CREATED";

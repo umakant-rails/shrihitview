@@ -59,7 +59,7 @@ const EditScripture = () => {
           रसिक वाणी/ग्रन्थ फॉर्म
         </div>
         {
-        <form className="py-5 px-10" onSubmit={onScriptureSubmit}>
+        <form className="py-5 px-5" onSubmit={onScriptureSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
             <div className='col-span-6'>
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">

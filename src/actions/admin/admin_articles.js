@@ -20,7 +20,7 @@ export const getAdminArticles = () => async dispatch => {
     `/admin/articles`,
   ).then(response => response)
   .catch(error => error.response);
-  console.log(response)
+
   if(response.status === 200){
     if(response.data.error === undefined){
       dispatch({ type: ADMIN_ARTICLE_LIST, payload: response.data, });

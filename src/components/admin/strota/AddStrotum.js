@@ -42,7 +42,7 @@ const AddStroum = () => {
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
           स्त्रोत/आरती फॉर्म
         </div>
-        <form className="py-5 px-10" onSubmit={onStrotaSubmit}>
+        <form className="py-5 px-5" onSubmit={onStrotaSubmit}>
           <div className='mb-3'>
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               स्त्रोत/आरती का प्रकार <span title="required" className="text-red-600 font-bold">*</span>

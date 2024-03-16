@@ -65,7 +65,7 @@ import AddCSArticle from "../components/admin/compile_scriptures/AddCSArticle";
 import CSScriptureShow from "../components/admin/compile_scriptures/CSScriptureShow";
 import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
 import AdminTagList from "../components/admin/app_content/AdminTagList";
-import AdminStoryList from "../components/admin/app_content/AdminStoryList";
+
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -114,8 +114,7 @@ const router = createBrowserRouter(
         <Route path="/admin/articles" element={<ProtectedRoutes><AdminArticleList /></ProtectedRoutes>} />
         <Route path="/admin/authors" element={<ProtectedRoutes><AdminAuthorList /></ProtectedRoutes>} />
         <Route path="/admin/tags" element={<ProtectedRoutes><AdminTagList /></ProtectedRoutes>} />
-        <Route path="/admin/stories" element={<ProtectedRoutes><AdminStoryList /></ProtectedRoutes>} />
-
+        
         <Route path="/admin/article_types" element={<ProtectedRoutes><ArticleTypeList/></ProtectedRoutes>} />
         <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />
 
