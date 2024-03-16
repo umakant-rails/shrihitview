@@ -66,7 +66,7 @@ const AdminAuthorList = () => {
     dispatch(approveToAuthor(id,searchAttr));
   }
   const deleteToAuthor = (id) => {
-    dispatch(deleteAdminAuthor(id));
+    dispatch(deleteAdminAuthor(id, searchAttr));
   }
 
   return (
@@ -170,14 +170,14 @@ const AdminAuthorList = () => {
                           उपलब्ध रचनाये - <span className='font-bold'>{author.articles ? author.articles.length : 0}</span>
                         </td>
                         <td className="px-2 py-3">
-                          { author.is_approved  === null ? 
+                          { author.is_approved  === false ? 
                             (<span className='text-red-500'>लंबित</span>) 
                             : (<span className='text-green-500'>स्वीकृत</span>)
                           }
                         </td>
                         <td className="px-2 py-3 flex items-center justify-end">
                           { 
-                            author.is_approved  === null && (
+                            author.is_approved  === false && (
                             <button onClick={e => approveAuthor(author.id)} className='mr-2'>
                               <svg className="w-[25px] h-[25px] text-green-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -218,7 +218,7 @@ const AdminAuthorList = () => {
                   ) : (
                     <tbody>
                       <tr>
-                        <td colSpan="4" className='text-center py-5'>
+                        <td colSpan="5" className='text-center py-5'>
                           There is no Authors available.
                         </td>
                       </tr>

@@ -11,7 +11,7 @@ const AdminArticleList = () => {
   const { 
     articleTypes, raags, contexts, 
     authors, scriptures, articles, 
-    totalArticles } = useSelector( state => state.adminArticle );
+    totalArticles, current_page } = useSelector( state => state.adminArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
   const [searchAttr, setSearchAttr] = useState({});
@@ -21,7 +21,11 @@ const AdminArticleList = () => {
   }, []);
   
   useEffect( () => {
-    if(articles){ setArticleList(articles); setTotalArticle(totalArticles);}
+    if(articles){ 
+      setArticleList(articles); 
+      setTotalArticle(totalArticles);
+    }
+    if(current_page){setCurrentPage(current_page);}
   }, [articles, totalArticles]);
 
   const approveToArticle = (id) => {
@@ -33,20 +37,23 @@ const AdminArticleList = () => {
 
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');
-    setCurrentPage(page);
+    const sAttrs = {...searchAttr, page: page};
+    setSearchAttr(sAttrs);
+    dispatch(getArticlesByPage(sAttrs));
   }
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttr, [name]: value};
+    const sAttrs = {...searchAttr, [name]: value, page: 1};
 
     setSearchAttr(sAttrs);
     dispatch(getArticlesByPage(sAttrs, 0));
   }
   const refreshFilteredData = () => {
     setSearchAttr({});
-    setCurrentPage(1)
-    dispatch(getArticlesByPage({}, 0));
+    const sAttrs = {page: 1};
+    setSearchAttr(sAttrs);
+    dispatch(getArticlesByPage(sAttrs));
   }
 
   return (
@@ -158,7 +165,7 @@ const AdminArticleList = () => {
               <th scope="col" className="px-2 py-3">रचना प्रकार</th>
               <th scope="col" className="px-2 py-3">रचनाकार/लेखक</th>
               <th scope="col" className="px-2 py-3">Status</th>
-              <th scope="col" className="px-2 py-3">Action</th>
+              <th scope="col" className="px-2 py-3 text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -182,10 +189,13 @@ const AdminArticleList = () => {
                       {article.author}
                     </td>
                     <td className="px-2 py-3">
-                      {article.is_approved  === null ? 'लंबित' : 'स्वीकृत'}
+                      { article.is_approved  === false ? 
+                        (<span className='text-red-500'>लंबित</span>) 
+                        : (<span className='text-green-500'>स्वीकृत</span>)
+                      }
                     </td>
-                    <td className="px-2 py-3 flex items-center justify-end">
-                      { article.is_approved  === null && (
+                    <td className="px-2 py-3 flex items-center justify-center">
+                      { article.is_approved  === false && (
                         <button onClick={e => approveToArticle(article.id)} className='mr-2'>
                           <svg className="w-[25px] h-[25px] text-green-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>

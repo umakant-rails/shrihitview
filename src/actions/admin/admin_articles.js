@@ -49,7 +49,7 @@ export const getArticlesByPage = (searchAttrs) => async dispatch => {
   ).then(response => {
     return response;
   }).catch(error => error.response);
- 
+
   if(response.status === 200){
     if(response.data.error === undefined){
       dispatch({ type: ADMIN_ARTICLES_BY_PAGE, payload: response.data });

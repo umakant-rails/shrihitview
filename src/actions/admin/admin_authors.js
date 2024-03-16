@@ -60,9 +60,9 @@ export const approveToAuthor = (id, searchAttrs) => async dispatch => {
   }
 }
 
-export const deleteAdminAuthor = (id) => async dispatch => {
+export const deleteAdminAuthor = (id, searchAttrs) => async dispatch => {
   const response = await baseUrl.delete(
-    `/admin/authors/${id}`
+    `/admin/authors/${id}`, {data: searchAttrs},
   ).then(response => {
     return response;
   }).catch( error => error.response);
