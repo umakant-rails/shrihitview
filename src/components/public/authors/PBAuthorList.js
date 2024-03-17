@@ -41,13 +41,7 @@ const AuthorList = () => {
   };
 
   const resetFilteredAuthors = (e) => {
-    setAuthorList(authors);
-    if(authors !== authorList){
-      setAuthorList(authors);
-      //setCurrentAuthors(authors.slice(0,itemPerPage));
-    } else {
-      alert('No Filter Apply Now.')
-    }
+    dispatch(getAuthors({page: 1}));
     document.getElementsByName("alphabet").forEach((el) => el.checked = false );
   }
   const filterAuthors = (e) => {

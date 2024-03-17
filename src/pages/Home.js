@@ -19,7 +19,7 @@ const Home = () => {
 
   useEffect( ()=> {
     dispatch(getHomePageData());
-  }, []);
+  }, [dispatch]);
   
   const getSlideSwipterContent = () => {
     return (

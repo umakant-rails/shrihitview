@@ -14,19 +14,19 @@ const PBContextShow = () => {
   const { name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [totalArticles, setTotalArticles] = useState(null);
-  const {context, articles, total_articles} = useSelector(state => state.context);
+  const {articles, total_articles} = useSelector(state => state.context);
   
   useEffect( ()=> {
     dispatch(getContextArticles(name, 1));
-  }, [name]);
+  }, [dispatch, name]);
 
   useEffect( () => {
-    if(context){
+    if(articles){
       window.scrollTo({top: 0, behavior: 'instant'});
       setArticleList(articles);
       setTotalArticles(total_articles);
     }
-  }, [context]);
+  }, [articles, total_articles]);
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
@@ -40,7 +40,7 @@ const PBContextShow = () => {
           प्रसंग - {name}
         </div>
         {
-          articleList  && articleList.map( (article, index) => 
+          (articleList && articleList.length > 0) ?  articleList.map( (article, index) => 
             <div key={index} className='grid md:grid-cols-12 shadow-xl sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
               <div className='lg:col-span-4 md:col-span-full'>
                 <Link to={`/pb/articles/${article.hindi_title}`} >
@@ -73,6 +73,8 @@ const PBContextShow = () => {
                 </div>
               </div>
             </div> 
+          ) : (
+            <div className='text-center text-xl'>इस प्रसंग के लिए कोई रचना उपलब्ध नहीं है।</div>
           )
         }
         <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">

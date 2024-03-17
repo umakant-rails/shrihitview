@@ -8,12 +8,13 @@ import {
 } from "../../utils/types";
 
 export const getAuthors = (searchAttrs) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttrs).map( key =>{
-    if(searchAttrs[key]){
-      arr.push(`${key}=${searchAttrs[key]}`)
+  
+  const arr = Object.keys(searchAttrs).map( key => {
+    if(searchAttrs[key]){ 
+      return `${key}=${searchAttrs[key]}` 
     }
   })
+
   const searchAttrStr = arr.join('&');
 
   const response = await baseUrl.get(

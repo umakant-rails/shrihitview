@@ -74,7 +74,7 @@ const PBAuthorShow = () => {
             </div> 
           ) : (
             <div className='text-lg text-center'>
-              इस रचना प्रकार के लिए कोई रचना उपलब्ध नहीं है।
+              इस रचनाकार/लेखक के लिए कोई रचना उपलब्ध नहीं है।
             </div>
           )
         }

@@ -18,6 +18,7 @@ const strotumReducer = (state=initialState, action) => {
         ...state,
         strota: action.payload.strota,
         strotum: action.payload.strotum,
+        strotum_articles: action.payload.strotum_articles,
       };
     default: 
       return state

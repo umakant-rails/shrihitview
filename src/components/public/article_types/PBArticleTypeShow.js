@@ -8,14 +8,11 @@ import { dateFormat } from '../../../utils/utilityFunctions';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 
-//import { getArticleTypeArticles } from '../../../actions/article_types';
-
 const PBArticleTypeShow = () => {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [totalArticles, setTotalArticles] = useState(null);
-  const [currentArticles, setCurrentArticles] = useState([]);
   const {article_type, articles, total_articles} = useSelector(state => state.articleType);
   
   useEffect( ()=> {
@@ -38,7 +35,7 @@ const PBArticleTypeShow = () => {
     <div className='grid md:col-md-12'>
       <div className='col-start-2 col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          रचना प्रकार - {article_type.name}
+          रचना प्रकार - {name}
         </div>
         {
           (articleList && articleList.length > 0) ? articleList.map( (article, index) => 

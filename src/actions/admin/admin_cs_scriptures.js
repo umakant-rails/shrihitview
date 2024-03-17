@@ -12,14 +12,6 @@ import {
 } from "../../utils/types";
 
 export const getAddArticlePageData = (scripture_id) => async dispatch => {
-  // const arr = [];
-  // Object.keys(searchAttrs).map( key =>{
-  //   if(searchAttrs[key]){
-  //     arr.push(`${key}=${searchAttrs[key]}`)
-  //   }
-  // })
-  // const searchAttrStr = arr.join('&');
-
   const response = await baseUrl.get(
     `/admin/compiled_scriptures/${scripture_id}/add_articles_page`,
   ).then(response => {

@@ -14,50 +14,16 @@ const PBTagShow = () => {
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'});
     dispatch(getTagArticles(name));
-  }, [name]);
+  }, [dispatch, name]);
 
   return (
     <div className='grid md:grid-cols-12'>
       <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-					टैग्स - {tag ? tag.name : 'NA'}
+					टैग्स - { name }
         </div>
-        {/* {
-          <div className='text-2xl overflow-hidden mb-8'>
-            <table className="w-full text-left text-gray-500 dark:text-gray-400">
-							<thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-								<tr className="border-b dark:border-gray-700 bg-yellow-500">
-									<th scope="col" className="px-2 py-3">क्रमांक</th>
-									<th scope="col" className="px-2 py-3">रचना</th>
-									<th scope="col" className="px-2 py-3">रचना प्रकार</th>
-								</tr>
-							</thead>
-							<tbody className='text-xl'>
-								{
-									articles && articles.map( (article, index) =>
-										<tr key={index}
-											className="border-b dark:border-gray-700 text-blue-500" >
-											<th scope="row" 
-												className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-												{index+1}
-											</th>
-											<th scope="row" 
-												className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-												{article.hindi_title}
-											</th>
-											<th scope="row" 
-												className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-												{article.article_type}
-											</th>
-										</tr>
-									)
-								}
-							</tbody>
-						</table>
-          </div>
-        } */}
         {
-          articles  && articles.map( (article, index) => 
+          articles ? articles.map( (article, index) => 
             <div key={index} className='grid md:grid-cols-12 shadow-xl sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
               <div className='lg:col-span-4 md:col-span-full'>
                 <Link to={`/pb/articles/${article.hindi_title}`} >
@@ -90,6 +56,8 @@ const PBTagShow = () => {
                 </div>
               </div>
             </div> 
+          ) : (
+            <div className='text-center text-xl'>इस टैग्स के लिए कोई रचना उपलब्ध नहीं है।</div>
           )
         }
         <div className='mt-5 mb-3 text-2xl font-bold text-amber-700'>

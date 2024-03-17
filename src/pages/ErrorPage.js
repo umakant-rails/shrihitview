@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { useRouteError, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
-  const error = useRouteError();
   useEffect( () => {
     window.scrollTo({top: 0, behavior: 'instant'});
   });

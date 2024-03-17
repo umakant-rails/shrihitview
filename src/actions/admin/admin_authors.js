@@ -14,12 +14,12 @@ import {
 } from "../../utils/types";
 
 export const getAdminAuthors = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
+
+  const arr = Object.keys(searchAttr).map( key =>{
     if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return arr.push(`${key}=${searchAttr[key]}`)
     }
-  })
+  });
   const searchAttrStr = arr.join('&');
 
   const response = await baseUrl.get(
