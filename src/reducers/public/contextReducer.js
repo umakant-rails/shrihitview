@@ -15,6 +15,8 @@ import {
         return {
           ...state,
           context: action.payload.context,
+          articles: action.payload.articles,
+          total_articles: action.payload.total_articles,
         };
       default: 
         return state

@@ -28,10 +28,10 @@ export const getContexts = () => async dispatch => {
   // return Promise.resolve(response.data);
 };
 
-export const getContext = (name) => async dispatch => {
+export const getContextArticles = (name, page) => async dispatch => {
  
   const response = await baseUrl.get(
-    `/pb/contexts/${name}`, 
+    `/pb/contexts/${name}?page=${page}`, 
   ).then(response => {
     return response;
   });

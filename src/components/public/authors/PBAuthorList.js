@@ -2,32 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuthors } from '../../../actions/public/authors';
 import { useDispatch, useSelector } from 'react-redux';
+import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 
 const AuthorList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
-  const [currentAuthors, setCurrentAuthors] = useState([]);
-  const [itemPerPage, setItemPerPage] = useState(10);
   const [authorId, setAuthorId] = useState(null);
   const [authorList, setAuthorList] = useState([]);
-  const { authors } = useSelector( state => state.author );
+  const [totalAuthors, setTotalAuthors] = useState(null)
+  const [searchAttrs, setSearchAttrs] = useState({page: 1});
+  const { authors, total_authors } = useSelector( state => state.author );
   
   useEffect( () => {
-    dispatch(getAuthors());
+    dispatch(getAuthors(searchAttrs));
   }, []);
 
   useEffect( () => {
     if(authors){
       setAuthorList(authors);
-      setCurrentAuthors(authors.slice(0, itemPerPage));
+      setTotalAuthors(total_authors);
     }
-  }, [authors, itemPerPage]);
+  }, [authors]);
   
   const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*itemPerPage : 0;
-    setCurrentAuthors(authorList.slice(startingOffset, startingOffset+itemPerPage));
+    const page = parseInt(event.target.getAttribute('value'));
+    const sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
+    dispatch(getAuthors(sAttrs));
   };
 
   const showArticles = (author) => {
@@ -42,7 +44,7 @@ const AuthorList = () => {
     setAuthorList(authors);
     if(authors !== authorList){
       setAuthorList(authors);
-      setCurrentAuthors(authors.slice(0,itemPerPage));
+      //setCurrentAuthors(authors.slice(0,itemPerPage));
     } else {
       alert('No Filter Apply Now.')
     }
@@ -50,9 +52,9 @@ const AuthorList = () => {
   }
   const filterAuthors = (e) => {
     const selectedAlbhabet = e.target.value;
-    let fileteredAuthors = authors.filter(author => author.name.startsWith(selectedAlbhabet));
-    setAuthorList(fileteredAuthors);
-    setCurrentAuthors(fileteredAuthors.slice(0,itemPerPage));
+    const sAttrs = {start_with: selectedAlbhabet, page: 1};
+    setSearchAttrs(sAttrs);
+    dispatch(getAuthors(sAttrs));
   }
 
   return (
@@ -126,28 +128,38 @@ const AuthorList = () => {
                   </tr>
                 </thead>
                 {
-                  currentAuthors ? currentAuthors.map( (author, index) => 
+                  authorList ? authorList.map( (author, index) => 
                     <tbody key={index} className='text-xl'>
                       <tr  
-                        onClick={()=> showArticles(author)}
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <th scope="row" 
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {author.name}
+                          <Link to={`/pb/authors/${author.name}`}>{author.name}</Link>
                         </th>
                         <td className="px-2 py-3">
-                          उपलब्ध रचनाये - <span className='font-bold'>{author.articles ? author.articles.length : 0}</span>
+                          <div onClick={() => showArticles(author)}>
+                            उपलब्ध रचनाये - <span className='font-bold'>
+                              {author.articles ? author.articles.length : 0}
+                            </span>
+                          </div>                        
                         </td>
                         <td className="px-2 py-3 flex items-center justify-end">
                           <button className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                             {
-                              authorId === author.id ? (<svg 
-                                className="w-[16px] h-[16px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m1 1 4 4 4-4"/>
-                              </svg>) : (
-                              <svg className="w-[16px] h-[16px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7"/>
-                              </svg> )
+                              authorId === author.id ? (
+                                <div onClick={() => showArticles(author)} >
+                                  <svg 
+                                    className="w-[16px] h-[16px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m1 1 4 4 4-4"/>
+                                  </svg>
+                                </div>
+                              ) : (
+                                <div onClick={() => showArticles(author)} >
+                                  <svg className="w-[16px] h-[16px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7"/>
+                                  </svg> 
+                                </div>
+                              )
                             }
                           </button>
                         </td>
@@ -185,11 +197,11 @@ const AuthorList = () => {
             </div>
             <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
               {
-                authorList &&
+                totalAuthors &&
                 <Pagination 
                   showWidget={5} 
-                  totalItems={authorList.length}
-                  itemsPerPage={itemPerPage}
+                  totalItems={totalAuthors}
+                  itemsPerPage={ITEM_PER_PAGE}
                   pageChangeHandler= {handlePageClick}
                 />
               }

@@ -26,7 +26,7 @@ const Home = () => {
       articles && articles.map((article, index) => 
         <SwiperSlide key={index}>
           <div key={index} className='shadow-xl py-2 border-b mb-3 bg-white'>
-            <Link to={`/articles/${article.id}`} key={`swiper-article-${index}`}>
+            <Link to={`/pb/articles/${article.hindi_title}`} key={`swiper-article-${index}`}>
               <img src={shrijicharan} alt="img" />
               <div className="article-header-yellow mb-3 text-xl">
                 {article.hindi_title}
@@ -47,7 +47,7 @@ const Home = () => {
                 </Link>
             </div>
             <div className='py-2 mb-3'>
-              <Link to={`/articles/${article.id}`} className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">रचना देखें</Link>
+              <Link to={`/pb/articles/${article.hindi_title}`} className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">रचना देखें</Link>
             </div>
           </div>    
         </SwiperSlide>
@@ -85,12 +85,12 @@ const Home = () => {
                   articles ? ( articles.map((article, index) =>
                     <div key={index} className='grid lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
                       <div className='lg:col-span-4 md:col-span-full'>
-                        <Link to={`/articles/${article.id}`} >
+                        <Link to={`/pb/articles/${article.hindi_title}`} >
                           <img src={shrihit} alt="shit-hit" className='border h-54 border-violet-400'/>
                         </Link>
                       </div>
                       <div className='lg:col-span-8 md:col-span-full'>
-                        <Link to={`/articles/${article.id}`} key={index}>
+                        <Link to={`/pb/articles/${article.hindi_title}`} key={index}>
                           <div className='text-2xl px-2 text-amber-600 font-bold'>
                             {article.hindi_title}
                           </div>

@@ -22,14 +22,14 @@ const PBStrotumList = () => {
           strota.length > 0 ? strota.map((strotum, index)=>
             <div key={index} className='grid md:grid-cols-12 gap-5 px-4 border-b border-b-gray-500 mb-5 pb-5'>
               <div className='hidden lg:block lg:col-span-4'>
-                <Link to={`/pb/strota/${strotum.name}`} >
+                <Link to={`/pb/strota/${strotum.title}`} >
                   <img src={shrihit} alt="shit-hit" className='border h-54 border-violet-400'/>
                 </Link>
               </div>
               <div className='md:col-span-12 lg:col-span-8'>
                 <div className='text-2xl font-bold text-blue-800 text-amber-800 mb-3'>
-                  <Link to={`/pb/strota/${strotum.name}`} >
-                    {strotum.name}
+                  <Link to={`/pb/strota/${strotum.title}`} >
+                    {strotum.title}
                   </Link>
                 </div>
                 <div className='text-xl max-h-40 overflow-hidden mb-8'>

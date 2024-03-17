@@ -64,7 +64,7 @@ const Footer = () => {
               { 
                 authors && authors.slice(0,5).map((author, index) =>
                   <div key={`author-${index}`}>
-                    <NavLink to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                    <NavLink to={`/pb/authors/${author.name}`}  className="text-white transition duration-100 hover:text-gray-300 ">
                       {author.name}
                     </NavLink>
                   </div>
@@ -85,7 +85,7 @@ const Footer = () => {
               { 
                 article_types && article_types.slice(0,5).map((article_type, index) =>
                   <div key={`article-type-${index}`}>
-                    <NavLink to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                    <NavLink to={`/pb/article_types/${article_type.name}`}  className="text-white transition duration-100 hover:text-gray-300 ">
                       {article_type.name}
                     </NavLink>
                   </div>
@@ -106,7 +106,7 @@ const Footer = () => {
               { 
                 contexts && contexts.slice(0,5).map((context, index) =>
                   <div key={`context-${index}`}>
-                    <NavLink to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                    <NavLink to={`/pb/contexts/${context.name}`}  className="text-white transition duration-100 hover:text-gray-300 ">
                       {context.name}
                     </NavLink>
                   </div>
@@ -127,7 +127,7 @@ const Footer = () => {
               { 
                 tags && tags.slice(0,5).map((tag, index) =>
                   <div key={`tag-${index}`}>
-                    <NavLink to="#"  className="text-white transition duration-100 hover:text-gray-300 ">
+                    <NavLink to={`/pb/tags/${tag.name}`}  className="text-white transition duration-100 hover:text-gray-300 ">
                       {tag.name}
                     </NavLink>
                   </div>

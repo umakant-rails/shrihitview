@@ -50,7 +50,7 @@ const PBContextList = () => {
                   </th>
                   <th scope="row" 
                     className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer">
-                    <Link to={`/pb/article_types/${type.name}`} className='text-blue-600'>
+                    <Link to={`/pb/contexts/${type.name}`} className='text-blue-600'>
                       {type.name}
                     </Link>
                   </th>

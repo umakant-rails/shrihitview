@@ -14,6 +14,7 @@ import Logout from "../components/Auth/Logout";
 import PBArticleList from "../components/public/articles/PBArticleList";
 import PBArticleShow from "../components/public/articles/PBArticleShow";
 import PBAuthorList from "../components/public/authors/PBAuthorList";
+import PBAuthorShow from "../components/public/authors/PBAuthorShow";
 import PBSantList from "../components/public/authors/PBSantList";
 import PBSantBiography from "../components/public/authors/PBSantBiography";
 import PBScriptureList from "../components/public/scriptures/PBScriptureList";
@@ -67,6 +68,7 @@ import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
 import AdminTagList from "../components/admin/app_content/AdminTagList";
 
 
+
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -88,6 +90,7 @@ const router = createBrowserRouter(
         <Route path="/pb/articles/:id" element={<PBArticleShow />} />
 
         <Route path="/pb/authors" element={<PBAuthorList />} />
+        <Route path="/pb/authors/:name" element={<PBAuthorShow />} />
         <Route path="/pb/authors/sants" element={<PBSantList />} />
         <Route path="/pb/authors/:name/sant_biography" element={<PBSantBiography />} />
 

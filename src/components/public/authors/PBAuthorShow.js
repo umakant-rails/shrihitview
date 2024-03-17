@@ -1,46 +1,45 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContextArticles } from '../../../actions/public/context';
-import shrihit from "../../../assets/images/shrihit.png";
+import { getAuthorArticles } from '../../../actions/public/authors';
+import shrihit from '../../../assets/images/shrihit.png';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 
-
-const PBContextShow = () => {
+const PBAuthorShow = () => {
   const dispatch = useDispatch();
   const { name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [totalArticles, setTotalArticles] = useState(null);
-  const {context, articles, total_articles} = useSelector(state => state.context);
+  const {author, articles, total_articles} = useSelector(state => state.author);
   
   useEffect( ()=> {
-    dispatch(getContextArticles(name, 1));
+    dispatch(getAuthorArticles(name, 1));
   }, [name]);
 
   useEffect( () => {
-    if(context){
+    if(articles){
       window.scrollTo({top: 0, behavior: 'instant'});
       setArticleList(articles);
       setTotalArticles(total_articles);
     }
-  }, [context]);
+  }, [articles]);
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    dispatch(getContextArticles(name, page));
+    dispatch(getAuthorArticles(name, page));
   };
 
-  return(
+  return (
     <div className='grid md:col-md-12'>
       <div className='col-start-2 col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          प्रसंग - {name}
+          रचनाकार/लेखक - {name}
         </div>
         {
-          articleList  && articleList.map( (article, index) => 
+          (articleList && articleList.length > 0) ? articleList.map( (article, index) => 
             <div key={index} className='grid md:grid-cols-12 shadow-xl sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
               <div className='lg:col-span-4 md:col-span-full'>
                 <Link to={`/pb/articles/${article.hindi_title}`} >
@@ -73,6 +72,10 @@ const PBContextShow = () => {
                 </div>
               </div>
             </div> 
+          ) : (
+            <div className='text-lg text-center'>
+              इस रचना प्रकार के लिए कोई रचना उपलब्ध नहीं है।
+            </div>
           )
         }
         <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
@@ -88,7 +91,7 @@ const PBContextShow = () => {
         </nav>
       </div>
     </div>
-  )
+  );
 };
 
-export default PBContextShow;
+export default PBAuthorShow;

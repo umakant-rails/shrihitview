@@ -1,15 +1,23 @@
 import baseUrl from "../../services/AxiosService";
 import {
   PB_AUTHOR_LIST,
-  //AUTHOR_SHOW,
+  PB_AUTHOR_SHOW,
   PB_SANT_LIST,
   PB_SANT_SHOW,
   SET_MESSAGE
 } from "../../utils/types";
 
-export const getAuthors = () => async dispatch => {
+export const getAuthors = (searchAttrs) => async dispatch => {
+  const arr = [];
+  Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      arr.push(`${key}=${searchAttrs[key]}`)
+    }
+  })
+  const searchAttrStr = arr.join('&');
+
   const response = await baseUrl.get(
-    '/pb/authors', 
+    `/pb/authors?${searchAttrStr}`, 
   ).then(response => {
     return response;
   });
@@ -27,6 +35,27 @@ export const getAuthors = () => async dispatch => {
     });
   }
 }
+export const getAuthorArticles = (name, page) => async dispatch => {
+  const response = await baseUrl.get(
+    `/pb/authors/${name}?page=${page}`, 
+  ).then(response => {
+    return response;
+  }).catch(error => error.response);
+
+  if(response.data.error === undefined){
+    dispatch({
+      type: PB_AUTHOR_SHOW, 
+      payload: response.data
+    });
+  } else {
+    dispatch({
+      type: SET_MESSAGE,
+      msg_type: "error",
+      payload: response.data.error.join("\n"),
+    });
+  }
+  // return Promise.resolve(response.data);
+};
 
 export const getSants = () => async dispatch => {
   const response = await baseUrl.get(

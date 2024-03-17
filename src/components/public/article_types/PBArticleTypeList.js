@@ -8,24 +8,23 @@ import { ITEM_PER_PAGE } from '../../../utils/types';
 const PBArticleTypeList = () => {
   const dispatch = useDispatch();
   const [articleTypeList, setArticleTypeList] = useState([]);
-  const [currentTypes, setCurrentTypes] = useState([]);
-  const { article_types } = useSelector( state => state.articleType );
+  const [totalArticleTypes, setTotalArticleTypes] = useState(null);
+  const { article_types, total_article_types } = useSelector( state => state.articleType );
 
   useEffect( () => {
-    dispatch(getArticleTypes())
+    dispatch(getArticleTypes(''));
   }, []);
 
   useEffect( () => {
     if(article_types){
       setArticleTypeList(article_types);
-      setCurrentTypes(article_types.slice(0,10))
+      setTotalArticleTypes(total_article_types);
     }
   }, [article_types]);
 
   const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
-    setCurrentTypes(setArticleTypeList.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
+    const page = parseInt(event.target.getAttribute('value'));
+    dispatch(getArticleTypes(page));
   };
 
 
@@ -44,7 +43,7 @@ const PBArticleTypeList = () => {
           </thead>
           <tbody className='text-xl'>
             {
-              currentTypes && currentTypes.map( (type, index) =>
+              articleTypeList && articleTypeList.map( (type, index) =>
                 <tr key={index}
                   className="border-b dark:border-gray-700 text-blue-500" >
                   <th scope="row" 
@@ -64,10 +63,10 @@ const PBArticleTypeList = () => {
         </table>
         <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
           {
-            articleTypeList &&
+            totalArticleTypes &&
             <Pagination 
               showWidget={5} 
-              totalItems={articleTypeList.length}
+              totalItems={totalArticleTypes}
               itemsPerPage={ITEM_PER_PAGE}
               pageChangeHandler= {handlePageClick}
             />

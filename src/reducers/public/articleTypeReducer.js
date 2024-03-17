@@ -10,11 +10,14 @@ import {
         return {
           ...state,
           article_types: action.payload.article_types,
+          total_article_types: action.payload.total_article_types
         };
       case PB_ARTICLE_TYPE_SHOW:
         return {
           ...state,
           article_type: action.payload.article_type,
+          articles: action.payload.articles,
+          total_articles: action.payload.total_articles
         };
       default: 
         return state

@@ -7,16 +7,19 @@ import {
 
 const initialState = {authorList: []};
 const authorReducer = (state=initialState, action) => {
-    switch (action.type) {
+  switch (action.type) {
     case PB_AUTHOR_LIST:
       return {
         ...state,
         authors: action.payload.authors,
+        total_authors: action.payload.total_authors,
       };  
     case PB_AUTHOR_SHOW:
       return {
         ...state,
         author: action.payload.author,
+        articles: action.payload.articles,
+        total_articles: action.payload.total_articles,
       };
     case PB_SANT_LIST:
       return {
@@ -31,7 +34,7 @@ const authorReducer = (state=initialState, action) => {
       };
     default: 
       return state
-    }
+  }
 };
 
 export default authorReducer;

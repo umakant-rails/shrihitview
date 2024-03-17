@@ -5,10 +5,10 @@ import {
   SET_MESSAGE
 } from "../../utils/types";
 
-export const getArticleTypes = () => async dispatch => {
+export const getArticleTypes = (page) => async dispatch => {
  
   const response = await baseUrl.get(
-    '/pb/article_types', 
+    `/pb/article_types?page=${page}`, 
   ).then(response => {
     return response;
   });
@@ -28,10 +28,9 @@ export const getArticleTypes = () => async dispatch => {
   // return Promise.resolve(response.data);
 };
 
-export const getArticleType = (name) => async dispatch => {
- 
+export const getArticleTypeArticles = (name, page) => async dispatch => {
   const response = await baseUrl.get(
-    `/pb/article_types/${name}`, 
+    `/pb/article_types/${name}?page=${page}`, 
   ).then(response => {
     return response;
   });

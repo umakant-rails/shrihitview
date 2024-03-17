@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getArticles } from '../../../actions/public/articles';
+import { getArticles, getArticlesByPage } from '../../../actions/public/articles';
 import SearchArticleList from './SearchArticleList';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
@@ -11,10 +11,13 @@ import Pagination from '../../shared/Pagination';
 const PBArticleList = () => {
   const dispatch = useDispatch();
   const [articleList, setArticleList] = useState([]);
-  const [currentArticles, setCurrentArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState(null);
   const [itemPerPage, setItemPerPage] = useState(10);
   const [searchApplied, setSearchApplied] = useState(false);
-  const {articles, authors, tags, contexts, article_types } = useSelector( state => state.pbArticle);
+  const {
+    articles, total_articles,
+    authors, tags, contexts, article_types 
+  } = useSelector( state => state.pbArticle);
 
   useEffect( ()=> {
     dispatch(getArticles());
@@ -23,16 +26,15 @@ const PBArticleList = () => {
   useEffect( ()=> {
     if(articles){
       setArticleList(articles);
-      setCurrentArticles(articles.slice(0, itemPerPage));
+      setTotalArticles(total_articles)
     }
   }, [articles]);
   
   const setSearchAppliedState = (stateValue) => setSearchApplied(stateValue)
 
   const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*itemPerPage : 0;
-    setCurrentArticles(articles.slice(startingOffset, startingOffset+itemPerPage));
+    const page = parseInt(event.target.getAttribute('value'));
+    dispatch(getArticlesByPage(page));
   };
 
   return (
@@ -52,7 +54,7 @@ const PBArticleList = () => {
               <div className="grid md:grid-cols-10 gap-10">
                 <div className="md:col-span-7 sm:col-span-full">
                   {
-                    currentArticles && currentArticles.map((article, index) =>
+                    articleList && articleList.map((article, index) =>
                       <div key={index} className='grid md:grid-cols-12 shadow-xl sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
                         <div className='lg:col-span-4 md:col-span-full'>
                           <Link to={`/pb/articles/${article.hindi_title}`} >
@@ -88,9 +90,9 @@ const PBArticleList = () => {
                     )
                   }
                   {
-                    articleList && <Pagination 
+                    totalArticles && <Pagination 
                       showWidget={5} 
-                      totalItems={articleList.length}
+                      totalItems={totalArticles}
                       itemsPerPage={itemPerPage}
                       pageChangeHandler= {handlePageClick}
                     />
@@ -104,7 +106,7 @@ const PBArticleList = () => {
                     <fieldset className='max-h-64 overflow-y-scroll px-2'>
                       { 
                         article_types && article_types.map((article_type, index) =>
-                          <Link to={`/article_types/${article_type.name}`} key={index} 
+                          <Link to={`/pb/article_types/${article_type.name}`} key={index} 
                             className='flex items-center px-3 py-2 text-blue-700 border-b border-gray-300 hover:text-blue-900' >
                             {article_type.name}
                           </Link>
@@ -119,7 +121,7 @@ const PBArticleList = () => {
                     <fieldset className='max-h-64 overflow-y-scroll pb-4'>
                       { 
                         authors && authors.map((author, index) =>
-                          <Link to={`/authors/${author.name}`} key={index} 
+                          <Link to={`/pb/authors/${author.name}`} key={index} 
                             className='flex items-center px-3 py-2 text-blue-700 border-b border-gray-300 hover:text-blue-900 border-b' >
                             <div>{author.name}</div>
                           </Link>
@@ -134,7 +136,7 @@ const PBArticleList = () => {
                     <fieldset className='max-h-64 overflow-y-scroll'>
                       { 
                         contexts && contexts.map((context, index) =>
-                          <Link to={`/contexts/${context.name}`} key={index} 
+                          <Link to={`/pb/contexts/${context.name}`} key={index} 
                             className='flex items-center px-3 py-2 text-blue-700 border-b border-gray-300 hover:text-blue-900' >
                             <div>{context.name}</div>
                           </Link>
@@ -149,7 +151,7 @@ const PBArticleList = () => {
                     <fieldset className='max-h-64 overflow-y-scroll'>
                       { 
                         tags && tags.map((tag, index) =>
-                          <Link to={`/tags/${tag.name}`} key={index} 
+                          <Link to={`/pb/tags/${tag.name}`} key={index} 
                             className='flex items-center px-3 py-2 text-blue-700 border-b border-gray-300 hover:text-blue-900' >
                             <div>{tag.name}</div>
                           </Link>
