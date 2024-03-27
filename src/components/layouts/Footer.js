@@ -19,15 +19,24 @@ const Footer = () => {
       <footer className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <div className="mb-16 grid grid-cols-2 gap-12  pt-10 md:grid-cols-4 lg:grid-cols-6 lg:gap-8 lg:pt-8">
           <div className="col-span-full lg:col-span-2">
-            <div className="mb-4 lg:-mt-2">
-              <NavLink to="/">
+            <div className="flex mb-4 lg:-mt-2">
+              <NavLink to="/" className='mr-4'>
                 <img className="h-11 w-11 w-auto rounded-full"
                   src={logo}
                   alt="Your Company" />
               </NavLink>
+              <div className="ms-4 mb-6 sm:pr-8 leading-8 text-white font-bold">
+                <p>रसना कटौ जु अन रटौ, निरखि अन फुटौ नैन। </p>
+                <p>स्रवन फुटौ जो अन सुनौ, बिनु राधा-जसु बैन॥</p>
+                <p>सबसौ हित निष्काम मति, बृंदाबन बन विस्राम। </p>
+                <p>राधावल्लभ लाल कौ, हृदय ध्यान, मुख नाम॥ </p>
+                <p>तनहिं राखु सतसंग में, मनहिं प्रेमरस भेव।</p>
+                <p>सुख चाहत 'हरिवंश हित', कृष्ण-कल्पतरु सेव॥ </p>
+                <p>निकसि कुंज ठाढ़े भये, भुजा परस्पर अंस।</p>
+                <p>राधावल्लभ-मुख-कमल,निरखत ‘हित हरिबंस'॥</p>
+              </div>
             </div>
 
-            <p className="mb-6 text-white sm:pr-8">Filler text is dummy text which has no meaning however looks very similar to real text.</p>
 
             <div className="flex gap-4">  
               <a href="#" target="_blank" key={'instagram'} className="text-white transition duration-100 hover:text-white active:text-white">

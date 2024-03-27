@@ -81,15 +81,20 @@ const ScriptureList = () => {
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 p-4">
               <div className="w-full md:w-1/2"></div>
-              <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+              <div className="md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <div className="flex items-center space-x-3 w-full md:w-auto">
                   <Link to="/admin/scriptures/new" 
-                    className='rounded bg-blue-600 text-white py-2 px-3 w-72'>
+                    className='rounded bg-blue-600 text-white py-2 px-3 w-auto'>
                     रसिक वाणी/ग्रन्थ जोड़े
                   </Link>
                   <button
                     onClick={resetFilteredAuthors}
-                    className="w-full md:w-auto flex items-center justify-center py-2.5 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded border border-gray-400 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                    className={`w-auto md:w-auto flex items-center justify-center py-2.5 px-4 
+                      text-sm font-medium text-gray-900 focus:outline-none bg-white rounded border 
+                      border-gray-400 hover:bg-gray-100 hover:text-primary-700 focus:z-10 
+                      focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 
+                      dark:text-gray-400 dark:border-gray-600 dark:hover:text-white 
+                      dark:hover:bg-gray-700`} type="button">
                     Refresh&nbsp;&nbsp;
                     <svg className="w-[15px] h-[15px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 1v5h-5M2 19v-5h5m10-4a8 8 0 0 1-14.947 3.97M1 10a8 8 0 0 1 14.947-3.97"/>
@@ -99,10 +104,10 @@ const ScriptureList = () => {
                     value={scriptureType}
                     onChange = {getScriptureType}
                     className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
-                      rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
+                      rounded focus:ring-blue-500 focus:border-blue-500 block p-2 
                       dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                       dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
-                      dark:shadow-sm-light`}>
+                      dark:shadow-sm-light w-auto`}>
                       <option value="">स्त्रोत/आरती का प्रकार चुने</option>
                       {
                         scripture_types && scripture_types.map( (strota_type, index) => 

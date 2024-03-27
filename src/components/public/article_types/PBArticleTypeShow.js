@@ -13,18 +13,18 @@ const PBArticleTypeShow = () => {
   const { name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [totalArticles, setTotalArticles] = useState(null);
-  const {article_type, articles, total_articles} = useSelector(state => state.articleType);
+  const {articles, total_articles} = useSelector(state => state.articleType);
   
   useEffect( ()=> {
     dispatch(getArticleTypeArticles(name, 1));
-  }, [name]);
+  }, [dispatch, name]);
 
   useEffect( () => {
     if(articles){
       setArticleList(articles);
       setTotalArticles(total_articles);
     }
-  }, [articles]);
+  }, [articles, total_articles]);
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

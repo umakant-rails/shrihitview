@@ -1,12 +1,5 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  AUTHOR_CREATED,
-  AUTHOR_LIST,
-  AUTHOR_NEW,
-  SAMPRADAYA_CREATED,
-  AUTHOR_EDIT,
-  AUTHOR_UPDATED,
-  AUTHOR_DELETED,
   SET_MESSAGE,
   ADMIN_AUTHOR_LIST,
   ADMIN_AUTHOR_APPROVED,
@@ -14,10 +7,9 @@ import {
 } from "../../utils/types";
 
 export const getAdminAuthors = (searchAttr) => async dispatch => {
-
-  const arr = Object.keys(searchAttr).map( key =>{
+  const arr = Object.keys(searchAttr).map( key => {
     if(searchAttr[key]){
-      return arr.push(`${key}=${searchAttr[key]}`)
+      return (`${key}=${searchAttr[key]}`)
     }
   });
   const searchAttrStr = arr.join('&');
