@@ -20,6 +20,7 @@ AxiosObj.interceptors.response.use(
     if (error.response.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("currentUser");
+      window.location = "/users/login";
     } 
     return Promise.reject(error);
   },
