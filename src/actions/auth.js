@@ -4,6 +4,7 @@ import {
   ERROR_HANDLING,
   SET_MESSAGE
 } from "../utils/types";
+import dataDispatchToReducer from "./shared_action";
 
 export const userRegister = (formValues) => async dispatch => {
   const response = await baseUrl.post(
@@ -11,36 +12,9 @@ export const userRegister = (formValues) => async dispatch => {
     {user: formValues}, {}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.status.message,
-    });
-    dispatch({
-      type: USER_REGISTRATION, 
-      payload: {
-        statusCode: response.status,
-        message: response.data.status.message
-      }
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-    // dispatch({
-    //   type: ERROR_HANDLING, 
-    //   payload: {
-    //     statusCode: 401,
-    //     message: response.data.status.message
-    //   }
-    // });
-  }
-  // return Promise.resolve(response.data);
+  dispatch(dataDispatchToReducer(response, USER_REGISTRATION));
 };
 
 export const userLogin = (formValues) => async dispatch => {
@@ -58,24 +32,12 @@ export const userLogin = (formValues) => async dispatch => {
       localStorage.setItem("token", response.headers.authorization);
       localStorage.setItem("currentUser", JSON.stringify(response.data.user));
 
-      dispatch({
-        type: SET_MESSAGE,
-        msg_type: "success",
-        payload: response.data.status.message,
-      });
+      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.status.message});
       return response.data.user
     } else {
-      dispatch({
-        type: SET_MESSAGE,
-        msg_type: "error",
-        payload: response.data.error.join("\n"),
-      });
+      dispatch({type: SET_MESSAGE, msg_type: "error", payload: response.data.error.join("\n")});
     }
   } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data,
-    });
+    dispatch({type: SET_MESSAGE, msg_type: "error", payload: response.data});
   }
 }

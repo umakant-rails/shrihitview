@@ -7,14 +7,13 @@ import {
   AUTHOR_EDIT,
   AUTHOR_UPDATED,
   AUTHOR_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getAuthors = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
+  const arr = Object.keys(searchAttr).map( key =>{
     if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return `${key}=${searchAttr[key]}`;
     }
   })
   const searchAttrStr = arr.join('&');
@@ -23,19 +22,9 @@ export const getAuthors = (searchAttr) => async dispatch => {
     `/authors?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
-  if(response.data.error === undefined){
-    dispatch({
-      type: AUTHOR_LIST, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, AUTHOR_LIST));
 }
 
 export const createAuthor = (formValues) => async dispatch => {
@@ -43,64 +32,27 @@ export const createAuthor = (formValues) => async dispatch => {
     '/authors', {author: formValues}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: AUTHOR_CREATED, 
-      payload: response.data,
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, AUTHOR_CREATED));
 }
 export const createSampradaya = (sampradaya) => async dispatch => {
   const response = await baseUrl.post(
     '/authors/sampradaya', {sampradaya: sampradaya}
   ).then(response => {
     return response;
-  });
- 
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: SAMPRADAYA_CREATED, 
-      payload: response.data,
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, SAMPRADAYA_CREATED));
 } 
 export const newAuthor = () => async dispatch => {
   const response = await baseUrl.get(
     '/authors/new', 
   ).then(response => {
     return response;
-  });
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: AUTHOR_NEW, 
-      payload: response.data,
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, AUTHOR_NEW));
 }
 
 export const editAuthor = (id) => async dispatch => {
@@ -108,19 +60,9 @@ export const editAuthor = (id) => async dispatch => {
     `/authors/${id}?action_type=edit`, 
   ).then(response => {
     return response;
-  });
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: AUTHOR_EDIT, 
-      payload: response.data,
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, AUTHOR_EDIT));
 }
 
 export const updateAuthor = (id, form) => async dispatch => {
@@ -128,25 +70,9 @@ export const updateAuthor = (id, form) => async dispatch => {
     `/authors/${id}`, {author: form}
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: AUTHOR_UPDATED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, AUTHOR_UPDATED));
 }
 
 export const deleteAuthor = (id) => async dispatch => {
@@ -154,23 +80,7 @@ export const deleteAuthor = (id) => async dispatch => {
     `/authors/${id}`
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: AUTHOR_DELETED,
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, AUTHOR_DELETED));
 }

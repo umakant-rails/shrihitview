@@ -4,33 +4,22 @@ import {
   ARTICLE_CREATED,
   ARTICLE_LIST,
   ARTICLE_TAG_CREATED,
-  SET_MESSAGE,
   ARTICLE_SHOW,
   ARTICLE_EDIT,
   ARTICLE_UPDATED,
   ARTICLE_DELETED,
   ARTICLE_LIST_BY_PAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const newArticle = () => async dispatch => {
   const response = await baseUrl.get(
     '/articles/new', 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: ARTICLE_NEW, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_NEW));
 }
 
 export const createArticle = (form) => async dispatch => {
@@ -38,25 +27,9 @@ export const createArticle = (form) => async dispatch => {
     '/articles', {article: form}
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_CREATED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ARTICLE_CREATED));
 }
 
 export const editArticle = (id) => async dispatch => {
@@ -64,20 +37,9 @@ export const editArticle = (id) => async dispatch => {
     `/articles/${id}?action_type=edit`,
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: ARTICLE_EDIT, 
-      payload: response.data,
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_EDIT));
 }
 
 export const updateArticle = (id, form) => async dispatch => {
@@ -85,25 +47,9 @@ export const updateArticle = (id, form) => async dispatch => {
     `/articles/${id}`, {article: form}
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_UPDATED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ARTICLE_UPDATED));
 }
 
 export const deleteArticle = (id) => async dispatch => {
@@ -111,25 +57,9 @@ export const deleteArticle = (id) => async dispatch => {
     `/articles/${id}`
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_DELETED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ARTICLE_DELETED));
 }
 
 export const createTag = (tag) => async dispatch => {
@@ -137,25 +67,9 @@ export const createTag = (tag) => async dispatch => {
     '/tags', {tag: {name: tag}}
   ).then(response => {
     return response;
-  });
- 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.status,
-    });
-    dispatch({
-      type: ARTICLE_TAG_CREATED, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ARTICLE_TAG_CREATED));
 }
 
 export const getArticles = () => async dispatch => {
@@ -163,27 +77,15 @@ export const getArticles = () => async dispatch => {
     '/articles',
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-     dispatch({
-      type: ARTICLE_LIST, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error,
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ARTICLE_LIST));
 }
 
 export const getArticlesByPage = (searchAttr, page) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
+  const arr = Object.keys(searchAttr).map( key =>{
     if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return `${key}=${searchAttr[key]}`;
     }
   })
   const searchAttrStr = arr.join('&');
@@ -192,20 +94,9 @@ export const getArticlesByPage = (searchAttr, page) => async dispatch => {
     `/articles/pages/${page}?${searchAttrStr}`,
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-     dispatch({
-      type: ARTICLE_LIST_BY_PAGE, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_LIST_BY_PAGE));
 }
 
 export const getArticle = (id) => async dispatch => {
@@ -213,18 +104,7 @@ export const getArticle = (id) => async dispatch => {
     `/articles/${id}`,
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-     dispatch({
-      type: ARTICLE_SHOW, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ARTICLE_SHOW));
 }

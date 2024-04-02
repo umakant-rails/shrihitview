@@ -4,14 +4,13 @@ import {
   TAG_CREATED,
   TAG_UPDATED,
   TAG_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getTags = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
+  const arr = Object.keys(searchAttr).map( key =>{
     if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return `${key}=${searchAttr[key]}`;
     }
   })
   const searchAttrStr = arr.join('&');
@@ -20,20 +19,9 @@ export const getTags = (searchAttr) => async dispatch => {
     `/tags?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: TAG_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, TAG_LIST));
 }
 
 export const createTag = (formValues) => async dispatch => {
@@ -41,25 +29,9 @@ export const createTag = (formValues) => async dispatch => {
     '/tags', {tag: formValues}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: TAG_CREATED, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, TAG_CREATED));
 }
 
 export const updateTag = (id, form) => async dispatch => {
@@ -67,25 +39,9 @@ export const updateTag = (id, form) => async dispatch => {
     `/tags/${id}`, {tag: form}
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: TAG_UPDATED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, TAG_UPDATED));
 }
 
 export const deleteTag = (id) => async dispatch => {
@@ -93,23 +49,7 @@ export const deleteTag = (id) => async dispatch => {
     `/tags/${id}`
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: TAG_DELETED,
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, TAG_DELETED));
 }

@@ -1,9 +1,9 @@
 import baseUrl from "../../services/AxiosService";
 import {
   PB_STORY_LIST,
-  PB_STORY_SHOW,
-  SET_MESSAGE
+  PB_STORY_SHOW
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getStories = () => async dispatch => {
   // let statusCode = null; 
@@ -11,21 +11,9 @@ export const getStories = () => async dispatch => {
     '/pb/stories', 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: PB_STORY_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-  // return Promise.resolve(response.data);
+  dispatch(dataDispatchToReducer(response, PB_STORY_LIST));
 };
 
 export const getStory = (id) => async(dispatch) => {
@@ -33,19 +21,7 @@ export const getStory = (id) => async(dispatch) => {
     `/pb/stories/${id}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: PB_STORY_SHOW, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-
+  dispatch(dataDispatchToReducer(response, PB_STORY_SHOW));
 }

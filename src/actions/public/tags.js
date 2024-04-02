@@ -1,30 +1,18 @@
 import baseUrl from "../../services/AxiosService";
 import {
   PB_TAG_LIST,
-  PB_TAG_SHOW,
-  SET_MESSAGE
+  PB_TAG_SHOW
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getTags = () => async dispatch => {
- 
   const response = await baseUrl.get(
     '/pb/tags', 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: PB_TAG_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, PB_TAG_LIST));
 };
 
 export const getTagArticles = (name) => async dispatch => {
@@ -33,19 +21,7 @@ export const getTagArticles = (name) => async dispatch => {
     `/pb/tags/${name}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: PB_TAG_SHOW, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-  // return Promise.resolve(response.data);
+  dispatch(dataDispatchToReducer(response, PB_TAG_SHOW));
 };

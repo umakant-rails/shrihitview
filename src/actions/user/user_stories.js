@@ -7,14 +7,13 @@ import {
   STORY_EDIT,
   STORY_UPDATED,
   STORY_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getStories = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
+  const arr = Object.keys(searchAttr).map( key =>{
     if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return `${key}=${searchAttr[key]}`;
     }
   })
   const searchAttrStr = arr.join('&');
@@ -23,19 +22,9 @@ export const getStories = (searchAttr) => async dispatch => {
     `/stories?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
-  if(response.data.error === undefined){
-    dispatch({
-      type: STORY_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, STORY_LIST));
 }
 
 export const getStory = (id) => async dispatch => {
@@ -43,20 +32,9 @@ export const getStory = (id) => async dispatch => {
     `/stories/${id}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: STORY_SHOW, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, STORY_SHOW));
 }
 
 export const createStory = (formValues) => async dispatch => {
@@ -64,25 +42,9 @@ export const createStory = (formValues) => async dispatch => {
     '/stories', {story: formValues}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: STORY_CREATED, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, STORY_CREATED));
 }
 
 export const newStory = () => async dispatch => {
@@ -90,20 +52,9 @@ export const newStory = () => async dispatch => {
     '/stories/new', 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: STORY_NEW, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, STORY_NEW));
 }
 
 export const editStory = (id) => async dispatch => {
@@ -111,20 +62,9 @@ export const editStory = (id) => async dispatch => {
     `/stories/${id}?action_type=edit`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: STORY_EDIT, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, STORY_EDIT));
 }
 
 export const updateStory = (id, form) => async dispatch => {
@@ -132,25 +72,9 @@ export const updateStory = (id, form) => async dispatch => {
     `/stories/${id}`, {story: form}
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: STORY_UPDATED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, STORY_UPDATED));
 }
 
 export const deleteStory = (id, origin_page) => async dispatch => {
@@ -159,23 +83,7 @@ export const deleteStory = (id, origin_page) => async dispatch => {
     `/stories/${id}?origin_page=${origin_page}`
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: STORY_DELETED,
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, STORY_DELETED));
 }

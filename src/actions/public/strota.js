@@ -1,29 +1,18 @@
 import baseUrl from "../../services/AxiosService";
 import {
   PB_STROTUM_LIST,
-  PB_STROTUM_SHOW,
-  SET_MESSAGE
+  PB_STROTUM_SHOW
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getStrota = () => async dispatch => {
   const response = await baseUrl.get(
     '/pb/strota', 
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: PB_STROTUM_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, PB_STROTUM_LIST));
 };
 
 export const getStrotum = (id) => async(dispatch) => {
@@ -31,19 +20,7 @@ export const getStrotum = (id) => async(dispatch) => {
     `/pb/strota/${id}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: PB_STROTUM_SHOW, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
-
+  dispatch(dataDispatchToReducer(response, PB_STROTUM_SHOW));
 }
