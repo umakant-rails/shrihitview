@@ -4,44 +4,25 @@ import {
   ADMIN_ARTICLES_BY_PAGE,
   ADMIN_ARTICLE_APPROVED,
   ADMIN_ARTICLE_DELETED,
-  SET_MESSAGE,
-
-  ARTICLE_NEW,
-  ARTICLE_CREATED,
-  ARTICLE_TAG_CREATED,
-  ARTICLE_SHOW,
-  ARTICLE_EDIT,
-  ARTICLE_UPDATED,
-  ARTICLE_LIST_BY_PAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
 export const getAdminArticles = () => async dispatch => {
   const response = await baseUrl.get(
     `/admin/articles`,
-  ).then(response => response)
-  .catch(error => error.response);
+  ).then(response => { 
+    return response;
+  }).catch(error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: ADMIN_ARTICLE_LIST, payload: response.data, });
-    } else {
-      dispatch({
-        type: SET_MESSAGE, msg_type: "error",
-        payload: response.data.error.join("\n"),
-      });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_ARTICLE_LIST));
 }
 
 export const getArticlesByPage = (searchAttrs) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttrs).map( key =>{
+  const arr = Object.keys(searchAttrs).map( key =>{
     if(searchAttrs[key]){
-      arr.push(`${key}=${searchAttrs[key]}`)
+      return `${key}=${searchAttrs[key]}`
     }
-  })
+  });
   const searchAttrStr = arr.join('&');
 
   const response = await baseUrl.get(
@@ -50,15 +31,7 @@ export const getArticlesByPage = (searchAttrs) => async dispatch => {
     return response;
   }).catch(error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: ADMIN_ARTICLES_BY_PAGE, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.statusText});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_ARTICLES_BY_PAGE));
 }
 
 export const approveArticle = (id, searchAttrs) => async dispatch => {
@@ -68,16 +41,7 @@ export const approveArticle = (id, searchAttrs) => async dispatch => {
     return response;
   }).catch( error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_ARTICLE_APPROVED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_ARTICLE_APPROVED));
 }
 
 export const deleteAdminArticle = (id) => async dispatch => {
@@ -87,32 +51,5 @@ export const deleteAdminArticle = (id) => async dispatch => {
     return response;
   }).catch( error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_ARTICLE_DELETED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_ARTICLE_DELETED));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

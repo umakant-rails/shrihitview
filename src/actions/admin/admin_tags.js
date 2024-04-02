@@ -1,38 +1,27 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  SET_MESSAGE,
   ADMIN_TAG_LIST,
   ADMIN_TAG_APPROVED,
   ADMIN_TAG_UPDATED,
   ADMIN_TAG_DELETED,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
-export const getAdminTags = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
-    if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+export const getAdminTags = (searchAttrs) => async dispatch => {
+  const arr = Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      return `${key}=${searchAttrs[key]}`
     }
-  })
+  });
   const searchAttrStr = arr.join('&');
 
   const response = await baseUrl.get(
     `/admin/tags?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
-  if(response.data.error === undefined){
-    dispatch({
-      type: ADMIN_TAG_LIST, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ADMIN_TAG_LIST));
 }
 
 export const approveToTag = (id, searchAttrs) => async dispatch => {
@@ -42,16 +31,7 @@ export const approveToTag = (id, searchAttrs) => async dispatch => {
     return response;
   }).catch( error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_TAG_APPROVED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_TAG_APPROVED));
 }
 
 export const updateAdminTag = (id, form) => async dispatch => {
@@ -62,16 +42,7 @@ export const updateAdminTag = (id, form) => async dispatch => {
     return response;
   }).catch( error => error.response);
   
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_TAG_UPDATED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_TAG_UPDATED));
 }
 
 export const deleteAdminTag = (id) => async dispatch => {
@@ -80,15 +51,5 @@ export const deleteAdminTag = (id) => async dispatch => {
   ).then(response => {
     return response;
   }).catch( error => error.response);
-
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_TAG_DELETED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_TAG_DELETED));
 }

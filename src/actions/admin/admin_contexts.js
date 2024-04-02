@@ -4,14 +4,13 @@ import {
   CONTEXT_CREATED,
   CONTEXT_UPDATED,
   CONTEXT_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
-export const getContexts = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
-    if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+export const getContexts = (searchAttrs) => async dispatch => {
+  const arr = Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      return `${key}=${searchAttrs[key]}`
     }
   })
   const searchAttrStr = arr.join('&');
@@ -20,20 +19,9 @@ export const getContexts = (searchAttr) => async dispatch => {
     `/admin/contexts?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
- 
-  if(response.data.error === undefined){
-    dispatch({
-      type: CONTEXT_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, CONTEXT_LIST));
 }
 
 export const createContext = (formValues) => async dispatch => {
@@ -41,25 +29,10 @@ export const createContext = (formValues) => async dispatch => {
     '/admin/contexts', {context: formValues}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response && response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: CONTEXT_CREATED, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, CONTEXT_CREATED));
+
 }
 
 export const updateContext = (id, form) => async dispatch => {
@@ -67,25 +40,9 @@ export const updateContext = (id, form) => async dispatch => {
     `/admin/contexts/${id}`, {context: form}
   ).then(response => {
     return response;
-  });
-  
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: CONTEXT_UPDATED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, CONTEXT_UPDATED));
 }
 
 export const deleteContext = (id) => async dispatch => {
@@ -93,23 +50,7 @@ export const deleteContext = (id) => async dispatch => {
     `/admin/contexts/${id}`
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: CONTEXT_DELETED,
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, CONTEXT_DELETED));
 }

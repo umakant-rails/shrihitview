@@ -4,36 +4,25 @@ import {
   ARTICLE_TYPE_CREATED,
   ARTICLE_TYPE_UPDATED,
   ARTICLE_TYPE_DELETED,
-  SET_MESSAGE,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
-export const getTypes = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
-    if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+export const getTypes = (searchAttrs) => async dispatch => {
+  const arr = Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      return `${key}=${searchAttrs[key]}`
     }
-  })
+  });
+
   const searchAttrStr = arr.join('&');
 
   const response = await baseUrl.get(
     `/admin/article_types?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
  
-  if(response.data.error === undefined){
-    dispatch({
-      type: ARTICLE_TYPE_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_TYPE_LIST));
 }
 
 export const createType = (formValues) => async dispatch => {
@@ -41,25 +30,9 @@ export const createType = (formValues) => async dispatch => {
     '/admin/article_types', {article_type: formValues}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: ARTICLE_TYPE_CREATED, 
-      payload: response.data
-    });
-  } else if(response){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_TYPE_CREATED));
 }
 
 export const updateType = (id, form) => async dispatch => {
@@ -67,25 +40,9 @@ export const updateType = (id, form) => async dispatch => {
     `/admin/article_types/${id}`, {article_type: form}
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
   
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_TYPE_UPDATED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_TYPE_UPDATED));
 }
 
 export const deleteType = (id) => async dispatch => {
@@ -93,23 +50,7 @@ export const deleteType = (id) => async dispatch => {
     `/admin/article_types/${id}`
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-     dispatch({
-      type: ARTICLE_TYPE_DELETED,
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, ARTICLE_TYPE_DELETED));
 }

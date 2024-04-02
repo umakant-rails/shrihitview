@@ -1,15 +1,15 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  SET_MESSAGE,
   ADMIN_AUTHOR_LIST,
   ADMIN_AUTHOR_APPROVED,
   ADMIN_AUTHOR_DELETED
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
-export const getAdminAuthors = (searchAttr) => async dispatch => {
-  const arr = Object.keys(searchAttr).map( key => {
-    if(searchAttr[key]){
-      return (`${key}=${searchAttr[key]}`)
+export const getAdminAuthors = (searchAttrs) => async dispatch => {
+  const arr = Object.keys(searchAttrs).map( key => {
+    if(searchAttrs[key]){
+      return (`${key}=${searchAttrs[key]}`)
     }
   });
   const searchAttrStr = arr.join('&');
@@ -18,19 +18,9 @@ export const getAdminAuthors = (searchAttr) => async dispatch => {
     `/admin/authors?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
-  if(response.data.error === undefined){
-    dispatch({
-      type: ADMIN_AUTHOR_LIST, 
-      payload: response.data,
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, ADMIN_AUTHOR_LIST));
 }
 
 export const approveToAuthor = (id, searchAttrs) => async dispatch => {
@@ -40,16 +30,7 @@ export const approveToAuthor = (id, searchAttrs) => async dispatch => {
     return response;
   }).catch( error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_AUTHOR_APPROVED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_AUTHOR_APPROVED));
 }
 
 export const deleteAdminAuthor = (id, searchAttrs) => async dispatch => {
@@ -59,14 +40,5 @@ export const deleteAdminAuthor = (id, searchAttrs) => async dispatch => {
     return response;
   }).catch( error => error.response);
 
-  if(response.status === 200){
-    if(response.data.error === undefined){
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.notice});
-      dispatch({ type: ADMIN_AUTHOR_DELETED, payload: response.data });
-    } else {
-      dispatch({ type: SET_MESSAGE, msg_type: "error",  payload: response.data.error.join("\n") });
-    }
-  } else {
-    dispatch({ type: SET_MESSAGE, msg_type: "error", payload: response.data,});
-  }
+  dispatch(dataDispatchToReducer(response, ADMIN_AUTHOR_DELETED));
 }

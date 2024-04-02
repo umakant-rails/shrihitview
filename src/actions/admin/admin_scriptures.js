@@ -6,17 +6,16 @@ import {
   SCRIPTURE_NEW,
   SCRIPTURE_EDIT,
   SCRIPTURE_UPDATED,
-  SET_MESSAGE,
   SCRIPTURE_SHOW,
   SCR_CHAPTER_ARTICLES,
   SCR_ARTICLE_DELETED,
 } from "../../utils/types";
+import dataDispatchToReducer from "../shared_action";
 
-export const getScriptures = (searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
-    if(searchAttr[key]){
-      arr.push(`${key}=${searchAttr[key]}`)
+export const getScriptures = (searchAttrs) => async dispatch => {
+  const arr = Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      return `${key}=${searchAttrs[key]}`
     }
   })
   const searchAttrStr = arr.join('&');
@@ -25,20 +24,9 @@ export const getScriptures = (searchAttr) => async dispatch => {
     `/admin/scriptures?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_LIST, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_LIST));
 }
 
 export const getScripture = (id) => async dispatch => {
@@ -46,20 +34,9 @@ export const getScripture = (id) => async dispatch => {
     `/admin/scriptures/${id}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_SHOW, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_SHOW));
 }
 
 export const newScripture = () => async dispatch => {
@@ -67,20 +44,9 @@ export const newScripture = () => async dispatch => {
     `/admin/scriptures/new`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_NEW, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_NEW));
 }
 
 export const createScripture = (formValues) => async dispatch => {
@@ -88,20 +54,9 @@ export const createScripture = (formValues) => async dispatch => {
     `/admin/scriptures`, {scripture: formValues} 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_CREATED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_CREATED));
 }
 
 export const editScripture = (id) => async dispatch => {
@@ -109,20 +64,9 @@ export const editScripture = (id) => async dispatch => {
     `/admin/scriptures/${id}?action_type=edit`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_EDIT, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_EDIT));
 }
 
 export const updateScripture = (id, formValues) => async dispatch => {
@@ -130,20 +74,9 @@ export const updateScripture = (id, formValues) => async dispatch => {
     `/admin/scriptures/${id}`, {scripture: formValues},
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_UPDATED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_UPDATED));
 }
 
 export const deleteScripture = (id) => async dispatch => {
@@ -151,20 +84,9 @@ export const deleteScripture = (id) => async dispatch => {
     `/admin/scriptures/${id}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SCRIPTURE_DELETED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCRIPTURE_DELETED));
 }
 
 export const getChapterArticles = (scripture_id, searchAttr) => async dispatch => {
@@ -181,26 +103,9 @@ export const getChapterArticles = (scripture_id, searchAttr) => async dispatch =
     `/admin/scriptures/${scripture_id}/scripture_articles?${searchAttrStr}` 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: SCR_CHAPTER_ARTICLES,
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-      // payload: response.data.status.message,
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCR_CHAPTER_ARTICLES));
 }
 
 export const deleteScrArticle = (scripture_id, article_id, searchAttr) => async dispatch => {
@@ -217,23 +122,7 @@ export const deleteScrArticle = (scripture_id, article_id, searchAttr) => async 
     `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}?${searchAttrStr}`, 
   ).then(response => {
     return response;
-  });
+  }).catch( error => error.response);
 
-  if(response.data.error === undefined){
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
-      payload: response.data.notice,
-    });
-    dispatch({
-      type: SCR_ARTICLE_DELETED, 
-      payload: response.data
-    });
-  } else {
-    dispatch({
-      type: SET_MESSAGE,
-      msg_type: "error",
-      payload: response.data.error.join("\n"),
-    });
-  }
+  dispatch(dataDispatchToReducer(response, SCR_ARTICLE_DELETED));
 }
