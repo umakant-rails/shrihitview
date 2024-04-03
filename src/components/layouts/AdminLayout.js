@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import React, { useEffect, useContext, useState } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AdminSideBar from './AdminSideBar';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,15 +8,23 @@ import { initFlowbite } from 'flowbite'
 import { AuthContext } from "../../services/AuthContext";
 import { useDispatch } from 'react-redux';
 import { clearMessage } from '../../actions/message';
+import { ADMIN_ROLE } from '../../utils/types';
+import ContributorSideBar from './ContributorSideBar';
+import { getUserRole } from '../../actions/auth';
+
 
 const AdminLayout = () => {
   const location = useLocation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [userRole, setUserRole] = useState(null);
   const { type, message } = useSelector((state) => state.msg);
   const {currentUser} = useContext(AuthContext);
-  
+
   useEffect(() => {
     initFlowbite();
+    dispatch(getUserRole()).then(response =>{
+      setUserRole(response.data.role);
+    })
   }, [location]);
   
   useEffect(()=> {
@@ -32,7 +40,7 @@ const AdminLayout = () => {
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
-        <AdminSideBar />
+        { (ADMIN_ROLE.indexOf(userRole)>=0) ? <AdminSideBar /> : <ContributorSideBar /> }
         <div className="flex flex-col flex-1 overflow-y-auto sm:ml-64">
           <ToastContainer
             position="top-center"

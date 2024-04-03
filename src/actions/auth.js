@@ -7,13 +7,14 @@ import {
 import dataDispatchToReducer from "./shared_action";
 
 export const userRegister = (formValues) => async dispatch => {
+  formValues['role_id'] = 3;
+  
   const response = await baseUrl.post(
     '/signup', 
-    {user: formValues}, {}
+    {user: formValues}
   ).then(response => {
     return response;
   }).catch( error => error.response);
-
   dispatch(dataDispatchToReducer(response, USER_REGISTRATION));
 };
 
@@ -40,4 +41,13 @@ export const userLogin = (formValues) => async dispatch => {
   } else {
     dispatch({type: SET_MESSAGE, msg_type: "error", payload: response.data});
   }
+}
+
+export const getUserRole = (user_id) => async dispatch => {
+  const response = await baseUrl.post(
+    '/users/get_role',
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+  return response;
 }

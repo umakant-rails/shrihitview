@@ -35,8 +35,6 @@ const ApplicationLayout = () => {
     }
   }, [type, message]);
 
-
-
   return (
     <>
       <div className="navbar mb-32">

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from "../../assets/images/hitlalju.png"
-import { ADMIN_ACTIVITIES } from '../../utils/types';
+import { USER_ACTIVITIES } from '../../utils/types';
 import { DEFAULT_ICON } from '../../utils/types';
 
-const AdminSideBar = () => {
+const ContributorSideBar = () => {
   const [expandTab, setExpandTab] = useState('');
-  const [activeTab, setActiveTab] = useState('Dashboard');
+  const [activeTab, setActiveTab] = useState('रचना');
   
   const updateExpandTab = (tabName) => (tabName !== expandTab) ? setExpandTab(tabName) : setExpandTab('')
  
@@ -38,7 +38,7 @@ const AdminSideBar = () => {
         <div className="overflow-y-auto h-full bg-gray-800 border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <ul>
             {
-              ADMIN_ACTIVITIES.map( (activity, index) => 
+              USER_ACTIVITIES.map( (activity, index) => 
                 (activity.childs.length == 0) ? (
                   <li key={index} className='border-b border-gray-700' 
                     onClick={e => updateExpandTab(`dropdown-${activity.label}`)}>
@@ -102,4 +102,4 @@ const AdminSideBar = () => {
   );
 };
 
-export default AdminSideBar;
+export default ContributorSideBar;
