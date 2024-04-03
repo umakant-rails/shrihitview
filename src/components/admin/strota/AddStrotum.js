@@ -20,7 +20,7 @@ const AddStroum = () => {
   }, [strotum]);
   
   const setEditorValues = (name, value) => {
-    setFormValues(formValues => ({ ...formValues, [name]: value }));
+    setFormValues(formValues => ({ ...formValues, [name]: value.trim() }));
   }
 
   const onInputChange = event => {

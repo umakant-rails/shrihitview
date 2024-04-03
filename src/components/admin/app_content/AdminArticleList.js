@@ -26,7 +26,7 @@ const AdminArticleList = () => {
       setTotalArticle(totalArticles);
     }
     if(current_page){setCurrentPage(current_page);}
-  }, [articles, totalArticles]);
+  }, [articles, totalArticles, current_page]);
 
   const approveToArticle = (id) => {
   dispatch(approveArticle(id, searchAttr));

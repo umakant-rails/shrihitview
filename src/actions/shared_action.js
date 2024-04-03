@@ -1,7 +1,6 @@
 import { SET_MESSAGE } from "../utils/types";
 
 const dataDispatchToReducer = (response, action_type) => async dispatch => {
-  console.log(action_type)
   if(response.status === 200){
     if(response.data.error === undefined){
       dispatch({type: SET_MESSAGE, msg_type: "success", payload: response.data.notice });
