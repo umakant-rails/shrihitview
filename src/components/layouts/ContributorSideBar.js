@@ -28,7 +28,7 @@ const ContributorSideBar = () => {
         className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full 
           sm:translate-x-0`} aria-label="Sidenav">
         <div className='h-16 bg-blue-900 border-b border-r border-gray-600'>
-          <NavLink to="/admin/dashboard" className="px-5 pt-2 flex justify-center items-center">
+          <NavLink to="/articles" className="px-5 pt-2 flex justify-center items-center">
             <img className="h-11 w-11 w-auto rounded-full mr-4" src={logo}  alt="श्रीहित" />
             <span className="self-center text-2xl text-white font-semibold whitespace-nowrap dark:text-white">
               श्रीहित

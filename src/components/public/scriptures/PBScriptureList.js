@@ -28,16 +28,16 @@ const PBScriptureList = () => {
           {
             scriptures && scriptures.map( (scripture, index) => 
               <div key={index} className='md:col-span-4 lg:col-span-3 flex justify-center'>
-                <Link to={`/pb/scriptures/${scripture.name_eng}`}>
+                <Link to={`/pb/scriptures/${scripture.name_eng}`} >
                   {
                     imageExist(scripture) ? (
                       <img 
                         src={images(`./${imageNamefromScrName(scripture.name_eng)}.png`)} 
-                        alt="shit-hit" className='border h-60 border-violet-400 items-center'/>
+                        alt="shit-hit" className='border h-60 border-violet-400 items-center rounded'/>
                     ): (
                       <img 
                         src='' alt={scripture.name_eng} 
-                        className='border min-w-40 max-w-40 h-60 border-violet-400 items-center'/>
+                        className='border min-w-40 max-w-40 h-60 border-violet-400 items-center rounded'/>
                     )
                   }
                 </Link>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const AxiosObj =  axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
     'Content-Type': 'application/json',
   },

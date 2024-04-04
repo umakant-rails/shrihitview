@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import shricharan from "../../assets/images/shricharan.png";
 import { userLogin } from '../../actions/auth';
 import { AuthContext } from '../../services/AuthContext';
+import { ADMIN_ROLE } from '../../utils/types';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -23,10 +24,14 @@ const Login = () => {
     event.preventDefault();
     if(formValues.email.length === 0 || formValues.password.length === 0) return;
     const response = dispatch(userLogin(formValues));
-    response.then( user => {
-      if(user){
-        setCurrentUser(user);
+    response.then( data => {
+      const user = data.user;
+      const role = data.role_id;
+      if(user){ setCurrentUser(user);}
+      if(ADMIN_ROLE.indexOf(role) >= 0){
         navigate("/admin/dashboard");
+      } else {
+        navigate('/articles');
       }
     });
   }

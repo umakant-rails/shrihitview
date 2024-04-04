@@ -4,7 +4,7 @@ import { createBrowserRouter, Route, createRoutesFromElements  } from "react-rou
 import ApplicationLayout from "../components/layouts/ApplicationLayout";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Home from "../pages/Home";
-import Aboutus from "../pages/Aboutus";
+import AboutUs from "../pages/AboutUs";
 import ErrorPage from "../pages/ErrorPage";
 
 import Register from "../components/Auth/Register";
@@ -85,7 +85,7 @@ const router = createBrowserRouter(
         <Route path="/users/logout" element={<Logout />} />
         <Route path="/users/unauthrized" element={<UnAuthenticate />} />
 
-        <Route path="/aboutus" element={<Aboutus />} />
+        <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/pb/articles" element={<PBArticleList />} />
         <Route path="/pb/articles/:id" element={<PBArticleShow />} />
 

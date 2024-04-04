@@ -10,6 +10,7 @@
     "apexcharts": "^3.47.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.3",
+    "dotenv": "^16.4.5",
     "flowbite": "^2.2.1",
     "postcss": "^8.4.33",
     "primereact": "^10.3.3",

@@ -34,7 +34,7 @@ export const userLogin = (formValues) => async dispatch => {
       localStorage.setItem("currentUser", JSON.stringify(response.data.user));
 
       dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.status.message});
-      return response.data.user
+      return response.data;
     } else {
       dispatch({type: SET_MESSAGE, msg_type: "error", payload: response.data.error.join("\n")});
     }
