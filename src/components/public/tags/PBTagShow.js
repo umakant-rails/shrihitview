@@ -9,7 +9,7 @@ import { getTagArticles } from '../../../actions/public/tags';
 const PBTagShow = () => {
   const dispatch = useDispatch();
   const {name} = useParams();
-  const { tag, tags, articles } = useSelector(state => state.tag);
+  const { tags, articles } = useSelector(state => state.tag);
 
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'});

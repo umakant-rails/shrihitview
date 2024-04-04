@@ -16,7 +16,7 @@ const EditStory = () => {
 
   useEffect( () => {
     dispatch(editStory(id));  
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(story){
@@ -29,7 +29,7 @@ const EditStory = () => {
     if(storyUpdated){
       navigate(`/stories/${storyUpdated.id}`); 
     } 
-  }, [story, storyUpdated]);
+  }, [navigate, story, storyUpdated]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));

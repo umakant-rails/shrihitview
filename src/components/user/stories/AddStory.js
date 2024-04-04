@@ -2,21 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import { useNavigate } from 'react-router';
 import { createStory, newStory } from '../../../actions/user/user_stories';
 
 const storyObj = {scripture_id: '', title: '', story: '', author_id: '', index: ''};
 
 const AddStory = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
  
   const [formValues, setFormValues] = useState(storyObj);
   const { sants, scriptures, story } = useSelector( (state) => state.userStory)
 
   useEffect( () => {
     dispatch(newStory());  
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(story){resetForm();/*navigate('/articles/new');*/ } 

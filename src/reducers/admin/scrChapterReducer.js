@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import {
   CHAPTER_LIST,
   CHAPTER_CREATED,

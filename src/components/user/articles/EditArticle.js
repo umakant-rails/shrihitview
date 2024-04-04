@@ -34,13 +34,13 @@ const EditArticle = () => {
 
   useEffect( () => {
     dispatch(editArticle(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(updatedArticle){
       navigate(`/articles/${updatedArticle.id}`);
     } 
-  }, [updatedArticle]);
+  }, [navigate, updatedArticle]);
 
   useEffect( () => {
     if(article){
@@ -83,6 +83,7 @@ const EditArticle = () => {
 
   const onArticleSubmit = (event) => {
     event.preventDefault(); 
+    setArticleTitle();
     formValues['tags'] = selectedTags.map(tag => tag.value);
     dispatch(updateArticle(article.id, formValues));
   }
@@ -223,6 +224,7 @@ const EditArticle = () => {
               <ReactTransliterate
                 value={formValues.hindi_title || ''}
                 onChangeText={(text) => { setFormValues(formValues => ({...formValues, hindi_title: text})) }}
+                onFocus={setArticleTitle}
                 lang={'hi'}
                 type="text"
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 

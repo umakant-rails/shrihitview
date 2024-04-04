@@ -7,12 +7,12 @@ import SearchArticleList from './SearchArticleList';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Pagination from '../../shared/Pagination';
+import { ITEM_PER_PAGE } from '../../../utils/types';
 
 const PBArticleList = () => {
   const dispatch = useDispatch();
   const [articleList, setArticleList] = useState([]);
   const [totalArticles, setTotalArticles] = useState(null);
-  const [itemPerPage, setItemPerPage] = useState(10);
   const [searchApplied, setSearchApplied] = useState(false);
   const {
     articles, total_articles,
@@ -21,14 +21,14 @@ const PBArticleList = () => {
 
   useEffect( ()=> {
     dispatch(getArticles());
-  }, []);
+  }, [dispatch]);
 
   useEffect( ()=> {
     if(articles){
       setArticleList(articles);
       setTotalArticles(total_articles)
     }
-  }, [articles]);
+  }, [articles, total_articles]);
   
   const setSearchAppliedState = (stateValue) => setSearchApplied(stateValue)
 
@@ -93,7 +93,7 @@ const PBArticleList = () => {
                     totalArticles && <Pagination 
                       showWidget={5} 
                       totalItems={totalArticles}
-                      itemsPerPage={itemPerPage}
+                      itemsPerPage={ITEM_PER_PAGE}
                       pageChangeHandler= {handlePageClick}
                     />
                   }

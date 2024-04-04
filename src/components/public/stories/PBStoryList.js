@@ -14,7 +14,7 @@ const PBStoryList = () => {
 
   useEffect( () => {
     dispatch(getStories());
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     setCurrentStories(stories.slice(0,ITEM_PER_PAGE));

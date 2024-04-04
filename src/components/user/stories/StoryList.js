@@ -15,7 +15,7 @@ const StoryList = () => {
 
   useEffect( () => { 
     dispatch(getStories(searchAttr));
-  }, []);
+  }, [dispatch, searchAttr]);
 
   useEffect( () => {
     if(stories){
@@ -23,7 +23,7 @@ const StoryList = () => {
       setTotalStoriesQnty(total_stories);
       setCurrentPage(current_page);
     }
-  }, [stories]);
+  }, [stories, total_stories, current_page]);
   
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
@@ -75,7 +75,7 @@ const StoryList = () => {
                       <tr  
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
-                        <td scope="row" 
+                        <td
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                           <Link to={`/stories/${story.id}`} className="text-blue-500">  
                             {story.title}

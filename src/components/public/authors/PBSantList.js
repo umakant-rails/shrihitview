@@ -10,7 +10,7 @@ const SantList = () => {
 
   useEffect( ()=> {
     dispatch(getSants());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='grid md:grid-cols-12'>

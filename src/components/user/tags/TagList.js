@@ -12,7 +12,7 @@ const TagList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [currentPage, setCurrentPage] = useState(1);
-  // const [authorId, setAuthorId] = useState(null);
+
   const [tagList, setTagList] = useState([]);
   const [totalTagQnty, setTotalTagQnty] = useState(0);
 
@@ -25,7 +25,7 @@ const TagList = () => {
 
   useEffect( () => { 
     dispatch(getTags({page: 1}));
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(tags){
@@ -33,7 +33,7 @@ const TagList = () => {
       setTotalTagQnty(total_tags);
       setCurrentPage(current_page);
     }
-  }, [tags]);
+  }, [tags, current_page, total_tags]);
 
   useEffect( () => {
     if(tag && popup.current){
@@ -181,7 +181,7 @@ const TagList = () => {
                      <tr key={index} 
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
-                        <td scope="row" 
+                        <td
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {tag.name}
                         </td>

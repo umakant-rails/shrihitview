@@ -10,7 +10,7 @@ const PBStrotumList = () => {
 
   useEffect( () => {
     dispatch(getStrota());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='grid md:grid-cols-12'>

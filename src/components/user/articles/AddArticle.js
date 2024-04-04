@@ -4,7 +4,6 @@ import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
 import {createArticle, createTag, newArticle} from "../../../actions/user/user_articles";
-import { useNavigate } from 'react-router';
 
 const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
   author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
@@ -12,8 +11,6 @@ const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '
 
 const AddArticle = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
- 
 
   const [contentText, setContentText] = useState(null);
   const [formValues, setFormValues] = useState(articleObj);
@@ -26,7 +23,7 @@ const AddArticle = () => {
 
   useEffect( () => {
     dispatch(newArticle());  
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(articleCreated){ resetForm();/*navigate('/articles/new');*/ } 
@@ -198,6 +195,7 @@ const AddArticle = () => {
               <ReactTransliterate
                 value={formValues.hindi_title || ''}
                 onChangeText={(text) => { setFormValues(formValues => ({...formValues, hindi_title: text})) }}
+                onFocus={setArticleTitle}
                 lang={'hi'}
                 type="text"
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 

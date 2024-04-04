@@ -16,7 +16,7 @@ const PBScriptureList = () => {
   }
   useEffect(() => {
     dispatch(getScriptures());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='grid md:grid-cols-12'>

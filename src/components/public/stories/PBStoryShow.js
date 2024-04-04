@@ -12,7 +12,7 @@ const PBStoryShow = () => {
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'})
     dispatch(getStory(title ));
-  }, [title]);
+  }, [dispatch, title]);
 
   return (
     <div className='grid md:grid-cols-12'>

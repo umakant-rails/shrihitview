@@ -13,7 +13,7 @@ const PBContextList = () => {
   
   useEffect( () => {
     dispatch(getContexts());
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     setContextList(contexts);

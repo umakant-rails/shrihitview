@@ -8,10 +8,8 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
   const [firstDots, setFirstDots] = useState(false);
   const [lastDots, setLastDots] = useState(false);
   //const [totalPages, setTotalPages] = useState(0);
-  
   //const totalPages = Math.ceil(totalItems/itemsPerPage);
   
-
   let pgArr = [];
   let totalPages = Math.ceil(totalItems/itemsPerPage);
   let displayWidget = showWidget;
@@ -28,7 +26,7 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
     setFirstDots(false);
     (totalPages > displayWidget) ? setLastDots(true): setLastDots(false);
     
-  }, [totalItems]);
+  }, [totalItems, displayWidget, pgArr, totalPages]);
 
   // useEffect( () => {
   //   let pageQuantities = Math.ceil(totalItems/itemsPerPage);

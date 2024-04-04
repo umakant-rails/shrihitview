@@ -10,7 +10,7 @@ const PBTagList = () => {
   
   useEffect( () => {
     dispatch(getTags())
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='grid md:grid-cols-12'>

@@ -3,11 +3,10 @@ import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ReactTransliterate } from "react-transliterate";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ArticleList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const { 
     articleTypes, raags, contexts, 
@@ -20,7 +19,7 @@ const ArticleList = () => {
   
   useEffect( () => {
     dispatch(getArticles());
-  }, []);
+  }, [dispatch]);
   
   useEffect( () => {
     if(articles){ setArticleList(articles); setTotalArticle(totalArticles);}

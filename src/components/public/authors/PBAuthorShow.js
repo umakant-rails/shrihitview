@@ -13,11 +13,11 @@ const PBAuthorShow = () => {
   const { name } = useParams();
   const [articleList, setArticleList] = useState([]);
   const [totalArticles, setTotalArticles] = useState(null);
-  const {author, articles, total_articles} = useSelector(state => state.author);
+  const {articles, total_articles} = useSelector(state => state.author);
   
   useEffect( ()=> {
     dispatch(getAuthorArticles(name, 1));
-  }, [name]);
+  }, [dispatch, name]);
 
   useEffect( () => {
     if(articles){
@@ -25,7 +25,7 @@ const PBAuthorShow = () => {
       setArticleList(articles);
       setTotalArticles(total_articles);
     }
-  }, [articles]);
+  }, [articles, total_articles]);
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

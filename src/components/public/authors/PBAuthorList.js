@@ -16,14 +16,14 @@ const AuthorList = () => {
   
   useEffect( () => {
     dispatch(getAuthors(searchAttrs));
-  }, []);
+  }, [dispatch, searchAttrs]);
 
   useEffect( () => {
     if(authors){
       setAuthorList(authors);
       setTotalAuthors(total_authors);
     }
-  }, [authors]);
+  }, [authors, total_authors]);
   
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

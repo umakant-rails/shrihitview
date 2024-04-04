@@ -12,7 +12,7 @@ const SantBiography = () => {
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'})
     dispatch(getSantBiography(name));
-  }, [name]);
+  }, [dispatch, name]);
 
   return (
     <div className='grid md:grid-cols-12'>

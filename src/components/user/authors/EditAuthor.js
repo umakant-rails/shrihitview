@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import { MultiSelect } from "react-multi-select-component";
-import {createAuthor, createSampradaya, editAuthor, updateAuthor} from "../../../actions/user/user_authors";
+import {createSampradaya, editAuthor, updateAuthor} from "../../../actions/user/user_authors";
 import { useNavigate, useParams } from 'react-router';
-import { deleteArticle } from '../../../actions/user/user_articles';
 
 const authorObj = {name: '', name_eng: '', sampradaya_id: '', biography: ''};
 
@@ -21,11 +19,11 @@ const EditAuthor = () => {
 
   useEffect( () => {
     dispatch(editAuthor(id));  
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(authorUpdated){ navigate('/authors'); } 
-  }, [authorUpdated]);
+  }, [navigate, authorUpdated]);
 
   useEffect( () => {
     if(author){
@@ -59,10 +57,6 @@ const EditAuthor = () => {
   const onAuthorSubmit = (event) => {
     event.preventDefault();
     dispatch(updateAuthor(id, formValues));
-  }
-
-  const deleteToAuthor = (id) => {
-    dispatch(deleteArticle(id));
   }
 
   return (

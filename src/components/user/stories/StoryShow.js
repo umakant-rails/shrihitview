@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
-import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
 import { getStory, deleteStory } from '../../../actions/user/user_stories';
 
@@ -13,11 +12,11 @@ const StoryShow = () => {
 
   useEffect( () => {
     dispatch(getStory(id));
-  }, [id]);
+  }, [dispatch, id]);
   
   useEffect( () => {
     if(storyDeleted){ navigate('/stories'); }
-  }, [storyDeleted]);
+  }, [navigate, storyDeleted]);
 
   const deleteToStory = (id) =>{
     dispatch(deleteStory(id, 'show'));

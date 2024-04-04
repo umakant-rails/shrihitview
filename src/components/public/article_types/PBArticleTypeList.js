@@ -13,14 +13,14 @@ const PBArticleTypeList = () => {
 
   useEffect( () => {
     dispatch(getArticleTypes(''));
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(article_types){
       setArticleTypeList(article_types);
       setTotalArticleTypes(total_article_types);
     }
-  }, [article_types]);
+  }, [article_types, total_article_types]);
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

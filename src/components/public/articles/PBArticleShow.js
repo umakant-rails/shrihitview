@@ -13,16 +13,12 @@ const ArticleShow = () => {
   const [comment, setComment] = useState("");
 
   const { article } = useSelector( state => state.pbArticle );
-  const {currentUser, setCurrentUser} = useContext(AuthContext);
+  const {currentUser} = useContext(AuthContext);
 
   useEffect(()=>{
     dispatch(getArticle(id));
-  }, [id]);
+  }, [dispatch, id]);
 
-  const onInputChange = (event) => {
-    const {value} = event.target;
-    setComment(value);
-  }
   const resetComment = () => { 
     setComment("");
   }
@@ -60,12 +56,6 @@ const ArticleShow = () => {
                     placeholder="Write your comment here..."
                   />
                 </div>
-                {/* <textarea 
-                  id="message" rows="3" 
-                  onChange={onInputChange}  value = {comment} 
-                  className="block p-2.5 w-full col-start-1 col-end-6 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                  placeholder="Write your comment here...">
-                </textarea> */}
                 <div className='col-start-1 col-end-6 grid justify-items-end mt-3'>
                   { currentUser ? (
                       <div>
@@ -102,7 +92,7 @@ const ArticleShow = () => {
                   (article.comments.length === 0) ? 
                     (
                       <div className='text-gray-600'>
-                        There is not comments available now.
+                        There is no comments available now.
                       </div>
                     )
                     :(

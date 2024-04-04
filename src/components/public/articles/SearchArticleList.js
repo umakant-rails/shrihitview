@@ -7,13 +7,13 @@ import axios from 'axios';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Pagination from '../../shared/Pagination';
+import { ITEM_PER_PAGE } from '../../../utils/types';
 
 
 const SearchArticleList = ({setSearchAppliedState}) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [searchArticles, setSearchArticles] = useState([]);
-  const [itemPerPage, setItemPerPage] = useState(10);
   const [currentArticles, setCurrentArticles] = useState([]);
   const [autoCompleteArticles, setAutoCompleteArticles] = useState([]);
 
@@ -29,7 +29,7 @@ const SearchArticleList = ({setSearchAppliedState}) => {
     if(event.target.value.length > 0  && (event.keyCode === 32 || event.keyCode === 13)){
       const response = await searchToArticles(text);
       setAutoCompleteArticles(response.data.articles);
-    } else if (event.target.value.length == 0) {
+    } else if (event.target.value.length === 0) {
       setSearchAppliedState(false);
       setSearchArticles([]);
       setAutoCompleteArticles([]);
@@ -54,8 +54,8 @@ const SearchArticleList = ({setSearchAppliedState}) => {
 
   const handlePageClick = (event) => {
     const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*itemPerPage : 0;
-    setCurrentArticles(searchArticles.slice(startingOffset, startingOffset+itemPerPage));
+    const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
+    setCurrentArticles(searchArticles.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
   };
 
   return (
@@ -141,7 +141,7 @@ const SearchArticleList = ({setSearchAppliedState}) => {
         currentArticles && <Pagination 
           showWidget={5} 
           totalItems={searchArticles.length}
-          itemsPerPage={itemPerPage}
+          itemsPerPage={ITEM_PER_PAGE}
           pageChangeHandler= {handlePageClick}
         />
       }

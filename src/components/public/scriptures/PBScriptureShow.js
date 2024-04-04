@@ -16,7 +16,7 @@ const ScriptureShow = () => {
   const nextCls = (articles && currentArticle === articles.length) ? 'text-gray-400' : 'text-gray-800';;
   const prevCls = (currentArticle === 1) ? 'text-gray-400' : 'text-gray-800';
 
-  useEffect( () => { dispatch(getScrArticles(id)); }, [id]);
+  useEffect( () => { dispatch(getScrArticles(id)); }, [dispatch, id]);
   useEffect( () => { 
     if(scripture && scripture.scripture_type === "रसिक वाणी"){
       setTitleAtrr("hindi_title"); setContentArr("content");

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { deleteAuthor, getAuthors } from '../../../actions/user/user_authors';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
+import { ITEM_PER_PAGE } from '../../../utils/types';
 
 const AuthorList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(10);
   const [authorId, setAuthorId] = useState(null);
   const [authorList, setAuthorList] = useState([]);
   const [totalAuthorQnty, setTotalAuthorQnty] = useState(0);
@@ -17,7 +17,7 @@ const AuthorList = () => {
 
   useEffect( () => { 
     dispatch(getAuthors(searchAttr));
-  }, []);
+  }, [dispatch, searchAttr]);
 
   useEffect( () => {
     if(authors){
@@ -25,7 +25,7 @@ const AuthorList = () => {
       setTotalAuthorQnty(total_authors);
       setCurrentPage(current_page);
     }
-  }, [authors]);
+  }, [authors, total_authors, current_page]);
   
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
@@ -136,7 +136,7 @@ const AuthorList = () => {
                       <tr  
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
-                        <td scope="row" 
+                        <td 
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {author.name}
                         </td>
@@ -193,7 +193,7 @@ const AuthorList = () => {
                   <Pagination 
                     showWidget={5} 
                     totalItems={totalAuthorQnty}
-                    itemsPerPage={itemPerPage}
+                    itemsPerPage={ITEM_PER_PAGE}
                     pageChangeHandler= {handlePageClick}
                   />) : ''
               }
