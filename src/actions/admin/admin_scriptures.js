@@ -90,11 +90,10 @@ export const deleteScripture = (id) => async dispatch => {
 }
 
 export const getChapterArticles = (scripture_id, searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key => {
+  const arr = Object.keys(searchAttr).map( key => {
     let str = `${searchAttr[key]}`
     if(str.length > 0){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return `${key}=${searchAttr[key]}`
     }
   });
   const searchAttrStr = arr.join('&');
@@ -109,11 +108,10 @@ export const getChapterArticles = (scripture_id, searchAttr) => async dispatch =
 }
 
 export const deleteScrArticle = (scripture_id, article_id, searchAttr) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttr).map( key =>{
+  const arr = Object.keys(searchAttr).map( key => {
     let str = `${searchAttr[key]}`
     if(str.length > 0){
-      arr.push(`${key}=${searchAttr[key]}`)
+      return `${key}=${searchAttr[key]}`
     }
   })
   const searchAttrStr = arr.join('&');

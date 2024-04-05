@@ -8,7 +8,7 @@ import {
 import dataDispatchToReducer from "../shared_action";
 
 export const getAdminTags = (searchAttrs) => async dispatch => {
-  const arr = Object.keys(searchAttrs).map( key =>{
+  const arr = Object.keys(searchAttrs).map( key => {
     if(searchAttrs[key]){
       return `${key}=${searchAttrs[key]}`
     }

@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+let pgArr = [];
 
 const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,7 +11,7 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
   //const [totalPages, setTotalPages] = useState(0);
   //const totalPages = Math.ceil(totalItems/itemsPerPage);
   
-  let pgArr = [];
+  
   let totalPages = Math.ceil(totalItems/itemsPerPage);
   let displayWidget = showWidget;
   if(totalPages > showWidget){
@@ -25,8 +26,7 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
     setCurrentPage(1);
     setFirstDots(false);
     (totalPages > displayWidget) ? setLastDots(true): setLastDots(false);
-    
-  }, [totalItems, displayWidget, pgArr, totalPages]);
+  }, [totalItems, displayWidget, totalPages]);
 
   // useEffect( () => {
   //   let pageQuantities = Math.ceil(totalItems/itemsPerPage);

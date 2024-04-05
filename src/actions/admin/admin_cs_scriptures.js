@@ -75,10 +75,10 @@ export const showCSScripture = (scripture_id, searchAttrs) => async dispatch => 
 }
 
 export const getArticleForIndexing = (scripture_id, searchAttrs) => async dispatch => {
-  const arr = [];
-  Object.keys(searchAttrs).map( key =>{
+
+  const arr = Object.keys(searchAttrs).map( key =>{
     if(searchAttrs[key]){
-      arr.push(`${key}=${searchAttrs[key]}`)
+      return `${key}=${searchAttrs[key]}`;
     }
   })
   const searchAttrsStr = arr.join('&');

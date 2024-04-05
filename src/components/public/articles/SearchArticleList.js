@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReactTransliterate } from "react-transliterate";
-import axios from 'axios';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Pagination from '../../shared/Pagination';
 import { ITEM_PER_PAGE } from '../../../utils/types';
+import { searchToArticles } from '../../../actions/public/articles';
 
 
 const SearchArticleList = ({setSearchAppliedState}) => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [searchArticles, setSearchArticles] = useState([]);
-  const [currentArticles, setCurrentArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState(0);
   const [autoCompleteArticles, setAutoCompleteArticles] = useState([]);
 
-  /* start - search article functionlality */
-  const searchToArticles = async (term) => {
-    const response = await axios.get(
-      `http://localhost:3001/pb/articles/search_articles`, {params: {term: term}} 
-    );
-    return response;;
-  }
-  
   const showAutoComplete = async (event) => {
     if(event.target.value.length > 0  && (event.keyCode === 32 || event.keyCode === 13)){
-      const response = await searchToArticles(text);
+      const response = await dispatch(searchToArticles(text, null));
       setAutoCompleteArticles(response.data.articles);
     } else if (event.target.value.length === 0) {
       setSearchAppliedState(false);
@@ -36,33 +28,33 @@ const SearchArticleList = ({setSearchAppliedState}) => {
     }
   }
   const searchArticle = async (term) => {
-    setText(term);
-    const response = await searchToArticles(term)
+    const response = await dispatch(searchToArticles(term, null));
     setSearchArticles(response.data.articles);
-    setCurrentArticles(response.data.articles.slice(0,10));
+    setTotalArticles(response.data.articles.length);
     setSearchAppliedState(true);
     setAutoCompleteArticles([]);
   }
-  const searchOnSubmit = async (term) => {
-    const response = await searchToArticles(term)
+  const searchOnSubmit = async () => {
+    const response = await dispatch(searchToArticles(text, 1));
+
     setSearchArticles(response.data.articles);
-    setCurrentArticles(response.data.articles.slice(0,10));
+    setTotalArticles(response.data.total_articles)
     setSearchAppliedState(true);
     setAutoCompleteArticles([]);
   }
   /* end - search article functionlality */
 
-  const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
-    setCurrentArticles(searchArticles.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
+  const handlePageClick = async(event) => {
+    const page = parseInt(event.target.getAttribute('value'));
+    const response = await dispatch(searchToArticles(text, page));
+    setSearchArticles(response.data.articles);
   };
 
   return (
     <div>
       <div className='grid grid-cols-5 mb-5'>
         <form className="col-start-2 col-span-3 grow" 
-          onSubmit={(event) => {event.preventDefault(); searchOnSubmit(text);}}>   
+          onSubmit={(event) => {event.preventDefault(); searchOnSubmit();}}>   
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10" >
@@ -86,7 +78,7 @@ const SearchArticleList = ({setSearchAppliedState}) => {
           <ul className="text-left text-gray-500 dark:text-gray-400">
             { autoCompleteArticles && autoCompleteArticles.map((article, index) =>(
               <li key={index} 
-                onClick={(e) => searchArticle(e.target.textContent.trim())}
+                onClick={(e) => { searchArticle(e.target.textContent.trim()) }}
                 className="flex items-center space-x-3 rtl:space-x-reverse border-b-2 border-x-2 hover:bg-gray-200 py-2 px-2">
                 <span>{article.hindi_title}</span>
               </li>
@@ -95,14 +87,14 @@ const SearchArticleList = ({setSearchAppliedState}) => {
         </form>
       </div>
       {
-        searchArticles.length > 0 && currentArticles.length > 0 && (
+        (totalArticles && searchArticles.length > 0) && (
           <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-blue-700 shadow-xl mb-5 font-bold'>
-            Seach Articles ({searchArticles.length})
+            Seach Articles ({totalArticles})
           </div>
         )
       }
       {
-        searchArticles.length > 0 && currentArticles && currentArticles.map((article, index) =>
+        searchArticles.length > 0 && searchArticles.map((article, index) =>
           <div key={index} className='grid lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
             <div className='lg:col-span-4 md:col-span-full'>
               <Link to={`/articles/${article.id}`} >
@@ -138,9 +130,9 @@ const SearchArticleList = ({setSearchAppliedState}) => {
         )
       }
       {
-        currentArticles && <Pagination 
+        searchArticles && <Pagination 
           showWidget={5} 
-          totalItems={searchArticles.length}
+          totalItems={totalArticles}
           itemsPerPage={ITEM_PER_PAGE}
           pageChangeHandler= {handlePageClick}
         />
