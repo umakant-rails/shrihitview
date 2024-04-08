@@ -66,6 +66,7 @@ import AddCSArticle from "../components/admin/compile_scriptures/AddCSArticle";
 import CSScriptureShow from "../components/admin/compile_scriptures/CSScriptureShow";
 import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
 import AdminTagList from "../components/admin/app_content/AdminTagList";
+import ChangePassword from "../components/Auth/ChangePassword";
 
 
 
@@ -113,6 +114,8 @@ const router = createBrowserRouter(
         <Route path="*" element={<ErrorPage />} />
       </Route>
       <Route path="/" element={<AdminLayout /> }>
+        <Route path="/users/password_change" element={<ProtectedRoutes><ChangePassword /></ProtectedRoutes>} />
+        
         <Route path="/admin/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
         <Route path="/admin/articles" element={<ProtectedRoutes><AdminArticleList /></ProtectedRoutes>} />
         <Route path="/admin/authors" element={<ProtectedRoutes><AdminAuthorList /></ProtectedRoutes>} />

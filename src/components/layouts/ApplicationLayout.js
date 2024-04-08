@@ -33,7 +33,7 @@ const ApplicationLayout = () => {
       toast.success(message);
       dispatch(clearMessage());
     }
-  }, [type, message]);
+  }, [dispatch, type, message]);
 
   return (
     <>

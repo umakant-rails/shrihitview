@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AdminSideBar from './AdminSideBar';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import { initFlowbite } from 'flowbite'
 import { AuthContext } from "../../services/AuthContext";
 import { useDispatch } from 'react-redux';
 import { clearMessage } from '../../actions/message';
-import { ADMIN_ROLE } from '../../utils/types';
+import { ADMIN_ROLE, TAB_LIST } from '../../utils/types';
 import ContributorSideBar from './ContributorSideBar';
 import { getUserRole } from '../../actions/auth';
 
@@ -25,7 +25,7 @@ const AdminLayout = () => {
     dispatch(getUserRole()).then(response =>{
       setUserRole(response.data.role);
     })
-  }, [location]);
+  }, [dispatch, location]);
   
   useEffect(()=> {
     if(message !== undefined && type === "error"){
@@ -35,8 +35,31 @@ const AdminLayout = () => {
       toast.success(message);
       dispatch(clearMessage());
     }
-  }, [type, message]);
+  }, [dispatch, type, message]);
 
+  const getTabList = () =>{ 
+    const currentUrl = location.pathname;
+    return TAB_LIST.map((tab, index) => {
+      return(
+        <li key={index} >
+          {
+            (currentUrl === tab.url) ? (
+              <NavLink to={tab.url} className={`relative bg-yellow-500 rounded-md text-white px-3 py-2 text-sm `}>
+                {tab.label}
+              </NavLink>
+            ) : (
+              <NavLink to={tab.url} className={`block py-2 px-3 text-white rounded hover:bg-gray-100 
+                md:hover:bg-transparent md:border-0 md:hover:text-gray-200 md:p-0 dark:text-white 
+                md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white 
+                md:dark:hover:bg-transparent`}>
+                {tab.label}
+              </NavLink>
+            )
+          }
+        </li>
+      );
+    });
+  };
   return (
     <div>
       <div className="flex h-screen bg-gray-100">
@@ -55,7 +78,14 @@ const AdminLayout = () => {
             theme="light"
           />
           <nav className="bg-blue-900 shadow shadow-gray-300 w-100 px-2 md:px-auto">
-            <div className="md:h-16 h-16 pr-2 flex items-center justify-between flex-wrap md:flex-nowrap">
+            <div className="md:h-16 h-16 p-2 flex items-center justify-between flex-wrap md:flex-nowrap">
+              <div className="hidden w-full md:block md:w-auto flex flex-row justify-end" id="navbar-multi-level">
+                <ul className={`flex flex-col font-medium p-4 md:p-0 mt-4 ms-5 border border-gray-100 
+                  rounded-lg md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 
+                  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
+                  {getTabList()}
+                </ul>
+              </div>
               <div className="text-indigo-500 md:order-1">
                 <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" 
                 aria-controls="default-sidebar" type="button" 
@@ -76,14 +106,15 @@ const AdminLayout = () => {
                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                   <ul className="py-1" role="none">
                     <li>
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                      <Link to="#" 
+                        className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white`} role="menuitem">
                         Profile
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                      <Link to="/users/password_change" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
                         Change Password
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <NavLink to="/users/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">

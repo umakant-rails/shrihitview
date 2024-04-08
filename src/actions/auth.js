@@ -43,6 +43,16 @@ export const userLogin = (formValues) => async dispatch => {
   }
 }
 
+export const updatePassword = (formValues) => async dispatch => {
+  const response = await baseUrl.put(
+    '/signup', 
+    {user: formValues}
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+  dispatch(dataDispatchToReducer(response, USER_REGISTRATION));
+}
+
 export const getUserRole = (user_id) => async dispatch => {
   const response = await baseUrl.post(
     '/users/get_role',
