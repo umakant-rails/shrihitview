@@ -2,6 +2,7 @@ import baseUrl from "../services/AxiosService";
 import {
   USER_REGISTRATION,
   ERROR_HANDLING,
+  PASSWORD_UPDATED,
   SET_MESSAGE
 } from "../utils/types";
 import dataDispatchToReducer from "./shared_action";
@@ -45,12 +46,12 @@ export const userLogin = (formValues) => async dispatch => {
 
 export const updatePassword = (formValues) => async dispatch => {
   const response = await baseUrl.put(
-    '/signup', 
+    '/users/passwords/update', 
     {user: formValues}
   ).then(response => {
     return response;
   }).catch( error => error.response);
-  dispatch(dataDispatchToReducer(response, USER_REGISTRATION));
+  dispatch(dataDispatchToReducer(response, PASSWORD_UPDATED));
 }
 
 export const getUserRole = (user_id) => async dispatch => {

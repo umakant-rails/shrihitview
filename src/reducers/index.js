@@ -1,7 +1,7 @@
 //import { combineReducers } from "redux";
 import { combineReducers } from "@reduxjs/toolkit";
 import articleReducer from "./public/articleReducer";
-import authReducer from "./public/authReducer";
+import authReducer from "./authReducer";
 import msgReducer from "./msgReducer";
 import homeReducer from "./public/homeReducer";
 import authorReducer from "./public/authorReducer";

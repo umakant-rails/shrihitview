@@ -1,8 +1,9 @@
 import {
   USER_LOGOUT,
   USER_REGISTRATION,
-  ERROR_HANDLING
-} from "../../utils/types";
+  ERROR_HANDLING,
+  PASSWORD_UPDATED
+} from "../utils/types";
 
 const stateObj = {currentUser: {}};
 
@@ -19,6 +20,10 @@ const authReducer = (state=stateObj, action) => {
     case USER_REGISTRATION:
       return { 
         isRegistered: true,
+      }
+    case PASSWORD_UPDATED:
+      return {
+        password_changed: action.payload.password_changed
       }
     case ERROR_HANDLING:
       return{

@@ -1,13 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { updatePassword } from '../../actions/auth';
-import { useDispatch } from 'react-redux';
-import { AuthContext } from '../../services/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+// import { AuthContext } from '../../services/AuthContext';
 
 const changePasswordObj = {current_password: '', password: '', password_confirmation: ''};
 const ChangePassword = () => {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState(changePasswordObj);
-  const {currentUser} = useContext(AuthContext);
+  const {password_changed} = useSelector(state => state.auth) 
+
+  useEffect( () => {
+    if(password_changed){setFormValues(changePasswordObj); }
+  }, [password_changed]);
 
   const onInputChange = event => {
     const { name, value } = event.target;
@@ -34,7 +38,7 @@ const ChangePassword = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               Current Password <span title="required" className="text-red-600 font-bold">*</span>
             </label> 
-            <input type="text" id="current_password" name="current_password"
+            <input type="password" id="current_password" name="current_password"
               value={formValues.current_password}
               onChange={onInputChange} 
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
@@ -49,7 +53,7 @@ const ChangePassword = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               New Password <span title="required" className="text-red-600 font-bold">*</span>
             </label> 
-            <input type="text" id="password" name="password"
+            <input type="password" id="password" name="password"
               value={formValues.password}
               onChange={onInputChange} 
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
@@ -64,7 +68,7 @@ const ChangePassword = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               Confirm Password <span title="required" className="text-red-600 font-bold">*</span>
             </label> 
-            <input type="text" id="password_confirmation" name="password_confirmation"
+            <input type="password" id="password_confirmation" name="password_confirmation"
               value={formValues.password_confirmation}
               onChange={onInputChange} 
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
