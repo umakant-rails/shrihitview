@@ -10,7 +10,7 @@ const ChangePassword = () => {
   const {password_changed} = useSelector(state => state.auth) 
 
   useEffect( () => {
-    if(password_changed){setFormValues(changePasswordObj); }
+    if(password_changed){window.location.reload();}
   }, [password_changed]);
 
   const onInputChange = event => {

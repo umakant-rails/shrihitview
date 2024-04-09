@@ -87,7 +87,7 @@ const SearchArticleList = ({setSearchAppliedState}) => {
         </form>
       </div>
       {
-        (totalArticles && searchArticles.length > 0) && (
+        (totalArticles > 0 && searchArticles.length > 0) && (
           <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-blue-700 shadow-xl mb-5 font-bold'>
             Seach Articles ({totalArticles})
           </div>
