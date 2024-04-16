@@ -7,27 +7,25 @@ import { ReactTransliterate } from "react-transliterate";
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 import { createChapter, updateChapter, deleteChapter, getChapters } from '../../../actions/admin/admin_scr_chapters';
-import { dateFormat } from '../../../utils/utilityFunctions';
-
 const chapterObj = {scripture_id: '', name: '', is_section: '', index: '', parent_id: ''};
 
 const ScriptureChapterList = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
 
-  const { scripture, scriptures, sections, chapters, total_chapters, current_page } = useSelector( state => state.adminScrChapter);
+  const { scripture, sections, chapters, total_chapters, current_page } = useSelector( state => state.adminScrChapter);
   const [chapterList, setChapterList] = useState(chapters);
   const [totalChapterQnty, setTotalChapterQnty] = useState(total_chapters);
   const [currentPage, setCurrentPage] = useState(current_page || 1);
   const [formValues, setFormValues] = useState(chapterObj);
   const [editableChapter, setEditableChapter]= useState(null);
-  const [searchAttr, setSearchAttr] = useState({page: 1, data_type: 'chapter'});
+  const [searchAttrs, setSearchAttrs] = useState({page: 1, data_type: 'chapter'});
   const [popupForm, setPopupForm] = useState('chapter');
   const popup = useRef(null);
 
   useEffect( () => {
-    dispatch(getChapters(id, searchAttr));
-  }, [id]);
+    dispatch(getChapters(id, searchAttrs));
+  }, [dispatch, id, searchAttrs]);
 
   useEffect( () => {
     if(chapters){
@@ -37,17 +35,17 @@ const ScriptureChapterList = () => {
       setFormValues(formValues => ({...formValues, scripture_id: scripture.id}))
       if(popup.current){ setFormValues(chapterObj); popup.current.hide();}
     }
-  }, [chapters])
+  }, [chapters, total_chapters, current_page, scripture])
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    let sAttrs = {...searchAttr, page: page};
-    setSearchAttr(sAttrs);
+    let sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
     dispatch(getChapters(scripture.id, sAttrs));
   };
   const getChaptersOrSections = (dataType) => {
-    let sAttrs = {...searchAttr, data_type: dataType, page: 1};
-    setSearchAttr(sAttrs);
+    let sAttrs = {...searchAttrs, data_type: dataType, page: 1};
+    setSearchAttrs(sAttrs);
     setPopupForm(dataType);
     setTotalChapterQnty(null);
     dispatch(getChapters(scripture.id, sAttrs));
@@ -223,7 +221,7 @@ const ScriptureChapterList = () => {
               <div className="w-full md:w-1/2"></div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <div className="inline-flex rounded-md shadow-sm">
-                  <a href="#" aria-current="page" 
+                  <Link to="#" aria-current="page" 
                     onClick={e => getChaptersOrSections('chapter')}
                     className={`
                     ${popupForm === 'chapter' ? 'text-white bg-blue-600 hover:bg-blue-700' : 'text-blue-700 bg-white hover:text-blue-700 hover:bg-gray-100'}
@@ -232,8 +230,8 @@ const ScriptureChapterList = () => {
                     dark:text-white dark:hover:text-white dark:hover:bg-gray-700 
                     dark:focus:ring-blue-500 dark:focus:text-white`}>
                     अध्याय
-                  </a>
-                  <a href="#" 
+                  </Link>
+                  <Link to="#" 
                     onClick={e => getChaptersOrSections('section')}
                     className={`${popupForm === 'section' ? 'text-white bg-blue-600 hover:text-white hover:bg-blue-500' : 'text-blue-700 bg-white hover:text-blue-700 hover:bg-gray-100'}
                     px-4 py-2 text-sm font-bold border-gray-400 border
@@ -241,7 +239,7 @@ const ScriptureChapterList = () => {
                     dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white 
                     dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}>
                     सेक्शन
-                  </a>
+                  </Link>
                 </div>
                 <div className="flex items-center space-x-3 w-full md:w-auto">
                   <button 

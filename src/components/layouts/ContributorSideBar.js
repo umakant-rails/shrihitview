@@ -39,7 +39,7 @@ const ContributorSideBar = () => {
           <ul>
             {
               USER_ACTIVITIES.map( (activity, index) => 
-                (activity.childs.length == 0) ? (
+                (activity.childs.length === 0) ? (
                   <li key={index} className='border-b border-gray-700' 
                     onClick={e => updateExpandTab(`dropdown-${activity.label}`)}>
                     <Link to={activity.url} onClick={e => setActiveTab(activity.label)}

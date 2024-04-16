@@ -16,7 +16,7 @@ const AddScripture = () => {
 
   useEffect( () => {
     dispatch(newScripture());  
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(scriptureCreated){navigate('/admin/scriptures'); } 

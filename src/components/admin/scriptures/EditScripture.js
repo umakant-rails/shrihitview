@@ -20,7 +20,7 @@ const EditScripture = () => {
 
   useEffect( () => {   
     if(scriptureUpdated){navigate('/admin/scriptures'); } 
-  }, [scriptureUpdated]);
+  }, [scriptureUpdated, navigate]);
 
   useEffect( () => {
     if(scripture){

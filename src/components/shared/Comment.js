@@ -96,20 +96,43 @@ const Comment = ({article}) => {
           lang={'hi'}
           placeholder="Write your comment here..."
         />
-        <div className='flex justify-end'>
-          <button type="button" onClick={createAComment}
-            className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white bg-blue-700 
-              rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
-              Post
-          </button>
-          <button type="button" onClick={resetComment}
-            className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white bg-gray-500 
-              rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
-              dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
-              Reset
-          </button>
-        </div>
+        {
+        currentUser ? (
+          <div className='flex justify-end'>
+            <button type="button" onClick={createAComment}
+              className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white 
+              bg-blue-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none 
+              focus:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-500 
+              dark:focus:ring-gray-600`}>
+                Post
+            </button>
+            <button type="button" onClick={resetComment}
+              className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white 
+                bg-gray-400 rounded-lg hover:bg-gray-500 focus:ring-4 focus:outline-none 
+                focus:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-500 
+                dark:focus:ring-gray-600`}>
+                Reset
+            </button>
+          </div>
+          ) : (
+            <div className='flex justify-end'>
+              <button type="button" onClick={e => alert('Please login first to comment.')}
+                className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white 
+                  bg-gray-400 rounded-lg hover:bg-gray-500 focus:ring-4 focus:outline-none 
+                  focus:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-500 
+                  dark:focus:ring-gray-600`}>
+                  Post
+              </button>
+              <button type="button" onClick={e => alert('Please login first to comment.')}
+                className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white 
+                  bg-gray-400 rounded-lg hover:bg-gray-500 focus:ring-4 focus:outline-none 
+                  focus:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-500 
+                  dark:focus:ring-gray-600`}>
+                  Reset
+              </button>
+            </div>
+          )
+        }
       </>
     )
   }
@@ -179,17 +202,29 @@ const Comment = ({article}) => {
         </div>
         <div className="flex items-center mt-2 space-x-4">
           <div className='inline-flex' id={`comment-icon-${comment.id}`}>
-            
             {
-              (currentUser && currentUser.id === comment.user_id) ? (
+              currentUser ? (
+                <div className='inline-flex text-blue-500 text-sm mr-4 cursor-pointer'
+                  onClick={(e) => openReplyCommentBox(comment, parent_cmt) } >
+                  <svg className="w-5 h-5 text-blue-800 dark:text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.5 8.046H11V6.119c0-.921-.9-1.446-1.524-.894l-5.108 4.49a1.2 1.2 0 0 0 0 1.739l5.108 4.49c.624.556 1.524.027 1.524-.893v-1.928h2a3.023 3.023 0 0 1 3 3.046V19a5.593 5.593 0 0 0-1.5-10.954Z"/>
+                  </svg>
+                  <span className='hidden md:block font-bold'>Reply</span>
+                </div>
+              ) : (
+                <div className='inline-flex text-gray-500 text-sm mr-4 cursor-pointer'
+                  onClick={(e) => alert('Please login first to comment write down.') } >
+                  <svg className="w-5 h-5 text-gray-800 dark:text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.5 8.046H11V6.119c0-.921-.9-1.446-1.524-.894l-5.108 4.49a1.2 1.2 0 0 0 0 1.739l5.108 4.49c.624.556 1.524.027 1.524-.893v-1.928h2a3.023 3.023 0 0 1 3 3.046V19a5.593 5.593 0 0 0-1.5-10.954Z"/>
+                  </svg>
+                  <span className='hidden md:block font-bold'>Reply</span>
+                </div>
+              )
+            }
+            {
+              (currentUser && currentUser.id === comment.user_id) && (
                 <>
-                  <div className='inline-flex text-blue-500 text-sm mr-4 cursor-pointer'
-                    onClick={(e) => openReplyCommentBox(comment, parent_cmt) } >
-                    <svg className="w-5 h-5 text-blue-800 dark:text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.5 8.046H11V6.119c0-.921-.9-1.446-1.524-.894l-5.108 4.49a1.2 1.2 0 0 0 0 1.739l5.108 4.49c.624.556 1.524.027 1.524-.893v-1.928h2a3.023 3.023 0 0 1 3 3.046V19a5.593 5.593 0 0 0-1.5-10.954Z"/>
-                    </svg>
-                    <span className='hidden md:block font-bold'>Reply</span>
-                  </div>
+                  
                   <div className="inline-flex text-blue-500 text-sm mr-4 cursor-pointer"
                     onClick={() => openEditCommentBox(comment)}>
                     <svg className="w-5 h-5 text-blue-500  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -203,16 +238,6 @@ const Comment = ({article}) => {
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                     </svg>
                     <span className='hidden md:block font-bold'>Delete</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className='inline-flex text-gray-500 text-sm mr-4 cursor-pointer'
-                    onClick={(e) => alert('Please login first to comment write down.') } >
-                    <svg className="w-5 h-5 text-gray-800 dark:text-white mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.5 8.046H11V6.119c0-.921-.9-1.446-1.524-.894l-5.108 4.49a1.2 1.2 0 0 0 0 1.739l5.108 4.49c.624.556 1.524.027 1.524-.893v-1.928h2a3.023 3.023 0 0 1 3 3.046V19a5.593 5.593 0 0 0-1.5-10.954Z"/>
-                    </svg>
-                    <span className='hidden md:block font-bold'>Reply</span>
                   </div>
                 </>
               )
@@ -229,13 +254,13 @@ const Comment = ({article}) => {
   return (
     <div>
       <div className='px-4 md:grid md:grid-cols-12' key="comment-box">
+        <div className='font-bold mb-2 col-span-12'>Your Comment:</div>
         <div className='md:col-span-8' >
           {commentBox()}
         </div>
       </div>
       <div className='py-2 px-4 sm:grid sm:grid-cols-12' key="comment-list">
         <div className='font-bold mb-2 col-span-12'>Comments:</div>
-        
           {
             comments ? comments.map( (comment, index) => {
               return (

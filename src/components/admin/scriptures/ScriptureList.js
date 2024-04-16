@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactTransliterate } from "react-transliterate";
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 import { getScriptures, deleteScripture } from '../../../actions/admin/admin_scriptures';
@@ -13,11 +12,11 @@ const ScriptureList = () => {
   const [scriptureType, setScriptureType] = useState('');
   const [totalScripturesQnty, setTotalScripturesQnty] = useState(0);
   const {scriptures, total_scriptures, current_page, scripture_types } = useSelector( state => state.adminScripture );
-  const [searchAttr, setSearchAttr] = useState({page: 1});
+  const [searchAttrs, setSearchAttrs] = useState({page: 1});
 
   useEffect( () => { 
-    dispatch(getScriptures(searchAttr));
-  }, []);
+    dispatch(getScriptures(searchAttrs));
+  }, [dispatch, searchAttrs]);
 
   useEffect( () => {
     if(scriptures){
@@ -29,14 +28,14 @@ const ScriptureList = () => {
   
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    let sAttrs = {...searchAttr, page: page};
-    setSearchAttr(sAttrs);
+    let sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
     dispatch(getScriptures(sAttrs));
   };
 
   const resetFilteredAuthors = (e) => {
     setTotalScripturesQnty(null);
-    setSearchAttr({page: 1})
+    setSearchAttrs({page: 1})
     dispatch(getScriptures({page: 1}));
     setScriptureType('');
   }
@@ -44,7 +43,7 @@ const ScriptureList = () => {
     const selectedScriptureType = e.target.value;
     setScriptureType(selectedScriptureType);
     let sAttrs = {'scripture_type_id': selectedScriptureType, page: 0};
-    setSearchAttr(sAttrs);
+    setSearchAttrs(sAttrs);
     dispatch(getScriptures(sAttrs));
   }
 

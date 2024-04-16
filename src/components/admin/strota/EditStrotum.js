@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
-import { Editor } from 'primereact/editor';
 import {editStrotum, updateStrotum} from "../../../actions/admin/admin_strota";
 import { useNavigate, useParams } from 'react-router';
 
@@ -16,7 +15,7 @@ const EditStroum = () => {
 
   useEffect( () => {
     dispatch(editStrotum(id));  
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(strotum){
@@ -28,7 +27,7 @@ const EditStroum = () => {
       }))
     }
     if(updatedStrotum){navigate('/admin/strota');} 
-  }, [strotum, updatedStrotum]);
+  }, [strotum, navigate, updatedStrotum]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));

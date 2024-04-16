@@ -17,13 +17,13 @@ const StrotumList = () => {
   const [strotum, setStrotum] = useState(null);
   const [totalStrotumQnty, setTotalStrotumQnty] = useState(0);
   const {strota, total_strota, current_page, article_types, strota_types } = useSelector( state => state.adminStrotum );
-  const [searchAttr, setSearchAttr] = useState({page: 1});
+  const [searchAttrs, setSearchAttrs] = useState({page: 1});
   const [formValues, setFormValues] = useState(strotumArticleObj);
   const popup = useRef(null);
 
   useEffect( () => { 
-    dispatch(getStrota(searchAttr));
-  }, []);
+    dispatch(getStrota(searchAttrs));
+  }, [dispatch, searchAttrs]);
 
   useEffect( () => {
     if(strota){
@@ -35,14 +35,14 @@ const StrotumList = () => {
   
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    let sAttrs = {...searchAttr, page: page};
-    setSearchAttr(sAttrs);
+    let sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
     dispatch(getStrota(sAttrs));
   };
 
   const resetFilteredAuthors = (e) => {
     setTotalStrotumQnty(null);
-    setSearchAttr({page: 1})
+    setSearchAttrs({page: 1})
     dispatch(getStrota({page: 1}));
     setStrotaType('')
   }
@@ -50,7 +50,7 @@ const StrotumList = () => {
     const selectedStrotaType = e.target.value;
     setStrotaType(selectedStrotaType);
     let sAttrs = {'strota_type_id': selectedStrotaType, page: 0};
-    setSearchAttr(sAttrs);
+    setSearchAttrs(sAttrs);
     dispatch(getStrota(sAttrs));
   }
 

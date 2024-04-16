@@ -20,7 +20,7 @@ const ScriptureShow = () => {
 
   useEffect( () => {
     dispatch(getScripture(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(articles){
@@ -31,7 +31,7 @@ const ScriptureShow = () => {
       }
       setCurrentPage(current_page);
     }
-  }, [articles])
+  }, [articles, total_articles, chapters, current_page, selectedChapterId ])
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

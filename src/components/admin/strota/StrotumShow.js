@@ -16,7 +16,6 @@ const strotumArticleObj = {index: '', content: '', interpretation: '', article_t
 const StrotumShow = () => {
   const dispatch = useDispatch();
   const {id} = useParams();
-  const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [strotumArticles, setStrotumArticles] = useState([]);
   const [editableSArticle, setEditableSArticle] = useState(null);
   const { strotum, strotum_articles, article_types } = useSelector( state => state.adminStrotum );
@@ -25,7 +24,7 @@ const StrotumShow = () => {
 
   useEffect( () => { 
     dispatch(getStrotum(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(strotum_articles){ 
@@ -36,19 +35,6 @@ const StrotumShow = () => {
     }
   }, [strotum_articles]);
   
-  const resetFilteredAuthors = (e) => {
-    // setTotalAuthorQnty(null);
-    // setSearchAttr({page: 1})
-    // dispatch(getAuthors({page: 1}));
-    // document.getElementsByName("alphabet").forEach((el) => el.checked = false );
-  }
-  const filterAuthors = (e) => {
-    // const selectedAlbhabet = e.target.value;
-    // let sAttrs = {'start_with': selectedAlbhabet, page: 0};
-    // setSearchAttr(sAttrs);
-    // dispatch(getAuthors(sAttrs));
-  }
-
   const deleteToStrotumArticle = (article_id) => {
     dispatch(deleteStrotumArticle(strotum.id, article_id));
   }
