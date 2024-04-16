@@ -368,33 +368,33 @@ const Dashboard = () => {
 
         {/* <div className='grid grid-cols-3 gap-6 w-full'>
           <div className=''>
-            <div class="bg-white shadow-lg shadow-gray-200 rounded-2xl p-4 ">
-              <div class="flex justify-between items-center mb-4">
-                <h3 class="mb-2 text-xl font-bold text-gray-900">Sales by Country</h3>
+            <div className="bg-white shadow-lg shadow-gray-200 rounded-2xl p-4 ">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="mb-2 text-xl font-bold text-gray-900">Sales by Country</h3>
               </div>
-              <div class="flex flex-col">
-                <div class="overflow-x-auto rounded-2xl">
-                  <div class="inline-block min-w-full align-middle">
-                    <div class="overflow-hidden shadow-lg shadow-gray-200 sm:rounded-2xl">
-                      <table class="min-w-full divide-y divide-gray-200">
+              <div className="flex flex-col">
+                <div className="overflow-x-auto rounded-2xl">
+                  <div className="inline-block min-w-full align-middle">
+                    <div className="overflow-hidden shadow-lg shadow-gray-200 sm:rounded-2xl">
+                      <table className="min-w-full divide-y divide-gray-200">
                         <thead>
                           <tr>
-                            <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            <th scope="col" className="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                               Article Type
                             </th>
-                            <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            <th scope="col" className="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                               Quntity
                             </th>
                           </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200">
+                        <tbody className="divide-y divide-gray-200">
                           {
                             articles_by_type && Object.keys(articles_by_type).map( key => (
                               <tr>
-                                <td class="flex items-center p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
+                                <td className="flex items-center p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
                                   {key}
                                 </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
+                                <td className="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
                                   {articles_by_type[key]}
                                 </td>
                               </tr>
