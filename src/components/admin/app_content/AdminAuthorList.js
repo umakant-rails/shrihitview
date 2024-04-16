@@ -13,11 +13,11 @@ const AdminAuthorList = () => {
   const [authorList, setAuthorList] = useState([]);
   const [totalAuthorQnty, setTotalAuthorQnty] = useState(0);
   const { authors, total_authors, current_page } = useSelector( state => state.adminAuthor );
-  const [searchAttr, setSearchAttr] = useState({page: 1});
+  const [searchAttrs, setSearchAttrs] = useState({page: 1});
 
   useEffect( () => { 
-    dispatch(getAdminAuthors(searchAttr));
-  }, []);
+    dispatch(getAdminAuthors(searchAttrs));
+  }, [dispatch, searchAttrs]);
 
   useEffect( () => {
     if(authors){
@@ -25,12 +25,12 @@ const AdminAuthorList = () => {
       setTotalAuthorQnty(total_authors);
       setCurrentPage(current_page);
     }
-  }, [authors]);
+  }, [authors, total_authors, current_page]);
   
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    let sAttrs = {...searchAttr, page: page};
-    setSearchAttr(sAttrs);
+    let sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
     dispatch(getAdminAuthors(sAttrs));
   };
 
@@ -44,29 +44,29 @@ const AdminAuthorList = () => {
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttr, [name]: value};
+    const sAttrs = {...searchAttrs, [name]: value};
 
-    setSearchAttr(sAttrs);
+    setSearchAttrs(sAttrs);
     dispatch(getAdminAuthors(sAttrs, 1));
   }
 
   const resetFilteredAuthors = (e) => {
     setTotalAuthorQnty(null);
-    setSearchAttr({page: 1})
+    setSearchAttrs({page: 1})
     dispatch(getAdminAuthors({page: 1}));
     document.getElementsByName("alphabet").forEach((el) => el.checked = false );
   }
   const filterAuthors = (e) => {
     const selectedAlbhabet = e.target.value;
     let sAttrs = {'start_with': selectedAlbhabet, page: 0};
-    setSearchAttr(sAttrs);
+    setSearchAttrs(sAttrs);
     dispatch(getAdminAuthors(sAttrs));
   }
   const approveAuthor = (id) => {
-    dispatch(approveToAuthor(id,searchAttr));
+    dispatch(approveToAuthor(id,searchAttrs));
   }
   const deleteToAuthor = (id) => {
-    dispatch(deleteAdminAuthor(id, searchAttr));
+    dispatch(deleteAdminAuthor(id, searchAttrs));
   }
 
   return (
@@ -129,7 +129,7 @@ const AdminAuthorList = () => {
                   </div>
                   <div>
                     <select id="status" name="status" 
-                      value={searchAttr.status ? searchAttr.status : ''}
+                      value={searchAttrs.status ? searchAttrs.status : ''}
                       onChange={onSearchInputChange}
                       className={`w-full md:w-auto flex items-center justify-center py-2 px-4 
                       text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg 
@@ -162,7 +162,7 @@ const AdminAuthorList = () => {
                       <tr  
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
-                        <td scope="row" 
+                        <td 
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {author.name}
                         </td>

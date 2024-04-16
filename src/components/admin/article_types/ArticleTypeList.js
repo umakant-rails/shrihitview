@@ -25,7 +25,7 @@ const ArticleTypeList = () => {
 
   useEffect( () => { 
     dispatch(getTypes({page: 1}));
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(types){
@@ -33,7 +33,7 @@ const ArticleTypeList = () => {
       setTotalTypeQnty(total_types);
       setCurrentPage(current_page);
     }
-  }, [types]);
+  }, [types, total_types, current_page]);
 
   useEffect( () => {
     if(type && popup.current){

@@ -1,11 +1,9 @@
 import baseUrl from "../../services/AxiosService";
 import {
-  CHAPTER_LIST,
   SCR_ARTICLE_NEW,
   SCR_ARTICLE_CREATED,
   SCR_ARTICLE_EDIT,
   SCR_ARTICLE_UPDATED,
-  SCR_ARTICLE_DELETED,
 } from "../../utils/types";
 import dataDispatchToReducer from "../shared_action";
 

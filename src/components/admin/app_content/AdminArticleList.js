@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { approveArticle, deleteAdminArticle, getAdminArticles, getArticlesByPage } from '../../../actions/admin/admin_articles';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AdminArticleList = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
   const { 
-    articleTypes, raags, contexts, 
+    articleTypes, contexts, 
     authors, scriptures, articles, 
     totalArticles, current_page } = useSelector( state => state.adminArticle );
   const [articleList, setArticleList] = useState(articles);
@@ -18,7 +18,7 @@ const AdminArticleList = () => {
   
   useEffect( () => {
     dispatch(getAdminArticles());
-  }, []);
+  }, [dispatch]);
   
   useEffect( () => {
     if(articles){ 

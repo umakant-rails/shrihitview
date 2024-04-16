@@ -27,7 +27,7 @@ const AddCSArticle = () => {
   
   useEffect( () => {
     dispatch(getAddArticlePageData(id));
-  }, []);
+  }, [dispatch, id]);
   
   useEffect( () => {
     if(articles){ 
@@ -35,7 +35,7 @@ const AddCSArticle = () => {
       setTotalArticle(totalArticles);
       setChapterExist(chapters && chapters.length > 0 ? true : false)
     }
-  }, [articles, totalArticles]);
+  }, [articles, totalArticles, chapters]);
 
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');

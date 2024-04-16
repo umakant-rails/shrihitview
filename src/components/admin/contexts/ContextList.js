@@ -25,7 +25,7 @@ const ContextList = () => {
 
   useEffect( () => { 
     dispatch(getContexts({page: 1}));
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(contexts){
@@ -33,7 +33,7 @@ const ContextList = () => {
       setTotalContextQnty(total_contexts);
       setCurrentPage(current_page);
     }
-  }, [contexts]);
+  }, [contexts, total_contexts, current_page]);
 
   useEffect( () => {
     if(context && popup.current){
@@ -261,7 +261,7 @@ const ContextList = () => {
                      <tr key={index} 
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
-                        <td scope="row" 
+                        <td 
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {context.name}
                         </td>

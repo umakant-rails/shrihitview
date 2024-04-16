@@ -16,7 +16,6 @@ const Dashboard = () => {
     articles_by_time,
     articles_by_type,
     articles_by_context,
-    contexts_by_approval,
   } = useSelector( state => state.adminDashboard);
 
   const [pieChartData, setPieChartData] = useState({});
@@ -26,7 +25,7 @@ const Dashboard = () => {
   
   useEffect( () => {
     dispatch(getDashboardData());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if(articles_by_time){
@@ -73,7 +72,7 @@ const Dashboard = () => {
 
       setChartVisible(true);
     }
-  }, [articles_by_time])
+  }, [articles_by_time, articles_by_context, articles_by_type])
 
   const currentMonthContribution = () => {
     if(articles_by_time) {

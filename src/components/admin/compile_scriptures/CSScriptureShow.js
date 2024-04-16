@@ -26,7 +26,7 @@ const CSScriptureShow = () => {
 
   useEffect( () => {
     dispatch(showCSScripture(id, searchAttrs));
-  }, [id]);
+  }, [dispatch, searchAttrs, id]);
 
   useEffect( () => {
     if(articles){
@@ -38,7 +38,7 @@ const CSScriptureShow = () => {
       setCurrentPage(current_page);
       setSelectedChapterId(chapter_id);
     }
-  }, [articles])
+  }, [articles, total_articles, chapters, chapter, current_page])
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

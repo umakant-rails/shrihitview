@@ -24,7 +24,7 @@ const AdminTagList = () => {
 
   useEffect( () => { 
     dispatch(getAdminTags({page: 1}));
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(tags){
@@ -32,7 +32,7 @@ const AdminTagList = () => {
       setTotalTagQnty(total_tags);
       setCurrentPage(current_page);
     }
-  }, [tags]);
+  }, [tags, total_tags, current_page]);
 
   useEffect( () => {
     if(tag && popup.current){
@@ -184,7 +184,7 @@ const AdminTagList = () => {
                      <tr key={index} 
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
-                        <td scope="row" 
+                        <td  
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {tag.name}
                         </td>

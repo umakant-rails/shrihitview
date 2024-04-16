@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 
 import { useNavigate, useParams } from 'react-router';
-import { getScrArticle, createScrArticle, updateScrArticle } from '../../../actions/admin/admin_scr_articles';
+import { getScrArticle, updateScrArticle } from '../../../actions/admin/admin_scr_articles';
 
 const articleObj = {
   scripture_id: '', chapter_id: '', article_type_id: '', 
@@ -28,7 +27,7 @@ const EditScrArticle = () => {
  
   useEffect( () => {
     dispatch(getScrArticle(scripture_id, id));
-  }, [scripture_id, id]);
+  }, [dispatch, scripture_id, id]);
 
   useEffect( () => {
     if(scripture_article){

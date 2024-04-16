@@ -9,12 +9,12 @@ import { userRegister } from '../../actions/auth';
 
 // https://merakiui.com/components
 // flowbite css
+const userObj = {email:'', username: '', password: '', confirm_password: ''};
 const Register = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userObj = {email:'', username: '', password: '', confirm_password: ''};
+  //const navigate = useNavigate();
   const [formValues, setFormValues] = useState(userObj);
-  const [formErrors, setFormErrors] = useState({});
+  //const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const {isRegistered} = useSelector( (state) => state.auth);
   
@@ -23,7 +23,7 @@ const Register = () => {
       setFormValues(userObj);
       //navigate("/users/login");
     }
-  }, [isRegistered]);
+  }, [isRegistered, userObj]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;
