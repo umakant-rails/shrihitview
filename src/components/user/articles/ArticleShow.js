@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getArticle } from '../../../actions/user/user_articles';
-import { ReactTransliterate } from "react-transliterate";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
+import Comment from '../../shared/Comment';
 
 const ArticleShow = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const [comment, setComment] = useState("");
   const { article } = useSelector( state => state.userArticle);
 
   useEffect( () => {
     dispatch(getArticle(id));
   }, [dispatch, id]);
-
-  const resetComment = () => { 
-    setComment("");
-  }
 
   return (
     <div className='grid md:grid-cols-12 mt-5'>
@@ -51,7 +46,10 @@ const ArticleShow = () => {
                   }
                 </div>
               }
-              <div id="comment-section" className='py-2 px-4 grid grid-cols-8'>
+              <div id="comment-section" >
+                <Comment article={article} />
+              </div>
+              {/* <div id="comment-section2" className='py-2 px-4 grid grid-cols-8'>
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
                 <div className="grid col-start-1 col-end-6">
                   <ReactTransliterate
@@ -83,17 +81,15 @@ const ArticleShow = () => {
               <div className='py-2 px-4'>
                 <div className='font-bold mb-2'>Comments:</div>
                 {
-                  (article.comments.length === 0) ? 
-                    (
-                      <div className='text-gray-600'>
-                        There is no comments available now.
-                      </div>
-                    )
-                    :(
-                      <div>Comment are available</div>
-                    )
+                  (article.comments.length === 0) ? (
+                    <div className='text-gray-600'>
+                      There is no comments available now.
+                    </div>
+                  ) : (
+                    <div>Comment are available</div>
+                  )
                 }
-              </div>
+              </div> */}
             </>
           ) : (
             <div>Loading ...</div>

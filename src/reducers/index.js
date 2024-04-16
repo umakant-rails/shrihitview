@@ -13,6 +13,7 @@ import contextReducer from "./public/contextReducer";
 import tagReducer from "./public/tagReducer";
 
 import userArticleReducer from "./user/articleReducer";
+import userCommentReducer from "./user/commentReducer";
 import userAuthorReducer from "./user/authorReducer";
 import userTagReducer from "./user/tagReducer";
 import userStoryReducer from "./user/storyReducer";
@@ -43,6 +44,7 @@ export default combineReducers({
     tag: tagReducer,
     
     userArticle: userArticleReducer,
+    userComment: userCommentReducer,
     userAuthor: userAuthorReducer,
     userTag: userTagReducer,
     userStory: userStoryReducer,
