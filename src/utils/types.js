@@ -1,5 +1,7 @@
 export const ADMIN_ROLE = [1,2];
-
+export const PANCHANG_TYPES = ['राधावल्लभ संप्रदाय']
+export const PAKSH = ['कृष्ण पक्ष','शुक्ळ पक्ष'];
+export const TITHIS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 export const TAB_LIST = [
   {url: '/pb/articles', label: 'रचनाये'}, {url: '/pb/authors', label:'रचनाकार/लेखक'}, 
   {url: '/pb/authors/sants', label: 'संत जीवनी'}, {url: '/pb/scriptures', label:'रसिक वाणी/ग्रन्थ'}, 
@@ -91,7 +93,8 @@ let admin_activities = [
       {url: '/admin/strota/new', label: 'स्त्रोत/आरती जोड़े'},
       {url: '/admin/strota', label: 'स्त्रोत/आरती सूची'}
     ]
-  }
+  },
+  {url: '/admin/panchangs', label: 'हितोत्सव पत्रिका', childs: []}
 ]
 
 export const ADMIN_ACTIVITIES = [...admin_activities, ...USER_ACTIVITIES];
@@ -219,6 +222,12 @@ export const CS_SCRIPTURE_SHOW = "CS_SCRIPTURE_SHOW";
 export const CS_ARTICLE_FOR_INDEXING = "CS_ARTICLE_FOR_INDEXING";
 export const CS_ARTICLE_INDEX_UPDATED= "CS_ARTICLE_INDEX_UPDATED";
 export const CS_ARTICLE_DELETED = "CS_ARTICLE_DELETED";
+
+export const PANCHANG_LIST = "PANCHANG_LIST";
+export const PANCHANG_CREATED = "PANCHANG_CREATED";
+export const PANCHANG_SHOW = "PANCHANG_SHOW";
+export const PANCHANG_UPDATED = "PANCHANG_UPDATED";
+export const PANCHANG_DELETED = "PANCHANG_DELETED";
 
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";

@@ -29,6 +29,7 @@ import adminDashboardReducer from "./admin/dashboardReducer";
 import adminArticleReducer from "./admin/articleReducer";
 import adminAuthorReducer from "./admin/authorReducer";
 import adminTagReducer from "./admin/tagReducer";
+import adminPanchangReducer from "./admin/panchangReducer";
 
 export default combineReducers({
     home: homeReducer,
@@ -60,4 +61,5 @@ export default combineReducers({
     adminScrArticle: adminScrArticleReducer,
     adminCSArticle: adminCSArticleReducer,
     adminDashboard: adminDashboardReducer,
+    adminPanchang: adminPanchangReducer
 });

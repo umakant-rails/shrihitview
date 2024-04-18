@@ -68,6 +68,10 @@ import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
 import AdminTagList from "../components/admin/app_content/AdminTagList";
 import ChangePassword from "../components/Auth/ChangePassword";
 
+import PanchangList from "../components/admin/panchangs/PanchangList";
+import AddPanchang from "../components/admin/panchangs/AddPanchang";
+import AddTithi from "../components/admin/panchangs/AddTithi";
+import EditPanchang from "../components/admin/panchangs/EditPanchang";
 
 
 // const router = createBrowserRouter([
@@ -140,6 +144,11 @@ const router = createBrowserRouter(
         <Route path="/admin/compiled_scriptures/:id/add_article_page" element={<ProtectedRoutes><AddCSArticle/></ProtectedRoutes>} />
         <Route path="/admin/compiled_scriptures/:id" element={<ProtectedRoutes><CSScriptureShow/></ProtectedRoutes>} />
 
+        <Route path="/admin/panchangs" element={<ProtectedRoutes><PanchangList /></ProtectedRoutes>} />
+        <Route path="/admin/panchangs/new" element={<ProtectedRoutes><AddPanchang /></ProtectedRoutes>} />
+        <Route path="/admin/panchangs/:id/edit" element={<ProtectedRoutes><EditPanchang /></ProtectedRoutes>} />
+        <Route path="/admin/panchangs/:id/add_tithi" element={<ProtectedRoutes><AddTithi /></ProtectedRoutes>} />
+
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />
         <Route path="/articles/:id" element={<ProtectedRoutes><ArticleShow /></ProtectedRoutes>} />
@@ -155,7 +164,6 @@ const router = createBrowserRouter(
         <Route path="/stories/new" element={<ProtectedRoutes><AddStory/></ProtectedRoutes>} />
         <Route path="/stories/:id" element={<ProtectedRoutes><StoryShow/></ProtectedRoutes>} />
         <Route path="/stories/:id/edit" element={<ProtectedRoutes><EditStory/></ProtectedRoutes>} />
-      
       </Route>
     </Route>
   )
