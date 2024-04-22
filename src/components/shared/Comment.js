@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import logo from "../../assets/images/hitlalju.png"
 import { createComment, updateComment, replyComment, deleteComment } from '../../actions/user/user_comments';
-import { timeCalc } from '../../utils/utilityFunctions';
+import { dateFormat } from '../../utils/utilityFunctions';
 import { AuthContext } from "../../services/AuthContext";
 
 const Comment = ({article}) => {
@@ -187,7 +187,7 @@ const Comment = ({article}) => {
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">
               <time pubdate="" dateTime="2022-02-08" title="February 8th, 2022">
-                {timeCalc(comment.created_at)}
+                {dateFormat(comment.created_at, true)}
               </time>
             </div>
           </div>

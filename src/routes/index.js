@@ -70,7 +70,7 @@ import ChangePassword from "../components/Auth/ChangePassword";
 
 import PanchangList from "../components/admin/panchangs/PanchangList";
 import AddPanchang from "../components/admin/panchangs/AddPanchang";
-import AddTithi from "../components/admin/panchangs/AddTithi";
+import AddTithi from "../components/admin/panchang_tithis/AddTithi";
 import EditPanchang from "../components/admin/panchangs/EditPanchang";
 
 
