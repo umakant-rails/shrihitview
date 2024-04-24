@@ -4,7 +4,7 @@ import { PAKSH, TITHIS } from '../../../utils/types';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
-import { createPanchangTithi, navigateMonth, newPanchangTithi } from '../../../actions/admin/admin_panchang_tithis';
+import { createPanchangTithi, navigateMonth} from '../../../actions/admin/admin_panchang_tithis';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
 //https://tailwindcomponents.com/component/calendar-4
@@ -38,8 +38,7 @@ const AddTithi = () => {
 
   useEffect( () => {
     currentDate.subtract(1, "month"); nextMonth();
-    //dispatch(newPanchangTithi(id));
-  }, [dispatch, id]);
+  }, [dispatch, currentDate]);
 
   useEffect( () => { 
     if(panchang) setPanchangObj(panchang);
@@ -52,7 +51,7 @@ const AddTithi = () => {
         ...formValues, hindi_month_id: current_month.id, month: current_month.name
       }));
     }
-  }, [panchang, current_month, tithis, tithi]);
+  }, [panchang, current_month, tithis, tithi, endDateOfMonth]);
 
   const createTithisHash = (tithis) => {
     let tithiHs1 = {};

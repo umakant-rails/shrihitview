@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ReactTransliterate } from 'react-transliterate';
 import { PANCHANG_TYPES } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { getPanchang, updatePanchang } from '../../../actions/admin/admin_panchangs';
 
 const EditPanchang = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
-  const [panchangTypes, setPanchangTypes] = useState([]);
   const [formValues, setFormValues] = useState({});
   const { panchang } = useSelector( state => state.adminPanchang);
   

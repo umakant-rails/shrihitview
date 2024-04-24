@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
-import logo from "../../assets/images/hitlalju.png"
 import { createComment, updateComment, replyComment, deleteComment } from '../../actions/user/user_comments';
 import { dateFormat } from '../../utils/utilityFunctions';
 import { AuthContext } from "../../services/AuthContext";

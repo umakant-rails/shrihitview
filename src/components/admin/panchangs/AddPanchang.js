@@ -16,7 +16,6 @@ const calendarObj = {
 const AddPanchang = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [panchangTypes, setPanchangTypes] = useState([]);
   const [formValues, setFormValues] = useState(calendarObj);
   const { panchang } = useSelector( state => state.adminPanchang);
   

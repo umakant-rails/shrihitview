@@ -10,15 +10,12 @@ const PanchangList = () => {
 
   useEffect( () => {
     dispatch(getPanchangs());
-  }, []);
+  }, [dispatch]);
 
   useEffect( () => {
     if(panchangs){setPanchangList(panchangs);}
   }, [panchangs]);
 
-  const editAPanchang = (panchangId) => {
-
-  }
   const deleteAPanchang = (panchangId) => {
     dispatch(deletePanchang(panchangId))
   }

@@ -1,5 +1,5 @@
 import moment from 'moment/moment';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PAKSH, TITHIS } from '../../../utils/types';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,6 @@ import { getEditingData, updatePanchangTithi } from '../../../actions/admin/admi
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Datepicker from 'flowbite-datepicker/Datepicker';
 import { toast } from 'react-toastify';
-import { Modal } from 'flowbite';
-import ConfirmBox from '../../shared/ConfirmBox';
 
 //https://tailwindcomponents.com/component/calendar-4
 
@@ -26,7 +24,6 @@ const tithiObj = {
 
 const EditTithi = () => {
   const dispatch = useDispatch();
-  const popup = useRef(null);
   const [currentDate, setCurrentDate] = useState(moment().clone());
   const [tithisList, setTithisList] = useState([]);
   const [monthList, setMonthList] = useState([]);
@@ -40,13 +37,12 @@ const EditTithi = () => {
     new Datepicker(datePickerElement, {format: 'dd/mm/yyyy'});
   }
   
-
   const { id } = useParams();
 	const { panchang, tithis, months } = useSelector( state => state.adminPTithi);
 
   useEffect( () => {
     dispatch(getEditingData(id, currentDate));
-  }, [dispatch, id]);
+  }, [dispatch, id, currentDate]);
 
   useEffect( () => { 
     if(panchang) setPanchangObj(panchang);
@@ -100,11 +96,11 @@ const EditTithi = () => {
 
   const onsubmit = (e) => {
     e.preventDefault();
-    if(formValues.date == ''){ 
+    if(formValues.date === ''){ 
       toast.error('कृपया पहले तिथि दिनांक को चुने.');
-    } else if(formValues.hindi_month_id == ''){ 
+    } else if(formValues.hindi_month_id === ''){ 
       toast.error('कृपया पहले तिथि के मास को चुने.');
-    } else if (formValues.tithi == ''){ 
+    } else if (formValues.tithi === ''){ 
       toast.error('कृपया पहले तिथि को चुने.');
     } else {
       formValues['date'] = datePickerElement.value;
