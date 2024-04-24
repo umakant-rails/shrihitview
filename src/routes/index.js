@@ -72,6 +72,7 @@ import PanchangList from "../components/admin/panchangs/PanchangList";
 import AddPanchang from "../components/admin/panchangs/AddPanchang";
 import AddTithi from "../components/admin/panchang_tithis/AddTithi";
 import EditPanchang from "../components/admin/panchangs/EditPanchang";
+import EditTithi from "../components/admin/panchang_tithis/EditTithi";
 
 
 // const router = createBrowserRouter([
@@ -148,6 +149,8 @@ const router = createBrowserRouter(
         <Route path="/admin/panchangs/new" element={<ProtectedRoutes><AddPanchang /></ProtectedRoutes>} />
         <Route path="/admin/panchangs/:id/edit" element={<ProtectedRoutes><EditPanchang /></ProtectedRoutes>} />
         <Route path="/admin/panchangs/:id/add_tithi" element={<ProtectedRoutes><AddTithi /></ProtectedRoutes>} />
+        <Route path="/admin/panchangs/:id/edit_tithis" element={<ProtectedRoutes><EditTithi /></ProtectedRoutes>} />
+
 
         <Route path="/articles" element={<ProtectedRoutes><ArticleList /></ProtectedRoutes>} />
         <Route path="/articles/new" element={<ProtectedRoutes><AddArticle /></ProtectedRoutes>} />

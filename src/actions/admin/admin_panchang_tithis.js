@@ -4,6 +4,9 @@ import {
   PANCHANG_LIST,
   PANCHANG_TITHI_CREATED,
   NAVIGATE_MONTH,
+  PANCHANG_TITHI_EDITING_DATA,
+  PANCHANG_TITHI_UPDATED,
+  PANCHANG_TITHI_DELETED,
 
 } from "../../utils/types";
 import dataDispatchToReducer from "../shared_action";
@@ -47,22 +50,32 @@ export const navigateMonth = (id, date) => async dispatch => {
 
   dispatch(dataDispatchToReducer(response, NAVIGATE_MONTH));
 }
-// export const updatePanchang = (id, form) => async dispatch => {
-//   const response = await baseUrl.put(
-//     `/admin/panchangs/${id}`, {panchang: form}
-//   ).then(response => {
-//     return response;
-//   }).catch( error => error.response);
 
-//   dispatch(dataDispatchToReducer(response, PANCHANG_UPDATED));
-// }
+export const getEditingData = (id, date) => async dispatch => {
+  const response = await baseUrl.get(
+    `/admin/panchangs/${id}/panchang_tithis/get_editing_data`,{params: {date: date} },
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
 
-// export const deletePanchang = (id) => async dispatch => {
-//   const response = await baseUrl.delete(
-//     `/admin/panchangs/${id}`
-//   ).then(response => {
-//     return response;
-//   }).catch( error => error.response);
+  dispatch(dataDispatchToReducer(response, PANCHANG_TITHI_EDITING_DATA));
+}
+export const updatePanchangTithi = (id, panchangId, form) => async dispatch => {
+  const response = await baseUrl.put(
+    `/admin/panchangs/${id}/panchang_tithis/${panchangId}`, {panchang_tithi: form}
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
 
-//   dispatch(dataDispatchToReducer(response, PANCHANG_DELETED));
-// }
+  dispatch(dataDispatchToReducer(response, PANCHANG_TITHI_UPDATED));
+}
+
+export const deletePanchangTithi = (id, panchangId) => async dispatch => {
+  const response = await baseUrl.delete(
+    `/admin/panchangs/${id}/panchang_tithis/${panchangId}`
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+
+  dispatch(dataDispatchToReducer(response, PANCHANG_TITHI_DELETED));
+}
