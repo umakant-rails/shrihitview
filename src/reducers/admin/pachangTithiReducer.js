@@ -21,14 +21,13 @@ const adminPanchangTithiReducer = (state=initialState, action) => {
     //   }
     case PANCHANG_TITHI_CREATED:
       return {
-        ...state,
+        isCreated: true,
         tithi: action.payload.tithi,
         tithis: action.payload.tithis,
         current_month: action.payload.current_month,
       }
     case NAVIGATE_MONTH:
       return {
-        ...state,
         panchang: action.payload.panchang,
         tithis: action.payload.tithis,
         tithi: action.payload.tithi,
