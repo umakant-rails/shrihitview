@@ -12,13 +12,13 @@ const initialState = {panchangList: []};
 
 const adminPanchangTithiReducer = (state=initialState, action) => {
   switch (action.type) {
-    case PANCHANG_TITHI_NEW:
-      return {
-        ...state,
-        panchang: action.payload.panchang,
-        tithis: action.payload.tithis,
-        current_month: action.payload.current_month,
-      }
+    // case PANCHANG_TITHI_NEW:
+    //   console.log(action.payload)
+    //   return {
+    //     ...state,
+    //     tithi: action.payload.last_tithi,
+    //     current_month: action.payload.month,
+    //   }
     case PANCHANG_TITHI_CREATED:
       return {
         ...state,
@@ -31,6 +31,7 @@ const adminPanchangTithiReducer = (state=initialState, action) => {
         ...state,
         panchang: action.payload.panchang,
         tithis: action.payload.tithis,
+        tithi: action.payload.tithi,
         current_month: action.payload.current_month,
       }
     case PANCHANG_TITHI_EDITING_DATA:

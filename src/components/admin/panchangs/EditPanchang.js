@@ -9,7 +9,7 @@ const EditPanchang = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [formValues, setFormValues] = useState({});
-  const { panchang } = useSelector( state => state.adminPanchang);
+  const { panchang, updatedPanchang } = useSelector( state => state.adminPanchang);
   
   useEffect( () => {
     dispatch(getPanchang(id));
@@ -25,7 +25,8 @@ const EditPanchang = () => {
         panchang_type: panchang.panchang_type
       }));
     }
-  }, [panchang])
+    if(updatedPanchang){ window.location='/admin/panchangs'}
+  }, [panchang, updatedPanchang])
 
   const onInputChange = event => {
     const { name, value } = event.target;

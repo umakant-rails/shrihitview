@@ -4,7 +4,7 @@ import { PAKSH, TITHIS } from '../../../utils/types';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
-import { getEditingData, updatePanchangTithi } from '../../../actions/admin/admin_panchang_tithis';
+import { deletePanchangTithi, getEditingData, updatePanchangTithi } from '../../../actions/admin/admin_panchang_tithis';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Datepicker from 'flowbite-datepicker/Datepicker';
 import { toast } from 'react-toastify';
@@ -80,6 +80,9 @@ const EditTithi = () => {
     }
   }
 
+  const onInputChange = (e) => {
+    console.log(e.target.value)
+  }
   const selectBoxUpdate = event => {
     const monthName = event.nativeEvent.target[event.target.selectedIndex].text
 
@@ -108,10 +111,10 @@ const EditTithi = () => {
     }
   }
 
-  const deleteTithi = (panchangId, tithiId) => {
+  const deleteTithi = (panchangId, tithiId) => {  
     const isTrue = window.confirm("Are you sure you want to delete this record ?");
     if(isTrue){
-      dispatch(updatePanchangTithi(panchangObj.id, selectedTithi.id));
+      dispatch(deletePanchangTithi(panchangId, tithiId));
     }
   }
 
@@ -240,7 +243,7 @@ const EditTithi = () => {
                     focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
                     dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
                     dark:focus:border-blue-500`} placeholder="Select date"
-                    value={formValues.date || ''} />
+                    value={formValues.date || ''} onChange={onInputChange } />
                 </div>
               </div>
               <div className="mb-2">

@@ -4,7 +4,7 @@ import { PAKSH, TITHIS } from '../../../utils/types';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
-import { createPanchangTithi, navigateMonth} from '../../../actions/admin/admin_panchang_tithis';
+import { createPanchangTithi, navigateMonth, newPanchangTithi} from '../../../actions/admin/admin_panchang_tithis';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
 //https://tailwindcomponents.com/component/calendar-4
@@ -16,9 +16,12 @@ const tithiObj = {
   description: '', 
   title: '', 
   year: '',
+  hindi_month_id: '',
   month: '',
-  hindi_month_id: ''
+  activeTithi: ''
 }
+let month = null;
+
 const AddTithi = () => {
   const dispatch = useDispatch();
   const [currentDate, setCurrentDate] = useState(moment().clone());
@@ -26,10 +29,7 @@ const AddTithi = () => {
   const [endDateOfMonth,setEndDateOfMonth] = useState();
   const [monthDateArr, setMonthDateArr] = useState([]);
 
-  //const [activeMonth, setActiveMonth] = useState();
   const [panchangObj, setPanchangObj] = useState();
-  const [activeDate, setActiveDate] = useState([]);
-  const [activeTithi, setActiveTithi] = useState();
   const [tithisHash, setTithisHash] = useState({});
   const [formValues, setFormValues] = useState(tithiObj);
 
@@ -37,20 +37,40 @@ const AddTithi = () => {
 	const { panchang, current_month, tithis, tithi } = useSelector( state => state.adminPTithi);
 
   useEffect( () => {
-    currentDate.subtract(1, "month"); nextMonth();
-  }, [dispatch, currentDate]);
+
+    dispatch(newPanchangTithi(id)).then(response => {
+      const tithi = response.data.last_tithi;
+      month = response.data.month;
+      let lastDate = tithi ? moment(tithi.date).clone() : moment.clone();
+      lastDate.add(1, "days")
+      setCurrentDate(lastDate);
+      selectDate(lastDate);
+      nextTithi(tithi.paksh, tithi.tithi);
+      createDateArr(lastDate);
+    }).catch( error => error.response);
+
+  }, []);
 
   useEffect( () => { 
     if(panchang) setPanchangObj(panchang);
     if(tithis) createTithisHash(tithis);
-    if(tithi && (dateFormat(tithi.date) === dateFormat(endDateOfMonth)) ){
-      nextMonth();
-    }
+
     if(current_month){
+      month = current_month;
       setFormValues(formValues => ({
         ...formValues, hindi_month_id: current_month.id, month: current_month.name
       }));
     }
+
+    if(tithi){
+      if (dateFormat(tithi.date) === dateFormat(endDateOfMonth)) {
+        nextMonth(); 
+      }
+      const nextDate = moment(tithi.date).clone().add(1, "days");
+      selectDate(nextDate);
+      nextTithi(tithi.paksh, tithi.tithi);
+    }
+    
   }, [panchang, current_month, tithis, tithi, endDateOfMonth]);
 
   const createTithisHash = (tithis) => {
@@ -63,28 +83,36 @@ const AddTithi = () => {
   }
 
   const selectDate = (date) => {
-    if(date.format('DD/MM/YYYY') === activeDate){
+    if(date.format('DD/MM/YYYY') === formValues.date){
       setFormValues(formValues => ({...formValues, date: '', year: ''}));
-      setActiveDate('');
     } else{
       setFormValues(formValues => ({
         ...formValues, date: date.format('DD/MM/YYYY'), year: date.format('YYYY')
       }));
-      setActiveDate(date.format('DD/MM/YYYY'));
     }
   }
 
-  const selectTithi = (tithi, paksh) => {
-    if(`${paksh}-${tithi}` === activeTithi){
-      setFormValues(formValues => ({...formValues, tithi: '', paksh: '', title: ''}));
-      setActiveTithi('');
+  const nextTithi = (paksh, tithi) => {
+    console.log(paksh, tithi)
+    if(tithi === 15 && PAKSH[1] === paksh){ 
+      paksh = PAKSH[0];
+    } else if (tithi === 15 && PAKSH[0] === paksh) {
+      paksh = PAKSH[1];
+    }
+    tithi = (tithi === 15) ? tithi%14 : tithi+1;
+    console.log(paksh, tithi, PAKSH[1])
+    selectTithi(paksh, tithi);
+  }   
+
+  const selectTithi = (paksh, tithi) => {
+    if(`${paksh}-${tithi}` === formValues.activeTithi){
+      setFormValues(formValues => ({...formValues, tithi: '', paksh: '', title: '', activeTithi: ''}));
     } else {
-      let titleTemp = `${formValues.month}, ${paksh}-${tithi}`;
+      let titleTemp = `${month.name}, ${paksh}-${tithi}`;
       setFormValues(formValues => ({
         ...formValues, tithi: tithi, paksh: paksh, 
-        title: titleTemp
+        title: titleTemp, activeTithi: `${paksh}-${tithi}`
       }));
-      setActiveTithi(`${paksh}-${tithi}`);
     }
   }
 
@@ -95,9 +123,9 @@ const AddTithi = () => {
     const firstDate = newDate.clone().startOf('month').startOf('week');
     const lastDate = newDate.clone().endOf('month').endOf('week')
     let arr = [];
+
     while(lastDate >= firstDate ){
-      arr.push(firstDate.clone());
-      firstDate.add(1, "days");
+      arr.push(firstDate.clone()); firstDate.add(1, "days");  
     }
     dispatch(navigateMonth(id, newDate));
 		setMonthDateArr(arr);
@@ -105,7 +133,11 @@ const AddTithi = () => {
 
 	const currentMonth = () => { setCurrentDate(moment().clone()); createDateArr(moment().clone()); }
 	const nextMonth = () => { currentDate.add(1, "month"); createDateArr(currentDate); }
-	const prevMonth = () => { currentDate.subtract(1, "month"); createDateArr(currentDate); }
+	const prevMonth = () => { 
+    currentDate.subtract(1, "month");
+    console.log(currentDate) 
+    createDateArr(currentDate); 
+  } 
 
   const onsubmit = (e) => {
     e.preventDefault();
@@ -115,10 +147,11 @@ const AddTithi = () => {
 	return (
 		<div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5 pb-8'>
-        <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
+        <div className={`bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 
+          shadow-xl mb-3 font-bold`}>
           पंचांग तिथि फॉर्म
         </div>
-        <div className='flex justify-end'>
+        <div className='flex justify-end mb-3'>
           {
             panchangObj && <Link to={`/admin/panchangs/${panchangObj.id}/edit_tithis`} 
               className="px-4 py-1 bg-blue-600 text-white rounded">
@@ -126,7 +159,7 @@ const AddTithi = () => {
             </Link>
           }
         </div>
-        <div className='grid grid-cols-12 gap-5 mb-5'>
+        <div className='grid grid-cols-12 gap-5 mb-5 border-t shadow-xl'>
           <div className='col-span-7'>
             <header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
               <h1 className="text-xl font-semibold leading-6 text-gray-900">
@@ -209,7 +242,7 @@ const AddTithi = () => {
                         <button key={index} type="button" onClick={e => selectDate(date)}
                           className={`flex min-h-20 flex-col bg-white px-1 py-2 text-blue-700 
                           hover:bg-gray-100 focus:z-10
-                          ${activeDate === `${date.format('DD/MM/YYYY')}` ? '!bg-rose-400' :''}`}>
+                          ${formValues.date === `${date.format('DD/MM/YYYY')}` ? '!bg-rose-400' :''}`}>
                           <time className={`ml-auto  ${date.format('DD/MM/YYYY') === moment().format('DD/MM/yyyy') && 'text-red-800'}`} dateTime={date.format('DD/DD/YYYY')}>
                             {date.format('DD')} 
                           </time>
@@ -246,10 +279,10 @@ const AddTithi = () => {
                     PAKSH.map( (paksh, index1) => (
                       TITHIS.map( (tithi, index2) => (
                         <button key={`${index1}${index2}`} type="button" 
-                          onClick = {e => selectTithi(tithi, paksh) }
+                          onClick = {e => selectTithi(paksh, tithi) }
                           className={`flex h-20 flex-col px-3 py-2 hover:bg-yellow-600 
                           focus:z-10 ${paksh === PAKSH[0] ? 'bg-gray-600' : 'bg-white' }
-                          ${activeTithi === `${paksh}-${tithi}` ? '!bg-rose-400' :''}`}>
+                          ${formValues.activeTithi === `${paksh}-${tithi}` ? '!bg-rose-400' :''}`}>
                           <time className={`ml-auto ${paksh === PAKSH[0] ? 'text-white' : 'text-gray-900' }`}>
                             {paksh} {tithi}
                           </time>
@@ -294,7 +327,7 @@ const AddTithi = () => {
             <div className='col'>
               <div className="mb-10">
                 <label className="block mb-2 font-medium text-gray-90 font-bold">
-                  दिनांक
+                  विवरण
                 </label>
                 <ReactTransliterate
                   value={formValues.description}

@@ -18,18 +18,8 @@ export const newPanchangTithi = (id) => async dispatch => {
     return response;
   }).catch( error => error.response);
 
-  dispatch(dataDispatchToReducer(response, PANCHANG_TITHI_NEW));
+  return response;
 }
-
-// export const getPanchang = (id) => async dispatch => {
-//   const response = await baseUrl.get(
-//     `/admin/panchangs/${id}`, 
-//   ).then(response => {
-//     return response;
-//   }).catch( error => error.response);
-
-//   dispatch(dataDispatchToReducer(response, PANCHANG_SHOW));
-// }
 
 export const createPanchangTithi = (id, formValues) => async dispatch => {
   const response = await baseUrl.post(
