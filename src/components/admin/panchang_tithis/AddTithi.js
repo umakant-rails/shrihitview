@@ -38,18 +38,18 @@ const AddTithi = () => {
 	const { panchang, current_month, tithis, tithi, isCreated } = useSelector( state => state.adminPTithi);
 
   useEffect( () => {
-
     dispatch(newPanchangTithi(id)).then(response => {
       const tithi = response.data.last_tithi;
       month = response.data.month;
-      let lastDate = tithi ? moment(tithi.date).clone() : moment.clone();
-      lastDate.add(1, "days")
+      let lastDate = tithi ? moment(tithi.date).clone() : moment().clone();
+      if(tithi){
+        lastDate.add(1, "days");
+        nextTithi(tithi.paksh, tithi.tithi);
+      }
       setCurrentDate(lastDate);
       selectDate(lastDate);
-      nextTithi(tithi.paksh, tithi.tithi);
       createDateArr(lastDate);
     }).catch( error => error.response);
-
   }, []);
 
   useEffect( () => { 

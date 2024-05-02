@@ -17,7 +17,8 @@ const PanchangList = () => {
   }, [panchangs]);
 
   const deleteAPanchang = (panchangId) => {
-    dispatch(deletePanchang(panchangId))
+    const isTrue = window.confirm('Are to sure to delete this record ?');
+    if(isTrue) { dispatch(deletePanchang(panchangId)); }
   }
 
   return (

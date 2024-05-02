@@ -27,9 +27,10 @@ const UserPanchangShow = () => {
     let tithiHs1 = {}, tithiHs2 = {};
     tithis.forEach((tithi) => {
       const dt = moment(tithi.date).format('DD/MM/YYYY');
-      // tithiHs1[dt] = (tithiHs1[dt] !== undefined) ? tithiHs1[dt]+","+tithi.paksh+"-"+tithi.tithi : tithi.title;
-      tithiHs1[dt] = (tithiHs1[dt] !== undefined) ? tithiHs1[dt]+","+tithiName(tithi) : tithiName(tithi);
-		  if(tithi.description) {tithiHs2[dt] = tithi.description;}
+      tithiHs1[dt] = (tithiHs1[dt] !== undefined) ? tithiHs1[dt]+","+tithiName(tithi, true) : tithiName(tithi);
+		  if(tithi.description) {
+        tithiHs2[dt] = `<div class='font-bold'>${tithi.title}</div> ${tithi.description}`;
+      }
 		});
     setTithisHash(tithiHs1);
 		setTithisHash2(tithiHs2);
@@ -171,7 +172,7 @@ const UserPanchangShow = () => {
                                 </h3>
                               </div>
                               <div class="px-3 py-2">
-                                  <p>{tithisHash2[date.format('DD/MM/YYYY')]}</p>
+                                {<div dangerouslySetInnerHTML={{__html: tithisHash2[date.format('DD/MM/YYYY')]}} />}
                               </div>
                             </div>
 
