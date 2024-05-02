@@ -37,10 +37,10 @@ const ApplicationLayout = () => {
 
   return (
     <>
-      <div className="navbar mb-32">
+      <div className="navbar mb-24">
         <Navbar />
       </div>
-      <div className="main py-5 mt-24 min-h-[700px] px-10">
+      <div className="main py-5 mt-4 min-h-[700px] px-10">
         <div className='grid grid-flow-row md:grid-cols-12 gap-4'>
           <div className='md:col-start-2 md:col-span-10'>
             {/* <Toaster>

@@ -21,12 +21,13 @@ const AdminLayout = () => {
   const {currentUser} = useContext(AuthContext);
 
   useEffect(() => {
-    initFlowbite();
     dispatch(getUserRole()).then(response =>{
       setUserRole(response.data.role);
     })
-  }, [dispatch, location]);
-  
+  }, [dispatch]);
+
+  useEffect(() => {initFlowbite();}, [location]);
+
   useEffect(()=> {
     if(message !== undefined && type === "error"){
       toast.error(message);
@@ -59,7 +60,8 @@ const AdminLayout = () => {
         </li>
       );
     });
-  };
+  }
+
   return (
     <div>
       <div className="flex h-screen bg-gray-100">

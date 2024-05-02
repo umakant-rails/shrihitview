@@ -1,6 +1,7 @@
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import { PAKSH, TITHIS } from '../../../utils/types';
+import { monthTithis } from '../../../utils/utilityFunctions';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
@@ -58,7 +59,7 @@ const AddTithi = () => {
     if(current_month){
       month = current_month;
       setFormValues(formValues => ({
-        ...formValues, hindi_month_id: current_month.id, month: current_month.name
+        ...formValues, hindi_month_id: current_month.id, month: current_month.name, description: ''
       }));
     }
 
@@ -138,7 +139,6 @@ const AddTithi = () => {
     e.preventDefault();
     dispatch(createPanchangTithi(panchangObj.id, formValues));
   }
-
 	return (
 		<div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5 pb-8'>
@@ -285,6 +285,18 @@ const AddTithi = () => {
                         </button>
                       ))
                     ))
+                    // monthTithis().map( (tithi, index) => 
+                    //   <button key={`${index}`} type="button" 
+                    //     onClick = {e => selectTithi('paksh', 'tithi', true) }
+                    //     className={`flex h-20 flex-col px-3 py-2 hover:bg-yellow-600 
+                    //     focus:z-10 ${tithi.indexOf(PAKSH[0]) >= 0 ? 'bg-gray-600' : 'bg-white' }
+                    //     ${formValues.activeTithi === `${'paksh'}-${'tithi'}` ? '!bg-rose-400' :''}`}>
+                    //     <time className={`ml-auto ${tithi.indexOf(PAKSH[0]) >= 0 ? 'text-white' : 'text-gray-900' }`}>
+                    //       {tithi}
+                    //     </time>
+                    //     <span className="sr-only">0 events</span>
+                    //   </button>
+                    // )
                   }
                 </div>
               </div>

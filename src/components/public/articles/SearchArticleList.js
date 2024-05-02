@@ -97,12 +97,12 @@ const SearchArticleList = ({setSearchAppliedState}) => {
         searchArticles.length > 0 && searchArticles.map((article, index) =>
           <div key={index} className='grid lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
             <div className='lg:col-span-4 md:col-span-full'>
-              <Link to={`/articles/${article.id}`} >
+              <Link to={`/pb/articles/${article.hindi_title}`} >
                 <img src={shrihit} alt="shit-hit" className='border h-54 border-violet-400'/>
               </Link>
             </div>
             <div className='lg:col-span-8 md:col-span-full'>
-              <Link to={`/articles/${article.id}`} key={index}>
+              <Link to={`/pb/articles/${article.hindi_title}`} key={index}>
                 <div className='text-2xl px-2 text-amber-600 font-bold'>
                   {article.hindi_title}
                 </div>
