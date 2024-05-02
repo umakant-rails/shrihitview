@@ -263,3 +263,7 @@ export const PB_CONTEXT_SHOW = "PB_CONTEXT_SHOW";
 
 export const PB_TAG_LIST = "TAG_LIST";
 export const PB_TAG_SHOW = "TAG_SHOW";
+
+export const PB_PANCHANG_LIST = "PB_PANCHANG_LIST";
+export const PB_PANCHANG_SHOW = "PB_PANCHANG_SHOW";
+export const PB_NAVIGATE_MONTH = "PB_NAVIGATE_MONTH";

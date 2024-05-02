@@ -75,6 +75,8 @@ import EditPanchang from "../components/admin/panchangs/EditPanchang";
 import EditTithi from "../components/admin/panchang_tithis/EditTithi";
 import UserPanchangShow from "../components/user/panchangs/UserPanchangShow";
 import UserPanchangList from "../components/user/panchangs/UserPanchangList";
+import PBPanchangList from "../components/public/panchangs/PBPanchangList";
+import PBPanchangShow from "../components/public/panchangs/PBPanchangShow";
 
 
 // const router = createBrowserRouter([
@@ -117,6 +119,9 @@ const router = createBrowserRouter(
         <Route path="/pb/contexts/:name" element={<PBContextShow />} />
         <Route path="/pb/tags" element={<PBTagList />} />
         <Route path="/pb/tags/:name" element={<PBTagShow />} />
+
+        <Route path="/pb/panchangs" element={<PBPanchangList />} />
+        <Route path="/pb/panchangs/:id" element={<PBPanchangShow/>} />
 
         <Route path="*" element={<ErrorPage />} />
       </Route>

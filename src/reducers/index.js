@@ -31,6 +31,7 @@ import adminAuthorReducer from "./admin/authorReducer";
 import adminTagReducer from "./admin/tagReducer";
 import adminPanchangReducer from "./admin/panchangReducer";
 import adminPanchangTithiReducer from "./admin/pachangTithiReducer";
+import panchangReducer from "./public/panchangReducer";
 
 export default combineReducers({
     home: homeReducer,
@@ -44,6 +45,7 @@ export default combineReducers({
     articleType: articleTypeReducer,
     context: contextReducer,
     tag: tagReducer,
+    panchang: panchangReducer,
     
     userArticle: userArticleReducer,
     userComment: userCommentReducer,
