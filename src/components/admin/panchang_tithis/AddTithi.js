@@ -108,7 +108,7 @@ const AddTithi = () => {
     if(actionType && `${paksh}-${tithi}` === formValues.activeTithi){
       setFormValues(formValues => ({...formValues, tithi: '', paksh: '', title: '', activeTithi: ''}));
     } else {
-      let titleTemp = `${month.name}, ${paksh}-${tithi}`;
+      let titleTemp = month ? `${month.name}, ${paksh}-${tithi}` : null;
       setFormValues(formValues => ({
         ...formValues, tithi: tithi, paksh: paksh, 
         title: titleTemp, activeTithi: `${paksh}-${tithi}`
