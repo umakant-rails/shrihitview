@@ -1,7 +1,6 @@
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import { PAKSH, TITHIS } from '../../../utils/types';
-import { monthTithis } from '../../../utils/utilityFunctions';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
@@ -79,8 +78,14 @@ const AddTithi = () => {
     let tithiHs1 = {};
     tithis.forEach((tithi) => {
       const dt = moment(tithi.date).format('DD/MM/YYYY');
-       tithiHs1[dt] = (tithiHs1[dt] !== undefined) ? tithiHs1[dt]+","+tithi.paksh+"-"+tithi.tithi : tithi.title;
-     });
+      if(tithiHs1[dt] !== undefined && tithiHs1[dt].split(",")[0] !== tithi.title.split(",")[0]){
+        tithiHs1[dt] = tithiHs1[dt]+","+tithi.title
+      } else if (tithiHs1[dt] !== undefined){
+        tithiHs1[dt] = tithiHs1[dt]+","+tithi.paksh+"-"+tithi.tithi;
+      } else{
+        tithiHs1[dt] = tithi.title;
+      }
+    });
     setTithisHash(tithiHs1);
   }
 

@@ -1,5 +1,4 @@
 import moment from "moment/moment";
-import { PAKSH, TITHIS } from "./types";
 
 export const dateFormat = (dateStr, withTime) => { 
   if(withTime){
