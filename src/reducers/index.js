@@ -11,6 +11,8 @@ import strotumReducer from "./public/strotumReducer";
 import articleTypeReducer from "./public/articleTypeReducer";
 import contextReducer from "./public/contextReducer";
 import tagReducer from "./public/tagReducer";
+import panchangReducer from "./public/panchangReducer";
+import suggestionReducer from "./public/suggestionReducer";
 
 import userArticleReducer from "./user/articleReducer";
 import userCommentReducer from "./user/commentReducer";
@@ -31,7 +33,7 @@ import adminAuthorReducer from "./admin/authorReducer";
 import adminTagReducer from "./admin/tagReducer";
 import adminPanchangReducer from "./admin/panchangReducer";
 import adminPanchangTithiReducer from "./admin/pachangTithiReducer";
-import panchangReducer from "./public/panchangReducer";
+
 
 export default combineReducers({
     home: homeReducer,
@@ -46,6 +48,7 @@ export default combineReducers({
     context: contextReducer,
     tag: tagReducer,
     panchang: panchangReducer,
+    suggestion: suggestionReducer,
     
     userArticle: userArticleReducer,
     userComment: userCommentReducer,

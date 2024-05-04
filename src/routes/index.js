@@ -77,6 +77,9 @@ import UserPanchangShow from "../components/user/panchangs/UserPanchangShow";
 import UserPanchangList from "../components/user/panchangs/UserPanchangList";
 import PBPanchangList from "../components/public/panchangs/PBPanchangList";
 import PBPanchangShow from "../components/public/panchangs/PBPanchangShow";
+import PBSuggestionList from "../components/public/suggestions/PBSuggestionList";
+import PBSuggestionShow from "../components/public/suggestions/PBSuggestionShow";
+import PBAddSuggestion from "../components/public/suggestions/PBAddSuggestion";
 
 
 // const router = createBrowserRouter([
@@ -122,6 +125,10 @@ const router = createBrowserRouter(
 
         <Route path="/pb/panchangs" element={<PBPanchangList />} />
         <Route path="/pb/panchangs/:id" element={<PBPanchangShow/>} />
+
+        <Route path="/pb/suggestions" element={<PBSuggestionList/>} />
+        <Route path="/pb/suggestions/new" element={<PBAddSuggestion/>} />
+        <Route path="/pb/suggestions/:id" element={<PBSuggestionShow/>} />
 
         <Route path="*" element={<ErrorPage />} />
       </Route>
