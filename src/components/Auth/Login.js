@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 //import toast from 'react-hot-toast';
 // import { toast } from 'react-toastify';
 import shricharan from "../../assets/images/shricharan.png";
-import { userLogin } from '../../actions/auth';
+import { getCurrentUser, userLogin } from '../../actions/auth';
 import { AuthContext } from '../../services/AuthContext';
 import { ADMIN_ROLE } from '../../utils/types';
 
@@ -15,6 +15,14 @@ const Login = () => {
   const [formValues, setFormValues] = useState(loginCredential);
   const {setCurrentUser} = useContext(AuthContext);
  
+  useEffect( () => {
+    dispatch(getCurrentUser()).then(response => {
+      if(response.data.current_user){
+        navigate(-1);
+      }
+    }).catch( error => error.response);
+  }, []);
+
   const onInputChange = (event) => {
     const {name, value} = event.target;
     setFormValues({...formValues, [name]: value});
@@ -26,9 +34,9 @@ const Login = () => {
     const response = dispatch(userLogin(formValues));
     response.then( data => {
       const user = data.user;
-      const role = data.role_id;
+      const role = data.role;
       if(user){ setCurrentUser(user);}
-      if(ADMIN_ROLE.indexOf(role) >= 0){
+      if(ADMIN_ROLE.indexOf(role) >= 0) {
         navigate("/admin/dashboard");
       } else {
         navigate('/articles');

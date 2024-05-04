@@ -62,3 +62,7 @@ export const getUserRole = (user_id) => async dispatch => {
   }).catch( error => error.response);
   return response;
 }
+
+export const getCurrentUser = () => async dispatch => {
+  return await baseUrl.get('/current_user');
+}

@@ -2,6 +2,8 @@ export const ADMIN_ROLE = [1,2];
 export const PANCHANG_TYPES = ['राधावल्लभ संप्रदाय']
 export const PAKSH = ['कृष्ण पक्ष','शुक्ळ पक्ष'];
 export const TITHIS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+export const ENG_MONTH = ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितम्बर', 'अक्टूबर', 'नवम्बर', 'दिसम्बर'];
+export const 	ENG_MONTH_SHORT = ['जन', 'फर', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अग', 'सित', 'अक्टू', 'नव', 'दिस'];
 export const TAB_LIST = [
   {url: '/pb/articles', label: 'रचनाये'}, {url: '/pb/authors', label:'रचनाकार/लेखक'}, 
   {url: '/pb/authors/sants', label: 'संत जीवनी'}, {url: '/pb/scriptures', label:'रसिक वाणी/ग्रन्थ'}, 
