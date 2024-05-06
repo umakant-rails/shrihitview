@@ -31,7 +31,6 @@ const Comment = ({article}) => {
     }
   }
   const editOrReplyComment = () => {
-    console.log('called', formValues2.action_type)
     if(formValues2.comment){
       if(formValues2.action_type === 'edit'){
         dispatch(updateComment(article, formValues2));

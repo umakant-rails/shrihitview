@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactTransliterate } from 'react-transliterate';
 import { createSuggestion } from '../../../actions/public/suggestions';
 import { Editor } from 'primereact/editor';
 
 const suggestionObj = {
   title: '', 
   description: '', 
-  paksh: '', 
-  description: '', 
+  paksh: '',  
   email: '', 
   username: '',
 }
-let month = null;
-
 const PBAddSuggestion = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [formValues, setFormValues] = useState(suggestionObj);
 	const { suggestion } = useSelector( state => state.suggestion);
 

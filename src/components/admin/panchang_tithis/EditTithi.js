@@ -81,8 +81,9 @@ const EditTithi = () => {
   }
 
   const onInputChange = (e) => {
-    console.log(e.target.value)
+    
   }
+
   const selectBoxUpdate = event => {
     const monthName = event.nativeEvent.target[event.target.selectedIndex].text
 

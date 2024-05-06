@@ -12,10 +12,9 @@ const PBSuggestionShow = () => {
   
   useEffect( () => {
     dispatch(getSuggestion(id));
-  }, []);
+  }, [dispatch, id ]);
 
   useEffect( () => {
-    console.log(suggestion)
     setSuggestionObj(suggestion);
   }, [suggestion]);
   

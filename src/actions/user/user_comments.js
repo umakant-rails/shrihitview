@@ -17,7 +17,6 @@ export const createComment = (article, form) => async dispatch => {
 }
 
 export const updateComment = (article, form) => async dispatch => {
-  console.log('update process start')
   const response = await baseUrl.put(
     `/articles/${article.id}/comments/${form.parent_id}`, {comment: form}
   ).then(response => {

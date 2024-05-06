@@ -55,7 +55,9 @@ const AdminSideBar = () => {
                     <button type="button" aria-controls={`dropdown-${activity.label}`} 
                       data-collapse-toggle={`dropdown-${activity.label}`}
                       onClick={e => updateExpandTab(`dropdown-${activity.label}`)}
-                      className="flex items-center p-3 w-full text-base font-normal text-gray-400 rounded-lg transition duration-75 group hover:text-violet-400 dark:text-white dark:hover:bg-gray-600" >
+                      className={`flex items-center p-3 w-full text-base font-normal text-gray-400 rounded-lg 
+                        transition duration-75 group hover:text-violet-400 dark:text-white 
+                        dark:hover:bg-gray-600`} >
                       {<svg className='h-6 w-6' dangerouslySetInnerHTML={{__html: activity.icon ? activity.icon : DEFAULT_ICON}} />}
                       <span className="flex-1 ml-3 text-left whitespace-nowrap">{activity.label}</span>
                       {getExpandIcon(`dropdown-${activity.label}`)}

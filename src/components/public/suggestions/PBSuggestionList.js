@@ -16,7 +16,7 @@ const PBSuggestionList = () => {
   
   useEffect( () => {
     dispatch(getSuggestions(currentPage));
-  }, [dispatch]);
+  }, [dispatch, currentPage]);
 
   useEffect( () => {
     if(suggestions){
