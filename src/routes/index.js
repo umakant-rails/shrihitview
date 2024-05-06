@@ -80,6 +80,10 @@ import PBPanchangShow from "../components/public/panchangs/PBPanchangShow";
 import PBSuggestionList from "../components/public/suggestions/PBSuggestionList";
 import PBSuggestionShow from "../components/public/suggestions/PBSuggestionShow";
 import PBAddSuggestion from "../components/public/suggestions/PBAddSuggestion";
+import UserSuggestionList from "../components/user/suggestions/UserSuggestionList";
+import UserSuggestionShow from "../components/user/suggestions/UserSuggestionShow";
+import UserAddSuggestion from "../components/user/suggestions/UserAddSuggestion";
+import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestion";
 
 
 // const router = createBrowserRouter([
@@ -185,6 +189,10 @@ const router = createBrowserRouter(
         <Route path="/users/panchangs" element={<ProtectedRoutes><UserPanchangList /></ProtectedRoutes>} />
         <Route path="/users/panchangs/:id" element={<ProtectedRoutes><UserPanchangShow/></ProtectedRoutes>} />
 
+        <Route path="/users/suggestions" element={<ProtectedRoutes><UserSuggestionList/></ProtectedRoutes>} />
+        <Route path="/users/suggestions/new" element={<ProtectedRoutes><UserAddSuggestion/></ProtectedRoutes>} />
+        <Route path="/users/suggestions/:id" element={<ProtectedRoutes><UserSuggestionShow/></ProtectedRoutes>} />
+        <Route path="/users/suggestions/:id/edit" element={<ProtectedRoutes><UserEditSuggestion/></ProtectedRoutes>} />
       </Route>
     </Route>
   )

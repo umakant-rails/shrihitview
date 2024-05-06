@@ -19,6 +19,7 @@ import userCommentReducer from "./user/commentReducer";
 import userAuthorReducer from "./user/authorReducer";
 import userTagReducer from "./user/tagReducer";
 import userStoryReducer from "./user/storyReducer";
+import userSuggestionReducer from "./user/suggestionReducer";
 
 import adminContextReducer from "./admin/contextReducer";
 import adminArticleTypeReducer from "./admin/articleTypeReducer";
@@ -33,7 +34,6 @@ import adminAuthorReducer from "./admin/authorReducer";
 import adminTagReducer from "./admin/tagReducer";
 import adminPanchangReducer from "./admin/panchangReducer";
 import adminPanchangTithiReducer from "./admin/pachangTithiReducer";
-
 
 export default combineReducers({
     home: homeReducer,
@@ -55,6 +55,7 @@ export default combineReducers({
     userAuthor: userAuthorReducer,
     userTag: userTagReducer,
     userStory: userStoryReducer,
+    userSuggestion: userSuggestionReducer,
     
     adminArticle: adminArticleReducer,
     adminAuthor: adminAuthorReducer,

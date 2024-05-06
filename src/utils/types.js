@@ -51,7 +51,7 @@ export const USER_ACTIVITIES = [
     </svg>`
   },
   {
-    url: '#', label: 'सुझाव', childs: [], icon: `<svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    url: '/users/suggestions', label: 'सुझाव', childs: [], icon: `<svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 5V4c0-.6-.4-1-1-1H9a1 1 0 0 0-.8.3l-4 4a1 1 0 0 0-.2.6V20c0 .6.4 1 1 1h12c.6 0 1-.4 1-1v-5M9 3v4c0 .6-.4 1-1 1H4m11.4.8 2.7 2.7m1.2-3.9a2 2 0 0 1 0 3l-6.6 6.6L9 18l.7-3.7 6.7-6.7a2 2 0 0 1 3 0Z"/>
     </svg>`
   },
@@ -238,6 +238,12 @@ export const PANCHANG_TITHI_UPDATED = "PANCHANG_TITHI_UPDATED";
 export const PANCHANG_TITHI_DELETED = "PANCHANG_TITHI_DELETED";
 export const NAVIGATE_MONTH = "NAVIGATE_MONTH";
 
+export const SUGGESTION_LIST = "SUGGESTION_LIST";
+export const SUGGESTION_SHOW = "SUGGESTION_SHOW";
+export const SUGGESTION_CREATED = "SUGGESTION_CREATED";
+export const SUGGESTION_EDIT = "SUGGESTION_EDIT";
+export const SUGGESTION_UPDATED = "SUGGESTION_UPDATED";
+export const SUGGESTION_DELETED = "SUGGESTION_DELETED";
 /* public namespace constant */
 export const PB_ARTICLE_LIST = "PB_ARTICLE_LIST";
 export const PB_ARTICLE_BY_PAGE = "PB_ARTICLE_BY_PAGE";
