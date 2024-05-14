@@ -19,7 +19,7 @@ const authReducer = (state=stateObj, action) => {
       };
     case USER_REGISTRATION:
       return { 
-        isRegistered: true,
+        isRegistered: action.payload.user,
       }
     case PASSWORD_UPDATED:
       return {
