@@ -2,8 +2,11 @@ import baseUrl from "../services/AxiosService";
 import {
   USER_REGISTRATION,
   ERROR_HANDLING,
-  PASSWORD_UPDATED,
-  SET_MESSAGE
+  SET_MESSAGE,
+  PASSWORD_TOKEN_SENT,
+  PASSWORD_TOKEN_VARIFIED,
+  PASSWORD_UPDATED_BY_TOKEN,
+  USER_ACCOUNT_CONFIRMED,
 } from "../utils/types";
 import dataDispatchToReducer from "./shared_action";
 
@@ -11,7 +14,7 @@ export const userRegister = (formValues) => async dispatch => {
   formValues['role_id'] = 3;
   
   const response = await baseUrl.post(
-    '/signup', 
+    '/users/signup', 
     {user: formValues}
   ).then(response => {
     return response;
@@ -21,7 +24,7 @@ export const userRegister = (formValues) => async dispatch => {
 
 export const userLogin = (formValues) => async dispatch => {
   const response = await baseUrl.post(
-    '/login', 
+    '/users/login', 
     {user: formValues}, {}
   ).then( response => {
     return response;
@@ -34,7 +37,7 @@ export const userLogin = (formValues) => async dispatch => {
       localStorage.setItem("token", response.headers.authorization);
       localStorage.setItem("currentUser", JSON.stringify(response.data.user));
 
-      dispatch({ type: SET_MESSAGE, msg_type: "success", payload: response.data.status.message});
+      dispatch({type: SET_MESSAGE, msg_type: "success", payload: response.data.status.message});
       return response.data;
     } else {
       dispatch({type: SET_MESSAGE, msg_type: "error", payload: response.data.error.join("\n")});
@@ -46,12 +49,39 @@ export const userLogin = (formValues) => async dispatch => {
 
 export const updatePassword = (formValues) => async dispatch => {
   const response = await baseUrl.put(
-    '/users/passwords/update', 
+    '/users/password', 
     {user: formValues}
   ).then(response => {
     return response;
   }).catch( error => error.response);
-  dispatch(dataDispatchToReducer(response, PASSWORD_UPDATED));
+  dispatch(dataDispatchToReducer(response, PASSWORD_UPDATED_BY_TOKEN));
+}
+
+export const updatePasswordByToken = (formValues) => async dispatch => {
+  const response = await baseUrl.put(
+    '/users/password', {user: formValues},
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+  dispatch(dataDispatchToReducer(response, PASSWORD_UPDATED_BY_TOKEN));
+}
+
+export const sendPasswordToken = (formValues) => async dispatch => {
+  const response = await baseUrl.post(
+    '/users/password', {user: formValues},
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+  dispatch(dataDispatchToReducer(response, PASSWORD_TOKEN_SENT));
+}
+
+export const confirmUserAccount = (token) => async dispatch => {
+  const response = await baseUrl.get(
+    `/users/confirmation?confirmation_token=${token}`,
+  ).then(response => {
+    return response;
+  }).catch( error => error.response);
+  dispatch(dataDispatchToReducer(response, USER_ACCOUNT_CONFIRMED));
 }
 
 export const getUserRole = (user_id) => async dispatch => {

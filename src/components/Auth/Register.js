@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import shricharan from "../../assets/images/shricharan.png";
 import { useDispatch,useSelector } from 'react-redux';
 //import  toast  from 'react-hot-toast';
 import { toast } from 'react-toastify';
 import { userRegister } from '../../actions/auth';
 
-
 // https://merakiui.com/components
 // flowbite css
 const userObj = {email:'', username: '', password: '', confirm_password: ''};
 const Register = () => {
   const dispatch = useDispatch();
-  //const navigate = useNavigate();
   const [formValues, setFormValues] = useState(userObj);
-  //const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  const {isRegistered} = useSelector( (state) => state.auth);
+  const {registeredUser} = useSelector( (state) => state.auth);
   
   useEffect(() => {
-    if(isRegistered){
+    if(registeredUser){
       setFormValues(userObj);
       //navigate("/users/login");
     }
-  }, [isRegistered, userObj]);
+  }, [registeredUser, userObj]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;
@@ -74,7 +70,6 @@ const Register = () => {
         errorMsgs.push(value);
       }
       toast.error(errorMsgs.join("\n"))
-      setIsSubmit(false);
     }
   }
 

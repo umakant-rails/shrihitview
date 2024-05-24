@@ -21,7 +21,7 @@ const Login = () => {
         navigate(-1);
       }
     }).catch( error => error.response);
-  }, []);
+  }, [dispatch, navigate]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;
@@ -85,8 +85,11 @@ const Login = () => {
             </div>
           </form>
           <hr/>
+          <div className='border-b py-3 border-gray-300 text-blue-500'>
+            <Link to="/users/password/forget">Forgotten Password</Link>
+          </div>
           <div className='py-2 text-md'>
-          If you are not registered? Please Registered <Link key={'login'} to="/users/register" className='text-blue-500'>here</Link>.
+            If you are not registered? Please Registered <Link key={'login'} to="/users/register" className='text-blue-500'>here</Link>.
           </div>
         </div>
       </div>

@@ -84,6 +84,9 @@ import UserSuggestionList from "../components/user/suggestions/UserSuggestionLis
 import UserSuggestionShow from "../components/user/suggestions/UserSuggestionShow";
 import UserAddSuggestion from "../components/user/suggestions/UserAddSuggestion";
 import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestion";
+import ForgetPassword from "../components/Auth/ForgetPassword";
+import ResetPassword from "../components/Auth/ResetPassword";
+import UserAccountConfirmed from "../components/Auth/UserAccountConfirmed";
 
 
 // const router = createBrowserRouter([
@@ -100,7 +103,10 @@ const router = createBrowserRouter(
         <Route path="/users/register" element={<Register />} />
         <Route path="/users/login" element={<Login />} />
         <Route path="/users/logout" element={<Logout />} />
+        <Route path="/users/password/forget" element={<ForgetPassword />} />
         <Route path="/users/unauthrized" element={<UnAuthenticate />} />
+        <Route path="/users/password/edit" element={<ResetPassword />} />
+        <Route path="/users/confirmation" element={<UserAccountConfirmed /> } />
 
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/pb/articles" element={<PBArticleList />} />
