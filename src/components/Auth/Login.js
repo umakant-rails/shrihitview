@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 //import toast from 'react-hot-toast';
 // import { toast } from 'react-toastify';
 import shricharan from "../../assets/images/shricharan.png";
-import { getCurrentUser, userLogin } from '../../actions/auth';
+// import { getCurrentUser, userLogin } from '../../actions/auth';
+import { getCurrentUser, userLogin } from '../../slices/authSlice';
 import { AuthContext } from '../../services/AuthContext';
 import { ADMIN_ROLE } from '../../utils/types';
 

@@ -4,8 +4,9 @@ import axios from "axios";
 const AxiosObj =  axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json;charset=utf-8',
   },
+  // paramsSerializer: (params) => JSON.stringify(params),
 });
 
 AxiosObj.interceptors.request.use(function (config) {

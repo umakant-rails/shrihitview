@@ -9,7 +9,7 @@ import {
   USER_ACCOUNT_CONFIRMED
 } from "../utils/types";
 
-const stateObj = {currentUser: {}};
+const stateObj = {loading: false};
 
 const authReducer = (state=stateObj, action) => {
   switch (action.type) {

@@ -35,11 +35,14 @@ import adminTagReducer from "./admin/tagReducer";
 import adminPanchangReducer from "./admin/panchangReducer";
 import adminPanchangTithiReducer from "./admin/pachangTithiReducer";
 
+import authReducerr from "../slices/authSlice";
+import messageSlice from "../slices/messageSlice";
+
 export default combineReducers({
     home: homeReducer,
     pbArticle: articleReducer,
     auth: authReducer,
-    msg: msgReducer,
+    //msg: msgReducer,
     author: authorReducer,
     scripture: scriptureReducer,
     story: storyReducer,
@@ -69,5 +72,9 @@ export default combineReducers({
     adminCSArticle: adminCSArticleReducer,
     adminDashboard: adminDashboardReducer,
     adminPanchang: adminPanchangReducer,
-    adminPTithi: adminPanchangTithiReducer
+    adminPTithi: adminPanchangTithiReducer,
+
+    counter: counterReducer,
+    authh: authReducerr,
+    msg: messageSlice,
 });
