@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 
-export const getStories = createAsyncThunk(
-  "pbStory/getStories",
+export const getStrota = createAsyncThunk(
+  "pbStrotum/getStrota",
   async (page, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.get(`/pb/stories?page=${page}`);
+      const response = await baseUrl.get(`/pb/strota?page=${page}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -14,11 +14,11 @@ export const getStories = createAsyncThunk(
   }
 );
 
-export const getStory = createAsyncThunk(
-  "pbStory/getStory",
+export const getStrotum = createAsyncThunk(
+  "pbStrotum/getStrotum",
   async (id, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.get(`/pb/stories/${id}`);
+      const response = await baseUrl.get(`/pb/strota/${id}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -29,23 +29,26 @@ export const getStory = createAsyncThunk(
 
 const initialState = {error: "", loading: false};
 
-const storySlice = createSlice({
-  name: "pbStory",
+const strotumSlice = createSlice({
+  name: "pbStrotum",
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-    .addCase(getStories.fulfilled, (state, action) => {
+    .addCase(getStrota.fulfilled, (state, action) => {
       state.loading = false;
-      state.stories = action.payload.stories;
-      state.total_stories = action.payload.total_stories
+      state.strota = action.payload.strota;
+      state.total_strota = action.payload.total_strota;
+      state.strota_types = action.payload.strota_types;
     })
 
-    .addCase(getStory.fulfilled, (state, action) => {
-      state.story = action.payload.story;
+    .addCase(getStrotum.fulfilled, (state, action) => {
+      state.strota = action.payload.strota;
+      state.strotum = action.payload.strotum;
       state.stories = action.payload.stories;
+      state.strotum_articles = action.payload.strotum_articles;
     });
   }  
 });
 
-export default storySlice.reducer;
+export default strotumSlice.reducer;

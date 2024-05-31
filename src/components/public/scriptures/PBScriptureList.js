@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { imageNamefromScrName } from '../../../utils/utilityFunctions';
-import { getScriptures } from '../../../actions/public/scriptures';
+import { getScriptures } from '../../../slices/public/scriptureSlice';
 let images = require.context('../../../assets/images', true);
 
 const PBScriptureList = () => {

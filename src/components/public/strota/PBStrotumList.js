@@ -1,16 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getStrota } from '../../../actions/public/strota';
+import { getStrota } from '../../../slices/public/strotaSlice';
 import shrihit from "../../../assets/images/shrihit.png"
+import { ITEM_PER_PAGE } from '../../../utils/types';
+import Pagination from '../../shared/Pagination';
 
 const PBStrotumList = () => {
   const dispatch = useDispatch();
-  const { strota } = useSelector( state => state.strotum );
+  const [strotumList, setStrotumList] = useState([])
+  const [totalStrota, setTotalStrota] = useState(0);
+  const { strota, total_strota } = useSelector( state => state.strotum );
 
   useEffect( () => {
-    dispatch(getStrota());
+    dispatch(getStrota(1));
   }, [dispatch]);
+
+  useEffect( () => {
+    if(strota){
+      setStrotumList(strota);
+      setTotalStrota(total_strota)
+    }
+  }, [strota, total_strota]);
+
+  const handlePageClick = (event) => {
+    const page = parseInt(event.target.getAttribute('value'));
+    dispatch(getStrota(page));
+  };
 
   return (
     <div className='grid md:grid-cols-12'>
@@ -19,7 +35,7 @@ const PBStrotumList = () => {
           आरती/स्तोत्र सूची
         </div>
         {
-          strota.length > 0 ? strota.map((strotum, index)=>
+          strotumList ? strotumList.map((strotum, index)=>
             <div key={index} className='grid md:grid-cols-12 gap-5 px-4 border-b border-b-gray-500 mb-5 pb-5'>
               <div className='hidden lg:block lg:col-span-4'>
                 <Link to={`/pb/strota/${strotum.title}`} >
@@ -43,6 +59,15 @@ const PBStrotumList = () => {
             </div>
           ) : (<div className='text-center text-xl'>अभी कोई आरती/स्तोत्र उपलब्ध नही है.</div>)
 
+        }
+        {
+          totalStrota &&
+          <Pagination 
+            showWidget={5} 
+            totalItems={totalStrota}
+            itemsPerPage={ITEM_PER_PAGE}
+            pageChangeHandler= {handlePageClick}
+          />
         }
       </div>
     </div>

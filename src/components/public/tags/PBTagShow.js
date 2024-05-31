@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
-import { getTagArticles } from '../../../actions/public/tags';
+import { getTagArticles } from '../../../slices/public/tagSlice';
 
 const PBTagShow = () => {
   const dispatch = useDispatch();

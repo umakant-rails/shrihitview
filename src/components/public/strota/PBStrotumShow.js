@@ -2,12 +2,13 @@ import React, {useEffect} from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStrotum } from '../../../actions/public/strota';
+import { getStrotum } from '../../../slices/public/strotaSlice';
 
 const PBStrotumShow = () => {
   const dispatch = useDispatch();
   const {title} = useParams();
-  let prevArticleType = '';
+  let prevArticleType = ''; 
+
   const { strota, strotum_articles } = useSelector(state => state.strotum);
 
   useEffect( ()=> {
@@ -83,7 +84,7 @@ const PBStrotumShow = () => {
         </div>
         <div className='text-blue-700 text-2xl px-6'>
           {
-            strota.length > 0 ? strota.map( (strotum, index) =>
+            strota ? strota.map( (strotum, index) =>
               <Link key={index} to={`/pb/strota/${strotum.title}`}>{strotum.title}</Link>
             ).reduce((prev, curr) => [prev, ', ', curr]) : null
           }

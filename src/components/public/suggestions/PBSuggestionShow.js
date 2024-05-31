@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSuggestion } from '../../../actions/public/suggestions';
+import { getSuggestion } from '../../../slices/public/suggestionSlice';
 import { dateFormat } from '../../../utils/utilityFunctions';
 
 const PBSuggestionShow = () => {

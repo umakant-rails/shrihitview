@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { getSuggestions } from '../../../actions/public/suggestions';
+import { getSuggestions } from '../../../slices/public/suggestionSlice';
 
 const PBSuggestionList = () => {
   const dispatch = useDispatch();

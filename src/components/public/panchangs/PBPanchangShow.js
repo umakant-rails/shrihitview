@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { initFlowbite } from 'flowbite';
 import { dateFormat, tithiName } from '../../../utils/utilityFunctions';
-import { navigateMonth } from '../../../actions/public/panchangs';
+import { navigateMonth } from '../../../slices/public/panchangSlice';
 import { ENG_MONTH } from '../../../utils/types';
 //https://tailwindcomponents.com/component/calendar-4
 
@@ -50,7 +50,7 @@ const PBPanchangShow = () => {
       firstDate.add(1, "days");
     }
 		setMonthDateArr(arr);
-		dispatch(navigateMonth(id, newDate));
+		dispatch(navigateMonth({id: id, date: newDate}));
 	}
 	const currentMonth = () => { setCurrentDate(moment().clone()); createDateArr(moment().clone()); }
 	const nextMonth = () => { currentDate.add(1, "month"); createDateArr(currentDate); }

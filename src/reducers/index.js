@@ -43,6 +43,11 @@ import articleTypeSlice from "../slices/public/articleTypeSlice";
 import authorSlice from "../slices/public/authorSlice";
 import contextSlice from "../slices/public/contextSlice";
 import storySlice from "../slices/public/storySlice";
+import strotaSlice from "../slices/public/strotaSlice";
+import tagSlice from "../slices/public/tagSlice";
+import scriptureSlice from "../slices/public/scriptureSlice";
+import suggestionSlice from "../slices/public/suggestionSlice";
+import panchangSlice from "../slices/public/panchangSlice";
 
 export default combineReducers({
     // home: homeReducer,
@@ -50,14 +55,14 @@ export default combineReducers({
     //auth: authReducer,
     //msg: msgReducer,
     //author: authorReducer,
-    scripture: scriptureReducer,
+    //scripture: scriptureReducer,
     //story: storyReducer,
-    strotum: strotumReducer,
+    //strotum: strotumReducer,
     //articleType: articleTypeReducer,
     //context: contextReducer,
-    tag: tagReducer,
-    panchang: panchangReducer,
-    suggestion: suggestionReducer,
+    //tag: tagReducer,
+    //panchang: panchangReducer,
+    //suggestion: suggestionReducer,
     
     userArticle: userArticleReducer,
     userComment: userCommentReducer,
@@ -88,4 +93,9 @@ export default combineReducers({
     author: authorSlice,
     context: contextSlice,
     story: storySlice,
+    strotum: strotaSlice,
+    tag: tagSlice,
+    scripture: scriptureSlice,
+    suggestion: suggestionSlice,
+    panchang: panchangSlice
 });
