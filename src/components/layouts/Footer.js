@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import logo from "../../assets/images/hitlalju.png"
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFooterData } from '../../actions/home';
+import { getFooterData } from '../../slices/homeSlice';
 
 const Footer = () => {
   const dispatch = useDispatch();

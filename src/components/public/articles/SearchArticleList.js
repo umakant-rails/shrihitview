@@ -7,7 +7,7 @@ import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Pagination from '../../shared/Pagination';
 import { ITEM_PER_PAGE } from '../../../utils/types';
-import { searchToArticles } from '../../../actions/public/articles';
+import { searchToArticles } from '../../../slices/public/articleSlice';
 
 
 const SearchArticleList = ({setSearchAppliedState}) => {

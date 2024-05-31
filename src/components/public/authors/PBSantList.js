@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getSants } from '../../../actions/public/authors';
+import { getSants } from '../../../slices/public/authorSlice';
 import shrihit from "../../../assets/images/shrihit.png";
 
 const SantList = () => {

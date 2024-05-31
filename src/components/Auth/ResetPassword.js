@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { updatePasswordByToken } from '../../actions/auth';
+// import { updatePasswordByToken } from '../../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { updatePasswordByToken } from '../../slices/authSlice';
 // import { AuthContext } from '../../services/AuthContext';
 const formObj = {reset_password_token: '', password: '', password_confirmation: ''};
 

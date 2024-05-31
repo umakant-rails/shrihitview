@@ -1,14 +1,14 @@
 //import { combineReducers } from "redux";
 import { combineReducers } from "@reduxjs/toolkit";
-import articleReducer from "./public/articleReducer";
-import authReducer from "./authReducer";
-import msgReducer from "./msgReducer";
-import homeReducer from "./public/homeReducer";
+// import articleReducer from "./public/articleReducer";
+// import authReducer from "./authReducer";
+// import msgReducer from "./msgReducer";
+//import homeReducer from "./public/homeReducer";
 import authorReducer from "./public/authorReducer";
 import scriptureReducer from "./public/scriptureReducer";
 import storyReducer from "./public/storyReducer";
 import strotumReducer from "./public/strotumReducer";
-import articleTypeReducer from "./public/articleTypeReducer";
+//import articleTypeReducer from "./public/articleTypeReducer";
 import contextReducer from "./public/contextReducer";
 import tagReducer from "./public/tagReducer";
 import panchangReducer from "./public/panchangReducer";
@@ -35,20 +35,26 @@ import adminTagReducer from "./admin/tagReducer";
 import adminPanchangReducer from "./admin/panchangReducer";
 import adminPanchangTithiReducer from "./admin/pachangTithiReducer";
 
-import authReducerr from "../slices/authSlice";
+import authSlice from "../slices/authSlice";
 import messageSlice from "../slices/messageSlice";
+import homeSlice from "../slices/homeSlice";
+import articleSlice from "../slices/public/articleSlice";
+import articleTypeSlice from "../slices/public/articleTypeSlice";
+import authorSlice from "../slices/public/authorSlice";
+import contextSlice from "../slices/public/contextSlice";
+import storySlice from "../slices/public/storySlice";
 
 export default combineReducers({
-    home: homeReducer,
-    pbArticle: articleReducer,
-    auth: authReducer,
+    // home: homeReducer,
+    //pbArticle: articleReducer,
+    //auth: authReducer,
     //msg: msgReducer,
-    author: authorReducer,
+    //author: authorReducer,
     scripture: scriptureReducer,
-    story: storyReducer,
+    //story: storyReducer,
     strotum: strotumReducer,
-    articleType: articleTypeReducer,
-    context: contextReducer,
+    //articleType: articleTypeReducer,
+    //context: contextReducer,
     tag: tagReducer,
     panchang: panchangReducer,
     suggestion: suggestionReducer,
@@ -74,7 +80,12 @@ export default combineReducers({
     adminPanchang: adminPanchangReducer,
     adminPTithi: adminPanchangTithiReducer,
 
-    counter: counterReducer,
-    authh: authReducerr,
+    home: homeSlice,
+    auth: authSlice,
     msg: messageSlice,
+    pbArticle: articleSlice,
+    articleType: articleTypeSlice,
+    author: authorSlice,
+    context: contextSlice,
+    story: storySlice,
 });

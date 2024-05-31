@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { getArticleTypes } from '../../../actions/public/article_types'; 
+import { getArticleTypes } from '../../../slices/public/articleTypeSlice'; 
 import { ITEM_PER_PAGE } from '../../../utils/types';
 
 const PBArticleTypeList = () => {

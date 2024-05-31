@@ -2,29 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { getContexts } from '../../../actions/public/context';
+import { getContexts } from '../../../slices/public/contextSlice';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 
 const PBContextList = () => {
   const dispatch = useDispatch();
   const [contextList, setContextList] = useState([]);
-  const [currentContexts, setCurrentContexts] = useState([]);
-  const { contexts } = useSelector(state => state.context );
+  const [totalContexts, setTotalContexts] = useState(0);
+  const { contexts, total_contexts } = useSelector(state => state.context );
   
   useEffect( () => {
-    dispatch(getContexts());
+    dispatch(getContexts(1));
   }, [dispatch]);
 
   useEffect( () => {
-    setContextList(contexts);
-    setCurrentContexts(contexts.slice(0,10));
-  }, [contexts])
+    if(contexts){
+      setContextList(contexts);
+      setTotalContexts(total_contexts);
+    }
+  }, [contexts, total_contexts])
+
+  // const handlePageClick = (event) => {
+  //   const newOffset = parseInt(event.target.getAttribute('value'));
+  //   const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
+  //   setCurrentContexts(contextList.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
+  // };
 
   const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
-    setCurrentContexts(contextList.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
+    const page = parseInt(event.target.getAttribute('value'));
+    dispatch(getContexts(page));
   };
+
 
   return (
     <div className='grid md:grid-cols-12'>
@@ -41,7 +49,7 @@ const PBContextList = () => {
           </thead>
           <tbody className='text-xl'>
             {
-              currentContexts && currentContexts.map( (type, index) =>
+              contextList && contextList.map( (type, index) =>
                 <tr key={index}
                   className="border-b dark:border-gray-700 text-blue-500" >
                   <th scope="row" 
@@ -62,10 +70,10 @@ const PBContextList = () => {
 
         <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
           {
-            contextList &&
+            totalContexts &&
             <Pagination 
               showWidget={5} 
-              totalItems={contextList.length}
+              totalItems={totalContexts}
               itemsPerPage={ITEM_PER_PAGE}
               pageChangeHandler= {handlePageClick}
             />

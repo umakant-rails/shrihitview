@@ -1,32 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getStories } from '../../../actions/public/stories';
+import { getStories } from '../../../slices/public/storySlice';
 import shrihit from "../../../assets/images/shrihit.png"
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
 
 const PBStoryList = () => {
   const dispatch = useDispatch();
-  const [currentStories, setCurrentStories] = useState([]);
   const [storyList, setStoryList] = useState([])
-  const {stories} = useSelector( state => state.story );
+  const [totalStories, setTotalArticles] = useState(0);
+  const {stories, total_stories} = useSelector( state => state.story );
 
   useEffect( () => {
-    dispatch(getStories());
+    dispatch(getStories(1));
   }, [dispatch]);
 
   useEffect( () => {
-    setCurrentStories(stories.slice(0,ITEM_PER_PAGE));
-    setStoryList(stories);
-  }, [stories]);
+    if(stories){
+      setStoryList(stories);
+      setTotalArticles(total_stories)
+    }
+  }, [stories, total_stories]);
 
   const handlePageClick = (event) => {
-    const newOffset = parseInt(event.target.getAttribute('value'));
-    const startingOffset = (newOffset > 0) ? (newOffset-1)*ITEM_PER_PAGE : 0;
-    setCurrentStories(stories.slice(startingOffset, startingOffset+ITEM_PER_PAGE));
+    const page = parseInt(event.target.getAttribute('value'));
+    dispatch(getStories(page));
   };
-
 
   return (
     <div className='grid md:grid-cols-12'>
@@ -35,7 +35,7 @@ const PBStoryList = () => {
           भक्ति प्रसंग सूची
         </div>
         {
-          currentStories && currentStories.map((story, index)=>
+          storyList && storyList.map((story, index)=>
             <div key={index} className='grid md:grid-cols-12 gap-5 px-4 border-b border-b-gray-500 mb-5 pb-5'>
               <div className='hidden lg:block lg:col-span-4'>
                 <Link to={`/pb/stories/${story.title}`} >
@@ -57,10 +57,10 @@ const PBStoryList = () => {
 
         }
         {
-          storyList &&
+          totalStories &&
           <Pagination 
             showWidget={5} 
-            totalItems={storyList.length}
+            totalItems={totalStories}
             itemsPerPage={ITEM_PER_PAGE}
             pageChangeHandler= {handlePageClick}
           />

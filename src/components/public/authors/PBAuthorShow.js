@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuthorArticles } from '../../../actions/public/authors';
+import { getAuthorArticles } from '../../../slices/public/authorSlice';
 import shrihit from '../../../assets/images/shrihit.png';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { ITEM_PER_PAGE } from '../../../utils/types';
@@ -16,7 +16,7 @@ const PBAuthorShow = () => {
   const {articles, total_articles} = useSelector(state => state.author);
   
   useEffect( ()=> {
-    dispatch(getAuthorArticles(name, 1));
+    dispatch(getAuthorArticles({name: name, page: 1}));
   }, [dispatch, name]);
 
   useEffect( () => {
@@ -29,7 +29,7 @@ const PBAuthorShow = () => {
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    dispatch(getAuthorArticles(name, page));
+    dispatch(getAuthorArticles({name: name, page: page}));
   };
 
   return (

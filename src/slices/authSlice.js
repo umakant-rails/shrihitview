@@ -19,6 +19,7 @@ export const userRegister = createAsyncThunk(
   }
 );
 
+/* send response back to caller component */
 export const userLogin = createAsyncThunk(
   "auth/userLogin",
   async (formValues, {dispatch, rejectWithValue }) => {
@@ -27,7 +28,6 @@ export const userLogin = createAsyncThunk(
       if (response.data.error === undefined) {
         localStorage.setItem("token", response.headers.authorization);
         localStorage.setItem("currentUser", JSON.stringify(response.data.user));
-        console.log(response)
         dispatch({type: 'message/showMessage', payload: response});
         return response.data;
       }
@@ -42,7 +42,7 @@ export const userLogin = createAsyncThunk(
 
 export const updatePassword = createAsyncThunk(
   "auth/updatePassword",
-  async ({formValues}, {dispatch, rejectWithValue }) => {
+  async (formValues, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put('/users/password', {user: formValues});
       dispatch({type: 'message/showMessage', payload: response});
@@ -96,6 +96,7 @@ export const confirmUserAccount = createAsyncThunk(
   }
 );
 
+/* send response back to caller component */
 export const getUserRole = createAsyncThunk(
   "auth/getUserRole",
   async ({user_id}, {dispatch, rejectWithValue }) => {
@@ -110,23 +111,10 @@ export const getUserRole = createAsyncThunk(
   }
 );
 
+/* send response back to caller component */
 export const getCurrentUser = () => async dispatch => {
   return await baseUrl.get('/current_user');
 }
-
-export const sendPasswordTokenn = createAsyncThunk(
-  "auth/sendPasswordToken",
-  async (formValues, {dispatch, rejectWithValue }) => {
-    try {
-      const response = await baseUrl.post('/users/password', {user: formValues});
-      dispatch({type: 'message/showMessage', payload: response});
-      return response;
-    } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
-      return rejectWithValue(error.message);
-    }
-  }
-);
 
 const initialState = {
   error: "", loading: false, password_token_sent: false,
@@ -138,11 +126,43 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-    .addCase(sendPasswordTokenn.pending, (state, action) => { 
+    .addCase(userRegister.pending, (state, action) => { 
       state.loading = true;
-    }).addCase(sendPasswordTokenn.fulfilled, (state, action) => {
+    }).addCase(userRegister.fulfilled, (state, action) => {
+      state.loading = false; state.registeredUser=action.payload.user;
+    }).addCase(userRegister.rejected, (state, action) => {
+      state.loading = false; 
+    })
+
+    .addCase(updatePassword.pending, (state, action) => { 
+      state.loading = true;
+    }).addCase(updatePassword.fulfilled, (state, action) => {
+      state.loading = false; state.password_changed = true;
+    }).addCase(updatePassword.rejected, (state, action) => {
+      state.loading = false; state.password_changed = false;
+    })
+
+    .addCase(updatePasswordByToken.pending, (state, action) => { 
+      state.loading = true;
+    }).addCase(updatePasswordByToken.fulfilled, (state, action) => {
+      state.loading = false; state.password_updated_by_token = true;
+    }).addCase(updatePasswordByToken.rejected, (state, action) => {
+      state.loading = false; state.password_updated_by_token = false;
+    })
+
+    .addCase(sendPasswordToken.pending, (state, action) => { 
+      state.loading = true;
+    }).addCase(sendPasswordToken.fulfilled, (state, action) => {
       state.loading = false; state.password_token_sent = true;
-    }).addCase(sendPasswordTokenn.rejected, (state, action) => {
+    }).addCase(sendPasswordToken.rejected, (state, action) => {
+      state.loading = false;
+    })
+
+    .addCase(confirmUserAccount.pending, (state, action) => { 
+      state.loading = true;
+    }).addCase(confirmUserAccount.fulfilled, (state, action) => {
+      state.loading = false; state.account_confirmed = true;
+    }).addCase(confirmUserAccount.rejected, (state, action) => {
       state.loading = false;
     });
   },

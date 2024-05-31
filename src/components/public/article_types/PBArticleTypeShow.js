@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getArticleTypeArticles } from '../../../actions/public/article_types';
+import { getArticleTypeArticles } from '../../../slices/public/articleTypeSlice';
 import shrihit from '../../../assets/images/shrihit.png';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { ITEM_PER_PAGE } from '../../../utils/types';
@@ -16,7 +16,7 @@ const PBArticleTypeShow = () => {
   const {articles, total_articles} = useSelector(state => state.articleType);
   
   useEffect( ()=> {
-    dispatch(getArticleTypeArticles(name, 1));
+    dispatch(getArticleTypeArticles({name: name, page: 1}));
   }, [dispatch, name]);
 
   useEffect( () => {
@@ -28,7 +28,7 @@ const PBArticleTypeShow = () => {
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    dispatch(getArticleTypeArticles(name, page));
+    dispatch(getArticleTypeArticles({name:name, page:page}));
   };
 
   return (

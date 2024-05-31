@@ -8,7 +8,7 @@ import "../assets/styles/custom.css";
 import shrijicharan from "../assets/images/shriji_charan.png";
 import shrihit from "../assets/images/shrihit.png";
 import { dateFormat } from '../utils/utilityFunctions';
-import { getHomePageData } from '../actions/home';
+import { getHomePageData } from '../slices/homeSlice';
 import SearchArticleList from '../components/public/articles/SearchArticleList';
 import { ArticleSkelton } from '../components/sketons/articleSkelton';
 

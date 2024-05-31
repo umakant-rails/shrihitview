@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContextArticles } from '../../../actions/public/context';
+import { getContextArticles } from '../../../slices/public/contextSlice';
 import shrihit from "../../../assets/images/shrihit.png";
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { ITEM_PER_PAGE } from '../../../utils/types';
@@ -17,7 +17,7 @@ const PBContextShow = () => {
   const {articles, total_articles} = useSelector(state => state.context);
   
   useEffect( ()=> {
-    dispatch(getContextArticles(name, 1));
+    dispatch(getContextArticles({name:name, page:1}));
   }, [dispatch, name]);
 
   useEffect( () => {
@@ -30,7 +30,7 @@ const PBContextShow = () => {
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
-    dispatch(getContextArticles(name, page));
+    dispatch(getContextArticles({name, page}));
   };
 
   return(

@@ -7,12 +7,12 @@ const messageSlice = createSlice({
   reducers: {
     showMessage(state, action){
       const { payload } = action;
-      if(payload.data.error){
-        toast.error(payload.data.error.join("\n"))
-        //state.type = 'error';state.message=payload.data.error.join("\n");
+      if(payload.data.error !== undefined){
+        // toast.error(payload.data.error.join("\n"));
+        state.type = 'error';state.message=payload.data.error.join("\n");
       } else {
-        toast.success(payload.data.notice)
-        // state.type = 'success';state.message=payload.data.notice;
+        //toast.success(payload.data.notice);
+        state.type = 'success';state.message=payload.data.notice;
       }
     },
     showNotice(state, action){

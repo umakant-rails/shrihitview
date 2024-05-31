@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { getArticle } from '../../../actions/public/articles';
+import { getArticle } from '../../../slices/public/articleSlice';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Comment from '../../shared/Comment';
 

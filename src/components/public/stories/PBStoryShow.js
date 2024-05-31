@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStory } from '../../../actions/public/stories';
+import { getStory } from '../../../slices/public/storySlice';
 
 const PBStoryShow = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const PBStoryShow = () => {
 
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'})
-    dispatch(getStory(title ));
+    dispatch(getStory(title));
   }, [dispatch, title]);
 
   return (

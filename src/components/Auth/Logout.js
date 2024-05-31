@@ -14,8 +14,7 @@ const Logout = () => {
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
     dispatch({
-      type: SET_MESSAGE,
-      msg_type: "success",
+      type: "message.showNotice",
       payload: 'Successfully logged out.',
     });
     navigate("/", { replace: true });
