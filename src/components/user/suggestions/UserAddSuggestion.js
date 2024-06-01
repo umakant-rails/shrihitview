@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
-import { createUserSuggestion } from '../../../actions/user/user_suggestions';
+import { createUserSuggestion } from '../../../slices/user/userSuggestionSlice';
 
 const suggestionObj = {
   title: '', 

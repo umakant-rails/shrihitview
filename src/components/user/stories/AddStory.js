@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import { createStory, newStory } from '../../../actions/user/user_stories';
+import { createStory, newStory } from '../../../slices/user/userStorySlice';
 
 const storyObj = {scripture_id: '', title: '', story: '', author_id: '', index: ''};
 

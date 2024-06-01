@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import {createSampradaya, editAuthor, updateAuthor} from "../../../actions/user/user_authors";
+import {createSampradaya, editAuthor, updateAuthor} from '../../../slices/user/userAuthorSlice';
 import { useNavigate, useParams } from 'react-router';
 
-const authorObj = {name: '', name_eng: '', sampradaya_id: '', biography: ''};
+const authorObj = {name: '', name_eng: '', sampradaya_id: 1, biography: ''};
 
 const EditAuthor = () => {
   const dispatch = useDispatch();
@@ -15,15 +15,15 @@ const EditAuthor = () => {
   const [formValues, setFormValues] = useState(authorObj);
   const [sampradaya, setSampradaya] = useState('');
   const [sampradayaFormDisplay, setSampradayaFormDisplay] = useState(false);
-  const { author, sampradayas, authorUpdated } = useSelector( (state) => state.userAuthor)
+  const { author, sampradayas, loading } = useSelector( (state) => state.userAuthor)
 
   useEffect( () => {
     dispatch(editAuthor(id));  
   }, [dispatch, id]);
 
-  useEffect( () => {
-    if(authorUpdated){ navigate('/authors'); } 
-  }, [navigate, authorUpdated]);
+  // useEffect( () => {
+  //   if(updated_author){ navigate('/authors'); } 
+  // }, [navigate, updated_author]);
 
   useEffect( () => {
     if(author){
@@ -56,7 +56,9 @@ const EditAuthor = () => {
 
   const onAuthorSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateAuthor(id, formValues));
+    dispatch(updateAuthor({id: id, form: formValues})).then( response => {
+      navigate('/authors');
+    });
   }
 
   return (
@@ -186,7 +188,10 @@ const EditAuthor = () => {
           </div>
           <div className='mb-3'>
             <button type="submit" 
-              className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              disabled = {loading}
+              className={`mr-5 text-white ${loading ? 'bg-gray-400': 'bg-blue-700'} hover:bg-blue-800 
+                focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 
+                py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
               रचनाकार अद्यतन करें 
             </button>
             <button type="button" onClick={onCancel}

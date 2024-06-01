@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createTag, editArticle, updateArticle} from "../../../actions/user/user_articles";
+import {createTag, editArticle, updateArticle} from "../../../slices/user/userArticleSlice";
 import { useNavigate, useParams } from 'react-router';
 
 const articleObj = {article_type_id: 0, raag_id: 0, scripture_id: '', index: 0, context_id: 1, 
@@ -22,14 +22,14 @@ const EditArticle = () => {
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
 
   const { 
-    articleTypes, 
+    article_types, 
     raags, 
     contexts, 
     authors, 
     tags, 
     scriptures, 
     article, 
-    updatedArticle 
+    updated_article 
   } = useSelector( (state) => state.userArticle)
 
   useEffect( () => {
@@ -37,10 +37,10 @@ const EditArticle = () => {
   }, [dispatch, id]);
 
   useEffect( () => {
-    if(updatedArticle){
-      navigate(`/articles/${updatedArticle.id}`);
+    if(updated_article){
+      navigate(`/articles/${updated_article.id}`);
     } 
-  }, [navigate, updatedArticle]);
+  }, [navigate, updated_article]);
 
   useEffect( () => {
     if(article){
@@ -85,7 +85,7 @@ const EditArticle = () => {
     event.preventDefault(); 
     setArticleTitle();
     formValues['tags'] = selectedTags.map(tag => tag.value);
-    dispatch(updateArticle(article.id, formValues));
+    dispatch(updateArticle({id: article.id, form: formValues}));
   }
 
   return (
@@ -110,7 +110,7 @@ const EditArticle = () => {
                   dark:shadow-sm-light`} required>
                   <option value="">रचना प्रकार चुने</option>
                   {
-                    articleTypes && articleTypes.map( (aType, index) => 
+                    article_types && article_types.map( (aType, index) => 
                       <option key={index} value={aType.id}>{aType.name}</option>
                     )
                   }
@@ -218,13 +218,19 @@ const EditArticle = () => {
           </div>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>
             <div className="col-span-6">
-              <label className="block mb-2 font-medium text-gray-900 dark:text-white">
-                हिंदी शीर्षक <span title="required" className="text-red-600 font-bold">*</span>
+              <label className="flex flex-row justify-between mb-2 font-medium text-gray-900 dark:text-white">
+                <div>
+                  हिंदी शीर्षक <span title="required" className="text-red-600 font-bold">*</span>
+                </div>
+                <svg class="w-6 h-6 text-blue-600 dark:text-white justify-end items-end" aria-hidden="true" 
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                  onClick={setArticleTitle}>
+                  <path stroke="currentColor" strokeLinejoin="round" strokeWidth="2" d="M9 8v3a1 1 0 0 1-1 1H5m11 4h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1m4 3v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7.13a1 1 0 0 1 .24-.65L7.7 8.35A1 1 0 0 1 8.46 8H13a1 1 0 0 1 1 1Z"/>
+                </svg>
               </label>
               <ReactTransliterate
                 value={formValues.hindi_title || ''}
                 onChangeText={(text) => { setFormValues(formValues => ({...formValues, hindi_title: text})) }}
-                onFocus={setArticleTitle}
                 lang={'hi'}
                 type="text"
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 

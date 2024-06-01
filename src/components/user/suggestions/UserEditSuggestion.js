@@ -2,27 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
-import { getUserSuggestion, updateUserSuggestion } from '../../../actions/user/user_suggestions';
+import { getUserSuggestion, updateUserSuggestion } from '../../../slices/user/userSuggestionSlice';
 
 const suggestionObj = {
   title: '', 
-  description: '', 
-  paksh: '', 
-  email: '', 
-  username: '',
+  description: '',
 }
 
 const UserEditSuggestion = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [formValues, setFormValues] = useState(suggestionObj);
-	const { suggestion, isUpdated } = useSelector( state => state.userSuggestion);
+	const { suggestion, updated_suggestion } = useSelector( state => state.userSuggestion);
 
   useEffect( () => { dispatch(getUserSuggestion(id))}, [dispatch, id]);
   useEffect( () => {
-    if(suggestion){ setFormValues(suggestion); }
-    if(isUpdated){ window.location ='/users/suggestions'; }
-  }, [suggestion, isUpdated]);
+    if(suggestion){ setFormValues({title: suggestion.title, description: suggestion.description}); }
+    if(updated_suggestion){ window.location ='/users/suggestions'; }
+  }, [suggestion, updated_suggestion]);
 
   const onInputChange = event => {
     const { name, value } = event.target;
@@ -31,7 +28,7 @@ const UserEditSuggestion = () => {
 
   const onsubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserSuggestion(id, formValues));
+    dispatch(updateUserSuggestion({id: id, form: formValues}));
   }
 
 	return (

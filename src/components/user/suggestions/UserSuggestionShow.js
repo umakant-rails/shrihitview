@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dateFormat } from '../../../utils/utilityFunctions';
-import { getUserSuggestion } from '../../../actions/user/user_suggestions';
+import { getUserSuggestion } from '../../../slices/user/userSuggestionSlice';
 
 const UserSuggestionShow = () => {
   const dispatch = useDispatch();

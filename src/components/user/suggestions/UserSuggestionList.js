@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { deleteUserSuggestion, getUserSuggestions } from '../../../actions/user/user_suggestions';
+import { deleteUserSuggestion, getUserSuggestions } from '../../../slices/user/userSuggestionSlice';
 
 const UserSuggestionList = () => {
   const dispatch = useDispatch();

@@ -4,15 +4,15 @@ import { combineReducers } from "@reduxjs/toolkit";
 // import authReducer from "./authReducer";
 // import msgReducer from "./msgReducer";
 //import homeReducer from "./public/homeReducer";
-import authorReducer from "./public/authorReducer";
-import scriptureReducer from "./public/scriptureReducer";
-import storyReducer from "./public/storyReducer";
-import strotumReducer from "./public/strotumReducer";
+// import authorReducer from "./public/authorReducer";
+// import scriptureReducer from "./public/scriptureReducer";
+// import storyReducer from "./public/storyReducer";
+// import strotumReducer from "./public/strotumReducer";
 //import articleTypeReducer from "./public/articleTypeReducer";
-import contextReducer from "./public/contextReducer";
-import tagReducer from "./public/tagReducer";
-import panchangReducer from "./public/panchangReducer";
-import suggestionReducer from "./public/suggestionReducer";
+// import contextReducer from "./public/contextReducer";
+// import tagReducer from "./public/tagReducer";
+// import panchangReducer from "./public/panchangReducer";
+// import suggestionReducer from "./public/suggestionReducer";
 
 import userArticleReducer from "./user/articleReducer";
 import userCommentReducer from "./user/commentReducer";
@@ -49,6 +49,13 @@ import scriptureSlice from "../slices/public/scriptureSlice";
 import suggestionSlice from "../slices/public/suggestionSlice";
 import panchangSlice from "../slices/public/panchangSlice";
 
+import userArticleSlice from "../slices/user/userArticleSlice";
+import userAuthorSlice from "../slices/user/userAuthorSlice";
+import userCommentSlice from "../slices/user/userCommentSlice";
+import userStorySlice from "../slices/user/userStorySlice";
+import userSuggestionSlice from "../slices/user/userSuggestionSlice";
+import userTagSlice from "../slices/user/userTagSlice";
+
 export default combineReducers({
     // home: homeReducer,
     //pbArticle: articleReducer,
@@ -64,12 +71,12 @@ export default combineReducers({
     //panchang: panchangReducer,
     //suggestion: suggestionReducer,
     
-    userArticle: userArticleReducer,
-    userComment: userCommentReducer,
-    userAuthor: userAuthorReducer,
-    userTag: userTagReducer,
-    userStory: userStoryReducer,
-    userSuggestion: userSuggestionReducer,
+    //userArticle: userArticleReducer,
+    // userComment: userCommentReducer,
+    //userAuthor: userAuthorReducer,
+    //userTag: userTagReducer,
+    //userStory: userStoryReducer,
+    //userSuggestion: userSuggestionReducer,
     
     adminArticle: adminArticleReducer,
     adminAuthor: adminAuthorReducer,
@@ -97,5 +104,12 @@ export default combineReducers({
     tag: tagSlice,
     scripture: scriptureSlice,
     suggestion: suggestionSlice,
-    panchang: panchangSlice
+    panchang: panchangSlice,
+
+    userArticle: userArticleSlice,
+    userAuthor: userAuthorSlice,
+    userComment: userCommentSlice,
+    userStory: userStorySlice,
+    userSuggestion: userSuggestionSlice,
+    userTag: userTagSlice,
 });

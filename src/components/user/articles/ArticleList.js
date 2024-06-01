@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteArticle, getArticles, getArticlesByPage } from '../../../actions/user/user_articles';
+import { deleteArticle, getArticles, getArticlesByPage } from '../../../slices/user/userArticleSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ReactTransliterate } from "react-transliterate";
@@ -9,8 +9,8 @@ const ArticleList = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const { 
-    articleTypes, raags, contexts, 
-    authors, articles, totalArticles 
+    article_types, raags, contexts, 
+    authors, articles, total_articles 
   } = useSelector( state => state.userArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
@@ -22,8 +22,8 @@ const ArticleList = () => {
   }, [dispatch]);
   
   useEffect( () => {
-    if(articles){ setArticleList(articles); setTotalArticle(totalArticles);}
-  }, [articles, totalArticles]);
+    if(articles){ setArticleList(articles); setTotalArticle(total_articles);}
+  }, [articles, total_articles]);
 
   const deleteToArticle = (id) => {
     dispatch(deleteArticle(id));
@@ -32,26 +32,29 @@ const ArticleList = () => {
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');
     setCurrentPage(page);
-    dispatch(getArticlesByPage(searchAttrs, page));
+    const sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
+    dispatch(getArticlesByPage(sAttrs));
   }
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttrs, [name]: value};
+    const sAttrs = {...searchAttrs, [name]: value, page: 1};
     setSearchText('');
     setSearchAttrs(sAttrs);
-    dispatch(getArticlesByPage(sAttrs, 1));
+    dispatch(getArticlesByPage(sAttrs));
   }
   const refreshFilteredData = () => {
     setSearchAttrs({});
     setCurrentPage(1);
     setSearchText('');
-    dispatch(getArticlesByPage({}, 1));
+    dispatch(getArticlesByPage({page: 1}));
   }
   const searchArticles = () => {
+    setCurrentPage(1);
     const sAttrs = {...searchAttrs, term: searchText.trim(), page: 1};
-    //setSearchAttrs(sAttrs);
-    dispatch(getArticlesByPage(sAttrs, 1));
+    setSearchAttrs(sAttrs);
+    dispatch(getArticlesByPage(sAttrs));
   }
 
   return (
@@ -72,7 +75,7 @@ const ArticleList = () => {
                 dark:shadow-sm-light`}>
                 <option value="">रचना प्रकार चुने</option>
                 {
-                  articleTypes && articleTypes.map( (aType, index) => 
+                  article_types && article_types.map( (aType, index) => 
                     <option key={index} value={aType.id}>{aType.name}</option>
                   )
                 }

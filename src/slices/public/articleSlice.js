@@ -86,31 +86,3 @@ const articleSlice = createSlice({
 
 
 export default articleSlice.reducer;
-
-// const initialState = {
-//   error: "", loading: false
-// };
-// const articleSlice = createSlice({
-//   name: "pbArticle",
-//   initialState,
-//   reducers: {},
-//   extraReducers(builder) {
-//     builder
-//     .addCase(getArticles.pending, (state, action) => { 
-//       state.loading = true;
-//     }).addCase(getArticles.fulfilled, (state, action) => {
-//       state.loading = false;
-//       state.articles = action.payload.articles;
-//       state.total_articles = action.payload.total_articles;
-//       state.authors = action.payload.authors;
-//       state.tags = action.payload.tags;
-//       state.contexts = action.payload.contexts;
-//       state.article_types = action.payload.article_types;
-       
-//     }).addCase(getArticles.rejected, (state, action) => {
-//       state.loading = false; state.password_updated_by_token = false;
-//     });
-//   },
-// });
-
-// export default articleSlice.reducer;

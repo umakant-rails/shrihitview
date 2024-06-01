@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { getStory, deleteStory } from '../../../actions/user/user_stories';
+import { getStory, deleteStory } from '../../../slices/user/userStorySlice';
 
 const StoryShow = () => {
   const navigate = useNavigate();

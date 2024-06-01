@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { useNavigate, useParams } from 'react-router';
-import { editStory, updateStory } from '../../../actions/user/user_stories';
+import { editStory, updateStory } from '../../../slices/user/userStorySlice';
 
 const storyObj = {scripture_id: '', title: '', story: '', author_id: '', index: ''};
 
@@ -12,7 +12,7 @@ const EditStory = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [formValues, setFormValues] = useState(storyObj);
-  const { sants, scriptures, story, storyUpdated } = useSelector( (state) => state.userStory)
+  const { sants, scriptures, story, updated_story } = useSelector( (state) => state.userStory)
 
   useEffect( () => {
     dispatch(editStory(id));  
@@ -26,10 +26,10 @@ const EditStory = () => {
         author_id: story.author_id, index: story.index
       }))
     }
-    if(storyUpdated){
-      navigate(`/stories/${storyUpdated.id}`); 
+    if(updated_story){
+      navigate(`/stories/${updated_story.id}`); 
     } 
-  }, [navigate, story, storyUpdated]);
+  }, [navigate, story, updated_story]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
@@ -45,7 +45,7 @@ const EditStory = () => {
 
   const onStorySubmit = (event) => {
     event.preventDefault();
-    dispatch(updateStory(id, formValues));
+    dispatch(updateStory({id: id, form: formValues}));
   }
 
   return (

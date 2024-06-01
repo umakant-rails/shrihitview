@@ -33,9 +33,10 @@ const Login = () => {
     event.preventDefault();
     if(formValues.email.length === 0 || formValues.password.length === 0) return;
     const response = dispatch(userLogin(formValues));
-    response.then( data => {
-      const user = data.user;
-      const role = data.role;
+    response.then( res => {
+      const user = res.payload.data.user;
+      const role = res.payload.data.role;
+
       if(user){ setCurrentUser(user);}
       if(ADMIN_ROLE.indexOf(role) >= 0) {
         navigate("/admin/dashboard");

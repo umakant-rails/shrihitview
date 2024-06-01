@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { deleteAuthor, getAuthors } from '../../../actions/user/user_authors';
+import { deleteAuthor, getAuthors } from '../../../slices/user/userAuthorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ITEM_PER_PAGE } from '../../../utils/types';

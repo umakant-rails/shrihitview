@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../services/AxiosService";
 
-// import { SET_MESSAGE } from "../utils/types";
-// import { showMessage } from "./messageSlice";
-
 export const userRegister = createAsyncThunk(
   "auth/userRegister",
   async ({formValues}, {dispatch, rejectWithValue }) => {
@@ -29,7 +26,7 @@ export const userLogin = createAsyncThunk(
         localStorage.setItem("token", response.headers.authorization);
         localStorage.setItem("currentUser", JSON.stringify(response.data.user));
         dispatch({type: 'message/showMessage', payload: response});
-        return response.data;
+        return response;
       }
       dispatch({type: 'message/showMessage', payload: response});
       return response;

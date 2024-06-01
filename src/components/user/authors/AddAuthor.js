@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import {createAuthor, createSampradaya, newAuthor} from "../../../actions/user/user_authors";
+import {createAuthor, createSampradaya, newAuthor} from '../../../slices/user/userAuthorSlice';
 
-const authorObj = {name: '', name_eng: '', sampradaya_id: '', biography: ''};
+const authorObj = {name: '', name_eng: '', sampradaya_id: 1, biography: ''};
 
 const AddAuthor = () => {
   const dispatch = useDispatch();
@@ -12,18 +12,18 @@ const AddAuthor = () => {
   const [formValues, setFormValues] = useState(authorObj);
   const [sampradaya, setSampradaya] = useState('');
   const [sampradayaFormDisplay, setSampradayaFormDisplay] = useState(false);
-  const { sampradayas, author, sampradayaCreated } = useSelector( (state) => state.userAuthor)
+  const { sampradayas, created_author, sampradayaCreated, loading } = useSelector( (state) => state.userAuthor)
 
   useEffect( () => {
     dispatch(newAuthor());  
   }, [dispatch]);
 
   useEffect( () => {
-    if(author){resetForm();/*navigate('/articles/new');*/ } 
+    if(created_author){resetForm();/*navigate('/articles/new');*/ } 
     if(sampradayaCreated){
       setSampradayaFormDisplay(false);
     }
-  }, [author, sampradayaCreated]);
+  }, [created_author, sampradayaCreated]);
 
   const createNewSampradaya = () => {
     if(sampradaya){
@@ -175,7 +175,10 @@ const AddAuthor = () => {
           </div>
           <div className='mb-3'>
             <button type="submit" 
-              className="mr-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              disabled = {loading}
+              className={`mr-5 text-white ${loading ? 'bg-gray-400': 'bg-blue-700'} hover:bg-blue-800 focus:ring-4 focus:outline-none 
+                focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 
+                dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
               रचनाकार जोड़े
             </button>
             <button type="button" onClick={onCancel}

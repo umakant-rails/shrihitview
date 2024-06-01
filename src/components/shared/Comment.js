@@ -1,31 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
-import { createComment, updateComment, replyComment, deleteComment } from '../../actions/user/user_comments';
+import { createComment, updateComment, replyComment, deleteComment } from '../../slices/user/userCommentSlice';
 import { dateFormat } from '../../utils/utilityFunctions';
 import { AuthContext } from "../../services/AuthContext";
 
 const Comment = ({article}) => {
   const dispatch = useDispatch();
-  const [comments, setComments] = useState(article.comments);
+  const [commentList, setCommentList] = useState(article.comments);
   //const [actionType, setActionType] = useState('');
   const [activeComment, setActiveComment] = useState('')
   const {currentUser} = useContext(AuthContext);
   const [formValues, setFormValues] = useState({parent_id: article.id, parent_name: 'Article', comment: ''});
   const [formValues2, setFormValues2] = useState({parent_id: article.id, parent_name: 'Comment', comment: ''});
-  const {article_comments} = useSelector(state => state.userComment);
+  const {comments, loading} = useSelector(state => state.userComment);
 
   useEffect( () => {
-    if(article_comments){ 
-      setComments(article_comments);
+    if(comments){ 
+      setCommentList(comments);
       setActiveComment('');
       setFormValues(formValues => ({...formValues, comment: ''}));
     }
-  }, [article_comments]);
+  }, [comments]);
 
   const createAComment = () => {
     if(formValues.comment){
-      dispatch(createComment(article, formValues));
+      dispatch(createComment({article: article, form: formValues}));
     } else{
       alert('Please Write down your comment.')
     }
@@ -33,9 +33,9 @@ const Comment = ({article}) => {
   const editOrReplyComment = () => {
     if(formValues2.comment){
       if(formValues2.action_type === 'edit'){
-        dispatch(updateComment(article, formValues2));
+        dispatch(updateComment({article: article, form: formValues2}));
       } else {
-        dispatch(replyComment(article, formValues2));
+        dispatch(replyComment({article: article, form: formValues2}));
       }
     } else {
       alert('Please Write down your comment.')
@@ -68,7 +68,7 @@ const Comment = ({article}) => {
     }
   }
   const deleteAComment = (comment) => {
-    dispatch(deleteComment(article, comment.id))
+    dispatch(deleteComment({article: article, comment_id: comment.id}))
   }
   const resetComment = () => { 
     setFormValues(formValues => ({
@@ -98,9 +98,10 @@ const Comment = ({article}) => {
         currentUser ? (
           <div className='flex justify-end'>
             <button type="button" onClick={createAComment}
+              disabled = {loading}
               className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white 
-              bg-blue-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none 
-              focus:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-500 
+              ${loading ? 'bg-gray-400': 'bg-blue-700'}  rounded-lg hover:bg-blue-800 focus:ring-4 
+              focus:outline-none focus:ring-gray-500 dark:bg-gray-300 dark:hover:bg-gray-500 
               dark:focus:ring-gray-600`}>
                 Post
             </button>
@@ -153,7 +154,9 @@ const Comment = ({article}) => {
         />
         <div className='flex justify-end'>
           <button type="button" onClick={editOrReplyComment}
-            className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white bg-blue-700 
+            disabled = {loading}
+            className={`px-3 py-2 mx-2 w-auto text-xs font-medium text-center text-white 
+              ${loading ? 'bg-gray-400': 'bg-blue-700'}  
               rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
               dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}>
               {formValues2.action_type === 'edit' ? 'Update' : 'Reply' }
@@ -260,7 +263,7 @@ const Comment = ({article}) => {
       <div className='py-2 px-4 sm:grid sm:grid-cols-12' key="comment-list">
         <div className='font-bold mb-2 col-span-12'>Comments:</div>
           {
-            comments ? comments.map( (comment, index) => {
+            commentList ? commentList.map( (comment, index) => {
               return (
                 <div key={index} className='col-span-8 border-b border-gray-400 mb-2'>
                   {createCommentList(comment, null)}

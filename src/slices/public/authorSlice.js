@@ -1,17 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { getParamsStringFromHash } from "../../utils/utilityFunctions";
 
 export const getAuthors = createAsyncThunk(
   "pbAuthor/getAuthors",
   async (searchAttrs, {dispatch, rejectWithValue }) => {
     try {
-      const arr = Object.keys(searchAttrs).map( key => {
-        if(searchAttrs[key]){ 
-          return `${key}=${searchAttrs[key]}` 
-        }
-      })
-      const searchAttrStr = arr.join('&');
-      const response = await baseUrl.get(`/pb/authors?${searchAttrStr}`);
+      const searchAttrsStr = getParamsStringFromHash(searchAttrs);
+      const response = await baseUrl.get(`/pb/authors?${searchAttrsStr}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});

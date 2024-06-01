@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { deleteTag, getTags, createTag, updateTag } from '../../../actions/user/user_tags';
+import { deleteTag, getTags, createTag, updateTag } from '../../../slices/user/userTagSlice';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
 const tagObj = {name: '', name_eng: ''};
@@ -85,7 +85,7 @@ const TagList = () => {
   }
 
   const createNewTag = () => { dispatch(createTag(formValues));}
-  const updateToTag = () => { dispatch(updateTag(editableTag.id, formValues)); }
+  const updateToTag = () => { dispatch(updateTag({id: editableTag.id, form: formValues})); }
   
   const showPopup = () => {
     const modalEl = document.getElementById('new-tag-modal');
@@ -99,7 +99,7 @@ const TagList = () => {
     <div className='grid md:grid-cols-12'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
        <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          रचनाकार/लेखक सूची 
+          टैग्स सूची 
         </div>
         <section className="bg-gray-50 dark:bg-gray-900">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
