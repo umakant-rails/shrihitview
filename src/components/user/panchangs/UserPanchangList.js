@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getPanchangs } from '../../../actions/admin/admin_panchangs';
+import { getPanchangs } from '../../../slices/user/userPanchangSlice';
 
 const UserPanchangList = () => {
   const dispatch = useDispatch();
   const [panchangList, setPanchangList] = useState([]);
-  const { panchangs } = useSelector( state => state.adminPanchang );
+  const { panchangs } = useSelector( state => state.userPanchang );
 
   useEffect( () => {
     dispatch(getPanchangs());

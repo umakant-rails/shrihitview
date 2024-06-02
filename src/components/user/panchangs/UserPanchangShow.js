@@ -2,7 +2,7 @@ import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { navigateMonth } from '../../../actions/admin/admin_panchang_tithis';
+import { navigateMonth } from '../../../slices/user/userPanchangSlice';
 import { initFlowbite } from 'flowbite';
 import { tithiName } from '../../../utils/utilityFunctions';
 //https://tailwindcomponents.com/component/calendar-4
@@ -17,7 +17,7 @@ const UserPanchangShow = () => {
 	const [tithisHash, setTithisHash] = useState({});
 	const [tithisHash2, setTithisHash2] = useState({});
 
-	const { panchang, tithis } = useSelector( state => state.adminPTithi);
+	const { panchang, tithis } = useSelector( state => state.userPanchang);
 
   useEffect( () => {initFlowbite();});
   useEffect( () => { currentMonth(); }, []);
@@ -48,7 +48,7 @@ const UserPanchangShow = () => {
       firstDate.add(1, "days");
     }
 		setMonthDateArr(arr);
-		dispatch(navigateMonth(id, newDate));
+		dispatch(navigateMonth({id: id, date: newDate}));
 	}
 	const currentMonth = () => { setCurrentDate(moment().clone()); createDateArr(moment().clone()); }
 	const nextMonth = () => { currentDate.add(1, "month"); createDateArr(currentDate); }

@@ -55,6 +55,7 @@ import userCommentSlice from "../slices/user/userCommentSlice";
 import userStorySlice from "../slices/user/userStorySlice";
 import userSuggestionSlice from "../slices/user/userSuggestionSlice";
 import userTagSlice from "../slices/user/userTagSlice";
+import userPanchangSlice from "../slices/user/userPanchangSlice";
 
 export default combineReducers({
     // home: homeReducer,
@@ -112,4 +113,5 @@ export default combineReducers({
     userStory: userStorySlice,
     userSuggestion: userSuggestionSlice,
     userTag: userTagSlice,
+    userPanchang: userPanchangSlice,
 });

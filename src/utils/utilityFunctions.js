@@ -18,3 +18,12 @@ export const tithiName = (tithi, isTrue) => {
   else if (tithi.paksh === 'कृष्ण पक्ष' && tithi.tithi === 15){ return `अमावस्या` } 
   else { return isTrue ? `${tithi.paksh}-${tithi.tithi}` : `${tithi.title}` } 
 }
+
+export const getParamsStringFromHash = (searchAttrs) => {
+  const arr = Object.keys(searchAttrs).map( key =>{
+    if(searchAttrs[key]){
+      return `${key}=${searchAttrs[key]}`;
+    }
+  })
+  const searchAttrStr = arr.join('&');
+}
