@@ -5,7 +5,6 @@ export const getPanchangs = createAsyncThunk(
   "usrPanchang/getArticles",
   async (params, {dispatch, rejectWithValue }) => {
     try {
-      console.log("---------------")
       const response = await baseUrl.get('/panchangs');
       return response.data;
     } catch (error) {

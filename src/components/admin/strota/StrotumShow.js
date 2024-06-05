@@ -3,12 +3,12 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
 import { 
+  getStrotum,
   createStrotumArticle, 
   deleteStrotumArticle, 
-  getStrotum, 
   updateAritcleIndex, 
   updateStrotumArticle
-} from '../../../actions/admin/admin_strota';
+} from '../../../slices/admin/adminStrotumSlice';
 import { Modal } from 'flowbite';
 
 const strotumArticleObj = {index: '', content: '', interpretation: '', article_type_id: ''};
@@ -36,20 +36,29 @@ const StrotumShow = () => {
   }, [strotum_articles]);
   
   const deleteToStrotumArticle = (article_id) => {
-    dispatch(deleteStrotumArticle(strotum.id, article_id));
+    const isTrue = window.confirm("Are you sure you want to delete this record ?");
+    if(isTrue){
+      dispatch(deleteStrotumArticle({id: strotum.id, article_id: article_id}));
+    }
   }
 
   const createToStrotumArticle = () => {
-    dispatch(createStrotumArticle(strotum.id, formValues));
+    dispatch(createStrotumArticle(strotum.id, formValues)).then( response => {
+      popup.current.hide(); popup.current = null;
+      setFormValues(strotumArticleObj);
+      setStrotumArticles(response.data.strotum_articles);
+    });
   }
 
   const updateToStrotumArticle = () => {
-    dispatch(updateStrotumArticle(strotum.id, editableSArticle.id, formValues));
+    dispatch(updateStrotumArticle({
+      id: strotum.id, article_id: editableSArticle.id, form: formValues
+    }));
   }
 
   const updateToAritcleIndex = (id) => {
     const article = strotumArticles.filter((article) => article.id === id )[0];
-    dispatch(updateAritcleIndex(strotum.id, article.id, article.index));
+    dispatch(updateAritcleIndex({id:strotum.id, article_id: article.id, new_index:article.index}));
   }
 
   const setEditorValues = (name, value) => {

@@ -8,11 +8,11 @@ const messageSlice = createSlice({
     showMessage(state, action){
       const { payload } = action;
       if(payload.data.error !== undefined){
-        // toast.error(payload.data.error.join("\n"));
-        state.type = 'error';state.message=payload.data.error.join("\n");
+        toast.error(payload.data.error.join("\n"));
+        // state.type = 'error';state.message=payload.data.error.join("\n");
       } else {
-        //toast.success(payload.data.notice);
-        state.type = 'success';state.message=payload.data.notice;
+        toast.success(payload.data.notice);
+        // state.type = 'success';state.message=payload.data.notice;
       }
     },
     showNotice(state, action){
@@ -23,7 +23,7 @@ const messageSlice = createSlice({
     showError(state, action){
       const { payload } = action;
       //state.type = 'error';state.message=payload;
-      toast.error(payload)
+      toast.error(payload.join("\n"))
     },
     clearMessage(state){
       return {...state, message: ''}

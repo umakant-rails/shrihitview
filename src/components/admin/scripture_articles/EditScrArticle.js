@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
 
 import { useNavigate, useParams } from 'react-router';
-import { getScrArticle, updateScrArticle } from '../../../actions/admin/admin_scr_articles';
+import { getScrArticle, updateScrArticle } from '../../../slices/admin/adminScrArticleSlice';
 
 const articleObj = {
   scripture_id: '', chapter_id: '', article_type_id: '', 
@@ -22,11 +22,11 @@ const EditScrArticle = () => {
     chapters, 
     article_types, 
     scripture_article,
-    scripture_article_updated
+    updated_scr_article
   } = useSelector( (state) => state.adminScrArticle)
  
   useEffect( () => {
-    dispatch(getScrArticle(scripture_id, id));
+    dispatch(getScrArticle({id: scripture_id, article_id: id}));
   }, [dispatch, scripture_id, id]);
 
   useEffect( () => {
@@ -44,10 +44,10 @@ const EditScrArticle = () => {
   }, [setFormValues, setChapterlist, chapters, scripture_article]);
 
   useEffect( () => {
-    if(scripture_article_updated){
-      navigate(`/admin/scriptures/${scripture_article_updated.scripture_id}`)
+    if(updated_scr_article){
+      navigate(`/admin/scriptures/${updated_scr_article.scripture_id}`)
     } 
-  }, [navigate, scripture_article_updated, scripture]);
+  }, [navigate, updated_scr_article, scripture]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
@@ -64,7 +64,7 @@ const EditScrArticle = () => {
   const onScriptureSubmit = (event) => {
     event.preventDefault();
     let formObj = {...formValues, scripture_id: scripture.id}
-    dispatch(updateScrArticle(scripture.id, scripture_article.id, formObj));
+    dispatch(updateScrArticle({id: scripture.id, article_id: scripture_article.id, form: formObj}));
   }
 
   const filterChapters = (e) => {

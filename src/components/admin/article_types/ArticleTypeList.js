@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
-import { getTypes, createType, updateType, deleteType } from '../../../actions/admin/admin_article_types';
+import { getTypes, createType, updateType, deleteType } from '../../../slices/admin/adminATypeSlice';
 // const articleTypeObj = {name: '', name_eng: ''};
 const articleTypeObj = {name: ''};
 
@@ -63,7 +63,7 @@ const ArticleTypeList = () => {
   }
 
   const createNewType = () => { dispatch(createType(formValues));}
-  const updateToType = () => { dispatch(updateType(editableType.id, formValues)); }
+  const updateToType = () => { dispatch(updateType({id: editableType.id, form: formValues})); }
   
   const showPopup = () => {
     const modalEl = document.getElementById('new-context-modal');

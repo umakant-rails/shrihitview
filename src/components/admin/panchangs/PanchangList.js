@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deletePanchang, getPanchangs } from '../../../actions/admin/admin_panchangs';
+import { deletePanchang, getPanchangs } from '../../../slices/admin/adminPanchangSlice';
 
 const PanchangList = () => {
   const dispatch = useDispatch();

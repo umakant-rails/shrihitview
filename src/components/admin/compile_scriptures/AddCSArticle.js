@@ -8,21 +8,27 @@ import {
   getFilteredAritcles,
   addArticleInCS,
   removeArticleFromCS
-} from '../../../actions/admin/admin_cs_scriptures';
+} from '../../../slices/admin/adminCompileScrSlice';
 
 const AddCSArticle = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const { 
-    articleTypes, raags, contexts, authors, 
-    scripture, chapters,
-    articles, totalArticles, added_articles 
-  } = useSelector( state => state.adminCSArticle );
+    article_types, 
+    raags, 
+    contexts, 
+    authors, 
+    scripture, 
+    chapters,
+    articles, 
+    total_articles, 
+    added_articles 
+  } = useSelector( state => state.adminCompileScr );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
   const [searchText, setSearchText] = useState('');
-  const [searchAttrs, setSearchAttrs] = useState({});
+  const [params, setParams] = useState({});
   const [chapterExist, setChapterExist] = useState(false);
   
   useEffect( () => {
@@ -32,51 +38,51 @@ const AddCSArticle = () => {
   useEffect( () => {
     if(articles){ 
       setArticleList(articles); 
-      setTotalArticle(totalArticles);
+      setTotalArticle( total_articles);
       setChapterExist(chapters && chapters.length > 0 ? true : false)
     }
-  }, [articles, totalArticles, chapters]);
+  }, [articles, total_articles, chapters]);
 
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');
     setCurrentPage(page);
-    const sAttrs = {...searchAttrs, page: page};
-    setSearchAttrs(sAttrs);
+    const sAttrs = {...params, page: page};
+    setParams(sAttrs);
     dispatch(getFilteredAritcles(scripture.id, sAttrs));
   }
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    let term = (name === 'chapter_id') ? searchAttrs.term : '';
-    let sAttrs = {...searchAttrs, term: term, [name]: value, page: 1};
-    setSearchAttrs(sAttrs);
+    let term = (name === 'chapter_id') ? params.term : '';
+    let sAttrs = {...params, term: term, [name]: value, page: 1};
+    setParams(sAttrs);
     setCurrentPage(1);
     setTotalArticle(null);
     setSearchText('');
-    dispatch(getFilteredAritcles(scripture.id, sAttrs));
+    dispatch(getFilteredAritcles({scripture_id: scripture.id, params: sAttrs}));
   }
   const refreshFilteredData = () => {
-    setSearchAttrs({});
+    setParams({});
     dispatch(getFilteredAritcles({}));
   }
   const addArticleIntoCS = (article_id) => {
     if(chapterExist && 
-        (searchAttrs.chapter_id === undefined || searchAttrs.chapter_id.length === 0)
+        (params.chapter_id === undefined || params.chapter_id.length === 0)
     ){
       alert(
         `कृपया पहले "${scripture.name}" के अध्याय को सेलेक्ट करे।`
       );
     } else {
-      dispatch(addArticleInCS(scripture.id, article_id, searchAttrs));
+      dispatch(addArticleInCS({scripture_id: scripture.id, article_id: article_id, params: params}));
     }
   }
   const removeCSArticle = (article_id) => {
-    dispatch(removeArticleFromCS(scripture.id, article_id, searchAttrs));
+    dispatch(removeArticleFromCS({scripture_id: scripture.id, article_id: article_id, params: params}));
   }
   const searchArticles = () => {
     const sAttrs = {term: searchText.trim(), page: 1};
-    setSearchAttrs(sAttrs);
-    dispatch(getFilteredAritcles(scripture.id, sAttrs));
+    setParams(sAttrs);
+    dispatch(getFilteredAritcles({scripture_id: scripture.id, params: sAttrs}));
   }
 
   return (
@@ -88,7 +94,7 @@ const AddCSArticle = () => {
         <div className="grid md:grid-cols-5 mb-4 gap-2">
           <div>
             <select id="article_type_id" name="article_type_id" 
-              value={searchAttrs.article_type_id ? searchAttrs.article_type_id : ''}
+              value={params.article_type_id ? params.article_type_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -97,7 +103,7 @@ const AddCSArticle = () => {
                 dark:shadow-sm-light`}>
                 <option value="">रचना प्रकार चुने</option>
                 {
-                  articleTypes && articleTypes.map( (aType, index) => 
+                  article_types && article_types.map( (aType, index) => 
                     <option key={index} value={aType.id}>{aType.name}</option>
                   )
                 }
@@ -105,7 +111,7 @@ const AddCSArticle = () => {
           </div>
           <div>
             <select id="author_id" name="author_id" 
-              value={searchAttrs.author_id ? searchAttrs.author_id : ''}
+              value={params.author_id ? params.author_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -122,7 +128,7 @@ const AddCSArticle = () => {
           </div>
           <div>
             <select id="context_id" name="context_id" 
-              value={searchAttrs.context_id ? searchAttrs.context_id : ''}
+              value={params.context_id ? params.context_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -139,7 +145,7 @@ const AddCSArticle = () => {
           </div>
           <div>
             <select id="raag_id" name="raag_id" 
-              value={searchAttrs.raag_id ? searchAttrs.raag_id : ''}
+              value={params.raag_id ? params.raag_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -198,7 +204,7 @@ const AddCSArticle = () => {
             </div>
             <div className='col-span-4'>
               <select id="chapter_id" name="chapter_id" 
-                value={searchAttrs.chapter_id ? searchAttrs.chapter_id : ''}
+                value={params.chapter_id ? params.chapter_id : ''}
                 onChange={onSearchInputChange}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 

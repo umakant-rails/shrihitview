@@ -3,13 +3,13 @@ import { ReactTransliterate } from 'react-transliterate';
 import { PANCHANG_TYPES } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { getPanchang, updatePanchang } from '../../../actions/admin/admin_panchangs';
+import { getPanchang, updatePanchang } from '../../../slices/admin/adminPanchangSlice';
 
 const EditPanchang = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [formValues, setFormValues] = useState({});
-  const { panchang, updatedPanchang } = useSelector( state => state.adminPanchang);
+  const { panchang, updated_panchang } = useSelector( state => state.adminPanchang);
   
   useEffect( () => {
     dispatch(getPanchang(id));
@@ -25,8 +25,8 @@ const EditPanchang = () => {
         panchang_type: panchang.panchang_type
       }));
     }
-    if(updatedPanchang){ window.location='/admin/panchangs'}
-  }, [panchang, updatedPanchang])
+    if(updated_panchang){ window.location='/admin/panchangs'}
+  }, [panchang, updated_panchang])
 
   const onInputChange = event => {
     const { name, value } = event.target;
@@ -48,7 +48,7 @@ const EditPanchang = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(updatePanchang(id, formValues))
+    dispatch(updatePanchang({id: id, form: formValues}))
   }
 
   return (

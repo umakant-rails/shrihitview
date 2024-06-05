@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDashboardData } from '../../../actions/admin/admin_dashboards';
+import { getDashboardData } from '../../../slices/admin/adminDashboardSlice';
 import Chart from 'react-apexcharts';
 import { Link } from 'react-router-dom';
 //https://demos.creative-tim.com/soft-ui-flowbite-pro/?_ga=2.87194584.1539948244.1710005126-243909173.1706023041

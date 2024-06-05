@@ -9,63 +9,70 @@ import {
   getArticleForIndexing, 
   updateIndex, 
   deleteCSArticle,
-} from '../../../actions/admin/admin_cs_scriptures';
+} from '../../../slices/admin/adminCompileScrSlice';
 
 
 const CSScriptureShow = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-
-  const { scripture, chapters, chapter, total_articles, articles, current_page } = useSelector( state => state.adminCSArticle);
+  const { 
+    scripture, 
+    chapters, 
+    total_articles, 
+    articles, 
+    current_page 
+  } = useSelector( state => state.adminCompileScr);
   const [articleList, setArticleList] = useState([]);
   const [chapterList, setChapterList] = useState();
   const [selectedChapterId, setSelectedChapterId] = useState('');
   const [totalArticleQnty, setTotalArticleQnty] = useState(total_articles);
   const [currentPage, setCurrentPage] = useState(current_page || 1);
-  const [searchAttrs, setSearchAttrs] = useState({page: 1});
+  const [params, setParams] = useState({page: 1});
 
   useEffect( () => {
-    dispatch(showCSScripture(id, searchAttrs));
-  }, [dispatch, searchAttrs, id]);
+    if(id){ dispatch(showCSScripture({scripture_id: id}));  }
+  }, [dispatch, id]);
 
   useEffect( () => {
     if(articles){
-      let chapter_id = chapter && chapter.id;
+      if(params.chapter_id === undefined && chapters){
+        setParams(params => ({...params, chapter_id: chapters[0].id}))
+        setSelectedChapterId(chapters[0].id);
+      }
       setArticleList(articles);
       setTotalArticleQnty(total_articles);
       setChapterList(chapters);
-      setSearchAttrs(searchAttrs => ({...searchAttrs, chapter_id: chapter_id}))
       setCurrentPage(current_page);
-      setSelectedChapterId(chapter_id);
+      
     }
-  }, [articles, total_articles, chapters, chapter, current_page])
+  }, [articles, total_articles, chapters, current_page])
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));
     if(page.toString() !== currentPage){
-      let sAttrs = {...searchAttrs, page: page};
+      let sAttrs = {...params, page: page};
       setCurrentPage(page);
-      setSearchAttrs(sAttrs);
-      dispatch(getArticleForIndexing(scripture.id, sAttrs));
+      setParams(sAttrs);
+      dispatch(getArticleForIndexing({scripture_id: scripture.id, params : sAttrs}));
     }
   };
  
   const fetchChapterArticles = (event) => {
     let chapterId = event.target.value;
     setSelectedChapterId(chapterId);
-    let sAttrs = {...searchAttrs, chapter_id: chapterId, page: 1};
-    setSearchAttrs(searchAttrs => ({...searchAttrs, chapter_id: chapterId}));
-    dispatch(getArticleForIndexing(scripture.id, sAttrs));
+    let sAttrs = {...params, chapter_id: chapterId, page: 1};
+    setParams(params => ({...params, chapter_id: chapterId}));
+    dispatch(getArticleForIndexing({scripture_id: scripture.id, params : sAttrs}));
   }
   const updateToIndex = (e, article_id) =>{
     let newIndex = e.target.previousSibling.value;
-    let sAttrs = {...searchAttrs, article_id: article_id, index: newIndex}
-    dispatch(updateIndex(scripture.id, sAttrs));
+    let sAttrs = {...params, article_id: article_id, index: newIndex}
+    dispatch(updateIndex({scripture_id: scripture.id, params : sAttrs}));
     e.target.previousSibling.value = '';
   }
   const removeCSArticle = (article_id) => {
-    let sAttrs = {...searchAttrs, article_id: article_id}
-    dispatch(deleteCSArticle(scripture.id, sAttrs));
+    let sAttrs = {...params, article_id: article_id}
+    dispatch(deleteCSArticle({scripture_id: scripture.id, params : sAttrs}));
   }
 
   return (

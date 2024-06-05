@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { approveArticle, deleteAdminArticle, getAdminArticles, getArticlesByPage } from '../../../actions/admin/admin_articles';
+import { 
+  approveArticle, 
+  deleteAdminArticle, 
+  getAdminArticles, 
+  getArticlesByPage 
+} from '../../../slices/admin/adminArticleSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { Link } from 'react-router-dom';
@@ -9,12 +14,17 @@ const AdminArticleList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const { 
-    articleTypes, contexts, 
-    authors, scriptures, articles, 
-    totalArticles, current_page } = useSelector( state => state.adminArticle );
+    article_types, 
+    contexts, 
+    authors, 
+    scriptures, 
+    articles, 
+    total_articles, 
+    current_page 
+  } = useSelector( state => state.adminArticle );
   const [articleList, setArticleList] = useState(articles);
   const [totalArticle, setTotalArticle] = useState(0);
-  const [searchAttr, setSearchAttr] = useState({});
+  const [searchAttrs, setSearchAttrs] = useState({});
   
   useEffect( () => {
     dispatch(getAdminArticles());
@@ -23,13 +33,13 @@ const AdminArticleList = () => {
   useEffect( () => {
     if(articles){ 
       setArticleList(articles); 
-      setTotalArticle(totalArticles);
+      setTotalArticle(total_articles);
     }
     if(current_page){setCurrentPage(current_page);}
-  }, [articles, totalArticles, current_page]);
+  }, [articles, total_articles, current_page]);
 
   const approveToArticle = (id) => {
-  dispatch(approveArticle(id, searchAttr));
+    dispatch(approveArticle({id: id, searchAttrs: searchAttrs}));
   }
   const deleteToArticle = (id) => {
     dispatch(deleteAdminArticle(id));
@@ -37,22 +47,22 @@ const AdminArticleList = () => {
 
   const handlePageClick = (e) => {
     const page = e.target.getAttribute('value');
-    const sAttrs = {...searchAttr, page: page};
-    setSearchAttr(sAttrs);
+    const sAttrs = {...searchAttrs, page: page};
+    setSearchAttrs(sAttrs);
     dispatch(getArticlesByPage(sAttrs));
   }
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttr, [name]: value, page: 1};
+    const sAttrs = {...searchAttrs, [name]: value, page: 1};
 
-    setSearchAttr(sAttrs);
+    setSearchAttrs(sAttrs);
     dispatch(getArticlesByPage(sAttrs, 0));
   }
   const refreshFilteredData = () => {
-    setSearchAttr({});
+    setSearchAttrs({});
     const sAttrs = {page: 1};
-    setSearchAttr(sAttrs);
+    setSearchAttrs(sAttrs);
     dispatch(getArticlesByPage(sAttrs));
   }
 
@@ -65,7 +75,7 @@ const AdminArticleList = () => {
         <div className="grid md:grid-cols-6 mb-4 gap-2">
           <div>
             <select id="article_type_id" name="article_type_id" 
-              value={searchAttr.article_type_id ? searchAttr.article_type_id : ''}
+              value={searchAttrs.article_type_id ? searchAttrs.article_type_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -74,7 +84,7 @@ const AdminArticleList = () => {
                 dark:shadow-sm-light`}>
                 <option value="">रचना प्रकार चुने</option>
                 {
-                  articleTypes && articleTypes.map( (aType, index) => 
+                  article_types && article_types.map( (aType, index) => 
                     <option key={index} value={aType.id}>{aType.name}</option>
                   )
                 }
@@ -82,7 +92,7 @@ const AdminArticleList = () => {
           </div>
           <div>
             <select id="author_id" name="author_id" 
-              value={searchAttr.author_id ? searchAttr.author_id : ''}
+              value={searchAttrs.author_id ? searchAttrs.author_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -99,7 +109,7 @@ const AdminArticleList = () => {
           </div>
           <div>
             <select id="context_id" name="context_id" 
-              value={searchAttr.context_id ? searchAttr.context_id : ''}
+              value={searchAttrs.context_id ? searchAttrs.context_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -116,7 +126,7 @@ const AdminArticleList = () => {
           </div>
           <div>
             <select id="scripture_id" name="scripture_id" 
-              value={searchAttr.scripture_id ? searchAttr.scripture_id : ''}
+              value={searchAttrs.scripture_id ? searchAttrs.scripture_id : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
@@ -133,7 +143,7 @@ const AdminArticleList = () => {
           </div>
           <div>
             <select id="status" name="status" 
-              value={searchAttr.status ? searchAttr.status : ''}
+              value={searchAttrs.status ? searchAttrs.status : ''}
               onChange={onSearchInputChange}
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 

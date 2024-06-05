@@ -25,5 +25,6 @@ export const getParamsStringFromHash = (searchAttrs) => {
       return `${key}=${searchAttrs[key]}`;
     }
   })
-  const searchAttrStr = arr.join('&');
+  // const searchAttrStr = arr.join('&');
+  return arr.join('&');
 }

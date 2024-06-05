@@ -6,7 +6,12 @@ import { Modal } from 'flowbite';
 import { ReactTransliterate } from "react-transliterate";
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { createChapter, updateChapter, deleteChapter, getChapters } from '../../../actions/admin/admin_scr_chapters';
+import { 
+  createChapter, 
+  updateChapter, 
+  deleteChapter, 
+  getChapters 
+} from '../../../slices/admin/adminScrChapterSlice';
 const chapterObj = {scripture_id: '', name: '', is_section: '', index: '', parent_id: ''};
 
 const ScriptureChapterList = () => {
@@ -24,7 +29,7 @@ const ScriptureChapterList = () => {
   const popup = useRef(null);
 
   useEffect( () => {
-    dispatch(getChapters(id, searchAttrs));
+    dispatch(getChapters({id: id, params: searchAttrs}));
   }, [dispatch, id, searchAttrs]);
 
   useEffect( () => {
@@ -41,25 +46,25 @@ const ScriptureChapterList = () => {
     const page = parseInt(event.target.getAttribute('value'));
     let sAttrs = {...searchAttrs, page: page};
     setSearchAttrs(sAttrs);
-    dispatch(getChapters(scripture.id, sAttrs));
+    dispatch(getChapters({id: scripture.id, params: sAttrs}));
   };
   const getChaptersOrSections = (dataType) => {
     let sAttrs = {...searchAttrs, data_type: dataType, page: 1};
     setSearchAttrs(sAttrs);
     setPopupForm(dataType);
     setTotalChapterQnty(null);
-    dispatch(getChapters(scripture.id, sAttrs));
+    dispatch(getChapters({id: scripture.id, params: sAttrs}));
   }
   const createToChapter = () => {
     formValues['is_section'] = (popupForm !== 'chapter')
-    dispatch(createChapter(scripture.id, formValues));
+    dispatch(createChapter({id: scripture.id, form: formValues}));
   }
   const updateToChapter = () => {
     formValues['is_section'] = (popupForm !== 'chapter')
-    dispatch(updateChapter(scripture.id, editableChapter.id, formValues));
+    dispatch(updateChapter({id: scripture.id, chapter_id: editableChapter.id, form: formValues}));
   }
-  const deleteToChapter = (id) => {
-    dispatch(deleteChapter(scripture.id, id));
+  const deleteToChapter = (chapter_id) => {
+    dispatch(deleteChapter({id:scripture.id, chapter_id:chapter_id}));
   }
 
   const setEditorValues = (name, value) => {

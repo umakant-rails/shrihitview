@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { deleteStrotum, getStrota, createStrotumArticle } from '../../../actions/admin/admin_strota';
+import { 
+  deleteStrotum, 
+  getStrota, 
+  createStrotumArticle
+} from '../../../slices/admin/adminStrotumSlice';
 import { Modal } from 'flowbite';
 
 const strotumArticleObj = {index: '', content: '', interpretation: '', article_type_id: ''};
@@ -16,7 +20,13 @@ const StrotumList = () => {
   const [strotaType, setStrotaType] = useState('');
   const [strotum, setStrotum] = useState(null);
   const [totalStrotumQnty, setTotalStrotumQnty] = useState(0);
-  const {strota, total_strota, current_page, article_types, strota_types } = useSelector( state => state.adminStrotum );
+  const {
+    strota,
+    total_strota, 
+    current_page, 
+    article_types, 
+    strota_types 
+  } = useSelector( state => state.adminStrotum );
   const [searchAttrs, setSearchAttrs] = useState({page: 1});
   const [formValues, setFormValues] = useState(strotumArticleObj);
   const popup = useRef(null);
@@ -62,9 +72,11 @@ const StrotumList = () => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
   }
   const createToStrotumArticle = () => {
-    dispatch(createStrotumArticle(strotum.id, formValues));
-    popup.current.hide(); popup.current = null;
-    setFormValues(strotumArticleObj);
+    dispatch(createStrotumArticle(strotum.id, formValues)).then( response => {
+      popup.current.hide(); popup.current = null;
+      setFormValues(strotumArticleObj);
+      console.log(response)
+    });
   }
   const showPopup = () => {
     const modalEl = document.getElementById('new-st-article-modal');

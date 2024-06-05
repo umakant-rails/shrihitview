@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ReactTransliterate } from 'react-transliterate';
 import { PANCHANG_TYPES } from '../../../utils/types';
-import { createPanchang } from '../../../actions/admin/admin_panchangs';
+import { createPanchang } from '../../../slices/admin/adminPanchangSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 

@@ -3,16 +3,20 @@ import { Link } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { deleteContext, getContexts, createContext, updateContext } from '../../../actions/admin/admin_contexts';
+import { 
+  deleteContext, 
+  getContexts, 
+  createContext, 
+  updateContext 
+} from '../../../slices/admin/adminContextSlice';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
-// const contextObj = {name: '', name_eng: ''};
+
 const contextObj = {name: ''};
 const ContextList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [currentPage, setCurrentPage] = useState(1);
-  // const [authorId, setAuthorId] = useState(null);
   const [contextList, setContextList] = useState([]);
   const [totalContextQnty, setTotalContextQnty] = useState(0);
 
@@ -77,7 +81,7 @@ const ContextList = () => {
   }
 
   const createNewContext = () => { dispatch(createContext(formValues));}
-  const updateToContext = () => { dispatch(updateContext(editableContext.id, formValues)); }
+  const updateToContext = () => { dispatch(updateContext({id: editableContext.id, form: formValues})); }
   
   const showPopup = () => {
     const modalEl = document.getElementById('new-context-modal');

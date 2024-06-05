@@ -4,7 +4,11 @@ import { PAKSH, TITHIS } from '../../../utils/types';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
-import { deletePanchangTithi, getEditingData, updatePanchangTithi } from '../../../actions/admin/admin_panchang_tithis';
+import { 
+  deletePanchangTithi, 
+  getEditingData, 
+  updatePanchangTithi 
+} from '../../../slices/admin/adminPanchangTithiSlice';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import Datepicker from 'flowbite-datepicker/Datepicker';
 import { toast } from 'react-toastify';
@@ -41,7 +45,7 @@ const EditTithi = () => {
 	const { panchang, tithis, months } = useSelector( state => state.adminPTithi);
 
   useEffect( () => {
-    dispatch(getEditingData(id, currentDate));
+    dispatch(getEditingData({id: id, date: currentDate}));
   }, [dispatch, id, currentDate]);
 
   useEffect( () => { 
@@ -94,9 +98,9 @@ const EditTithi = () => {
       title: `${monthName}, ${formValues.paksh}-${formValues.tithi}`, 
     }));
   }
-  const currentMonth = () => { setCurrentDate(moment().clone()); dispatch(getEditingData(id, currentDate)); }
-	const nextMonth = () => { currentDate.add(1, "month"); dispatch(getEditingData(id, currentDate));}
-	const prevMonth = () => { currentDate.subtract(1, "month"); dispatch(getEditingData(id, currentDate));}
+  const currentMonth = () => { setCurrentDate(moment().clone()); dispatch(getEditingData({id:id, date:currentDate})); }
+	const nextMonth = () => { currentDate.add(1, "month"); dispatch(getEditingData({id:id, date:currentDate}));}
+	const prevMonth = () => { currentDate.subtract(1, "month"); dispatch(getEditingData({id:id, date:currentDate}));}
 
   const onsubmit = (e) => {
     e.preventDefault();
@@ -108,14 +112,14 @@ const EditTithi = () => {
       toast.error('कृपया पहले तिथि को चुने.');
     } else {
       formValues['date'] = datePickerElement.value;
-      dispatch(updatePanchangTithi(panchangObj.id, selectedTithi.id, formValues));
+      dispatch(updatePanchangTithi({id: panchangObj.id, panchang_id:selectedTithi.id, form: formValues}));
     }
   }
 
   const deleteTithi = (panchangId, tithiId) => {  
     const isTrue = window.confirm("Are you sure you want to delete this record ?");
     if(isTrue){
-      dispatch(deletePanchangTithi(panchangId, tithiId));
+      dispatch(deletePanchangTithi({panchang_id:panchangId, panchang_tithi_id:tithiId}));
     }
   }
 

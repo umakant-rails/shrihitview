@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
-import {editStrotum, updateStrotum} from "../../../actions/admin/admin_strota";
+import {editStrotum, updateStrotum} from "../../../slices/admin/adminStrotumSlice";
 import { useNavigate, useParams } from 'react-router';
 
 const authorObj = {title: '', strota_type_id: '', source: '', keyword: ''};
@@ -11,7 +11,7 @@ const EditStroum = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [formValues, setFormValues] = useState(authorObj);
-  const { strotum, strota_types, updatedStrotum } = useSelector( (state) => state.adminStrotum)
+  const { strotum, strota_types, updated_strotum } = useSelector( (state) => state.adminStrotum)
 
   useEffect( () => {
     dispatch(editStrotum(id));  
@@ -26,8 +26,8 @@ const EditStroum = () => {
         keyword: strotum.keyword,
       }))
     }
-    if(updatedStrotum){navigate('/admin/strota');} 
-  }, [strotum, navigate, updatedStrotum]);
+    if(updated_strotum){navigate('/admin/strota');} 
+  }, [strotum, navigate, updated_strotum]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));
@@ -43,7 +43,7 @@ const EditStroum = () => {
 
   const onStrotaSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateStrotum(strotum.id, formValues));
+    dispatch(updateStrotum({id: strotum.id, form: formValues}));
   }
 
   return (

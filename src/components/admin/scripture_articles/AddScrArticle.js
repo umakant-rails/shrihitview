@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Editor } from 'primereact/editor';
 
 import { useNavigate, useParams } from 'react-router';
-import { newScrArticle, createScrArticle } from '../../../actions/admin/admin_scr_articles';
+import { newScrArticle, createScrArticle } from '../../../slices/admin/adminScrArticleSlice';
 
 const articleObj = {
   scripture_id: '', chapter_id: '', article_type_id: '', 
@@ -51,7 +51,7 @@ const AddScrArticle = () => {
 
   const onScriptureSubmit = (event) => {
     event.preventDefault();
-    dispatch(createScrArticle(scripture.id, formValues));
+    dispatch(createScrArticle({id:scripture.id, form:formValues}));
   }
 
   const filterChapters = (e) => {

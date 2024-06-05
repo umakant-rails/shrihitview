@@ -57,6 +57,19 @@ import userSuggestionSlice from "../slices/user/userSuggestionSlice";
 import userTagSlice from "../slices/user/userTagSlice";
 import userPanchangSlice from "../slices/user/userPanchangSlice";
 
+import adminArticleSlice from "../slices/admin/adminArticleSlice";
+import adminATypeSlice from "../slices/admin/adminATypeSlice";
+import adminAuthorSlice from "../slices/admin/adminAuthorSlice";
+import adminTagSlice from "../slices/admin/adminTagSlice";
+import adminContextSlice from "../slices/admin/adminContextSlice";
+import adminCompileScrSlice from "../slices/admin/adminCompileScrSlice";
+import adminDashboardSlice from "../slices/admin/adminDashboardSlice";
+import adminPanchangTithiSlice from "../slices/admin/adminPanchangTithiSlice";
+import adminPanchangSlice from "../slices/admin/adminPanchangSlice";
+import adminScrArticleSlice from "../slices/admin/adminScrArticleSlice";
+import adminScrChapterSlice from "../slices/admin/adminScrChapterSlice";
+import adminStrotumSlice from "../slices/admin/adminStrotumSlice";
+
 export default combineReducers({
     // home: homeReducer,
     //pbArticle: articleReducer,
@@ -79,19 +92,19 @@ export default combineReducers({
     //userStory: userStoryReducer,
     //userSuggestion: userSuggestionReducer,
     
-    adminArticle: adminArticleReducer,
-    adminAuthor: adminAuthorReducer,
-    adminTag: adminTagReducer,
-    adminContext: adminContextReducer,
-    adminAType: adminArticleTypeReducer,
-    adminStrotum: adminStrotumReducer,
-    adminScripture: adminScriputureReducer,
-    adminScrChapter: adminScrChapterReducer,
-    adminScrArticle: adminScrArticleReducer,
-    adminCSArticle: adminCSArticleReducer,
-    adminDashboard: adminDashboardReducer,
-    adminPanchang: adminPanchangReducer,
-    adminPTithi: adminPanchangTithiReducer,
+    //adminArticle: adminArticleReducer,
+    //adminAuthor: adminAuthorReducer,
+    // adminTag: adminTagReducer,
+    // adminContext: adminContextReducer,
+    //adminAType: adminArticleTypeReducer,
+    //adminStrotum: adminStrotumReducer,
+    // adminScripture: adminScriputureReducer,
+    //adminScrChapter: adminScrChapterReducer,
+    // adminScrArticle: adminScrArticleReducer,
+    //adminCSArticle: adminCSArticleReducer,
+    // adminDashboard: adminDashboardReducer,
+    //adminPanchang: adminPanchangReducer,
+    //adminPTithi: adminPanchangTithiReducer,
 
     home: homeSlice,
     auth: authSlice,
@@ -114,4 +127,17 @@ export default combineReducers({
     userSuggestion: userSuggestionSlice,
     userTag: userTagSlice,
     userPanchang: userPanchangSlice,
+
+    adminArticle: adminArticleSlice,
+    adminAType: adminATypeSlice,
+    adminAuthor: adminAuthorSlice,
+    adminTag: adminTagSlice,
+    adminContext: adminContextSlice,
+    adminCompileScr: adminCompileScrSlice,
+    adminDashboard: adminDashboardSlice,
+    adminPanchang: adminPanchangSlice,
+    adminPTithi: adminPanchangTithiSlice,
+    adminScrArticle: adminScrArticleSlice,
+    adminScrChapter: adminScrChapterSlice,
+    adminStrotum: adminStrotumSlice,
 });

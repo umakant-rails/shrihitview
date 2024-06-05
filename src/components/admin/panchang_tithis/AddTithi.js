@@ -4,7 +4,11 @@ import { PAKSH, TITHIS } from '../../../utils/types';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from 'react-transliterate';
-import { createPanchangTithi, navigateMonth, newPanchangTithi} from '../../../actions/admin/admin_panchang_tithis';
+import { 
+  createPanchangTithi, 
+  navigateMonth, 
+  newPanchangTithi
+} from '../../../slices/admin/adminPanchangTithiSlice';
 import { dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
 //https://tailwindcomponents.com/component/calendar-4
@@ -34,17 +38,24 @@ const AddTithi = () => {
   const [formValues, setFormValues] = useState(tithiObj);
 
   const { id } = useParams();
-	const { panchang, current_month, tithis, tithi, isCreated } = useSelector( state => state.adminPTithi);
+	const { 
+    panchang, 
+    current_month, 
+    tithis, 
+    tithi, 
+    isCreated 
+  } = useSelector( state => state.adminPTithi);
 
   useEffect( () => {
     dispatch(newPanchangTithi(id)).then(response => {
       const tithi = response.data.last_tithi;
       month = response.data.month;
-      let lastDate = tithi ? moment(tithi.date).clone() : moment().clone();
-      if(tithi){
-        lastDate.add(1, "days");
-        nextTithi(tithi.paksh, tithi.tithi);
-      }
+      let lastDate = moment().clone(); //tithi ? moment(tithi.date).clone() : moment().clone();
+
+      // if(tithi){
+      //   lastDate.add(1, "days");
+      //   nextTithi(tithi.paksh, tithi.tithi);
+      // }
       setCurrentDate(lastDate);
       selectDate(lastDate);
       createDateArr(lastDate);
@@ -132,7 +143,7 @@ const AddTithi = () => {
     while(lastDate >= firstDate ){
       arr.push(firstDate.clone()); firstDate.add(1, "days");  
     }
-    dispatch(navigateMonth(id, newDate));
+    dispatch(navigateMonth({id: id, date:newDate}));
 		setMonthDateArr(arr);
 	}
 
@@ -142,7 +153,7 @@ const AddTithi = () => {
 
   const onsubmit = (e) => {
     e.preventDefault();
-    dispatch(createPanchangTithi(panchangObj.id, formValues));
+    dispatch(createPanchangTithi({id: panchangObj.id, form: formValues}));
   }
 	return (
 		<div className='grid md:grid-cols-12 mt-5'>

@@ -66,7 +66,8 @@ const ScriptureShow = () => {
   }
 
   const deleteScriptureArticle = (article_id) => {
-    dispatch(deleteScrArticle(scripture.id, article_id, searchAttr));
+    const isTrue = window.confirm("Are you sure you want to delete this record ?");
+    if(isTrue){  dispatch(deleteScrArticle(scripture.id, article_id, searchAttr)); }
   }
 
   return (
