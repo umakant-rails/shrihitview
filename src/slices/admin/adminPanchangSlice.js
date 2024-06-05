@@ -33,7 +33,6 @@ export const createPanchang = createAsyncThunk(
   async(form, {dispatch, rejectWithValue}) => {
     try{
       const response = await baseUrl.post('/admin/panchangs', {panchang: form});
-      console.log(response)
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {
@@ -84,14 +83,12 @@ const adminPanchangSlice = createSlice({
     })
 
     .addCase(getPanchang.fulfilled, (state, action) => {
-      console.log(action.payload)
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
     .addCase(createPanchang.pending, (state, action) => {
       state.loading = true;
     }).addCase(createPanchang.fulfilled, (state, action) => {
-      console.log("sfdsdfsdf", action.payload)
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
       state.loading = false;
     }).addCase(createPanchang.rejected, (state, action) => {

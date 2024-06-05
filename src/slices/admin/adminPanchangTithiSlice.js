@@ -16,7 +16,6 @@ export const newPanchangTithi = (id) => async dispatch => {
 //   async (id, {dispatch, rejectWithValue }) => {
 //     try {
 //       const response = await baseUrl.get(`/admin/panchangs/${id}/panchang_tithis/new`);
-//       console.log(response)
 //       return response.data;
 //     } catch (error) {
 //       dispatch({type: 'message/showError', payload: error.message});
@@ -121,7 +120,6 @@ const adminPanchangTithiSlice = createSlice({
     })
 
     .addCase(navigateMonth.fulfilled, (state, action) => {
-      console.log(action.payload)
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 

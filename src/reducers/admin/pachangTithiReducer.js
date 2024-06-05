@@ -13,7 +13,6 @@ const initialState = {panchangList: []};
 const adminPanchangTithiReducer = (state=initialState, action) => {
   switch (action.type) {
     // case PANCHANG_TITHI_NEW:
-    //   console.log(action.payload)
     //   return {
     //     ...state,
     //     tithi: action.payload.last_tithi,

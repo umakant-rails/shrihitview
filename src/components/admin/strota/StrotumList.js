@@ -75,7 +75,6 @@ const StrotumList = () => {
     dispatch(createStrotumArticle(strotum.id, formValues)).then( response => {
       popup.current.hide(); popup.current = null;
       setFormValues(strotumArticleObj);
-      console.log(response)
     });
   }
   const showPopup = () => {

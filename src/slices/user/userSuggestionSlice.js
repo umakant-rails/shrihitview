@@ -78,7 +78,6 @@ const userSuggestionSlice = createSlice({
   extraReducers(builder) {
     builder.
     addCase(getUserSuggestions.fulfilled, (state, action) => {
-      console.log(action.payload)
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 

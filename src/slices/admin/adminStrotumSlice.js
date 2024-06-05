@@ -34,7 +34,6 @@ export const createStrotum = createAsyncThunk(
   async (form, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/admin/strota', {strotum: form});
-      console.log(response);
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {

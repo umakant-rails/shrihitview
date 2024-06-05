@@ -31,9 +31,9 @@ export const getArticlesByPage = createAsyncThunk(
 
 export const approveArticle = createAsyncThunk(
   "adminArticle/approveArticle",
-  async ({id, searchAttrs}, {dispatch, rejectWithValue }) => {
+  async ({id, params}, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.post(`/admin/articles/${id}/article_approved`, searchAttrs);
+      const response = await baseUrl.post(`/admin/articles/${id}/article_approved`, params);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -41,6 +41,7 @@ export const approveArticle = createAsyncThunk(
     }
   }
 );
+
 
 export const deleteAdminArticle = createAsyncThunk(
   "adminArticle/deleteAdminArticle",
