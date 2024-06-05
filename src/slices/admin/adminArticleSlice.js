@@ -17,10 +17,10 @@ export const getAdminArticles = createAsyncThunk(
 
 export const getArticlesByPage = createAsyncThunk(
   "adminArticle/getArticlesByPage",
-  async (searchAttrs, {dispatch, rejectWithValue }) => {
+  async (params, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs);
-      const response = await baseUrl.get(`/admin/articles/articles_by_page?${searchAttrsStr}`);
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.get(`/admin/articles/articles_by_page?${paramsStr}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});

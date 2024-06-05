@@ -65,7 +65,7 @@ const PBTagShow = () => {
         </div>
         <div className='text-blue-700 text-2xl px-6'>
           {
-            tags.length > 0 ? tags.map( (tag, index) =>
+            tags && tags.length > 0 ? tags.map( (tag, index) =>
               <Link key={index} to={`/pb/tags/${tag.name}`}>{tag.name}</Link>
             ).reduce((prev, curr) => [prev, ', ', curr]) : null
           }

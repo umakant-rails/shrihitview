@@ -27,16 +27,22 @@ const PBStoryShow = () => {
             </div>
           )
         }
-        <div className='mt-5 mb-3 text-2xl font-bold text-amber-700'>
-          इनको भी पढ़े :-
-        </div>
-        <div className='text-blue-700 text-xl px-6'>
-          {
-            stories.length > 0 && stories.map( (story, index) =>
-              <Link key={index} to={`/pb/stories/${story.title}y`}>{story.title}</Link>
-            ).reduce((prev, curr) => [prev, ', ', curr])
-          }
-        </div>
+        {
+          stories && (
+            <>
+              <div className='mt-5 mb-3 text-2xl font-bold text-amber-700'>
+                इनको भी पढ़े :-
+              </div>
+              <div className='text-blue-700 text-xl px-6'>
+                {
+                  stories.length > 0 && stories.map( (story, index) =>
+                    <Link key={index} to={`/pb/stories/${story.title}`}>{story.title}</Link>
+                  ).reduce((prev, curr) => [prev, ', ', curr])
+                }
+              </div>
+            </>
+          )
+        }
       </div>
     </div>
   );

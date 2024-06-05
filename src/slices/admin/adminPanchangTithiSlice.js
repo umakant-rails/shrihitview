@@ -11,18 +11,6 @@ export const newPanchangTithi = (id) => async dispatch => {
 
   return response;
 }
-// export const newPanchangTithi = createAsyncThunk(
-//   "adminPanchangTithi/newPanchangTithi",
-//   async (id, {dispatch, rejectWithValue }) => {
-//     try {
-//       const response = await baseUrl.get(`/admin/panchangs/${id}/panchang_tithis/new`);
-//       return response.data;
-//     } catch (error) {
-//       dispatch({type: 'message/showError', payload: error.message});
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 export const createPanchangTithi = createAsyncThunk(
   "adminPanchangTithi/createPanchangTithi",
@@ -106,10 +94,6 @@ const adminPanchangTithiSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-    // .addCase(newPanchangTithi.fulfilled, (state, action) => {
-    //   for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
-    // })
-
     .addCase(createPanchangTithi.pending, (state, action) => {
       state.loading = true;
     }).addCase(createPanchangTithi.fulfilled, (state, action) => {

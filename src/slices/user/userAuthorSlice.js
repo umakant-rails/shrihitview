@@ -4,10 +4,10 @@ import { getParamsStringFromHash } from "../../utils/utilityFunctions";
 
 export const getAuthors = createAsyncThunk(
   "usrAuthor/getAuthors",
-  async (searchAttrs, {dispatch, rejectWithValue }) => {
+  async (params, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs);
-      const response = await baseUrl.get(`/authors?${searchAttrsStr}`)
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.get(`/authors?${paramsStr}`)
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -136,15 +136,6 @@ const userAuthorSlice = createSlice({
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
-    // .addCase(updateAuthor.pending, (state, action) => {
-    //   state.loading = true;
-    // }).addCase(updateAuthor.fulfilled, (state, action) => {
-    //   for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
-    //   state.loading = false;
-    // }).addCase(updateAuthor.rejected, (state, action) => {
-    //   state.loading = false;
-    // })
-    
     .addCase(deleteAuthor.pending, (state, action) => {
       state.loading = true;
     }).addCase(deleteAuthor.fulfilled, (state, action) => {

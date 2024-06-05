@@ -4,10 +4,10 @@ import { getParamsStringFromHash } from "../../utils/utilityFunctions";
 
 export const getAdminTags = createAsyncThunk(
   "adminTag/getAdminTags",
-  async (searchAttrs, {dispatch, rejectWithValue }) => {
+  async (params, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs)
-      const response = await baseUrl.get(`/admin/tags?${searchAttrsStr}`);
+      const paramsStr = getParamsStringFromHash(params)
+      const response = await baseUrl.get(`/admin/tags?${paramsStr}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -18,10 +18,9 @@ export const getAdminTags = createAsyncThunk(
 
 export const approveToTag = createAsyncThunk(
   "adminTag/approveToTag",
-  async ({id, searchAttrs}, {dispatch, rejectWithValue }) => {
+  async ({id, params}, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs)
-      const response = await baseUrl.post(`/admin/tags/${id}/tag_approved`, searchAttrs);
+      const response = await baseUrl.post(`/admin/tags/${id}/tag_approved`, params);
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {

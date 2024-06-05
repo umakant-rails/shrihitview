@@ -9,7 +9,7 @@ const PBStrotumShow = () => {
   const {title} = useParams();
   let prevArticleType = ''; 
 
-  const { strota, strotum_articles } = useSelector(state => state.strotum);
+  const { strotum, strota, strotum_articles } = useSelector(state => state.strotum);
 
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'});
@@ -33,9 +33,9 @@ const PBStrotumShow = () => {
     <div className='grid md:grid-cols-12'>
       <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          आरती/स्तोत्र - { title }
+          आरती/स्तोत्र - { strotum && strotum.name }
         </div>
-        <div className='grid md:grid-cols-12 gap-6'>
+        <div className='grid md:grid-cols-12 gap-2'>
           <div className='md:col-span-8 shadow-xl'>
             {
               <div className='leading-10 mb-8 px-2'>
@@ -59,17 +59,17 @@ const PBStrotumShow = () => {
             }
           </div>
           <div className='mb-5 md:col-span-4'>
-            <div className='article-header-violet'>
-              लेखक/रचनाकार
+            <div className='article-header-violet text-xl'>
+              सम्बन्धित बिषय
             </div>
             {
               strota && (
                 <ul className='list-none'>
                   { 
-                    strota && strota.map((strotum, index) =>
-                      <Link key={index} to={`/pb/strota/${strotum.title}`}>
-                        <li className='py-3 px-2 border-b border-gray-300 text-lg text-blue-500'>
-                          {strotum.title}
+                    strota.map((strotum, index) =>
+                      <Link key={index} to={`/pb/strota/${strotum.name}`}>
+                        <li className='py-3 px-2 border-b border-gray-300 text-xl text-blue-500'>
+                          {strotum.name}
                         </li>
                       </Link>
                     )
@@ -78,16 +78,6 @@ const PBStrotumShow = () => {
               ) 
             }
           </div>
-        </div>
-        <div className='mt-5 mb-3 text-2xl font-bold text-amber-700'>
-          इनको भी पढ़े :-
-        </div>
-        <div className='text-blue-700 text-2xl px-6'>
-          {
-            strota ? strota.map( (strotum, index) =>
-              <Link key={index} to={`/pb/strota/${strotum.title}`}>{strotum.title}</Link>
-            ).reduce((prev, curr) => [prev, ', ', curr]) : null
-          }
         </div>
       </div>
     </div>

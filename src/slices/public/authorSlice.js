@@ -4,10 +4,10 @@ import { getParamsStringFromHash } from "../../utils/utilityFunctions";
 
 export const getAuthors = createAsyncThunk(
   "pbAuthor/getAuthors",
-  async (searchAttrs, {dispatch, rejectWithValue }) => {
+  async (params, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs);
-      const response = await baseUrl.get(`/pb/authors?${searchAttrsStr}`);
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.get(`/pb/authors?${paramsStr}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});

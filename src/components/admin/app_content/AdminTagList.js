@@ -81,7 +81,7 @@ const AdminTagList = () => {
     }
   }
   const approveTag = (id) => {
-    dispatch(approveToTag(id, searchAttr));
+    dispatch(approveToTag({id: id, params: searchAttr}));
   }
   const updateToTag = () => { /*dispatch(updateTag(editableTag.id, formValues));*/ }
   

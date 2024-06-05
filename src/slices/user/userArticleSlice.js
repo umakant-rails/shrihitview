@@ -99,10 +99,10 @@ export const getArticles = createAsyncThunk(
 
 export const getArticlesByPage = createAsyncThunk(
   "usrArticle/getArticlesByPage",
-  async (searchAttrs, {dispatch, rejectWithValue }) => {
+  async (params, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs);
-      const response = await baseUrl.get(`/articles/pages/${searchAttrs.page}?${searchAttrsStr}`);
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.get(`/articles/pages/${params.page}?${paramsStr}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -146,13 +146,6 @@ const usrArticleSlice = createSlice({
     })
 
     .addCase(editArticle.fulfilled, (state, action) => {
-      // state.article = action.payload.article;
-      // state.raags = action.payload.raags;
-      // state.authors = action.payload.authors;
-      // state.scriptures = action.payload.scriptures;
-      // state.tags = action.payload.tags;
-      // state.contexts = action.payload.contexts;
-      // state.article_types = action.payload.article_types;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
@@ -168,8 +161,6 @@ const usrArticleSlice = createSlice({
     .addCase(deleteArticle.pending, (state, action) => {
       state.loading = true;
     }).addCase(deleteArticle.fulfilled, (state, action) => {
-      // state.articles = action.payload.articles;
-      // state.total_articles = action.payload.total_articles;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
       state.loading = false;
     }).addCase(deleteArticle.rejected, (state, action) => {
@@ -186,18 +177,10 @@ const usrArticleSlice = createSlice({
     })
 
     .addCase(getArticles.fulfilled, (state, action) => {
-      // state.articles = action.payload.articles;
-      // state.total_articles = action.payload.total_articles;
-      // state.raags = action.payload.raags;
-      // state.authors = action.payload.authors;
-      // state.contexts = action.payload.contexts;
-      // state.article_types = action.payload.article_types;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
     .addCase(getArticlesByPage.fulfilled, (state, action) => {
-      // state.articles = action.payload.articles;
-      // state.total_articles = action.payload.total_articles;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 

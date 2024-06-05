@@ -4,10 +4,10 @@ import { getParamsStringFromHash } from "../../utils/utilityFunctions";
 
 export const getAdminAuthors = createAsyncThunk(
   "adminAuthor/getAdminAuthors",
-  async (searchAttrs, {dispatch, rejectWithValue }) => {
+  async (params, {dispatch, rejectWithValue }) => {
     try {
-      const searchAttrsStr = getParamsStringFromHash(searchAttrs)
-      const response = await baseUrl.get(`/admin/authors?${searchAttrsStr}`);
+      const paramsStr = getParamsStringFromHash(params)
+      const response = await baseUrl.get(`/admin/authors?${paramsStr}`);
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -18,9 +18,9 @@ export const getAdminAuthors = createAsyncThunk(
 
 export const approveToAuthor = createAsyncThunk(
   "adminAuthor/approveToAuthor",
-  async ({id, searchAttrs}, {dispatch, rejectWithValue }) => {
+  async ({id, params}, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.post(`/admin/authors/${id}/author_approved`, searchAttrs);
+      const response = await baseUrl.post(`/admin/authors/${id}/author_approved`, params);
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {
@@ -32,9 +32,9 @@ export const approveToAuthor = createAsyncThunk(
 
 export const deleteAdminAuthor = createAsyncThunk(
   "adminAuthor/deleteAdminAuthor",
-  async ({id, searchAttrs}, {dispatch, rejectWithValue }) => {
+  async ({id, params}, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.delete(`/admin/authors/${id}`, {data: searchAttrs});
+      const response = await baseUrl.delete(`/admin/authors/${id}`, {data: params});
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {

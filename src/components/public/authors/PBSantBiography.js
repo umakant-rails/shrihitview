@@ -27,16 +27,22 @@ const SantBiography = () => {
             </div>
           )
         }
-        <div className='mt-5 mb-3 text-2xl font-bold text-amber-700'>
-          इनको भी पढ़े :-
-        </div>
-        <div className='text-blue-700'>
-          {
-            related_sants && related_sants.map( (sant, index) =>
-              <Link key={index} to={`/pb/authors/${sant.name_eng}/sant_biography`}>{sant.name}</Link>
-            ).reduce((prev, curr) => [prev, ', ', curr])
-          }
-        </div>
+        {
+          related_sants && (
+            <>
+              <div className='mt-5 mb-3 text-2xl font-bold text-amber-700'>
+                इनको भी पढ़े :- 
+              </div>
+              <div className='text-blue-700 text-xl font-bold'>
+                {
+                  related_sants.map( (sant, index) =>
+                    <Link key={index} to={`/pb/authors/${sant.name_eng}/sant_biography`}>{sant.name}</Link>
+                  ).reduce((prev, curr) => [prev, ', ', curr])
+                }
+              </div>
+            </>
+          )
+        } 
       </div>
     </div>
   );
