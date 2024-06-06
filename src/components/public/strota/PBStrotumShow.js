@@ -33,7 +33,7 @@ const PBStrotumShow = () => {
     <div className='grid md:grid-cols-12'>
       <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          आरती/स्तोत्र - { strotum && strotum.name }
+          आरती/स्तोत्र - { strotum && strotum.title }
         </div>
         <div className='grid md:grid-cols-12 gap-2'>
           <div className='md:col-span-8 shadow-xl'>
@@ -67,9 +67,9 @@ const PBStrotumShow = () => {
                 <ul className='list-none'>
                   { 
                     strota.map((strotum, index) =>
-                      <Link key={index} to={`/pb/strota/${strotum.name}`}>
+                      <Link key={index} to={`/pb/strota/${strotum.title}`}>
                         <li className='py-3 px-2 border-b border-gray-300 text-xl text-blue-500'>
-                          {strotum.name}
+                          {strotum.title}
                         </li>
                       </Link>
                     )

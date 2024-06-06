@@ -33,6 +33,7 @@ export const createStory = createAsyncThunk(
   "usrStory/createStory",
   async (formValues, {dispatch, rejectWithValue }) => {
     try {
+      formValues['title'] = formValues['title'].trim();
       const response = await baseUrl.post('/stories', {story: formValues});
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
