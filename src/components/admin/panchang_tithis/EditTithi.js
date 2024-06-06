@@ -9,7 +9,7 @@ import {
   getEditingData, 
   updatePanchangTithi 
 } from '../../../slices/admin/adminPanchangTithiSlice';
-import { dateFormat } from '../../../utils/utilityFunctions';
+import { confirmBeforeDeletion, dateFormat } from '../../../utils/utilityFunctions';
 import Datepicker from 'flowbite-datepicker/Datepicker';
 import { toast } from 'react-toastify';
 
@@ -117,8 +117,7 @@ const EditTithi = () => {
   }
 
   const deleteTithi = (panchangId, tithiId) => {  
-    const isTrue = window.confirm("Are you sure you want to delete this record ?");
-    if(isTrue){
+    if(confirmBeforeDeletion()){
       dispatch(deletePanchangTithi({panchang_id:panchangId, panchang_tithi_id:tithiId}));
     }
   }

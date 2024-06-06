@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Pagination from '../../shared/Pagination';
+import { Link } from 'react-router-dom';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
 import { 
   approveArticle, 
   deleteAdminArticle, 
   getAdminArticles, 
   getArticlesByPage 
 } from '../../../slices/admin/adminArticleSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import Pagination from '../../shared/Pagination';
-import { Link } from 'react-router-dom';
 
 const AdminArticleList = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,9 @@ const AdminArticleList = () => {
     dispatch(approveArticle({id: id, params: searchAttrs}));
   }
   const deleteToArticle = (id) => {
-    dispatch(deleteAdminArticle(id));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteAdminArticle(id));
+    }
   }
 
   const handlePageClick = (e) => {

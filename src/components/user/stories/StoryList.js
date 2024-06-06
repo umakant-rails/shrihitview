@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { deleteStory, getStories } from '../../../slices/user/userStorySlice';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  deleteStory, 
+  getStories 
+} from '../../../slices/user/userStorySlice';
 
 const StoryList = () => {
   const dispatch = useDispatch();
@@ -33,7 +37,9 @@ const StoryList = () => {
   };
 
   const deleteToStory = (id) => {
-    dispatch(deleteStory({id: id, origin_page:"index"}));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteStory({id: id, origin_page:"index"}));
+    }
   }
 
   return (

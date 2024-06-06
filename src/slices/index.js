@@ -34,6 +34,7 @@ import adminPanchangSlice from "./admin/adminPanchangSlice";
 import adminScrArticleSlice from "./admin/adminScrArticleSlice";
 import adminScrChapterSlice from "./admin/adminScrChapterSlice";
 import adminStrotumSlice from "./admin/adminStrotumSlice";
+import adminScriptureSlice from "./admin/adminScriptureSlice";
 
 export default combineReducers({
     home: homeSlice,
@@ -67,6 +68,7 @@ export default combineReducers({
     adminDashboard: adminDashboardSlice,
     adminPanchang: adminPanchangSlice,
     adminPTithi: adminPanchangTithiSlice,
+    adminScripture: adminScriptureSlice,
     adminScrArticle: adminScrArticleSlice,
     adminScrChapter: adminScrChapterSlice,
     adminStrotum: adminStrotumSlice,

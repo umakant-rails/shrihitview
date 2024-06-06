@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import {editScripture, updateScripture} from "../../../actions/admin/admin_scriptures";
+import {editScripture, updateScripture} from '../../../slices/admin/adminScriptureSlice';
 import { useNavigate, useParams } from 'react-router';
 
 const scriptureObj = {scripture_type_id: '', author_id: '', name: '', name_eng: '', description: ''};
@@ -12,15 +12,15 @@ const EditScripture = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [formValues, setFormValues] = useState(scriptureObj);
-  const { scripture, scripture_types, authors, scriptureUpdated } = useSelector( (state) => state.adminScripture)
+  const { scripture, scripture_types, authors, updated_scripture } = useSelector( (state) => state.adminScripture)
 
   useEffect( () => {
     dispatch(editScripture(id));
   }, [dispatch, id]);
 
   useEffect( () => {   
-    if(scriptureUpdated){navigate('/admin/scriptures'); } 
-  }, [scriptureUpdated, navigate]);
+    if(updated_scripture){navigate('/admin/scriptures'); } 
+  }, [updated_scripture, navigate]);
 
   useEffect( () => {
     if(scripture){
@@ -49,7 +49,7 @@ const EditScripture = () => {
 
   const onScriptureSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateScripture(id, formValues));
+    dispatch(updateScripture({id: id, form: formValues}));
   }
 
   return (

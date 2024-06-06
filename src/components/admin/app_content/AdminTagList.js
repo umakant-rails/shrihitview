@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { deleteAdminTag, getAdminTags, approveToTag } from '../../../slices/admin/adminTagSlice';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  deleteAdminTag, 
+  getAdminTags, 
+  approveToTag 
+} from '../../../slices/admin/adminTagSlice';
+
 const tagObj = {name: '', name_eng: ''};
 
 const AdminTagList = () => {
@@ -62,7 +68,9 @@ const AdminTagList = () => {
   }
 
   const deleteToTag = (id) => {
-    dispatch(deleteAdminTag(id));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteAdminTag(id));
+    }
   }
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;

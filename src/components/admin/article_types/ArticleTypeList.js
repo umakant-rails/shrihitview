@@ -5,8 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
-import { getTypes, createType, updateType, deleteType } from '../../../slices/admin/adminATypeSlice';
-// const articleTypeObj = {name: '', name_eng: ''};
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  getTypes, 
+  createType, 
+  updateType, 
+  deleteType 
+} from '../../../slices/admin/adminATypeSlice';
+
 const articleTypeObj = {name: ''};
 
 const ArticleTypeList = () => {
@@ -49,7 +55,7 @@ const ArticleTypeList = () => {
   };
 
   const deleteToTag = (id) => {
-    dispatch(deleteType(id));
+    if(confirmBeforeDeletion()){ dispatch(deleteType(id)); }
   }
 
   const setTagForEditing = (id) => {

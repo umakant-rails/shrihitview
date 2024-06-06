@@ -12,6 +12,8 @@ import {
   deleteChapter, 
   getChapters 
 } from '../../../slices/admin/adminScrChapterSlice';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+
 const chapterObj = {scripture_id: '', name: '', is_section: '', index: '', parent_id: ''};
 
 const ScriptureChapterList = () => {
@@ -64,7 +66,9 @@ const ScriptureChapterList = () => {
     dispatch(updateChapter({id: scripture.id, chapter_id: editableChapter.id, form: formValues}));
   }
   const deleteToChapter = (chapter_id) => {
-    dispatch(deleteChapter({id:scripture.id, chapter_id:chapter_id}));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteChapter({id:scripture.id, chapter_id:chapter_id}));
+    }
   }
 
   const setEditorValues = (name, value) => {

@@ -28,3 +28,7 @@ export const getParamsStringFromHash = (searchAttrs) => {
   // const searchAttrStr = arr.join('&');
   return arr.join('&');
 }
+
+export const confirmBeforeDeletion = () => {
+  return window.confirm('Are you sure to delete this record ?');
+}

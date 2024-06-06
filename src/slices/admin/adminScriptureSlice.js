@@ -48,6 +48,7 @@ export const createScripture = createAsyncThunk(
   async (form, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/scriptures`, {scripture: form});
+      dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {
       dispatch({type: 'message/showError', payload: error.message});
@@ -87,7 +88,7 @@ export const deleteScripture = createAsyncThunk(
   "adminScripture/deleteScripture",
   async (id, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.delete(`/admin/scriptures/${id}`, {scripture: form});
+      const response = await baseUrl.delete(`/admin/scriptures/${id}`);
       dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {

@@ -4,7 +4,11 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { getScripture, getChapterArticles, deleteScrArticle } from '../../../actions/admin/admin_scriptures';
+import { 
+  getScripture, 
+  getChapterArticles, 
+  deleteScrArticle 
+} from '../../../slices/admin/adminScriptureSlice';
 
 const ScriptureShow = () => {
   const {id} = useParams();

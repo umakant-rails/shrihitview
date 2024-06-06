@@ -10,6 +10,7 @@ import {
   createStrotumArticle
 } from '../../../slices/admin/adminStrotumSlice';
 import { Modal } from 'flowbite';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
 
 const strotumArticleObj = {index: '', content: '', interpretation: '', article_type_id: ''};
 
@@ -65,7 +66,8 @@ const StrotumList = () => {
   }
 
   const deleteToStrotum = (id) => {
-    dispatch(deleteStrotum(id));
+    if(confirmBeforeDeletion()){ dispatch(deleteStrotum(id));}
+    
   }
 
   const setEditorValues = (name, value) => {

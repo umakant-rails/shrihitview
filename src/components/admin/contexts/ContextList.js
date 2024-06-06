@@ -11,6 +11,7 @@ import {
 } from '../../../slices/admin/adminContextSlice';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
 
 const contextObj = {name: ''};
 const ContextList = () => {
@@ -67,7 +68,9 @@ const ContextList = () => {
   }
 
   const deleteToTag = (id) => {
-    dispatch(deleteContext(id));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteContext(id));
+    }
   }
 
   const setTagForEditing = (id) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
-import {newScripture, createScripture} from "../../../actions/admin/admin_scriptures";
+import {newScripture, createScripture} from "../../../slices/admin/adminScriptureSlice";
 import { useNavigate } from 'react-router';
 
 const scriptureObj = {scripture_type_id: '', author_id: '', name: '', name_eng: '', description: ''};
@@ -12,15 +12,15 @@ const AddScripture = () => {
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState(scriptureObj);
-  const { scriptureCreated, scripture_types, authors } = useSelector( (state) => state.adminScripture)
+  const { created_scripture, scripture_types, authors } = useSelector( (state) => state.adminScripture)
 
   useEffect( () => {
     dispatch(newScripture());  
   }, [dispatch]);
 
   useEffect( () => {
-    if(scriptureCreated){navigate('/admin/scriptures'); } 
-  }, [navigate, scriptureCreated]);
+    if(created_scripture){navigate('/admin/scriptures'); } 
+  }, [navigate, created_scripture]);
   
   const setEditorValues = (name, value) => {
     setFormValues(formValues => ({ ...formValues, [name]: value }));

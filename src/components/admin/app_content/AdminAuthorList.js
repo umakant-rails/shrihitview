@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { approveToAuthor, deleteAdminAuthor, getAdminAuthors } from '../../../slices/admin/adminAuthorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  approveToAuthor, 
+  deleteAdminAuthor, 
+  getAdminAuthors 
+} from '../../../slices/admin/adminAuthorSlice';
 
 const AdminAuthorList = () => {
   const dispatch = useDispatch();
@@ -66,7 +71,9 @@ const AdminAuthorList = () => {
     dispatch(approveToAuthor({id: id, params: searchAttrs}));
   }
   const deleteToAuthor = (id) => {
-    dispatch(deleteAdminAuthor({id: id, params: searchAttrs}));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteAdminAuthor({id: id, params: searchAttrs}));
+    }
   }
 
   return (

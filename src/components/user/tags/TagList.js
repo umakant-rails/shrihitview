@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
-import { deleteTag, getTags, createTag, updateTag } from '../../../slices/user/userTagSlice';
 import { ReactTransliterate } from "react-transliterate";
 import { Modal } from 'flowbite';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  deleteTag, 
+  getTags, 
+  createTag, 
+  updateTag 
+} from '../../../slices/user/userTagSlice';
+
 const tagObj = {name: '', name_eng: ''};
 
 const TagList = () => {
@@ -71,7 +78,9 @@ const TagList = () => {
   }
 
   const deleteToTag = (id) => {
-    dispatch(deleteTag(id));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteTag(id));
+    }
   }
 
   const setTagForEditing = (id) => {

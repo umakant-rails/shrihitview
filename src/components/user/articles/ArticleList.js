@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { deleteArticle, getArticles, getArticlesByPage } from '../../../slices/user/userArticleSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ReactTransliterate } from "react-transliterate";
 import { Link } from 'react-router-dom';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  deleteArticle, 
+  getArticles, 
+  getArticlesByPage 
+} from '../../../slices/user/userArticleSlice';
+
 
 const ArticleList = () => {
   const dispatch = useDispatch();
@@ -26,7 +32,9 @@ const ArticleList = () => {
   }, [articles, total_articles]);
 
   const deleteToArticle = (id) => {
-    dispatch(deleteArticle(id));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteArticle(id));
+    }
   }
 
   const handlePageClick = (e) => {

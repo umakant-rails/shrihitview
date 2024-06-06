@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deletePanchang, getPanchangs } from '../../../slices/admin/adminPanchangSlice';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
 
 const PanchangList = () => {
   const dispatch = useDispatch();
@@ -17,8 +18,7 @@ const PanchangList = () => {
   }, [panchangs]);
 
   const deleteAPanchang = (panchangId) => {
-    const isTrue = window.confirm('Are to sure to delete this record ?');
-    if(isTrue) { dispatch(deletePanchang(panchangId)); }
+    if(confirmBeforeDeletion()){ dispatch(deletePanchang(panchangId)); }
   }
 
   return (

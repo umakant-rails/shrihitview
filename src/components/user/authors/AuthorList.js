@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { deleteAuthor, getAuthors } from '../../../slices/user/userAuthorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../shared/Pagination';
 import { ITEM_PER_PAGE } from '../../../utils/types';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  deleteAuthor, 
+  getAuthors 
+} from '../../../slices/user/userAuthorSlice';
 
 const AuthorList = () => {
   const dispatch = useDispatch();
@@ -56,7 +60,9 @@ const AuthorList = () => {
   }
 
   const deleteToAuthor = (id) => {
-    dispatch(deleteAuthor(id));
+    if(confirmBeforeDeletion()){
+      dispatch(deleteAuthor(id));
+    }
   }
 
   return (

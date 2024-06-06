@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
-import { deleteUserSuggestion, getUserSuggestions } from '../../../slices/user/userSuggestionSlice';
+import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { 
+  deleteUserSuggestion, 
+  getUserSuggestions 
+} from '../../../slices/user/userSuggestionSlice';
 
 const UserSuggestionList = () => {
   const dispatch = useDispatch();
@@ -32,8 +36,9 @@ const UserSuggestionList = () => {
   };
 
   const deleteToSuggestion = (id) => {
-    const isConfirm =  window.confirm('Are you sure to delete this sure ?');
-    if(isConfirm){ dispatch(deleteUserSuggestion(id));}
+    if(confirmBeforeDeletion()){
+      dispatch(deleteUserSuggestion(id));
+    }
   }
 
   return (
