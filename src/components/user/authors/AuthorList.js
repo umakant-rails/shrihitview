@@ -169,7 +169,7 @@ const AuthorList = () => {
                               <div className='max-h-96 overflow-y-scroll'>
                                 {author.articles && author.articles.map((article, index)=>
                                   <p key={index} >
-                                    <Link to={`/pb/articles/${article.hindi_title}`} className='cursor-pointer' >
+                                    <Link to={`/articles/${article.id}`} className='cursor-pointer' >
                                       {index+1}. <span className='text-blue-500'>
                                         {article.hindi_title}
                                       </span>

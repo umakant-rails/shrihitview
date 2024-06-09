@@ -34,8 +34,8 @@ const Login = () => {
     if(formValues.email.length === 0 || formValues.password.length === 0) return;
     const response = dispatch(userLogin(formValues));
     response.then( res => {
-      const user = res.payload.data.user;
-      const role = res.payload.data.role;
+      const user = res.data.user;
+      const role = res.data.role;
 
       if(user){ setCurrentUser(user);}
       if(ADMIN_ROLE.indexOf(role) >= 0) {
@@ -50,9 +50,9 @@ const Login = () => {
   return (
     <div>
       <div className='grid grid-flow-row md:grid-cols-12 gap-4 mt-20 mb-20'>
-        <div className='md:col-start-2 md:col-span-7'>
-          <img src={shricharan} alt="img" className="rounded-xl" />
-        </div>  
+        <div className='md:col-start-2 md:col-span-7 flex justify-center items-center'>
+          <img src={shricharan} alt="img" className="rounded-xl object-cover h-full w-full" />
+        </div>
         <div className='md:col-span-3 px-4 py-7 border border-gray-500 rounded-md shadow-2xl shadow-gray-400'>
           <form onSubmit={onFormSubmit} className="max-w-md mx-auto">
             <div className="text-xl text-center font-bold border-b-2 py-3 mb-5">Login To Your Account</div>

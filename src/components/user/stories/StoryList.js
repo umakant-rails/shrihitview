@@ -109,24 +109,6 @@ const StoryList = () => {
                           </Link>
                         </td>
                       </tr>
-                      {/* {authorId === author.id ? (
-                        <tr key={`detail-${index}`}>
-                          <td colSpan={4} 
-                            className="p-5 border-b border-gray-200 dark:border-gray-700">
-                              <div className='max-h-96 overflow-y-scroll'>
-                                {author.articles && author.articles.map((article, index)=>
-                                  <p key={index} >
-                                    <Link to={`/pb/articles/${article.hindi_title}`} className='cursor-pointer' >
-                                      {index+1}. <span className='text-blue-500'>
-                                        {article.hindi_title}
-                                      </span>
-                                    </Link> 
-                                  </p>
-                                )}
-                              </div>
-                          </td>
-                        </tr>
-                      ) : null} */}
                     </tbody>
                   ) : (
                     <tbody>

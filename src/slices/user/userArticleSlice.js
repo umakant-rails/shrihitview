@@ -185,6 +185,7 @@ const usrArticleSlice = createSlice({
     })
 
     .addCase(getArticle.fulfilled, (state, action) => {
+      state.updated_article = null;
       state.article = action.payload.article;
     });
   },

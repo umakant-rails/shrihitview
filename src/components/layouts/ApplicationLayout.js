@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar';
-
 //import toast, { Toaster, ToastBar } from 'react-hot-toast';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +18,11 @@ const ApplicationLayout = () => {
   const { type, message } = useSelector((state) => state.msg);
   const dispatch = useDispatch();
   const location = useLocation();
+
+  // useEffect( () => {
+  //   let isLoaded = true;
+  //   setInterval(()=> { if(isLoaded){ initFlowbite();isLoaded = false;} }, 500);
+  // }, [])
 
   useEffect(() => {
     // window.HSStaticMethods.autoInit();

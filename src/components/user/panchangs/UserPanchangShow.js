@@ -29,7 +29,7 @@ const UserPanchangShow = () => {
       const dt = moment(tithi.date).format('DD/MM/YYYY');
       tithiHs1[dt] = (tithiHs1[dt] !== undefined) ? tithiHs1[dt]+","+tithiName(tithi, true) : tithiName(tithi);
 		  if(tithi.description) {
-        tithiHs2[dt] = `<div class='font-bold'>${tithi.title}</div> ${tithi.description}`;
+        tithiHs2[dt] = `<div className='font-bold'>${tithi.title}</div> ${tithi.description}`;
       }
 		});
     setTithisHash(tithiHs1);
@@ -166,12 +166,12 @@ const UserPanchangShow = () => {
                             </button>
                             <div id={`filterDropdown${index}`} className={`z-10 hidden w-96 p-3 
                               bg-white border border-green-500 rounded-lg shadow dark:bg-gray-700`}>
-                              <div class="px-3 py-2 bg-green-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                <h3 class="font-semibold text-green-700 dark:text-white">
+                              <div className="px-3 py-2 bg-green-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                <h3 className="font-semibold text-green-700 dark:text-white">
                                   राधावल्लभ सेवा/उत्सव का विवरण
                                 </h3>
                               </div>
-                              <div class="px-3 py-2">
+                              <div className="px-3 py-2">
                                 {<div dangerouslySetInnerHTML={{__html: tithisHash2[date.format('DD/MM/YYYY')]}} />}
                               </div>
                             </div>

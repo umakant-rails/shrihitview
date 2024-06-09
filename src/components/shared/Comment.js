@@ -280,7 +280,7 @@ const Comment = ({article}) => {
                 </div>
               )}
             ) : (
-              <div>There is no comments available now.</div>
+              <div className='col-span-12'>There is no comments available now.</div>
             )
           }
         

@@ -17,25 +17,43 @@ export const userRegister = createAsyncThunk(
 );
 
 /* send response back to caller component */
-export const userLogin = createAsyncThunk(
-  "auth/userLogin",
-  async (formValues, {dispatch, rejectWithValue }) => {
-    try {
-      const response = await baseUrl.post('/users/login', {user: formValues});
+// export const userLogin = createAsyncThunk(
+//   "auth/userLogin",
+//   async (formValues, {dispatch, rejectWithValue }) => {
+//     try {
+//       const response = await baseUrl.post('/users/login', {user: formValues});
+//       if (response.data.error === undefined) {
+//         localStorage.setItem("token", response.headers.authorization);
+//         localStorage.setItem("currentUser", JSON.stringify(response.data.user));
+//         dispatch({type: 'message/showMessage', payload: response});
+//         return response;
+//       }
+//       dispatch({type: 'message/showMessage', payload: response});
+//       return response;
+//     } catch (error) {
+//       dispatch({type: 'message/showError', payload: error.message});
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+export const userLogin = (formValues) => async dispatch => {
+  try{
+    const response = await baseUrl.post('/users/login', {user: formValues});
+
+    if(response.status === 200){
       if (response.data.error === undefined) {
         localStorage.setItem("token", response.headers.authorization);
         localStorage.setItem("currentUser", JSON.stringify(response.data.user));
         dispatch({type: 'message/showMessage', payload: response});
         return response;
-      }
+      } 
       dispatch({type: 'message/showMessage', payload: response});
       return response;
-    } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
-      return rejectWithValue(error.message);
     }
+  } catch (error) {
+    dispatch({type: 'message/showError', payload: error.message});
   }
-);
+}
 
 export const updatePassword = createAsyncThunk(
   "auth/updatePassword",

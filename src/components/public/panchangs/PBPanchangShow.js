@@ -31,7 +31,7 @@ const PBPanchangShow = () => {
       const dt = moment(tithi.date).format('DD/MM/YYYY');
       tithiHs1[dt] = (tithiHs1[dt] !== undefined) ? tithiHs1[dt]+","+tithiName(tithi, true) : tithiName(tithi);
 		  if(tithi.description) {
-        tithiHs2[dt] = `<div class='font-bold'>${tithi.title}</div> ${tithi.description}`;
+        tithiHs2[dt] = `<div className='font-bold'>${tithi.title}</div> ${tithi.description}`;
       }
 		});
     setTithisHash(tithiHs1);

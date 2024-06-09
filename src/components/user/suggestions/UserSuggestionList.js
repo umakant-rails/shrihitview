@@ -12,7 +12,7 @@ import {
 const UserSuggestionList = () => {
   const dispatch = useDispatch();
 
-  const [suggestionList, setSuggestionList] = useState(null);
+  const [suggestionList, setSuggestionList] = useState([]);
   const [totalSuggestions, setTotalSuggestions] = useState(null)
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -45,7 +45,7 @@ const UserSuggestionList = () => {
     <div className='grid md:grid-cols-12'>
       <div className='md:col-start-2 md:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          सुझाव सूची 
+          सुझाव सूची
         </div>
         <section className="bg-gray-50 dark:bg-gray-900 ">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -76,7 +76,7 @@ const UserSuggestionList = () => {
                   </tr>
                 </thead>
                 {
-                  suggestionList ? suggestionList.map( (suggestion, index) => 
+                  (suggestionList && suggestionList.length > 0) ? suggestionList.map( (suggestion, index) => 
                     <tbody key={index} className='text-xl'>
                       <tr  
                         className="border-b dark:border-gray-700 text-blue-500 cursor-pointer" >
@@ -111,7 +111,7 @@ const UserSuggestionList = () => {
                     <tbody>
                       <tr>
                         <td colSpan="3" className='text-center py-5'>
-                          There is no suggestion availables.
+                          There is no suggestion available.
                         </td>
                       </tr>
                     </tbody>
@@ -121,7 +121,7 @@ const UserSuggestionList = () => {
             </div>
             <nav className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
               {
-                totalSuggestions &&
+                totalSuggestions > 0 &&
                 <Pagination 
                   showWidget={5} 
                   totalItems={totalSuggestions}
