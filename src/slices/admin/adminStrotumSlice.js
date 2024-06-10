@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getStrota = createAsyncThunk(
   "adminStrotum/getStrota",
@@ -10,7 +11,7 @@ export const getStrota = createAsyncThunk(
       const response = await baseUrl.get(`/admin/strota?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -23,7 +24,7 @@ export const getStrotum = createAsyncThunk(
       const response = await baseUrl.get(`/admin/strota/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -34,10 +35,10 @@ export const createStrotum = createAsyncThunk(
   async (form, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/admin/strota', {strotum: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -50,7 +51,7 @@ export const newStrotum = createAsyncThunk(
       const response = await baseUrl.get('/admin/strota/new');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -63,7 +64,7 @@ export const editStrotum = createAsyncThunk(
       const response = await baseUrl.get(`/admin/strota/${id}?action_type=edit`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -74,10 +75,10 @@ export const updateStrotum = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/admin/strota/${id}`, {strotum: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -88,21 +89,23 @@ export const deleteStrotum = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/admin/strota/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
 );
 
 /* strotum article functions start */
+
+/* response send back to caller component */
 export const createStrotumArticle =(strotum_id, form) => async dispatch => {
   const response = await baseUrl.post(
     `/admin/strota/${strotum_id}/strota_articles`, {strota_article: form}
   ).then(response => {
-    dispatch({type: 'message/showMessage', payload: response});
+    dispatch(showMessage(response.data));
     return response;
   }).catch( error => error.response);
   return response;
@@ -115,10 +118,10 @@ export const updateStrotumArticle = createAsyncThunk(
       const response = await baseUrl.put(
         `/admin/strota/${id}/strota_articles/${article_id}`, {strota_article: form}
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -131,10 +134,10 @@ export const updateAritcleIndex = createAsyncThunk(
       const response = await baseUrl.post(
         `/admin/strota/${id}/strota_articles/${article_id}/update_index`, {new_index: new_index}
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -147,10 +150,10 @@ export const deleteStrotumArticle = createAsyncThunk(
       const response = await baseUrl.delete(
         `/admin/strota/${id}/strota_articles/${article_id}`
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
-
+import { showError, showMessage } from "../messageSlice";
 
 export const getPanchangs = createAsyncThunk(
   "adminPanchang/getPanchangs",
@@ -9,7 +9,7 @@ export const getPanchangs = createAsyncThunk(
       const response = await baseUrl.get(`/admin/panchangs`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -22,7 +22,7 @@ export const getPanchang = createAsyncThunk(
       const response = await baseUrl.get(`/admin/panchangs/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -33,10 +33,10 @@ export const createPanchang = createAsyncThunk(
   async(form, {dispatch, rejectWithValue}) => {
     try{
       const response = await baseUrl.post('/admin/panchangs', {panchang: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: "message/showError", payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -47,10 +47,10 @@ export const updatePanchang = createAsyncThunk(
   async({id, form}, {dispatch, rejectWithValue}) => {
     try{
       const response = await baseUrl.put(`/admin/panchangs/${id}`, {panchang: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: "message/showError", payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -61,10 +61,10 @@ export const deletePanchang = createAsyncThunk(
   async(id, {dispatch, rejectWithValue}) => {
     try{
       const response = await baseUrl.delete( `/admin/panchangs/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: "message/showError", payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

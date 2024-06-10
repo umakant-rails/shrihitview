@@ -66,11 +66,10 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/articles" 
-                    key={'login_link'} 
+                    <NavLink to="/articles" key={'login_link'} 
                     className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" 
                     >
-                      {currentUser.username}
+                      {currentUser.username} 
                     </NavLink>
                   </li>
                 </>

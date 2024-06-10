@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getAdminArticles = createAsyncThunk(
   "adminArticle/getAdminArticles",
@@ -9,7 +10,7 @@ export const getAdminArticles = createAsyncThunk(
       const response = await baseUrl.get(`/admin/articles`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -23,7 +24,7 @@ export const getArticlesByPage = createAsyncThunk(
       const response = await baseUrl.get(`/admin/articles/articles_by_page?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -34,9 +35,10 @@ export const approveArticle = createAsyncThunk(
   async ({id, params}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/articles/${id}/article_approved`, params);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -48,10 +50,10 @@ export const deleteAdminArticle = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/admin/articles/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

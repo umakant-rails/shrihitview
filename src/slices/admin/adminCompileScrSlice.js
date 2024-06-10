@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getAddArticlePageData = createAsyncThunk(
   "adminCompileScr/getAddArticlePageData",
@@ -9,7 +10,7 @@ export const getAddArticlePageData = createAsyncThunk(
       const response = await baseUrl.get(`/admin/compiled_scriptures/${scripture_id}/add_articles_page`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -25,7 +26,7 @@ export const getFilteredAritcles = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -41,10 +42,10 @@ export const addArticleInCS = createAsyncThunk(
       const response = await baseUrl.post(
         `/admin/compiled_scriptures/${scripture_id}/add_article`, params 
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -58,10 +59,10 @@ export const removeArticleFromCS = createAsyncThunk(
       const response = await baseUrl.post(
         `/admin/compiled_scriptures/${scripture_id}/remove_article`, params
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -74,7 +75,7 @@ export const showCSScripture = createAsyncThunk(
       const response = await baseUrl.get(`/admin/compiled_scriptures/${scripture_id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -90,7 +91,7 @@ export const getArticleForIndexing = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -101,10 +102,10 @@ export const updateIndex = createAsyncThunk(
   async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put( `/admin/compiled_scriptures/${scripture_id}/update_index`, params);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -115,10 +116,10 @@ export const deleteCSArticle = createAsyncThunk(
   async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/compiled_scriptures/${scripture_id}/delete_article`, params);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

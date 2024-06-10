@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError } from "../messageSlice";
 
 export const getStrota = createAsyncThunk(
   "pbStrotum/getStrota",
@@ -8,7 +9,7 @@ export const getStrota = createAsyncThunk(
       const response = await baseUrl.get(`/pb/strota?page=${page}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,7 +22,7 @@ export const getStrotum = createAsyncThunk(
       const response = await baseUrl.get(`/pb/strota/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

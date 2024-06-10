@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const newArticle = createAsyncThunk(
   "usrArticle/newArticle",
@@ -9,7 +10,7 @@ export const newArticle = createAsyncThunk(
       const response = await baseUrl.get('/articles/new');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -20,10 +21,10 @@ export const createArticle = createAsyncThunk(
   async (form, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/articles', {article: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -36,7 +37,7 @@ export const editArticle = createAsyncThunk(
       const response = await baseUrl.get(`/articles/${id}?action_type=edit`)
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -47,10 +48,10 @@ export const updateArticle = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/articles/${id}`, {article: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -61,10 +62,10 @@ export const deleteArticle = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/articles/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -75,10 +76,10 @@ export const createTag = createAsyncThunk(
   async (tag, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/tags', {tag: {name: tag}});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -91,7 +92,7 @@ export const getArticles = createAsyncThunk(
       const response = await baseUrl.get('/articles');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -105,7 +106,7 @@ export const getArticlesByPage = createAsyncThunk(
       const response = await baseUrl.get(`/articles/pages/${params.page}?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -118,7 +119,7 @@ export const getArticle = createAsyncThunk(
       const response = await baseUrl.get(`/articles/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

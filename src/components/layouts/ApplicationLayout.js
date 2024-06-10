@@ -5,7 +5,6 @@ import Navbar from './Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Outlet, useLocation } from "react-router-dom";
-import { clearMessage } from '../../actions/message';
 import Footer from './Footer';
 // import { IStaticMethods } from "preline/preline";
 import { initFlowbite } from 'flowbite'
@@ -32,10 +31,8 @@ const ApplicationLayout = () => {
   useEffect(()=> {
     if(message !== undefined && type === "error"){
       toast.error(message);
-      dispatch(clearMessage());
     } else if(message !== undefined && type === "success"){
       toast.success(message);
-      dispatch(clearMessage());
     }
   }, [dispatch, type, message]);
 

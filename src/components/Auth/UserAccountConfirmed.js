@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-//import { confirmUserAccount } from '../../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { confirmUserAccount } from '../../slices/authSlice';
 

@@ -7,10 +7,9 @@ import { initFlowbite } from 'flowbite'
 //import logo from "../../assets/images/hitlalju.png"
 import { AuthContext } from "../../services/AuthContext";
 import { useDispatch } from 'react-redux';
-import { clearMessage } from '../../actions/message';
 import { ADMIN_ROLE, TAB_LIST } from '../../utils/types';
 import ContributorSideBar from './ContributorSideBar';
-import { getUserRole } from '../../actions/auth';
+import { getUserRole } from '../../slices/authSlice';
 
 
 const AdminLayout = () => {
@@ -31,10 +30,8 @@ const AdminLayout = () => {
   useEffect(()=> {
     if(message !== undefined && type === "error"){
       toast.error(message);
-      dispatch(clearMessage());
     } else if(message !== undefined && type === "success"){
       toast.success(message);
-      dispatch(clearMessage());
     }
   }, [dispatch, type, message]);
 
@@ -103,7 +100,12 @@ const AdminLayout = () => {
                   <svg className="w-8 h-8 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                   </svg>
-                  <div className='pt-1 hidden sm:block text-base text-white ml-2'>{currentUser && currentUser.username.toUpperCase()}</div>
+                  <div className='pt-1 hidden sm:block text-base text-white ml-2'>
+                    {currentUser && currentUser.username.toUpperCase()}
+                  </div>
+                  <svg className="flex w-5 h-5 mt-1 ms-1 text-gray-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.7" d="m19 9-7 7-7-7"/>
+                  </svg>
                 </button>
                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                   <ul className="py-1" role="none">

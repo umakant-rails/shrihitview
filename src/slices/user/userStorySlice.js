@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getStories = createAsyncThunk(
   "usrStory/getStories",
@@ -10,7 +11,7 @@ export const getStories = createAsyncThunk(
       const response = await baseUrl.get(`/stories?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -23,7 +24,7 @@ export const getStory = createAsyncThunk(
       const response = await baseUrl.get(`/stories/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -35,10 +36,10 @@ export const createStory = createAsyncThunk(
     try {
       formValues['title'] = formValues['title'].trim();
       const response = await baseUrl.post('/stories', {story: formValues});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -51,7 +52,7 @@ export const newStory = createAsyncThunk(
       const response = await baseUrl.get('/stories/new');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -62,10 +63,9 @@ export const editStory = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/stories/${id}?action_type=edit`);
-      dispatch({type: 'message/showMessage', payload: response});
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -76,10 +76,10 @@ export const updateStory = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/stories/${id}`, {story: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -90,10 +90,10 @@ export const deleteStory = createAsyncThunk(
   async ({id, origin_page}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/stories/${id}?origin_page=${origin_page}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError } from "../messageSlice";
 
 export const getSuggestions = createAsyncThunk(
   "pbSuggestion/getSuggestions",
@@ -8,7 +9,7 @@ export const getSuggestions = createAsyncThunk(
       const response = await baseUrl.get(`/pb/suggestions?page=${page}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,7 +22,7 @@ export const getSuggestion = createAsyncThunk(
       const response = await baseUrl.get(`/pb/suggestions/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -34,7 +35,7 @@ export const createSuggestion = createAsyncThunk(
       const response = await baseUrl.post(`/pb/suggestions`, {suggestion: form});
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

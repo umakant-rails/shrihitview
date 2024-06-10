@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getChapters = createAsyncThunk(
   "adminScrChapter/getChapters",
@@ -10,7 +11,7 @@ export const getChapters = createAsyncThunk(
       const response = await baseUrl.get(`/admin/scriptures/${id}/chapters?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,10 +22,10 @@ export const createChapter = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/scriptures/${id}/chapters`, {chapter: form} );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -37,10 +38,10 @@ export const updateChapter = createAsyncThunk(
       const response = await baseUrl.put(
         `/admin/scriptures/${id}/chapters/${chapter_id}`, {chapter: form} 
        );
-       dispatch({type: 'message/showMessage', payload: response});
+       dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -51,10 +52,10 @@ export const deleteChapter = createAsyncThunk(
   async ({id, chapter_id}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/admin/scriptures/${id}/chapters/${chapter_id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

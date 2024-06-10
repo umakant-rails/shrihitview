@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { updatePassword } from '../../actions/auth';
+import { updatePassword } from '../../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 // import { AuthContext } from '../../services/AuthContext';
 
@@ -10,7 +10,7 @@ const ChangePassword = () => {
   const {password_changed} = useSelector(state => state.auth) 
 
   useEffect( () => {
-    if(password_changed){window.location.reload();}
+    if(password_changed){setFormValues(changePasswordObj)}
   }, [password_changed]);
 
   const onInputChange = event => {

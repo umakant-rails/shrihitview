@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError, showMessage } from "../messageSlice";
 
 export const createComment = createAsyncThunk(
   "usrComment/createComment",
   async ({article, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/articles/${article.id}/comments`, {comment: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -20,10 +21,10 @@ export const updateComment = createAsyncThunk(
   async ({article, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/articles/${article.id}/comments/${form.parent_id}`, {comment: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -34,10 +35,10 @@ export const replyComment = createAsyncThunk(
   async ({article, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/articles/${article.id}/comments/reply`, {comment: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -48,10 +49,10 @@ export const deleteComment = createAsyncThunk(
   async ({article, comment_id}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/articles/${article.id}/comments/${comment_id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

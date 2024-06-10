@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
-
+import { showError } from "../messageSlice";
 
 export const getArticles = createAsyncThunk(
   "pbArticle/getArticles",
@@ -9,7 +9,7 @@ export const getArticles = createAsyncThunk(
       const response = await baseUrl.get(`/pb/articles`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -22,7 +22,7 @@ export const getArticlesByPage = createAsyncThunk(
       const response = await baseUrl.get(`/pb/articles?page=${page}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -35,7 +35,7 @@ export const getArticle = createAsyncThunk(
       const response = await baseUrl.get(`/pb/articles/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -49,7 +49,7 @@ export const searchToArticles = (term, page) => async(dispatch) => {
     ).then(response => {
     return response;
   }).catch(function (error) {
-    dispatch({ type: "message/showError", payload: 'Some Error has occured. Please try again.'});
+    dispatch(showError('Some Error has occured. Please try again.'));
     return {data: {articles: []}};
   });
   return response;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError } from "../messageSlice";
 
 export const getTags = createAsyncThunk(
   "pbTag/getTags",
@@ -8,7 +9,7 @@ export const getTags = createAsyncThunk(
       const response = await baseUrl.get(`/pb/tags`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,7 +22,7 @@ export const getTagArticles = createAsyncThunk(
       const response = await baseUrl.get(`/pb/tags/${name}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

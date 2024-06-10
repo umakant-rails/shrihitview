@@ -4,7 +4,7 @@ import shricharan from "../../assets/images/shricharan.png";
 import { useDispatch,useSelector } from 'react-redux';
 //import  toast  from 'react-hot-toast';
 import { toast } from 'react-toastify';
-import { userRegister } from '../../actions/auth';
+import { userRegister } from '../../slices/authSlice';
 
 // https://merakiui.com/components
 // flowbite css
@@ -12,14 +12,14 @@ const userObj = {email:'', username: '', password: '', confirm_password: ''};
 const Register = () => {
   const dispatch = useDispatch();
   const [formValues, setFormValues] = useState(userObj);
-  const {registeredUser} = useSelector( (state) => state.auth);
-  
+  const {registered_user, loading} = useSelector( (state) => state.auth);
+ 
   useEffect(() => {
-    if(registeredUser){
+    if(registered_user){
       setFormValues(userObj);
       //navigate("/users/login");
     }
-  }, [registeredUser, userObj]);
+  }, [registered_user, userObj]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;
@@ -144,14 +144,16 @@ const Register = () => {
           <div className="grid justify-items-stretch">
             <button 
               type="submit" 
-              className="justify-self-center text-white bg-blue-700 hover:bg-blue-800 border-1 border-blue-900 font-medium py-3 rounded-md w-full">
+              disabled={loading}
+              className={`justify-self-center text-white ${ loading ? 'bg-gray-400' : 'bg-blue-700'} 
+                hover:bg-blue-800 border-1 border-blue-900 font-medium py-3 rounded-md w-full`}>
               Register
             </button>
           </div>
         </form>
         <hr/>
         <div className='py-2 text-md'>
-          If you registered already? Please login <Link to="/login" className='text-blue-500'>here</Link>.
+          If you registered already? Please login <Link to="/users/login" className='text-blue-500'>here</Link>.
         </div>
       </div>
     </div>

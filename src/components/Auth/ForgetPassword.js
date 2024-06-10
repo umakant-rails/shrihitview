@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { sendPasswordToken } from '../../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendPasswordToken } from '../../slices/authSlice';
 // import { AuthContext } from '../../services/AuthContext';
@@ -23,8 +22,7 @@ const ForgetPassword = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    //dispatch(sendPasswordToken(formValues));
-    dispatch(sendPasswordToken(formValues));
+    dispatch(sendPasswordToken({form: formValues}));
   }
 
   return (

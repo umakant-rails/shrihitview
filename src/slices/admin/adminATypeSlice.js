@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getTypes = createAsyncThunk(
   "adminAType/getTypes",
@@ -10,7 +11,7 @@ export const getTypes = createAsyncThunk(
       const response = await baseUrl.get(`/admin/article_types?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,10 +22,10 @@ export const createType = createAsyncThunk(
   async (formValues, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/admin/article_types', {article_type: formValues});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -35,10 +36,10 @@ export const updateType = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/admin/article_types/${id}`, {article_type: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -49,10 +50,10 @@ export const deleteType = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/admin/article_types/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

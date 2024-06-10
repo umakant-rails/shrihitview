@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getAuthors = createAsyncThunk(
   "usrAuthor/getAuthors",
@@ -10,7 +11,7 @@ export const getAuthors = createAsyncThunk(
       const response = await baseUrl.get(`/authors?${paramsStr}`)
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,10 +22,10 @@ export const createAuthor = createAsyncThunk(
   async (formValues, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/authors', {author: formValues});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -35,10 +36,10 @@ export const createSampradaya = createAsyncThunk(
   async (sampradaya, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post('/authors/sampradaya', {sampradaya: sampradaya});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -51,7 +52,7 @@ export const newAuthor = createAsyncThunk(
       const response = await baseUrl.get('/authors/new');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -64,7 +65,7 @@ export const editAuthor = createAsyncThunk(
       const response = await baseUrl.get(`/authors/${id}?action_type=edit`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -75,10 +76,10 @@ export const updateAuthor = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/authors/${id}`, {author: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -89,10 +90,10 @@ export const deleteAuthor = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/authors/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

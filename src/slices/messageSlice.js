@@ -1,37 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 const initialState = {type: '', message: ''}
 const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    showMessage(state, action){
-      const { payload } = action;
-      if(payload.data.error !== undefined){
-        toast.error(payload.data.error.join("\n"));
-        // state.type = 'error';state.message=payload.data.error.join("\n");
-      } else {
-        toast.success(payload.data.notice);
-        // state.type = 'success';state.message=payload.data.notice;
+    showMessage: {
+      reducer: (state, action) => {
+        state.type = action.payload.type;
+        state.message=action.payload.message;
+      },
+      prepare: (data) => {
+        if(data.error === undefined){
+          return {payload: {type: 'success', message: data.notice}};
+        } else {
+          return {payload: {type: 'error', message: data.error.join("\n")}};
+        }
       }
     },
-    showNotice(state, action){
-      const { payload } = action;
-      //state.type = 'success';state.message=payload;
-      toast.error(payload)
+    showNotice: {
+      reducer: (state, action) => {
+        state.type = action.payload.type;
+        state.message=action.payload.message;
+      },
+      prepare: (msg) => {
+        return {payload: {type: 'success', message: msg}};
+      }
     },
-    showError(state, action){
-      const { payload } = action;
-      //state.type = 'error';state.message=payload;
-      toast.error(payload.join("\n"))
+    showError: {
+      reducer: (state, action) => {
+        state.type = action.payload.type;
+        state.message=action.payload.message;
+      },
+      prepare: (error) => {
+        return {payload: {type: 'error', message: error}};
+      }
     },
-    clearMessage(state){
-      return {...state, message: ''}
-    }
   },
   extraReducers(builder) {
   },
 });
 
-export const {showMessage, showNotice, showError, clearMessage} = messageSlice.actions;
+export const {showMessage, showNotice, showError} = messageSlice.actions;
 export default messageSlice.reducer;

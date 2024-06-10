@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError, showMessage } from "../messageSlice";
 
 export const getScriptures = createAsyncThunk(
   "adminScripture/getScriptures",
@@ -8,10 +9,10 @@ export const getScriptures = createAsyncThunk(
     try {
       const paramsStr = getParamsStringFromHash(params);
       const response = await baseUrl.get(`/admin/scriptures?${paramsStr}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -24,7 +25,7 @@ export const getScripture = createAsyncThunk(
       const response = await baseUrl.get( `/admin/scriptures/${id}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -34,10 +35,10 @@ export const newScripture = createAsyncThunk(
   "adminScripture/newScripture",
   async (params, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.get(`/admin/scriptures/new`);
+      const response = await baseUrl.get(`/admin/scriptures/new`);  
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -48,10 +49,10 @@ export const createScripture = createAsyncThunk(
   async (form, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/scriptures`, {scripture: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -64,7 +65,7 @@ export const editScripture = createAsyncThunk(
       const response = await baseUrl.get(`/admin/scriptures/${id}?action_type=edit`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -75,10 +76,10 @@ export const updateScripture = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(`/admin/scriptures/${id}`, {scripture: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -89,10 +90,10 @@ export const deleteScripture = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(`/admin/scriptures/${id}`);
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -108,7 +109,7 @@ export const getChapterArticles = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -122,10 +123,10 @@ export const deleteScrArticle = createAsyncThunk(
       const response = await baseUrl.delete(
         `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}?${paramsStr}`
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

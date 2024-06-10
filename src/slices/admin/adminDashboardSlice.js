@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
-
+import { showError, showMessage } from "../messageSlice";
 
 export const getDashboardData = createAsyncThunk(
   "adminDashboard/getDashboardData",
@@ -9,7 +9,7 @@ export const getDashboardData = createAsyncThunk(
       const response = await baseUrl.get(`/admin/dashboards`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

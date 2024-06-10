@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../services/AxiosService";
+import { showMessage, showError } from "./messageSlice";
 
 export const getHomePageData = createAsyncThunk(
   "auth/getHomePageData",
   async ( params, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get('/pb/home');
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,10 +22,10 @@ export const getFooterData = createAsyncThunk(
   async (params, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get('/pb/home/get_footer_data');
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

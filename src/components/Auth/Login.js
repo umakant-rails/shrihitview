@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 //import toast from 'react-hot-toast';
 // import { toast } from 'react-toastify';
 import shricharan from "../../assets/images/shricharan.png";
-// import { getCurrentUser, userLogin } from '../../actions/auth';
 import { getCurrentUser, userLogin } from '../../slices/authSlice';
 import { AuthContext } from '../../services/AuthContext';
 import { ADMIN_ROLE } from '../../utils/types';
@@ -34,14 +33,16 @@ const Login = () => {
     if(formValues.email.length === 0 || formValues.password.length === 0) return;
     const response = dispatch(userLogin(formValues));
     response.then( res => {
-      const user = res.data.user;
-      const role = res.data.role;
+      if(res){
+        const user = res.user;
+        const role = res.role;
 
-      if(user){ setCurrentUser(user);}
-      if(ADMIN_ROLE.indexOf(role) >= 0) {
-        navigate("/admin/dashboard");
-      } else {
-        navigate('/articles');
+        if(user){ setCurrentUser(user);}
+        if(ADMIN_ROLE.indexOf(role) >= 0) {
+          navigate("/admin/dashboard");
+        } else {
+          navigate('/articles');
+        }
       }
     });
   }
@@ -75,6 +76,7 @@ const Login = () => {
                 type="password" 
                 name="password" 
                 id="password" 
+                autoComplete='off'
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                 placeholder="" 
                 onChange={onInputChange}

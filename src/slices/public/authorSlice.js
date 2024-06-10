@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
 import { getParamsStringFromHash } from "../../utils/utilityFunctions";
+import { showError } from "../messageSlice";
 
 export const getAuthors = createAsyncThunk(
   "pbAuthor/getAuthors",
@@ -10,7 +11,7 @@ export const getAuthors = createAsyncThunk(
       const response = await baseUrl.get(`/pb/authors?${paramsStr}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -23,7 +24,7 @@ export const getAuthorArticles = createAsyncThunk(
       const response = await baseUrl.get(`/pb/authors/${name}?page=${page}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -36,7 +37,7 @@ export const getSants = createAsyncThunk(
       const response = await baseUrl.get('/pb/authors/sants');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -49,7 +50,7 @@ export const getSantBiography = createAsyncThunk(
       const response = await baseUrl.get(`/pb/authors/${name}/sant_biography`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

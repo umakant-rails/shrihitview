@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError } from "../messageSlice";
 
 export const getContexts = createAsyncThunk(
   "pbContext/getContexts",
@@ -8,7 +9,7 @@ export const getContexts = createAsyncThunk(
       const response = await baseUrl.get(`/pb/contexts?page=${page}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,7 +22,7 @@ export const getContextArticles = createAsyncThunk(
       const response = await baseUrl.get(`/pb/contexts/${name}?page=${page}`);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

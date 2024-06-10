@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError, showMessage } from "../messageSlice";
 
 /* response send back to calling component */
 export const newPanchangTithi = (id) => async dispatch => {
@@ -17,10 +18,10 @@ export const createPanchangTithi = createAsyncThunk(
   async ({id, form}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/panchangs/${id}/panchang_tithis`, {panchang_tithi: form});
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -33,7 +34,7 @@ export const navigateMonth = createAsyncThunk(
       const response = await baseUrl.get(`/admin/panchangs/${id}/panchang_tithis/navigate`,{params: {date: date} });
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -48,7 +49,7 @@ export const getEditingData = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -61,10 +62,10 @@ export const updatePanchangTithi = createAsyncThunk(
       const response = await baseUrl.put(
         `/admin/panchangs/${id}/panchang_tithis/${panchang_id}`, {panchang_tithi: form}
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -77,10 +78,10 @@ export const deletePanchangTithi = createAsyncThunk(
       const response = await baseUrl.delete(
         `/admin/panchangs/${panchang_id}/panchang_tithis/${panchang_tithi_id}`
       );
-      dispatch({type: 'message/showMessage', payload: response});
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }

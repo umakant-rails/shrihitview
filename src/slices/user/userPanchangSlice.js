@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
+import { showError, showMessage } from "../messageSlice";
 
 export const getPanchangs = createAsyncThunk(
   "usrPanchang/getArticles",
@@ -8,7 +9,7 @@ export const getPanchangs = createAsyncThunk(
       const response = await baseUrl.get('/panchangs');
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
@@ -21,7 +22,7 @@ export const navigateMonth = createAsyncThunk(
       const response = await baseUrl.get(`/panchangs/${id}/navigate`,{params: {date: date} },);
       return response.data;
     } catch (error) {
-      dispatch({type: 'message/showError', payload: error.message});
+      dispatch(showError(error.message));
       return rejectWithValue(error.message);
     }
   }
