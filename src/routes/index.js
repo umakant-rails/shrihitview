@@ -87,6 +87,7 @@ import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestio
 import ForgetPassword from "../components/Auth/ForgetPassword";
 import ResetPassword from "../components/Auth/ResetPassword";
 import UserAccountConfirmed from "../components/Auth/UserAccountConfirmed";
+import AdminUserMgmt from "../components/admin/app_content/AdminUserMgmt";
 
 
 // const router = createBrowserRouter([
@@ -149,6 +150,7 @@ const router = createBrowserRouter(
         <Route path="/admin/articles" element={<ProtectedRoutes><AdminArticleList /></ProtectedRoutes>} />
         <Route path="/admin/authors" element={<ProtectedRoutes><AdminAuthorList /></ProtectedRoutes>} />
         <Route path="/admin/tags" element={<ProtectedRoutes><AdminTagList /></ProtectedRoutes>} />
+        <Route path="/admin/users" element={<ProtectedRoutes><AdminUserMgmt /></ProtectedRoutes>} />
         
         <Route path="/admin/article_types" element={<ProtectedRoutes><ArticleTypeList/></ProtectedRoutes>} />
         <Route path="/admin/contexts" element={<ProtectedRoutes><ContextList/></ProtectedRoutes>} />

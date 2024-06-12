@@ -68,6 +68,7 @@ let admin_activities = [
       {url: '/admin/articles', label: 'रचना'},
       {url: '/admin/authors', label: 'रचनाकार'},
       {url: '/admin/tags', label: 'टैग्स'},
+      {url: '/admin/users', label: 'पंजीकृत उपयोगकर्ता'}
     ] 
   },
   {

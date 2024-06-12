@@ -35,6 +35,7 @@ import adminScrArticleSlice from "./admin/adminScrArticleSlice";
 import adminScrChapterSlice from "./admin/adminScrChapterSlice";
 import adminStrotumSlice from "./admin/adminStrotumSlice";
 import adminScriptureSlice from "./admin/adminScriptureSlice";
+import adminUserMgmtSlice from "./admin/adminUserMgmtSlice";
 
 export default combineReducers({
     home: homeSlice,
@@ -62,6 +63,7 @@ export default combineReducers({
     adminArticle: adminArticleSlice,
     adminAType: adminATypeSlice,
     adminAuthor: adminAuthorSlice,
+    adminUserMgmt: adminUserMgmtSlice,
     adminTag: adminTagSlice,
     adminContext: adminContextSlice,
     adminCompileScr: adminCompileScrSlice,
