@@ -97,10 +97,11 @@ export const sendPasswordToken = createAsyncThunk(
 
 export const confirmUserAccount = createAsyncThunk(
   "auth/confirmUserAccount",
-  async ({token}, {dispatch, rejectWithValue }) => {
+  async (token, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/users/confirmation?confirmation_token=${token}`);
       dispatch(showMessage(response.data));
+      console.log(response)
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

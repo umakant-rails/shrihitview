@@ -49,10 +49,10 @@ const AdminAuthorList = () => {
 
   const onSearchInputChange = (event) => {
     const { name, value } = event.target;
-    const sAttrs = {...searchAttrs, [name]: value};
+    const sAttrs = {...searchAttrs, [name]: value, page: 1};
 
     setSearchAttrs(sAttrs);
-    dispatch(getAdminAuthors(sAttrs, 1));
+    dispatch(getAdminAuthors(sAttrs));
   }
 
   const resetFilteredAuthors = (e) => {
