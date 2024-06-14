@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { imageNamefromScrName } from '../../../utils/utilityFunctions';
+import scripture from "../../../assets/images/scripture.png";
 import { getScriptures } from '../../../slices/public/scriptureSlice';
 let images = require.context('../../../assets/images', true);
 
@@ -18,6 +19,15 @@ const PBScriptureList = () => {
     dispatch(getScriptures());
   }, [dispatch]);
 
+  const getLink = (scripture ) => {
+    if([2,4,5].indexOf(scripture.scripture_type_id)>= 0){
+      return `/pb/scriptures/${scripture.name_eng}`;
+    } else if (scripture.scripture_type_id === 3){
+      return `/pb/scriptures/stories/${scripture.name_eng}`
+    } else if (scripture.scripture_type_id == 1){
+      return `/pb/scriptures/granth/${scripture.name_eng}`
+    }
+  }
   return (
     <div className='grid md:grid-cols-12'>
       <div className='md:col-start-2 md:col-span-10'>
@@ -28,16 +38,17 @@ const PBScriptureList = () => {
           {
             scriptures && scriptures.map( (scripture, index) => 
               <div key={index} className='md:col-span-4 lg:col-span-3 flex justify-center'>
-                <Link to={`/pb/scriptures/${scripture.name_eng}`} >
+                <Link to={getLink(scripture)} >
                   {
                     imageExist(scripture) ? (
                       <img 
                         src={images(`./${imageNamefromScrName(scripture.name_eng)}.png`)} 
                         alt="shit-hit" className='border h-60 border-violet-400 items-center rounded'/>
                     ): (
-                      <img 
-                        src='' alt={scripture.name_eng} 
-                        className='border min-w-40 max-w-40 h-60 border-violet-400 items-center rounded'/>
+                      <div className='border h-60 border-violet-400 p-4 items-center rounded font-bold' 
+                        style={{width: '150px', height: '240px' }}>
+                        {scripture.name}
+                      </div>
                     )
                   }
                 </Link>

@@ -18,7 +18,7 @@ import PBAuthorShow from "../components/public/authors/PBAuthorShow";
 import PBSantList from "../components/public/authors/PBSantList";
 import PBSantBiography from "../components/public/authors/PBSantBiography";
 import PBScriptureList from "../components/public/scriptures/PBScriptureList";
-import PBScriptureShow from "../components/public/scriptures/PBScriptureShow";
+// import PBScriptureShow from "../components/public/scriptures/PBScriptureShow";
 import PBStoryList from "../components/public/stories/PBStoryList";
 import PBStoryShow from "../components/public/stories/PBStoryShow";
 import PBStrotumList from "../components/public/strota/PBStrotumList";
@@ -88,6 +88,8 @@ import ForgetPassword from "../components/Auth/ForgetPassword";
 import ResetPassword from "../components/Auth/ResetPassword";
 import UserAccountConfirmed from "../components/Auth/UserAccountConfirmed";
 import AdminUserMgmt from "../components/admin/app_content/AdminUserMgmt";
+import VaniScriptureShow from "../components/public/scriptures/PBVaniScriptureShow";
+import StoryScriptureShow from "../components/public/scriptures/PBStoryScriptureShow";
 
 
 // const router = createBrowserRouter([
@@ -119,7 +121,8 @@ const router = createBrowserRouter(
         <Route path="/pb/authors/:name/sant_biography" element={<PBSantBiography />} />
 
         <Route path="/pb/scriptures" element={<PBScriptureList />}/>
-        <Route path="/pb/scriptures/:id" element={<PBScriptureShow />} />
+        <Route path="/pb/scriptures/:id" element={<VaniScriptureShow />} />
+        <Route path="/pb/scriptures/stories/:id" element={<StoryScriptureShow />} />
 
         <Route path="/pb/stories" element={<PBStoryList />} />
         <Route path="/pb/stories/:title" element={<PBStoryShow />} />

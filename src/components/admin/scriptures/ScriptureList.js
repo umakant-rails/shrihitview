@@ -42,10 +42,10 @@ const ScriptureList = () => {
   }
   const getScriptureType = (e) => {
     const selectedScriptureType = e.target.value;
+    let sAttrs = {'scripture_type_id': selectedScriptureType, page: 1};
     setScriptureType(selectedScriptureType);
-    let sAttrs = {'scripture_type_id': selectedScriptureType, page: 0};
     setSearchAttrs(sAttrs);
-    dispatch(getScriptures(sAttrs));
+    dispatch(getScriptures(searchAttrs));
   }
 
   const deleteToScripture = (id) => {
@@ -108,7 +108,7 @@ const ScriptureList = () => {
                       dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                       dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                       dark:shadow-sm-light w-auto`}>
-                      <option value="">स्त्रोत/आरती का प्रकार चुने</option>
+                      <option value="">रसिक वाणी/ग्रन्थ</option>
                       {
                         scripture_types && scripture_types.map( (strota_type, index) => 
                           <option key={index} value={strota_type.id}>{strota_type.name}</option>

@@ -35,7 +35,7 @@ const CSScriptureShow = () => {
 
   useEffect( () => {
     if(articles){
-      if(params.chapter_id === undefined && chapters){
+      if(params.chapter_id === undefined && chapters.length > 0){
         setParams(params => ({...params, chapter_id: chapters[0].id}))
         setSelectedChapterId(chapters[0].id);
       }

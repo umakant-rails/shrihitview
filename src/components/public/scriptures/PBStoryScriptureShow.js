@@ -4,26 +4,19 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { getScrArticles } from '../../../slices/public/scriptureSlice';
 
-const ScriptureShow = () => {
+const StoryScriptureShow = () => {
   const dispatch = useDispatch();
   const {id} = useParams()
   const [currentArticle, setCurrentArticle] = useState(1);
   const [indexing, setIndexing] = useState(false);
+  const [scriptureObj, setScriptureObj] = useState(null);
+  const [articleArr, setArticleArr] = useState([])
   const { scripture, articles } = useSelector(state => state.scripture);
-  const [titleAttr, setTitleAtrr] = useState(null);
-  const [contentAttr, setContentArr] = useState(null);
 
   const nextCls = (articles && currentArticle === articles.length) ? 'text-gray-400' : 'text-gray-800';;
   const prevCls = (currentArticle === 1) ? 'text-gray-400' : 'text-gray-800';
 
   useEffect( () => { dispatch(getScrArticles(id)); }, [dispatch, id]);
-  useEffect( () => { 
-    if(scripture && scripture.scripture_type === "रसिक वाणी"){
-      setTitleAtrr("hindi_title"); setContentArr("content");
-    } else if (scripture && scripture.scripture_type === "कथायें"){
-      setTitleAtrr("title"); setContentArr("story");
-    }
-  }, [scripture]);
 
   const updateIndexing = () => setIndexing(!indexing);
   const navigateArticle = (articleIndex) => {
@@ -70,10 +63,10 @@ const ScriptureShow = () => {
                     </div>
                     <div className='md:col-span-10'>
                       <div className='text-3xl font-bold text-center bg-slate-800 text-white rounded-md py-3 mt-5 mb-8 shadow-xl shadow-purple-400'>
-                        {currentArticle}. {article[titleAttr]}
+                        {currentArticle}. {article.title}
                       </div>
                       <div className='text-2xl px-8 leading-10'>
-                        {<div dangerouslySetInnerHTML={{__html: article[contentAttr]}} />}
+                        {<div dangerouslySetInnerHTML={{__html: article.story}} />}
                       </div>
                     </div>
                     <div className='hidden md:flex flex justify-center items-center page-fixed'>
@@ -98,7 +91,7 @@ const ScriptureShow = () => {
                     articles && articles.map((article, index) =>
                       <Link to="#" key={index} onClick={e => navigateArticle(index+1)} className={`col-span-6 text-xl text-blue-800 px-4 py-2 border-b ${index%2 === 0 && 'border-r'} ${[0,1].includes(index) && 'border-t'} border-gray-500`}>
                         <li>
-                          {index+1}. {article[titleAttr]}
+                          {index+1}. {article.title}
                         </li>
                       </Link>
                   )}
@@ -112,4 +105,4 @@ const ScriptureShow = () => {
   );
 };
 
-export default ScriptureShow;
+export default StoryScriptureShow;
