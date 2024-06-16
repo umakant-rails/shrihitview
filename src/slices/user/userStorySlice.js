@@ -106,8 +106,8 @@ const userStorySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.
-    addCase(getStories.fulfilled, (state, action) => {
+    builder
+    .addCase(getStories.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 

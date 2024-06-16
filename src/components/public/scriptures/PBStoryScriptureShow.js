@@ -9,8 +9,6 @@ const StoryScriptureShow = () => {
   const {id} = useParams()
   const [currentArticle, setCurrentArticle] = useState(1);
   const [indexing, setIndexing] = useState(false);
-  const [scriptureObj, setScriptureObj] = useState(null);
-  const [articleArr, setArticleArr] = useState([])
   const { scripture, articles } = useSelector(state => state.scripture);
 
   const nextCls = (articles && currentArticle === articles.length) ? 'text-gray-400' : 'text-gray-800';;

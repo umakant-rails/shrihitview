@@ -57,12 +57,14 @@ const PBPanchangShow = () => {
 	const prevMonth = () => { currentDate.subtract(1, "month"); createDateArr(currentDate); }
 
 	return (
-		<div className='grid md:grid-cols-12 mt-5'>
-			<div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-5 pt-5 pb-8'>
-				<div className='bg-blue-50 px-2 py-2 text-center text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
+		<div className='grid md:grid-cols-12'>
+			<div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
+				<div className={`bg-blue-50 px-2 py-2 text-center text-2xl text-blue-800 border border-y-blue-700 
+					shadow-xl mb-5 font-bold`}>
 					पंचांग - {panchang ? panchang.title : 'उपलब्ध नही'} {panchang && `(विक्रम सम्वत-${panchang.vikram_samvat})`}
 				</div>
-				<div className='grid md:grid-cols-12 gap-4'>
+				{/* col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-5 pt-5 pb-8 */}
+				<div className='grid md:grid-cols-12 gap-4 shadow-2xl bg-white border border-gray-200 px-3 pt-2 pb-8'>
 					<div className='col-span-8'>
 						<header className="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
 							<h1 className="text-xl font-semibold leading-6 text-red-700">

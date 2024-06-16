@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../../services/AuthContext';
 import { useDispatch } from 'react-redux';
-import { SET_MESSAGE } from '../../utils/types';
 
 const Logout = () => {
   const {setCurrentUser} = useContext(AuthContext);

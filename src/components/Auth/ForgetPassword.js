@@ -5,7 +5,6 @@ import { sendPasswordToken } from '../../slices/authSlice';
 const formObj = {email: ''}
 const ForgetPassword = () => {
   const dispatch = useDispatch();
-  const [isSubmit, setIsSubmit] = useState(false);
   const [formValues, setFormValues] = useState(formObj);
   const {loading, password_token_sent} = useSelector(state => state.auth) 
 

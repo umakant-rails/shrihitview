@@ -19,7 +19,7 @@ const Register = () => {
       setFormValues(userObj);
       //navigate("/users/login");
     }
-  }, [registered_user, userObj]);
+  }, [registered_user]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;

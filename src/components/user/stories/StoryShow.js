@@ -23,7 +23,7 @@ const StoryShow = () => {
   }
 
   return (
-    <div className='grid md:grid-cols-12 mt-5'>
+    <div className='grid md:grid-cols-12'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 p-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
           रचना - {story && story.title}

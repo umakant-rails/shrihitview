@@ -40,8 +40,8 @@ const homeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.
-    addCase(getHomePageData.fulfilled, (state, action) => {
+    builder
+    .addCase(getHomePageData.fulfilled, (state, action) => {
       state.articles = action.payload.articles;
       state.authors = action.payload.authors;
       state.tags = action.payload.tags;

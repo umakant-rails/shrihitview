@@ -106,8 +106,8 @@ const userAuthorSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.
-    addCase(getAuthors.fulfilled, (state, action) => {
+    builder
+    .addCase(getAuthors.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 

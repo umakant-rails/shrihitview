@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
-import { showError, showMessage } from "../messageSlice";
+import { showError } from "../messageSlice";
 
 export const getPanchangs = createAsyncThunk(
   "usrPanchang/getArticles",

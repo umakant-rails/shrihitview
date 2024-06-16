@@ -45,7 +45,7 @@ const CSScriptureShow = () => {
       setCurrentPage(current_page);
       
     }
-  }, [articles, total_articles, chapters, current_page])
+  }, [articles, total_articles, chapters, current_page, params])
 
   const handlePageClick = (event) => {
     const page = parseInt(event.target.getAttribute('value'));

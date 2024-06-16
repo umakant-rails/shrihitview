@@ -17,7 +17,7 @@ const AdminUserMgmt = () => {
 
   useEffect( () => {
     dispatch(getAllUsers(searchAttrs));
-  }, [dispatch]);
+  }, [dispatch, searchAttrs]);
 
   useEffect( () => {
     if(users){
@@ -68,7 +68,7 @@ const AdminUserMgmt = () => {
 
         <section className="bg-gray-50 dark:bg-gray-900">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 pb-4">
               <div className="w-full md:w-1/2"></div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <div className="flex items-center space-x-3 w-full md:w-auto">
@@ -135,7 +135,7 @@ const AdminUserMgmt = () => {
               </div>
               
             </div>
-            <div className="overflow-x-auto min-h-72 px-3">
+            <div className="overflow-x-auto min-h-72">
               <table className="w-full text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">

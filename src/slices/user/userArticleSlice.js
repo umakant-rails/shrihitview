@@ -132,8 +132,8 @@ const usrArticleSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.
-    addCase(newArticle.fulfilled, (state, action) => {
+    builder
+    .addCase(newArticle.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 

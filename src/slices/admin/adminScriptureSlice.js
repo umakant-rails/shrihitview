@@ -22,7 +22,7 @@ export const getScripture = createAsyncThunk(
   "adminScripture/getScripture",
   async (id, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.get( `/admin/scriptures/${id}`);
+      const response = await baseUrl.get(`/admin/scriptures/${id}`);
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

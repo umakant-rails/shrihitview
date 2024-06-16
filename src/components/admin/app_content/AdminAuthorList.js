@@ -8,12 +8,12 @@ import {
   deleteAdminAuthor, 
   getAdminAuthors 
 } from '../../../slices/admin/adminAuthorSlice';
+import { ITEM_PER_PAGE } from '../../../utils/types';
 
 const AdminAuthorList = () => {
   const dispatch = useDispatch();
   const aphabetList = "अ इ उ ऋ ए क ख ग घ च छ ज झ ट ठ ड ढ त थ द ध न प फ ब भ म य र ल व श ष स ह क्ष त्र ज्ञ श्र".split(' ');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage, setItemPerPage] = useState(10);
   const [authorId, setAuthorId] = useState(null);
   const [authorList, setAuthorList] = useState([]);
   const [totalAuthorQnty, setTotalAuthorQnty] = useState(0);
@@ -84,7 +84,7 @@ const AdminAuthorList = () => {
         </div>
         <section className="bg-gray-50 dark:bg-gray-900 ">
           <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 pb-4">
               <div className="w-full md:w-1/2">
               </div>
               <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
@@ -240,7 +240,7 @@ const AdminAuthorList = () => {
                   <Pagination 
                     showWidget={5} 
                     totalItems={totalAuthorQnty}
-                    itemsPerPage={itemPerPage}
+                    itemsPerPage={ITEM_PER_PAGE}
                     pageChangeHandler= {handlePageClick}
                   />) : ''
               }

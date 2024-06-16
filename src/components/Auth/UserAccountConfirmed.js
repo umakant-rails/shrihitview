@@ -14,7 +14,7 @@ const UserAccountConfirmed = () => {
     if(confirmation_token){
       dispatch(confirmUserAccount(confirmation_token));
     }
-  }, [searchParams]);
+  }, [dispatch, searchParams]);
 
   return (
     <div>

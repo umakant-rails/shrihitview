@@ -2,16 +2,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { imageNamefromScrName } from '../../../utils/utilityFunctions';
-import scripture from "../../../assets/images/scripture.png";
 import { getScriptures } from '../../../slices/public/scriptureSlice';
-let images = require.context('../../../assets/images', true);
+let images = require.context('../../../assets/images/scripture', true);
 
 const PBScriptureList = () => {
   const dispatch = useDispatch();
   const { scriptures } = useSelector(state => state.scripture );
 
   const imageExist = (scripture) => {
-    let imageArr = require.context('../../../assets/images', false).keys();
+    let imageArr = require.context('../../../assets/images/scripture', false).keys();
     let scrImage = `./${imageNamefromScrName(scripture.name_eng)}.png`;
     return imageArr.indexOf(scrImage) >= 0;
   }
@@ -24,7 +23,7 @@ const PBScriptureList = () => {
       return `/pb/scriptures/${scripture.name_eng}`;
     } else if (scripture.scripture_type_id === 3){
       return `/pb/scriptures/stories/${scripture.name_eng}`
-    } else if (scripture.scripture_type_id == 1){
+    } else if (scripture.scripture_type_id === 1){
       return `/pb/scriptures/granth/${scripture.name_eng}`
     }
   }

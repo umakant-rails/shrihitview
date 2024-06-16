@@ -48,7 +48,7 @@ const AddTithi = () => {
 
   useEffect( () => {
     dispatch(newPanchangTithi(id)).then(response => {
-      const tithi = response.data.last_tithi;
+      // const tithi = response.data.last_tithi;
       month = response.data.month;
       let lastDate = moment().clone(); //tithi ? moment(tithi.date).clone() : moment().clone();
 
@@ -60,7 +60,7 @@ const AddTithi = () => {
       selectDate(lastDate);
       createDateArr(lastDate);
     }).catch( error => error.response);
-  }, []);
+  }, [dispatch, id]);
 
   useEffect( () => { 
     if(panchang) setPanchangObj(panchang);
