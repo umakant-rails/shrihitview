@@ -19,7 +19,7 @@ export const getScrArticle = createAsyncThunk(
   "adminScrArticle/getScrArticle",
   async ({id, article_id}, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.get( `/admin/scriptures/${id}/scripture_articles/${article_id}`);
+      const response = await baseUrl.get(`/admin/scriptures/${id}/scripture_articles/${article_id}`);
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

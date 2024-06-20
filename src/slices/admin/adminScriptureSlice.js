@@ -99,21 +99,21 @@ export const deleteScripture = createAsyncThunk(
   }
 );
 
-// export const getChapterArticles = createAsyncThunk(
-//   "adminScripture/getChapterArticles",
-//   async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
-//     try {
-//       const paramsStr = getParamsStringFromHash(params);
-//       const response = await baseUrl.get(
-//         `/admin/scriptures/${scripture_id}/scripture_articles?${paramsStr}`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       dispatch(showError(error.message));
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const getChapterArticles = createAsyncThunk(
+  "adminScripture/getChapterArticles",
+  async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
+    try {
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.get(
+        `/admin/scriptures/${scripture_id}/scripture_articles?${paramsStr}`
+      );
+      return response.data;
+    } catch (error) {
+      dispatch(showError(error.message));
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const getScrArticles = createAsyncThunk(
   "adminScripture/getScrArticles",

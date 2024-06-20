@@ -33,6 +33,7 @@ const EditScrArticle = () => {
     if(scripture_article){
       setFormValues( formValues => ({
         ...formValues,
+        section_id: scripture_article.section_id,
         chapter_id: scripture_article.chapter_id,
         article_type_id: scripture_article.article_type_id,
         index: scripture_article.index,
@@ -45,7 +46,7 @@ const EditScrArticle = () => {
 
   useEffect( () => {
     if(updated_scr_article){
-      navigate(`/admin/scriptures/${updated_scr_article.scripture_id}`)
+      navigate(`/admin/scriptures/${updated_scr_article.scripture_id}/granth`)
     } 
   }, [navigate, updated_scr_article, scripture]);
   
@@ -90,7 +91,7 @@ const EditScrArticle = () => {
                 सेक्शन का नाम
               </label>
               <select id="section_id" name="section_id" 
-                // value={formValues.chapter_id || ''}
+                value={formValues.section_id || ''}
                 onChange={filterChapters}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                   rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 

@@ -15,7 +15,7 @@ const AddScrArticle = () => {
   const {scripture_id} = useParams();
 
   const [formValues, setFormValues] = useState(articleObj);
-  const [chapterList, setChapterlist] = useState([]);
+  const [chapterList, setChapterList] = useState([]);
   const { scripture, sections, chapters, article_types, scripture_article } = useSelector( (state) => state.adminScrArticle)
 
   useEffect( () => {
@@ -23,7 +23,7 @@ const AddScrArticle = () => {
   }, [dispatch, scripture_id]);
 
   useEffect( () => {
-    if(chapters){ setChapterlist(chapters); }
+    if(chapters){ setChapterList(chapters); }
   }, [chapters]);
 
   useEffect( () => {
@@ -56,11 +56,12 @@ const AddScrArticle = () => {
 
   const filterChapters = (e) => {
     const sectionId = e.target.value;
+    console.log(chapters, sectionId);
     if(sectionId){
-      let filteredChapters = chapters.filter((chapter) => chapter.parent_id === sectionId)
-      setChapterlist(filteredChapters);
+      let filteredChapters = chapters.filter((chapter) => chapter.parent_id.toString() === sectionId.toString())
+      setChapterList(filteredChapters);
     } else {
-      setChapterlist(chapters);
+      setChapterList(chapters);
     }
   }
 
