@@ -53,21 +53,26 @@ const ScriptureList = () => {
   }
 
   const getAddArticleUrl = (scripture) => {
-    if(scripture.scripture_type_id === 5 || scripture.scripture_type_id === 6){
+    if(scripture.scripture_type_id === 4 || scripture.scripture_type_id === 5){
       return `/admin/compiled_scriptures/${scripture.id}/add_article_page`;
-    } if (scripture.scripture_type_id === 4) {
-      return "#";
-    }else {
+    } if (scripture.scripture_type_id === 3) {
+      return "/stories/new";
+    } else if(scripture.scripture_type_id == 1){
       return `/admin/scriptures/${scripture.id}/articles/new`;
+    } else {
+      return `/articles/new`
     }
   }
-  const getShowPageUrl = (scripture) => {
-    if(scripture.scripture_type_id === 5 || scripture.scripture_type_id === 6){
-      return `/admin/compiled_scriptures/${scripture.id}`;
-    } if (scripture.scripture_type_id === 4) {
-      return "#";
-    }else {
-      return `/admin/scriptures/${scripture.id}`
+
+  const getPageLink = (scripture) => {
+    if(scripture.scripture_type_id === 4 || scripture.scripture_type_id === 5) {
+      return `/admin/scriptures/${scripture.id}/cs_scripture`
+    } else if (scripture.scripture_type_id === 2) {
+      return `/admin/scriptures/${scripture.id}/vani`
+    } else if (scripture.scripture_type_id === 3){
+      return `/admin/scriptures/${scripture.id}/stories`
+    } else if (scripture.scripture_type_id === 1){
+      return `/admin/scriptures/${scripture.id}/granth`
     }
   }
 
@@ -123,7 +128,7 @@ const ScriptureList = () => {
                 <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
                   <th scope="col" className="px-2 py-3">क्रमांक</th>
-                    <th scope="col" className="px-2 py-3">रसिक वाणी/ग्रन्थ</th>
+                    <th scope="col" className=" px-2 py-3">रसिक वाणी/ग्रन्थ</th>
                     <th scope="col" className="px-2 py-3">रसिक वाणी/ग्रन्थ प्रकार</th>
                     <th scope="col" className="px-2 py-3">लेखक</th>
                     <th scope="col" className="px-2 py-3">Activities</th>
@@ -138,7 +143,7 @@ const ScriptureList = () => {
                         <td className='px-2 py-3'>{(currentPage-1)*10 + (index+1)}</td>
                         <td
                           className="px-2 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <Link to={getShowPageUrl(scripture)} className="text-blue-500 cursor-pointer">
+                            <Link to={getPageLink(scripture)} className="text-blue-500 cursor-pointer">
                               {scripture.name}
                             </Link>
                         </td>
@@ -152,14 +157,14 @@ const ScriptureList = () => {
                           <Link to={`/admin/scriptures/${scripture.id}/chapters`} 
                             className={`inline-flex text-sm bg-blue-600 text-white rounded font-bold 
                             px-3 py-2 mr-2 hover:bg-blue-700`}>
-                            Add Chapters&nbsp;&nbsp;
+                              Chapters&nbsp;&nbsp;
                             <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
                           </Link>
                           <Link to={getAddArticleUrl(scripture)} className={`inline-flex text-sm bg-blue-600 text-white rounded font-bold 
                             px-3 py-2 mr-2 hover:bg-blue-700`}>
-                            Add Articles&nbsp;&nbsp;
+                              Articles&nbsp;&nbsp;
                             <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>

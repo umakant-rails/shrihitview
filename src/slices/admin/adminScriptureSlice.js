@@ -99,13 +99,45 @@ export const deleteScripture = createAsyncThunk(
   }
 );
 
-export const getChapterArticles = createAsyncThunk(
-  "adminScripture/getChapterArticles",
-  async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
+// export const getChapterArticles = createAsyncThunk(
+//   "adminScripture/getChapterArticles",
+//   async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
+//     try {
+//       const paramsStr = getParamsStringFromHash(params);
+//       const response = await baseUrl.get(
+//         `/admin/scriptures/${scripture_id}/scripture_articles?${paramsStr}`
+//       );
+//       return response.data;
+//     } catch (error) {
+//       dispatch(showError(error.message));
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+export const getScrArticles = createAsyncThunk(
+  "adminScripture/getScrArticles",
+  async ({id, params}, {dispatch, rejectWithValue }) => {
     try {
       const paramsStr = getParamsStringFromHash(params);
       const response = await baseUrl.get(
-        `/admin/scriptures/${scripture_id}/scripture_articles?${paramsStr}`
+        `/admin/scriptures/${id}/get_articles?${paramsStr}`
+      );
+      return response.data;
+    } catch (error) {
+      dispatch(showError(error.message));
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getScrStories = createAsyncThunk(
+  "adminScripture/getScrStories",
+  async ({id, params}, {dispatch, rejectWithValue }) => {
+    try {
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.get(
+        `/admin/scriptures/${id}/get_stories?${paramsStr}`
       );
       return response.data;
     } catch (error) {
@@ -117,13 +149,28 @@ export const getChapterArticles = createAsyncThunk(
 
 export const deleteScrArticle = createAsyncThunk(
   "adminScripture/deleteScrArticle",
-  async ({scripture_id, article_id, params}, {dispatch, rejectWithValue }) => {
+  async ({id, article_id, params}, {dispatch, rejectWithValue }) => {
     try {
       const paramsStr = getParamsStringFromHash(params);
       const response = await baseUrl.delete(
-        `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}?${paramsStr}`
+        `/admin/scriptures/${id}/articles/${article_id}?${paramsStr}`
       );
-      dispatch(showMessage(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(showError(error.message));
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteScrStory = createAsyncThunk(
+  "adminScripture/deleteScrStory",
+  async ({id, story_id, params}, {dispatch, rejectWithValue }) => {
+    try {
+      const paramsStr = getParamsStringFromHash(params);
+      const response = await baseUrl.delete(
+        `/admin/scriptures/${id}/stories/${story_id}?${paramsStr}`
+      );
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -182,10 +229,10 @@ const adminScriptureSlice = createSlice({
     }).addCase(deleteScripture.rejected, (state, action) => {
       state.loading = false;
     })
-    
-    .addCase(getChapterArticles.fulfilled, (state, action) => {
-      for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
-    })
+
+    // .addCase(getChapterArticles.fulfilled, (state, action) => {
+    //   for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
+    // })
 
     .addCase(deleteScrArticle.pending, (state, action) => {
       state.loading = true;
@@ -194,6 +241,23 @@ const adminScriptureSlice = createSlice({
       state.loading = false;
     }).addCase(deleteScrArticle.rejected, (state, action) => {
       state.loading = false;
+    })
+
+    .addCase(deleteScrStory.pending, (state, action) => {
+      state.loading = true;
+    }).addCase(deleteScrStory.fulfilled, (state, action) => {
+      for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
+      state.loading = false;
+    }).addCase(deleteScrStory.rejected, (state, action) => {
+      state.loading = false;
+    })
+
+    .addCase(getScrArticles.fulfilled, (state, action) => {
+      for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
+    })
+
+    .addCase(getScrStories.fulfilled, (state, action) => {
+      for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     });
   },
 });

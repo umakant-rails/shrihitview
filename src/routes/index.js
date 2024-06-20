@@ -10,6 +10,11 @@ import ErrorPage from "../pages/ErrorPage";
 import Register from "../components/Auth/Register";
 import Login from "../components/Auth/Login";
 import Logout from "../components/Auth/Logout";
+import UnAuthenticate from "../components/Auth/UnAuthenticate";
+import ChangePassword from "../components/Auth/ChangePassword";
+import ForgetPassword from "../components/Auth/ForgetPassword";
+import ResetPassword from "../components/Auth/ResetPassword";
+import UserAccountConfirmed from "../components/Auth/UserAccountConfirmed";
 
 import PBArticleList from "../components/public/articles/PBArticleList";
 import PBArticleShow from "../components/public/articles/PBArticleShow";
@@ -18,7 +23,8 @@ import PBAuthorShow from "../components/public/authors/PBAuthorShow";
 import PBSantList from "../components/public/authors/PBSantList";
 import PBSantBiography from "../components/public/authors/PBSantBiography";
 import PBScriptureList from "../components/public/scriptures/PBScriptureList";
-// import PBScriptureShow from "../components/public/scriptures/PBScriptureShow";
+import VaniScriptureShow from "../components/public/scriptures/PBVaniScriptureShow";
+import StoryScriptureShow from "../components/public/scriptures/PBStoryScriptureShow";
 import PBStoryList from "../components/public/stories/PBStoryList";
 import PBStoryShow from "../components/public/stories/PBStoryShow";
 import PBStrotumList from "../components/public/strota/PBStrotumList";
@@ -29,12 +35,43 @@ import PBTagList from "../components/public/tags/PBTagList";
 import PBTagShow from "../components/public/tags/PBTagShow";
 import PBContextList from "../components/public/contexts/PBContextList";
 import PBContextShow from "../components/public/contexts/PBContextShow";
+import PBPanchangList from "../components/public/panchangs/PBPanchangList";
+import PBPanchangShow from "../components/public/panchangs/PBPanchangShow";
+import PBSuggestionList from "../components/public/suggestions/PBSuggestionList";
+import PBSuggestionShow from "../components/public/suggestions/PBSuggestionShow";
+import PBAddSuggestion from "../components/public/suggestions/PBAddSuggestion";
 
 import AdminLayout from "../components/layouts/AdminLayout";
 import Dashboard from "../components/admin/dashboard/Dashboard";
-import UnAuthenticate from "../components/Auth/UnAuthenticate";
-
 import AdminArticleList from "../components/admin/app_content/AdminArticleList";
+import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
+import AdminTagList from "../components/admin/app_content/AdminTagList";
+import AdminUserMgmt from "../components/admin/app_content/AdminUserMgmt";
+
+import ContextList from "../components/admin/contexts/ContextList";
+import ArticleTypeList from "../components/admin/article_types/ArticleTypeList";
+import StrotumList from "../components/admin/strota/StrotumList";
+import AddStroum from "../components/admin/strota/AddStrotum";
+import EditStrotum from "../components/admin/strota/EditStrotum";
+import StrotumShow from "../components/admin/strota/StrotumShow";
+import ScriptureList from "../components/admin/scriptures/ScriptureList";
+import AddScripture from "../components/admin/scriptures/AddScripture";
+import EditScripture from "../components/admin/scriptures/EditScripture";
+// import ScriptureShow from "../components/admin/scriptures/ScriptureShow";
+import VaniScripturePage from "../components/admin/scriptures/pages/VaniScripturePage";
+import StoryScripturePage from "../components/admin/scriptures/pages/StoryScripturePage";
+import CompileScripturePage from "../components/admin/scriptures/pages/CompileScripturePage";
+import GranthScripturePage from "../components/admin/scriptures/pages/GranthScripturePage";
+import ScriptureChapterList from "../components/admin/scripture_chapters/ScriptureChapterList";
+import AddScrArticle from "../components/admin/scripture_articles/AddScrArticle";
+import EditScrArticle from "../components/admin/scripture_articles/EditScrArticle";
+import AddCSArticle from "../components/admin/compile_scriptures/AddCSArticle";
+import CSScriptureShow from "../components/admin/compile_scriptures/CSScriptureShow";
+import PanchangList from "../components/admin/panchangs/PanchangList";
+import AddPanchang from "../components/admin/panchangs/AddPanchang";
+import AddTithi from "../components/admin/panchang_tithis/AddTithi";
+import EditPanchang from "../components/admin/panchangs/EditPanchang";
+import EditTithi from "../components/admin/panchang_tithis/EditTithi";
 
 import ArticleList from "../components/user/articles/ArticleList";
 import AddArticle  from "../components/user/articles/AddArticle";
@@ -48,49 +85,12 @@ import StoryList from "../components/user/stories/StoryList";
 import AddStory from "../components/user/stories/AddStory";
 import EditStory from "../components/user/stories/EditStory";
 import StoryShow from "../components/user/stories/StoryShow";
-
-import ContextList from "../components/admin/contexts/ContextList";
-import ArticleTypeList from "../components/admin/article_types/ArticleTypeList";
-import StrotumList from "../components/admin/strota/StrotumList";
-import AddStroum from "../components/admin/strota/AddStrotum";
-import EditStrotum from "../components/admin/strota/EditStrotum";
-import StrotumShow from "../components/admin/strota/StrotumShow";
-import ScriptureList from "../components/admin/scriptures/ScriptureList";
-import AddScripture from "../components/admin/scriptures/AddScripture";
-import EditScripture from "../components/admin/scriptures/EditScripture";
-import ScriptureShow from "../components/admin/scriptures/ScriptureShow";
-import ScriptureChapterList from "../components/admin/scripture_chapters/ScriptureChapterList";
-import AddScrArticle from "../components/admin/scripture_articles/AddScrArticle";
-import EditScrArticle from "../components/admin/scripture_articles/EditScrArticle";
-import AddCSArticle from "../components/admin/compile_scriptures/AddCSArticle";
-import CSScriptureShow from "../components/admin/compile_scriptures/CSScriptureShow";
-import AdminAuthorList from "../components/admin/app_content/AdminAuthorList";
-import AdminTagList from "../components/admin/app_content/AdminTagList";
-import ChangePassword from "../components/Auth/ChangePassword";
-
-import PanchangList from "../components/admin/panchangs/PanchangList";
-import AddPanchang from "../components/admin/panchangs/AddPanchang";
-import AddTithi from "../components/admin/panchang_tithis/AddTithi";
-import EditPanchang from "../components/admin/panchangs/EditPanchang";
-import EditTithi from "../components/admin/panchang_tithis/EditTithi";
 import UserPanchangShow from "../components/user/panchangs/UserPanchangShow";
 import UserPanchangList from "../components/user/panchangs/UserPanchangList";
-import PBPanchangList from "../components/public/panchangs/PBPanchangList";
-import PBPanchangShow from "../components/public/panchangs/PBPanchangShow";
-import PBSuggestionList from "../components/public/suggestions/PBSuggestionList";
-import PBSuggestionShow from "../components/public/suggestions/PBSuggestionShow";
-import PBAddSuggestion from "../components/public/suggestions/PBAddSuggestion";
 import UserSuggestionList from "../components/user/suggestions/UserSuggestionList";
 import UserSuggestionShow from "../components/user/suggestions/UserSuggestionShow";
 import UserAddSuggestion from "../components/user/suggestions/UserAddSuggestion";
 import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestion";
-import ForgetPassword from "../components/Auth/ForgetPassword";
-import ResetPassword from "../components/Auth/ResetPassword";
-import UserAccountConfirmed from "../components/Auth/UserAccountConfirmed";
-import AdminUserMgmt from "../components/admin/app_content/AdminUserMgmt";
-import VaniScriptureShow from "../components/public/scriptures/PBVaniScriptureShow";
-import StoryScriptureShow from "../components/public/scriptures/PBStoryScriptureShow";
-
 
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
@@ -166,7 +166,12 @@ const router = createBrowserRouter(
         <Route path="/admin/scriptures" element={<ProtectedRoutes><ScriptureList/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/new" element={<ProtectedRoutes><AddScripture/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:id/edit" element={<ProtectedRoutes><EditScripture/></ProtectedRoutes>} />
-        <Route path="/admin/scriptures/:id" element={<ProtectedRoutes><ScriptureShow/></ProtectedRoutes>} />
+        {/* <Route path="/admin/scriptures/:id" element={<ProtectedRoutes><ScriptureShow/></ProtectedRoutes>} /> */}
+        <Route path="/admin/scriptures/:id/vani" element={<ProtectedRoutes><VaniScripturePage/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:id/stories" element={<ProtectedRoutes><StoryScripturePage/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:id/cs_scripture" element={<ProtectedRoutes><CompileScripturePage/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:id/granth" element={<ProtectedRoutes><GranthScripturePage/></ProtectedRoutes>} />
+        
         <Route path="/admin/scriptures/:id/chapters" element={<ProtectedRoutes><ScriptureChapterList/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:scripture_id/articles/new" element={<ProtectedRoutes><AddScrArticle/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:scripture_id/scripture_articles/:id/edit" element={<ProtectedRoutes><EditScrArticle/></ProtectedRoutes>} />

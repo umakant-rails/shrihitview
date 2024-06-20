@@ -60,12 +60,12 @@ export const updateScrArticle = createAsyncThunk(
   }
 );
 
-export const deleteScrArticle = createAsyncThunk(
-  "adminScrArticle/deleteScrArticle",
-  async ({scripture_id, article_id}, {dispatch, rejectWithValue }) => {
+export const deleteScrptrArticle = createAsyncThunk(
+  "adminScrArticle/deleteScrptrArticle",
+  async ({id, article_id}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.delete(
-        `/admin/scriptures/${scripture_id}/scripture_articles/${article_id}`
+        `/admin/scriptures/${id}/scripture_articles/${article_id}`
       );
       dispatch(showMessage(response.data));
       return response.data;
@@ -110,12 +110,12 @@ const adminScrArticleSlice = createSlice({
       state.loading = false;
     })
     
-    .addCase(deleteScrArticle.pending, (state, action) => {
+    .addCase(deleteScrptrArticle.pending, (state, action) => {
       state.loading = true;
-    }).addCase(deleteScrArticle.fulfilled, (state, action) => {
+    }).addCase(deleteScrptrArticle.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
       state.loading = false;
-    }).addCase(deleteScrArticle.rejected, (state, action) => {
+    }).addCase(deleteScrptrArticle.rejected, (state, action) => {
       state.loading = false;
     });
   },
