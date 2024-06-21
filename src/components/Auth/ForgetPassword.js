@@ -28,7 +28,7 @@ const ForgetPassword = () => {
     <div className='grid md:grid-cols-12 mt-5'>
       <div className='col-start-2 col-span-10 shadow-2xl bg-white border border-gray-200 px-10 pt-5'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-blue-800 border border-y-blue-700 shadow-xl mb-5 font-bold'>
-          Recover Your Password {loading}
+          Recover Your Password
         </div>
         <form className="py-5 px-5" onSubmit={onFormSubmit}>
           <div className='grid md:grid-cols-12 gap-6 mb-3'>

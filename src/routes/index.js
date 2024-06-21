@@ -15,6 +15,7 @@ import ChangePassword from "../components/Auth/ChangePassword";
 import ForgetPassword from "../components/Auth/ForgetPassword";
 import ResetPassword from "../components/Auth/ResetPassword";
 import UserAccountConfirmed from "../components/Auth/UserAccountConfirmed";
+import TermAndConditions from "../components/Auth/TermAndConditions";
 
 import PBArticleList from "../components/public/articles/PBArticleList";
 import PBArticleShow from "../components/public/articles/PBArticleShow";
@@ -92,6 +93,7 @@ import UserSuggestionShow from "../components/user/suggestions/UserSuggestionSho
 import UserAddSuggestion from "../components/user/suggestions/UserAddSuggestion";
 import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestion";
 
+
 // const router = createBrowserRouter([
 //   {path: "/", element: <Home />, errorElement: <ErrorPage />,},
 //   {path: "/aboutus", element: <Aboutus />},
@@ -110,6 +112,7 @@ const router = createBrowserRouter(
         <Route path="/users/unauthrized" element={<UnAuthenticate />} />
         <Route path="/users/password/edit" element={<ResetPassword />} />
         <Route path="/users/confirmation" element={<UserAccountConfirmed /> } />
+        <Route path="/users/terms_and_conditions" element={<TermAndConditions />} />
 
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/pb/articles" element={<PBArticleList />} />

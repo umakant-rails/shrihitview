@@ -141,6 +141,10 @@ const Register = () => {
                
             />
           </div>
+          <div className='text-xs mb-2'>
+            By singing up, you agree with our <Link to="/users/terms_and_conditions" 
+              className='text-blue-600'>terms and conditions</Link>.
+          </div>
           <div className="grid justify-items-stretch">
             <button 
               type="submit" 
