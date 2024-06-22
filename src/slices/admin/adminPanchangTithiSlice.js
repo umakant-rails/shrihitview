@@ -32,6 +32,7 @@ export const navigateMonth = createAsyncThunk(
   async ({id, date}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/admin/panchangs/${id}/panchang_tithis/navigate`,{params: {date: date} });
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -47,6 +48,7 @@ export const getEditingData = createAsyncThunk(
       const response = await baseUrl.get(
         `/admin/panchangs/${id}/panchang_tithis/get_editing_data`,{params: {date: date} }
       );
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

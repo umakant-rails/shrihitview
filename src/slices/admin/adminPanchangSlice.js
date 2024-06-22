@@ -7,6 +7,7 @@ export const getPanchangs = createAsyncThunk(
   async (params, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/admin/panchangs`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -20,6 +21,7 @@ export const getPanchang = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/admin/panchangs/${id}`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

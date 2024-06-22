@@ -9,6 +9,7 @@ export const getContexts = createAsyncThunk(
     try {
       const paramsStr = getParamsStringFromHash(params)
       const response = await baseUrl.get(`/admin/contexts?${paramsStr}`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

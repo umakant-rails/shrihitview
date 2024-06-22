@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseUrl from "../../services/AxiosService";
-import { showError } from "../messageSlice";
+import { showMessage, showError } from "../messageSlice";
 
 export const getDashboardData = createAsyncThunk(
   "adminDashboard/getDashboardData",
   async (params, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/admin/dashboards`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

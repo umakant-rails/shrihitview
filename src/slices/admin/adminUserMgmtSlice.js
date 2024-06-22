@@ -9,6 +9,7 @@ export const getAllUsers = createAsyncThunk(
     try {
       const paramsStr = getParamsStringFromHash(params);
       const response = await baseUrl.get(`/admin/user_mgmts?${paramsStr}`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

@@ -9,6 +9,7 @@ export const getTypes = createAsyncThunk(
     try {
       const paramsStr = getParamsStringFromHash(params)
       const response = await baseUrl.get(`/admin/article_types?${paramsStr}`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

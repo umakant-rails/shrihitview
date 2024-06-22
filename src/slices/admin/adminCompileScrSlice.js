@@ -8,6 +8,7 @@ export const getAddArticlePageData = createAsyncThunk(
   async (scripture_id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/admin/compiled_scriptures/${scripture_id}/add_articles_page`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -24,6 +25,7 @@ export const getFilteredAritcles = createAsyncThunk(
       const response = await baseUrl.get(
         `/admin/compiled_scriptures/${scripture_id}/filter_articles?${paramsStr}`
       );
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -89,6 +91,7 @@ export const getArticleForIndexing = createAsyncThunk(
       const response = await baseUrl.get(
         `/admin/compiled_scriptures/${scripture_id}/get_articles_for_indexing?${paramsStr}`
       );
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));

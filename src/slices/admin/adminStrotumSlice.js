@@ -9,6 +9,7 @@ export const getStrota = createAsyncThunk(
     try {
       const paramsStr = getParamsStringFromHash(params);
       const response = await baseUrl.get(`/admin/strota?${paramsStr}`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -49,6 +50,7 @@ export const newStrotum = createAsyncThunk(
   async (params, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get('/admin/strota/new');
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
@@ -62,6 +64,7 @@ export const editStrotum = createAsyncThunk(
   async (id, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/admin/strota/${id}?action_type=edit`);
+      dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
       dispatch(showError(error.message));
