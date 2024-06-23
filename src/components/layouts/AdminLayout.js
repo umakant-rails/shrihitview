@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AdminSideBar from './AdminSideBar';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,6 +15,7 @@ import { getUserRole } from '../../slices/authSlice';
 const AdminLayout = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
   const { type, message } = useSelector((state) => state.msg);
   const {currentUser} = useContext(AuthContext);
@@ -22,6 +23,9 @@ const AdminLayout = () => {
   useEffect(() => {
     dispatch(getUserRole()).then(response =>{
       setUserRole(response.data.role);
+      if(ADMIN_ROLE.indexOf(response.data.role) === -1 && location.pathname.startsWith('/admin')){
+        navigate(-1)
+      }
     })
   }, [dispatch]);
 
