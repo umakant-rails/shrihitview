@@ -56,7 +56,6 @@ const AddScrArticle = () => {
 
   const filterChapters = (e) => {
     const sectionId = e.target.value;
-    console.log(chapters, sectionId);
     if(sectionId){
       let filteredChapters = chapters.filter((chapter) => chapter.parent_id.toString() === sectionId.toString())
       setChapterList(filteredChapters);
