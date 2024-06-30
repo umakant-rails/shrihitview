@@ -53,7 +53,7 @@ const SearchArticleList = ({setSearchAppliedState}) => {
   return (
     <div>
       <div className='grid grid-cols-5 mb-5'>
-        <form className="col-start-2 col-span-3 grow" 
+        <form className="col-span-5 grow" 
           onSubmit={(event) => {event.preventDefault(); searchOnSubmit();}}>   
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div className="relative">

@@ -60,21 +60,23 @@ const Home = () => {
   return (
     <div>
       <div className='grid md:grid-cols-12'>
-        <div className='md:col-start-2 md:col-span-10'>
+        <div className='col-span-12 md:col-start-3 md:col-span-8'>
           <SearchArticleList setSearchAppliedState={setSearchAppliedState} />
         </div>
       </div>
       { !searchApplied && (
           <>
-            <div className="article-header-yellow mb-3 text-xl">
-              नवीनतम रचनायें
-            </div>
-            <div className='mb-8'>
-              {
-                articles ? (<Swiper slidesPerView={3} spaceBetween={30}>
-                  { getSlideSwipterContent() }
-                </Swiper> ) : ( <ArticleSkelton />)
-              }
+            <div className='hidden md:block'>
+              <div className="article-header-yellow mb-3 text-xl">
+                नवीनतम रचनायें
+              </div>
+              <div className='mb-8'>
+                {
+                  articles ? (<Swiper slidesPerView={3} spaceBetween={30}>
+                    { getSlideSwipterContent() }
+                  </Swiper> ) : ( <ArticleSkelton />)
+                }
+              </div>
             </div>
             <div className="grid lg:grid-cols-10 md:grid-cols-10 gap-2">
               <div className="lg:col-span-7 md:col-span-7 sm:col-span-full">
