@@ -16,7 +16,7 @@ const ArticleShow = () => {
 
   return (
     <div className='grid grid-cols-12'>
-      <div className='md:col-start-2 md:col-span-10'>
+      <div className='md:col-start-2 md:col-span-10 col-span-12'>
         { article ?
           ( <> {/*article-header-violet*/}
               <div className={`bg-gradient-to-b from-zinc-400 via-zinc-200 to-zinc-50 
