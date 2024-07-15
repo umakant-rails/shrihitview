@@ -53,6 +53,15 @@ export const userLogin = (formValues) => async dispatch => {
   }
 }
 
+export const userLogout = () => async dispatch => {
+  try {
+    const response = await baseUrl.delete(`/users/logout`);
+    return response;
+  } catch (error) {
+    dispatch(showError(error.message));
+  }
+}
+
 export const updatePassword = createAsyncThunk(
   "auth/updatePassword",
   async (formValues, {dispatch, rejectWithValue }) => {
