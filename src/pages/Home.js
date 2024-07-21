@@ -16,14 +16,29 @@ const Home = () => {
   const dispatch = useDispatch();
   const [searchApplied, setSearchApplied] = useState(false);
   const {articles, authors, tags, contexts, article_types } = useSelector( state => state.home);
+  const [articleList, setArticleList] = useState(articles);
+  const [authorList, setAuthorList] = useState(authors);
+  const [tagList, setTagList] = useState(tags);
+  const [contextList, setContextList] = useState(contexts);
+  const [articleTypeList, setArticleTypeList] = useState(article_types);
 
   useEffect( ()=> {
     dispatch(getHomePageData());
   }, [dispatch]);
   
+  useEffect( () => {
+    if(articles){
+      setArticleList(articles);
+      setAuthorList(authors);
+      setTagList(tags);
+      setContextList(contexts);
+      setArticleTypeList(article_types);
+    }
+  }, [articles, authors, tags, contexts, article_types]);
+
   const getSlideSwipterContent = () => {
     return (
-      articles && articles.map((article, index) => 
+      articleList && articleList.map((article, index) => 
         <SwiperSlide key={index}>
           <div key={index} className='shadow-xl py-2 border-b mb-3 bg-white'>
             <Link to={`/pb/articles/${article.hindi_title}`} key={`swiper-article-${index}`}>
@@ -72,7 +87,7 @@ const Home = () => {
               </div>
               <div className='mb-8'>
                 {
-                  articles ? (<Swiper slidesPerView={3} spaceBetween={30}>
+                  articleList ? (<Swiper slidesPerView={3} spaceBetween={30}>
                     { getSlideSwipterContent() }
                   </Swiper> ) : ( <ArticleSkelton />)
                 }
@@ -84,7 +99,7 @@ const Home = () => {
                   नवीनतम रचनायें
                 </div>
                 {
-                  articles ? ( articles.map((article, index) =>
+                  articleList ? ( articleList.map((article, index) =>
                     <div key={index} className='grid lg:grid-cols-12 md:grid-cols-1 sm:grid-cols-1 gap-2 pb-4 mb-4 border-b-2 border-gray-200'>
                       <div className='lg:col-span-4 md:col-span-full'>
                         <Link to={`/pb/articles/${article.hindi_title}`} >
@@ -126,10 +141,10 @@ const Home = () => {
                     लेखक/रचनाकार
                   </div>
                   {
-                    authors ? (
+                    authorList ? (
                       <ul className='list-none'>
                         { 
-                          authors.slice(0,5).map((author, index) =>
+                          authorList && authorList.slice(0,5).map((author, index) =>
                             <Link key={index} to={`/pb/authors/${author.name}`}>
                               <li className='py-3 px-2 border-b border-gray-300 text-lg text-blue-500'>
                                 {author.name}
@@ -151,10 +166,10 @@ const Home = () => {
                     प्रसंग
                   </div>
                   {
-                    contexts ? (
+                    contextList ? (
                       <ul className='list-none'>
                         { 
-                          contexts && contexts.slice(0,5).map((context, index) =>
+                          contextList && contextList.slice(0,5).map((context, index) =>
                             <Link key={index} to={`/pb/contexts/${context.name}`} >
                               <li className='py-3 px-2 border-b border-gray-300 text-lg text-blue-500'>
                                 {context.name}
@@ -176,10 +191,10 @@ const Home = () => {
                     रचना प्रकार
                   </div>
                   {
-                    article_types ? (
+                    articleTypeList ? (
                       <ul className='list-none'>
                         { 
-                          article_types && article_types.slice(0,5).map((article_type, index) =>
+                          articleTypeList && articleTypeList.slice(0,5).map((article_type, index) =>
                             <Link key={index} to={`/pb/article_types/${article_type.name}`} >
                               <li className='py-3 px-2 border-b border-gray-300 text-lg text-blue-500'>
                                 {article_type.name}
@@ -203,7 +218,7 @@ const Home = () => {
                   { tags ? (
                       <ul className='list-none'>
                         { 
-                          tags && tags.slice(0,5).map((tag, index) =>
+                          tagList && tagList.slice(0,5).map((tag, index) =>
                             <Link key={index} to={`/pb/tags/${tag.name}`} >
                               <li className='py-3 px-2 border-b border-gray-300 text-lg text-blue-500'>
                                 {tag.name}

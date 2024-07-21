@@ -14,11 +14,18 @@ const PBStoryShow = () => {
     dispatch(getStory(title));
   }, [dispatch, title]);
 
+  const getScriptureName = (story) => {
+    if(story && story.scripture){
+      return <a href={`/pb/scriptures/stories/${story.scripture.name_eng}`}> ( स्त्रोत - {story.scripture.name} )</a>
+    }
+  }
+
   return (
     <div className='grid md:grid-cols-12'>
       <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
-          भक्ति प्रसंग - {story ? story.title : 'NA'}
+          भक्ति प्रसंग - {story ? story.title : 'NA'} 
+          { getScriptureName(story) }
         </div>
         {
           story && (
