@@ -6,6 +6,7 @@ import { Modal } from 'flowbite';
 import { ReactTransliterate } from "react-transliterate";
 import { ITEM_PER_PAGE } from '../../../utils/types';
 import Pagination from '../../shared/Pagination';
+import { Editor } from 'primereact/editor';
 import { 
   createChapter, 
   updateChapter, 
@@ -14,7 +15,7 @@ import {
 } from '../../../slices/admin/adminScrChapterSlice';
 import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
 
-const chapterObj = {scripture_id: '', name: '', is_section: '', index: '', parent_id: ''};
+const chapterObj = {scripture_id: '', name: '', is_section: '', index: '', parent_id: '', description: ''};
 
 const ScriptureChapterList = () => {
   const {id} = useParams();
@@ -184,6 +185,31 @@ const ScriptureChapterList = () => {
                       dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                   />
                 </div>
+                {
+                  popupForm === 'chapter' && (
+                    <div className='mb-3'>
+                      <label className="block mb-2 font-medium text-gray-900 dark:text-white">
+                        विवरण 
+                      </label>
+                      <Editor  name="description" 
+                        value={formValues.content}
+                        onTextChange={ e => { 
+                          setEditorValues('description', e.htmlValue);
+                        }}
+                        style={{ height: '180px', fontSize: '16px'}} />
+                      {/* <ReactTransliterate
+                        value={formValues.description || ''}
+                        onChangeText={(text) => {setEditorValues('description', text) }}
+                        lang={'hi'}
+                        type="text"
+                        className={`block w-full p-2 text-sm text-gray-900 border border-gray-300 
+                          rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
+                          dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                          dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                      /> */}
+                    </div>
+                  )
+                }
               </div>
               <div className="flex items-center p-3 md:p-3 border-t border-gray-200 rounded-b dark:border-gray-600">
                 {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getAllUsers } from '../../../slices/admin/adminUserMgmtSlice';
 import Pagination from '../../shared/Pagination';
 import { ITEM_PER_PAGE } from '../../../utils/types';
-import { confirmBeforeDeletion } from '../../../utils/utilityFunctions';
+import { confirmBeforeDeletion, dateFormat } from '../../../utils/utilityFunctions';
 
 const AdminUserMgmt = () => {
   const aphabetList = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(' ');
@@ -140,8 +140,9 @@ const AdminUserMgmt = () => {
                 <thead className="text-white uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
                     <th scope="col" className="px-2 py-3">क्रमांक</th>
-                    <th scope="col" className="px-2 py-3">रचनाकार/लेखक</th>
-                    <th scope="col" className="px-2 py-3">Status</th>
+                    <th scope="col" className="px-2 py-3">उपयोगकर्ता का नाम</th>
+                    <th scope="col" className="px-2 py-3">ई-मेल</th>
+                    <th scope="col" className="px-2 py-3">पंजीकृत दिनांक</th>
                     <th scope="col" className="px-2 py-3 text-center">Action</th>
                   </tr>
                 </thead>
@@ -157,6 +158,9 @@ const AdminUserMgmt = () => {
                         </td>
                         <td className="px-2 py-3">
                           {user.email}
+                        </td>
+                        <td className="px-2 py-3">
+                          {dateFormat(user.created_at, false)}
                         </td>
                         <td className="px-2 py-3 flex items-center justify-center">
                           <Link to="#" onClick={e => deleteAUser(user.id)}>

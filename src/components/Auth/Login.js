@@ -15,13 +15,13 @@ const Login = () => {
   const [formValues, setFormValues] = useState(loginCredential);
   const {setCurrentUser} = useContext(AuthContext);
  
-  // useEffect( () => {
-  //   dispatch(getCurrentUser()).then(response => {
-  //     if(response.data.current_user){
-  //       navigate(-1);
-  //     }
-  //   }).catch( error => error.response);
-  // }, [dispatch, navigate]);
+  useEffect( () => {
+    dispatch(getCurrentUser()).then(response => {
+      if(response.data.current_user){
+        navigate(-1);
+      }
+    }).catch( error => error.response);
+  }, [dispatch, navigate]);
 
   const onInputChange = (event) => {
     const {name, value} = event.target;

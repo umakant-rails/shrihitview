@@ -41,7 +41,7 @@ const ResetPassword = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               Password <span title="required" className="text-red-600 font-bold">*</span>
             </label> 
-            <input type="text" id="password" name="password"
+            <input type="password" id="password" name="password"
               value={formValues.password}
               onChange={onInputChange} 
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
@@ -56,7 +56,7 @@ const ResetPassword = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               Confirm Password <span title="required" className="text-red-600 font-bold">*</span>
             </label> 
-            <input type="text" id="password_confirmation" name="password_confirmation"
+            <input type="password" id="password_confirmation" name="password_confirmation"
               value={formValues.password_confirmation}
               onChange={onInputChange} 
               className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
