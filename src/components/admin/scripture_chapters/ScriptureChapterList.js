@@ -21,18 +21,21 @@ const ScriptureChapterList = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
 
-  const { scripture, sections, chapters, total_chapters, current_page } = useSelector( state => state.adminScrChapter);
-  const [chapterList, setChapterList] = useState(chapters);
-  const [totalChapterQnty, setTotalChapterQnty] = useState(total_chapters);
-  const [currentPage, setCurrentPage] = useState(current_page || 1);
+  const [chapterList, setChapterList] = useState(null);
+  const [totalChapterQnty, setTotalChapterQnty] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [formValues, setFormValues] = useState(chapterObj);
   const [editableChapter, setEditableChapter]= useState(null);
   const [searchAttrs, setSearchAttrs] = useState({page: 1, data_type: 'chapter'});
   const [popupForm, setPopupForm] = useState('chapter');
   const popup = useRef(null);
+  const { scripture, sections, chapters, total_chapters, current_page } = useSelector( state => state.adminScrChapter);
+  
 
   useEffect( () => {
-    dispatch(getChapters({id: id, params: searchAttrs}));
+    if(id){
+      dispatch(getChapters({id: id, params: searchAttrs}));
+    }
   }, [dispatch, id, searchAttrs]);
 
   useEffect( () => {
@@ -50,6 +53,7 @@ const ScriptureChapterList = () => {
     let sAttrs = {...searchAttrs, page: page};
     setSearchAttrs(sAttrs);
     dispatch(getChapters({id: scripture.id, params: sAttrs}));
+    setCurrentPage(page);
   };
   const getChaptersOrSections = (dataType) => {
     let sAttrs = {...searchAttrs, data_type: dataType, page: 1};
@@ -60,11 +64,11 @@ const ScriptureChapterList = () => {
   }
   const createToChapter = () => {
     formValues['is_section'] = (popupForm !== 'chapter')
-    dispatch(createChapter({id: scripture.id, form: formValues}));
+    dispatch(createChapter({id: scripture.id, form: formValues, page: currentPage}));
   }
   const updateToChapter = () => {
     formValues['is_section'] = (popupForm !== 'chapter')
-    dispatch(updateChapter({id: scripture.id, chapter_id: editableChapter.id, form: formValues}));
+    dispatch(updateChapter({id: scripture.id, chapter_id: editableChapter.id, form: formValues, page: currentPage}));
   }
   const deleteToChapter = (chapter_id) => {
     if(confirmBeforeDeletion()){

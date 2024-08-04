@@ -20,9 +20,9 @@ export const getChapters = createAsyncThunk(
 
 export const createChapter = createAsyncThunk(
   "adminScrChapter/createChapter",
-  async ({id, form}, {dispatch, rejectWithValue }) => {
+  async ({id, form, page}, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.post(`/admin/scriptures/${id}/chapters`, {chapter: form} );
+      const response = await baseUrl.post(`/admin/scriptures/${id}/chapters`, {chapter: form, page: page} );
       dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
@@ -34,10 +34,10 @@ export const createChapter = createAsyncThunk(
 
 export const updateChapter = createAsyncThunk(
   "adminScrChapter/updateChapter",
-  async ({id, chapter_id, form}, {dispatch, rejectWithValue }) => {
+  async ({id, chapter_id, form, page}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.put(
-        `/admin/scriptures/${id}/chapters/${chapter_id}`, {chapter: form} 
+        `/admin/scriptures/${id}/chapters/${chapter_id}`, {chapter: form, page: page} 
        );
        dispatch(showMessage(response.data));
       return response.data;

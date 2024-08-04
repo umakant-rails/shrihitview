@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showError } from "../slices/messageSlice";
 
 
 const AxiosObj =  axios.create({
@@ -18,10 +19,12 @@ AxiosObj.interceptors.request.use(function (config) {
 AxiosObj.interceptors.response.use(
   response => response,
   error => {
-    if (error.response.status === 401) {
+    if (error.response.status === 401) { 
       localStorage.removeItem("token");
       localStorage.removeItem("currentUser");
-      window.location = "/users/login";
+      setTimeout( () => {
+        window.location = "/users/login";
+      }, 1000);
     } 
     return Promise.reject(error);
   },
