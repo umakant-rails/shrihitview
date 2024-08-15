@@ -6,13 +6,12 @@ import { getCSArticles } from '../../../slices/public/scriptureSlice';
 
 const PBCompileScriptureShow = () => {
   const dispatch = useDispatch();
-  const scrollRef = useRef({});
   const {id} = useParams()
   const [currentArticle, setCurrentArticle] = useState(null);
   const [indexing, setIndexing] = useState(false);
   const [format, setFormat] = useState('grid');
   const [sortArticles, setSortArticles] = useState([]);
-  const [currentChapter, setCurrentChapter] = useState(null);
+  const [currentChapter, setCurrentChapter] = useState('');
   const [chapterList, setChapterList] = useState([]);
   const { scripture, chapters} = useSelector(state => state.scripture);
 
@@ -170,15 +169,15 @@ const PBCompileScriptureShow = () => {
                 <div className='grid md:grid-cols-12'>
                   <div></div>
                   <div className='md:col-span-10'>
-                    <div className={`text-3xl font-bold text-center bg-slate-800 text-white 
-                      rounded-md py-3 my-5 mb-8 shadow-xl shadow-purple-400`}>
+                    <div className={`text-2xl font-bold text-center bg-slate-700 text-white 
+                      rounded-md py-2 my-3 mb-6 shadow-xl shadow-violet-400`}>
                       क्रमबद्ध रचनायें
                     </div>
                   </div>
                 </div>
                 <div className='grid md:grid-cols-12'>
-                  <div className='md:col-span-2'></div>
-                  <div className='md:col-span-8'>
+                  <div className='md:col-span-1'></div>
+                  <div className='md:col-span-10'>
                     {
                       sortArticles.length > 0 ? sortArticles.map((article, index) =>
                         <div key={index}>
@@ -193,7 +192,7 @@ const PBCompileScriptureShow = () => {
                               {index+1}. {article.hindi_title} 
                             </div>
                             <div className={`text-xl px-2 leading-10 mb-8 border-b border-stone-300 
-                              shadow-xl shadow-gray-300 pb-4 text-slate-800`}>
+                              shadow-xl shadow-gray-300 pb-4 text-slate-900`}>
                               {<div dangerouslySetInnerHTML={{__html: article.content}} />}
                             </div>
                           </div>
@@ -201,7 +200,7 @@ const PBCompileScriptureShow = () => {
                       ) : (<div className='text-xl text-center'>अभी कोई रचना उपलब्ध नहीं है|</div>)
                     }
                   </div>
-                  <div className='md:col-span-2'></div>
+                  <div className='md:col-span-1'></div>
                 </div>
               </div>
 
@@ -212,16 +211,16 @@ const PBCompileScriptureShow = () => {
                   <div className='grid md:grid-cols-12'>
                     <div></div>
                     <div className='md:col-span-10'>
-                      <div className={`text-3xl font-bold text-center bg-slate-800 text-white 
-                        rounded-md py-3 my-5 mb-8 shadow-xl shadow-purple-400`}>
+                      <div className={`text-2xl font-bold text-center bg-slate-700 text-white 
+                        rounded-md py-2 my-3 mb-6 shadow-xl shadow-violet-400`}>
                         {chapter && chapter.name}
                       </div>
                     </div>
                   </div>
 
                   <div className={`grid md:grid-cols-12`}>
-                    <div className='md:col-span-2'></div>
-                    <div className='md:col-span-8'>
+                    <div className='md:col-span-1'></div>
+                    <div className='md:col-span-10'>
                       {
                         chapter.articles.length > 0 ? chapter.articles.map((article, index) =>
                           <div key={index}>
@@ -231,7 +230,7 @@ const PBCompileScriptureShow = () => {
                             </div>
                             <div className={`article-detail  ${ currentArticle !== `${chapter.id}${article.id}` && 'hidden'}`}>
                               <div className={`text-xl font-bold text-center  
-                                py-3 my-5 shadow-mdd border-t-2 bg-red-200 text-red-600 shadow-gray-400`}>
+                                py-2 my-4 shadow-mdd border-t-2 bg-red-200 text-red-800 shadow-gray-400`}>
                                 {index+1}. {article.hindi_title}
                               </div>
                               {/* <div className={`text-xl font-bold text-red-600 shadow-xll shadow-gray-300 mb-2 
@@ -239,7 +238,7 @@ const PBCompileScriptureShow = () => {
                                 {index+1}. {article.hindi_title}
                               </div> */}
                               <div className={`text-xl px-2 leading-10 mb-8 border-b border-stone-300 
-                                shadow-xl shadow-gray-300 pb-4 text-slate-800`}>
+                                shadow-xl shadow-gray-300 pb-4 text-slate-900`}>
                                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
                               </div>
                             </div>
@@ -247,7 +246,7 @@ const PBCompileScriptureShow = () => {
                         ) : (<div className='text-xl text-center'>अभी कोई रचना उपलब्ध नहीं है|</div>)
                       }
                     </div>
-                    <div className='md:col-span-2'></div>
+                    <div className='md:col-span-1'></div>
                   </div>
                 </div>
               )}
@@ -259,39 +258,34 @@ const PBCompileScriptureShow = () => {
                   <div className='grid md:grid-cols-12'>
                     <div></div>
                     <div className='md:col-span-10'>
-                      <div className={`text-3xl font-bold text-center bg-slate-800 text-white 
-                        rounded-md py-3 my-5 mb-8 shadow-xl shadow-purple-400`}>
+                      <div className={`text-2xl font-bold text-center bg-slate-700 text-white 
+                        rounded-md py-2 my-3 mb-6 shadow-xl shadow-violet-400`}>
                         {chapter && chapter.name}
                       </div>
                     </div>
                   </div>
                   {/* grid format */}
                   <div className={`grid md:grid-cols-12`}>
-                    <div className='md:col-span-2'></div>
-                    <div className='md:col-span-8'>
+                    <div className='md:col-span-1'></div>
+                    <div className='md:col-span-10'>
                       {
-                        chapter.articles && chapter.articles.map((article, index2) =>
-                          <div key={index2} id={`article-${article.id}`} 
-                            ref={el => scrollRef.current[article.id] = el }>
+                        chapter.articles.length > 0 ? chapter.articles.map((article, index2) =>
+                          <div key={index2} id={`article-${article.id}`}>
                             <div className={`article-detail`}>
                               <div className={`text-xl font-bold text-center  
-                                py-3 my-5 shadow-mdd border-t-2 bg-red-200 text-red-600 shadow-gray-400`}>
+                                py-2 my-4 shadow-mdd border-t-2 bg-red-200 text-red-800 shadow-gray-400`}>
                                 {index2+1}. {article.hindi_title}
                               </div>
-                              {/* <div className={`text-xl font-bold text-red-600 shadow-xll shadow-gray-300 mb-2 
-                                bg-red-200 p-2 border-b`}>
-                                {index+1}. {article.hindi_title}
-                              </div> */}
-                              <div className={`text-xl px-2 leading-10 mb-8 border-b border-stone-300 
-                                shadow-xl shadow-gray-300 pb-4 text-slate-800`}>
+                              <div className={`text-xl px-4 leading-10 mb-8 border-b border-stone-300 
+                                shadow-xl shadow-gray-300 pb-4 text-slate-900`}>
                                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
                               </div>
                             </div>
                           </div>
-                        )
+                        ) : (<div className='text-xl text-center'>अभी कोई रचना उपलब्ध नहीं है|</div>)
                       }
                     </div>
-                    <div className='md:col-span-2'></div>
+                    <div className='md:col-span-1'></div>
                   </div>
                 </div>
               )}
