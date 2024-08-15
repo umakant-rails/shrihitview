@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from "react-multi-select-component";
-import {createArticle, createTag, newArticle} from '../../../slices/user/userArticleSlice';
+import {createArticle, createTag, getSearchArticles, newArticle} from '../../../slices/user/userArticleSlice';
 
 const articleObj = {article_type_id: '', raag_id: '', scripture_id: '', index: '', context_id: 1, 
   author_id: 9, hindi_title: '', english_title: '', content: '', interpretation: '', tags: []
@@ -14,12 +14,18 @@ const AddArticle = () => {
 
   const [contentText, setContentText] = useState(null);
   const [formValues, setFormValues] = useState(articleObj);
-
   const [newTag, setNewTag] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
-
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
-  const { article_types, raags, contexts, authors, tags, scriptures, created_article } = useSelector( (state) => state.userArticle)
+  const { 
+    article_types, 
+    raags, contexts, 
+    authors, 
+    tags, 
+    scriptures, 
+    created_article,
+    search_articles
+  } = useSelector( (state) => state.userArticle)
 
   useEffect( () => {
     dispatch(newArticle());  
@@ -57,6 +63,11 @@ const AddArticle = () => {
     event.preventDefault();
     formValues['tags'] = selectedTags.map(tag => tag.value);
     dispatch(createArticle(formValues));
+  }
+
+  const searchArticles = (event) => {
+    const term = event.target.value;
+    dispatch(getSearchArticles(term));
   }
 
   return (
@@ -219,11 +230,26 @@ const AddArticle = () => {
               <input type="text" id="english_title" name="english_title"
                 value={formValues.english_title}
                 onChange={onInputChange} 
+                onKeyUp={searchArticles}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} required />
+                {
+                  search_articles ? (
+                    <ul className='text-left text-gray-600 dark:text-gray-400'>
+                      {
+                        search_articles.map( (article, index) => (
+                          <li key={index} className={`flex items-center space-x-3 rtl:space-x-reverse border-b-2
+                           border-x-2 hover:bg-gray-200 py-2 px-2`}>
+                            {article.hindi_title}/{article.english_title}
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  ) : null
+                }
             </div>
           </div>
           <div className='grid md:grid-cols-12 mb-3'>

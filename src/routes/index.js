@@ -24,8 +24,8 @@ import PBAuthorShow from "../components/public/authors/PBAuthorShow";
 import PBSantList from "../components/public/authors/PBSantList";
 import PBSantBiography from "../components/public/authors/PBSantBiography";
 import PBScriptureList from "../components/public/scriptures/PBScriptureList";
-import VaniScriptureShow from "../components/public/scriptures/PBVaniScriptureShow";
-import StoryScriptureShow from "../components/public/scriptures/PBStoryScriptureShow";
+import PBVaniScriptureShow from "../components/public/scriptures/PBVaniScriptureShow";
+import PBStoryScriptureShow from "../components/public/scriptures/PBStoryScriptureShow";
 import PBStoryList from "../components/public/stories/PBStoryList";
 import PBStoryShow from "../components/public/stories/PBStoryShow";
 import PBStrotumList from "../components/public/strota/PBStrotumList";
@@ -92,6 +92,7 @@ import UserSuggestionList from "../components/user/suggestions/UserSuggestionLis
 import UserSuggestionShow from "../components/user/suggestions/UserSuggestionShow";
 import UserAddSuggestion from "../components/user/suggestions/UserAddSuggestion";
 import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestion";
+import PBCompileScriptureShow from "../components/public/scriptures/PBCompileScriptureShow";
 
 
 // const router = createBrowserRouter([
@@ -124,8 +125,9 @@ const router = createBrowserRouter(
         <Route path="/pb/authors/:name/sant_biography" element={<PBSantBiography />} />
 
         <Route path="/pb/scriptures" element={<PBScriptureList />}/>
-        <Route path="/pb/scriptures/:id" element={<VaniScriptureShow />} />
-        <Route path="/pb/scriptures/stories/:id" element={<StoryScriptureShow />} />
+        <Route path="/pb/scriptures/:id" element={<PBVaniScriptureShow />} />
+        <Route path="/pb/scriptures/stories/:id" element={<PBStoryScriptureShow />} />
+        <Route path="/pb/scriptures/cs/:id" element={<PBCompileScriptureShow />} />
 
         <Route path="/pb/stories" element={<PBStoryList />} />
         <Route path="/pb/stories/:title" element={<PBStoryShow />} />

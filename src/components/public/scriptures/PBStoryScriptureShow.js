@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { getScrArticles } from '../../../slices/public/scriptureSlice';
 
-const StoryScriptureShow = () => {
+const PBStoryScriptureShow = () => {
   const dispatch = useDispatch();
   const {id} = useParams()
   const [currentArticle, setCurrentArticle] = useState(1);
@@ -103,4 +103,4 @@ const StoryScriptureShow = () => {
   );
 };
 
-export default StoryScriptureShow;
+export default PBStoryScriptureShow;

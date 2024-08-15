@@ -19,8 +19,12 @@ const PBScriptureList = () => {
   }, [dispatch]);
 
   const getLink = (scripture ) => {
-    if([2,4,5].indexOf(scripture.scripture_type_id)>= 0){
+    if(scripture.scripture_type_id === 2){
+      /* vani scripture url */
       return `/pb/scriptures/${scripture.name_eng}`;
+    } else if([4,5].indexOf(scripture.scripture_type_id)>= 0){
+      /* compile scripture url */
+      return `/pb/scriptures/cs/${scripture.name_eng}`;
     } else if (scripture.scripture_type_id === 3){
       return `/pb/scriptures/stories/${scripture.name_eng}`
     } else if (scripture.scripture_type_id === 1){

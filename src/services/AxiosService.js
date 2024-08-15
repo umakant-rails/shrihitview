@@ -24,7 +24,7 @@ AxiosObj.interceptors.response.use(
       localStorage.removeItem("currentUser");
       setTimeout( () => {
         window.location = "/users/login";
-      }, 1000);
+      }, 700);
     } 
     return Promise.reject(error);
   },

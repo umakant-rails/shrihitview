@@ -125,6 +125,20 @@ export const getArticle = createAsyncThunk(
   }
 );
 
+export const getSearchArticles = createAsyncThunk(
+  "usrArticle/getSearchArticles",
+  async (term, {dispatch, rejectWithValue }) => {
+    try {
+      const response = await baseUrl.get(`/articles/search_articles?term=${term}`);
+      return response.data;
+    } catch (error) {
+      dispatch(showError(error.message));
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 const initialState = {loading: false};
 
 const usrArticleSlice = createSlice({
@@ -188,6 +202,10 @@ const usrArticleSlice = createSlice({
     .addCase(getArticle.fulfilled, (state, action) => {
       state.updated_article = null;
       state.article = action.payload.article;
+    })
+    
+    .addCase(getSearchArticles.fulfilled, (state, action) => {
+      state.search_articles = action.payload.articles;
     });
   },
 });

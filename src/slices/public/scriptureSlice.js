@@ -28,6 +28,19 @@ export const getScrArticles = createAsyncThunk(
   }
 );
 
+export const getCSArticles = createAsyncThunk(
+  "pbScripture/getCSArticles",
+  async (name, {dispatch, rejectWithValue }) => {
+    try {
+      const response = await baseUrl.get(`/pb/scriptures/${name}/cs_articles`,);
+      return response.data;
+    } catch (error) {
+      dispatch(showError(error.message));
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {error: "", loading: false};
 
 const scriptureSlice = createSlice({
@@ -44,6 +57,13 @@ const scriptureSlice = createSlice({
     .addCase(getScrArticles.fulfilled, (state, action) => {
       state.scripture = action.payload.scripture;
       state.articles = action.payload.articles;
+    })
+    
+    .addCase(getCSArticles.fulfilled, (state, action) => {
+      state.scripture = action.payload.scripture;
+      state.chapters = action.payload.chapters;
+      state.articles = action.payload.articles;
+      state.chapter = action.payload.chapter;
     });
   }  
 });
