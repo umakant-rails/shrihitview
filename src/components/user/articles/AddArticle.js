@@ -17,6 +17,7 @@ const AddArticle = () => {
   const [newTag, setNewTag] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
+  const [searchArticleList, setSearchArticleList] = useState([]);
   const { 
     article_types, 
     raags, contexts, 
@@ -66,8 +67,16 @@ const AddArticle = () => {
   }
 
   const searchArticles = (event) => {
-    const term = event.target.value;
-    dispatch(getSearchArticles(term));
+    const term = event.target.value.trim();
+    if(term.length > 0){
+      const artilces = dispatch(getSearchArticles(term)).then(data => {
+        setSearchArticleList(data.articles)
+      }).catch( err => {
+        setSearchArticleList([]);
+      })
+    } else { 
+      setSearchArticleList([]);
+    }
   }
 
   return (
@@ -237,10 +246,10 @@ const AddArticle = () => {
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} required />
                 {
-                  search_articles ? (
+                  searchArticleList ? (
                     <ul className='text-left text-gray-600 dark:text-gray-400'>
                       {
-                        search_articles.map( (article, index) => (
+                        searchArticleList.map( (article, index) => (
                           <li key={index} className={`flex items-center space-x-3 rtl:space-x-reverse border-b-2
                            border-x-2 hover:bg-gray-200 py-2 px-2`}>
                             {article.hindi_title}/{article.english_title}
