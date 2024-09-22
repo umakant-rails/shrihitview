@@ -116,7 +116,7 @@ const PBArticleList = () => {
                   </div>
                   <div className='mb-5 shadow-xl'>
                     <div className='text-xl font-bold border-b-2 bg-blue-50 text-blue-800 px-4 py-2'>
-                      लेखक/रचनाकार {authors && authors.length}
+                      लेखक/रचनाकार
                     </div>
                     <fieldset className='max-h-64 overflow-y-scroll pb-4'>
                       { 

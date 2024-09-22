@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactTransliterate } from "react-transliterate";
 import { Editor } from 'primereact/editor';
@@ -18,6 +18,8 @@ const AddArticle = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [tagFormDisplay,setTagFormDisplay] = useState(false);
   const [searchArticleList, setSearchArticleList] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
   const { 
     article_types, 
     raags, contexts, 
@@ -232,7 +234,7 @@ const AddArticle = () => {
                 dark:shadow-sm-light`}
               />
             </div>
-            <div className="col-span-6">
+            <div className="col-span-6 relative">
               <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                 इंग्लिश शीर्षक <span title="required" className="text-red-600 font-bold">*</span>
               </label>
@@ -240,18 +242,21 @@ const AddArticle = () => {
                 value={formValues.english_title}
                 onChange={onInputChange} 
                 onKeyUp={searchArticles}
+                onBlur={() => setIsOpen(false)} 
+                onFocus={() => setIsOpen(true)}
                 className={`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                 rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2 
                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                 dark:shadow-sm-light`} required />
                 {
-                  searchArticleList ? (
-                    <ul className='text-left text-gray-600 dark:text-gray-400'>
+                  (isOpen && searchArticleList) ? (
+                    <ul className='text-left text-gray-600 dark:text-gray-400 
+                      overflow-y-auto z-10 absolute bg-white w-full'>
                       {
                         searchArticleList.map( (article, index) => (
                           <li key={index} className={`flex items-center space-x-3 rtl:space-x-reverse border-b-2
-                           border-x-2 hover:bg-gray-200 py-2 px-2`}>
+                           border-x-2 hover:bg-gray-200 py-2 px-2 w-full`}>
                             {article.hindi_title}/{article.english_title}
                           </li>
                         ))
