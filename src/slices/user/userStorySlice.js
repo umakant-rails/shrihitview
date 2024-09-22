@@ -108,10 +108,12 @@ const userStorySlice = createSlice({
   extraReducers(builder) {
     builder
     .addCase(getStories.fulfilled, (state, action) => {
+      state.story_deleted = false;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
     .addCase(getStory.fulfilled, (state, action) => {
+      state.story_deleted = false;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
@@ -129,6 +131,7 @@ const userStorySlice = createSlice({
     })
 
     .addCase(editStory.fulfilled, (state, action) => {
+      state.story_deleted = false;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
@@ -146,6 +149,7 @@ const userStorySlice = createSlice({
     }).addCase(deleteStory.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
       state.loading = false;
+      state.story_deleted = true;
     }).addCase(deleteStory.rejected, (state, action) => {
       state.loading = false;
     });

@@ -64,8 +64,12 @@ const AddArticle = () => {
 
   const onArticleSubmit = (event) => {
     event.preventDefault();
-    formValues['tags'] = selectedTags.map(tag => tag.value);
-    dispatch(createArticle(formValues));
+    let form = {}
+    for (const [key, value] of Object.entries(formValues)) { 
+      form[key] = (typeof(value) == "string") ? value.trim() : value;
+    }
+    form['tags'] = selectedTags.map(tag => tag.value);
+    dispatch(createArticle(form));
   }
 
   const searchArticles = (event) => {

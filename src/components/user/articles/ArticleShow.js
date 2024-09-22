@@ -1,19 +1,28 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { getArticle } from '../../../slices/user/userArticleSlice';
-import { dateFormat } from '../../../utils/utilityFunctions';
+import { useNavigate, useParams } from 'react-router';
+import { deleteArticle, getArticle } from '../../../slices/user/userArticleSlice';
+import { confirmBeforeDeletion, dateFormat } from '../../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
 import Comment from '../../shared/Comment';
 
 const ArticleShow = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const { article } = useSelector( state => state.userArticle);
+  const navigate = useNavigate();
+  const { article, notice, article_deleted} = useSelector( state => state.userArticle);
 
   useEffect( () => {
     dispatch(getArticle(id));
   }, [dispatch, id]);
+
+  useEffect( () => {
+    if(article_deleted){ navigate('/articles'); }
+  }, [navigate, article_deleted]);
+
+  const deleteToArticle = (id) => {
+    if(confirmBeforeDeletion()){ dispatch(deleteArticle(id)); }
+  }
 
   return (
     <div className='grid md:grid-cols-12'>
@@ -34,7 +43,7 @@ const ArticleShow = () => {
                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
               </div>
               {
-                article && article.tags.length > 0 && <div className='font-bold align-middle'>
+                article && article.tags && article.tags.length > 0 && <div className='font-bold align-middle'>
                   <span className='mr-2'> सम्बंधित बिषय :- </span>{ article.tags.map( (tag, index) => 
                       <Link to="#"  key={index} className='inline-flex mr-2 text-white bg-violet-600 px-3 py-2 rounded'>
                         <svg className="w-[24px] h-[24px] text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -46,53 +55,36 @@ const ArticleShow = () => {
                   }
                 </div>
               }
+              <div id="action-div" className="mb-6">
+                <Link to={`/articles`} className="bg-blue-600 py-2 px-4 text-white mx-2 rounded">
+                  Article List
+                </Link>
+                <Link to={`/articles/${article.id}/edit`} className="bg-blue-600 py-2 px-4 text-white mx-2 rounded">
+                  Edit Article
+                </Link>
+                <Link to="#" className="bg-red-600 py-2 px-4 text-white mx-2 rounded" 
+                  onClick={e => deleteToArticle(article.id)} >
+                    Delete Article
+                </Link>
+              </div>
               <div id="comment-section" >
                 <Comment article={article} />
               </div>
-              {/* <div id="comment-section2" className='py-2 px-4 grid grid-cols-8'>
-                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Comment :</label>
-                <div className="grid col-start-1 col-end-6">
-                  <ReactTransliterate
-                    value={comment}
-                    onChangeText={(comment) => {setComment(comment); }}
-                    renderComponent={(props) => <textarea  
-                      {...props} 
-                    />}
-                    rows="2"
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    lang={'hi'}
-                    placeholder="Write your comment here..."
-                  />
-                </div>
-                <div className='col-start-1 col-end-6 grid justify-items-end mt-3'>
-                  <div>
-                    <button type="button" 
-                      className="px-3 py-2 mx-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      Submit
-                    </button>
-                    <button type="button" 
-                      onClick={ resetComment }
-                      className="px-3 py-2 text-xs font-medium text-center text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className='py-2 px-4'>
-                <div className='font-bold mb-2'>Comments:</div>
-                {
-                  (article.comments.length === 0) ? (
-                    <div className='text-gray-600'>
-                      There is no comments available now.
-                    </div>
-                  ) : (
-                    <div>Comment are available</div>
-                  )
-                }
-              </div> */}
             </>
           ) : (
-            <div>Loading ...</div>
+            notice ? (
+              <div className="flex justify-center items-center h-96">
+                <div className='bg-stone-600 rounded-md p-4 text-white font-bold text-3xl text-center'>
+                  {notice}
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center h-96">
+                <div className='bg-stone-00 rounded-md p-4 text-blue-500 font-bold text-3xl text-center'>
+                  Content is loading ...
+                </div>
+              </div>
+            )
           )
         }
       </div>

@@ -172,6 +172,7 @@ const usrArticleSlice = createSlice({
     })
 
     .addCase(editArticle.fulfilled, (state, action) => {
+      state.article_deleted = false;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
@@ -187,6 +188,7 @@ const usrArticleSlice = createSlice({
     .addCase(deleteArticle.pending, (state, action) => {
       state.loading = true;
     }).addCase(deleteArticle.fulfilled, (state, action) => {
+      state.article_deleted = true;
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
       state.loading = false;
     }).addCase(deleteArticle.rejected, (state, action) => {
@@ -204,6 +206,7 @@ const usrArticleSlice = createSlice({
 
     .addCase(getArticles.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
+      state.article_deleted = false;
     })
 
     .addCase(getArticlesByPage.fulfilled, (state, action) => {
@@ -211,8 +214,10 @@ const usrArticleSlice = createSlice({
     })
 
     .addCase(getArticle.fulfilled, (state, action) => {
+      state.article_deleted = false;
       state.updated_article = null;
       state.article = action.payload.article;
+      state.notice = action.payload.notice;
     });
     
     // .addCase(getSearchArticles.fulfilled, (state, action) => {
