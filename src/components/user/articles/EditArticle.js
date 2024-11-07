@@ -329,25 +329,30 @@ const EditArticle = () => {
                 <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                   रचना <span title="required" className="text-red-600 font-bold">*</span>
                 </label>
-                <Editor  name="content" 
-                  value={formValues.content}
-                  onTextChange={ e => { 
-                    setEditorValues('content', e.htmlValue);
-                    setContentText(e.textValue);} 
-                  }
-                  style={{ height: '220px', fontSize: '16px'}} />
-
+                { 
+                  <Editor  name="content" 
+                    value={formValues.content}
+                    onTextChange={ e => { 
+                      setEditorValues('content', e.htmlValue);
+                      setContentText(e.textValue);} 
+                    }
+                    style={{ height: '220px', fontSize: '16px'}} 
+                  />
+                }
               </div>
               <div className='mb-3'>
                 <label className="block mb-2 font-medium text-gray-900 dark:text-white">
                   रचना का अर्थ
                 </label>
-                <Editor value={formValues.interpretation} 
-                  name="interpretation" 
-                  onTextChange={(e) => {
-                    setEditorValues('interpretation', e.htmlValue);
-                  }} 
-                  style={{ height: '220px', fontSize: '16px'}} />
+                {
+                  <Editor value={formValues.interpretation} 
+                    name="interpretation" 
+                    onTextChange={(e) => {
+                      setEditorValues('interpretation', e.htmlValue);
+                    }} 
+                    style={{ height: '220px', fontSize: '16px'}} 
+                  />
+                }
               </div>
               <div className='mb-3'>
                 <button type="submit" 

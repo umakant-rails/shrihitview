@@ -179,12 +179,15 @@ const EditAuthor = () => {
             <label className="block mb-2 font-medium text-gray-900 dark:text-white">
               रचना <span title="required" className="text-red-600 font-bold">*</span>
             </label>
-            <Editor  name="biography" 
-              value={formValues.biography}
-              onTextChange={ e => { 
-                setEditorValues('biography', e.htmlValue);} 
-              }
-              style={{ height: '220px', fontSize: '16px'}} />
+            {
+              <Editor  name="biography" 
+                value={formValues.biography}
+                onTextChange={ e => { 
+                  setEditorValues('biography', e.htmlValue);} 
+                }
+                style={{ height: '220px', fontSize: '16px'}} 
+              />
+            }
           </div>
           <div className='mb-3'>
             <button type="submit" 

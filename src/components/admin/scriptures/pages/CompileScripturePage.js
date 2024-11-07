@@ -125,7 +125,7 @@ const CompileScripturePage = () => {
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
                   <th scope="col" className="flex px-2 py-3">क्रमांक</th>
                     <th scope="col" className="px-2 py-3">रचना</th>
-                    <th scope="col" className="px-2 py-3">अनुक्रम</th>
+                    {/* <th scope="col" className="px-2 py-3">अनुक्रम</th> */}
                     <th scope="col" className="px-2 py-3">रचना प्रकार</th>
                     <th scope="col" className="px-2 py-3 text-center">गतिविधि</th>
                   </tr>
@@ -143,9 +143,9 @@ const CompileScripturePage = () => {
                             </Link>
                           </div>
                         </td>
-                        <td className="px-2 py-3">
+                        {/* <td className="px-2 py-3">
                           {article.index}
-                        </td>
+                        </td> */}
                         <td className="px-2 py-3">
                           {article.article_type}
                         </td>
@@ -154,7 +154,7 @@ const CompileScripturePage = () => {
                             <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
                             </svg>
-                          </Link>{article.cs_article_id}
+                          </Link>
                           <Link to="#" onClick={e => deleteVaniArticle(article.cs_article_id)}>
                             <svg className="w-[30px] h-[30px] text-red-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
