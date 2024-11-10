@@ -16,7 +16,13 @@ const AddScrArticle = () => {
 
   const [formValues, setFormValues] = useState(articleObj);
   const [chapterList, setChapterList] = useState([]);
-  const { scripture, sections, chapters, article_types, scripture_article } = useSelector( (state) => state.adminScrArticle)
+  const { 
+    scripture, 
+    sections, 
+    chapters, 
+    article_types, 
+    scripture_article 
+  } = useSelector( (state) => state.adminScrArticle)
 
   useEffect( () => {
     dispatch(newScrArticle(scripture_id));
