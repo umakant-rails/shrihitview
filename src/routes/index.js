@@ -61,7 +61,7 @@ import EditScripture from "../components/admin/scriptures/EditScripture";
 // import ScriptureShow from "../components/admin/scriptures/ScriptureShow";
 import VaniScripturePage from "../components/admin/scriptures/pages/VaniScripturePage";
 import StoryScripturePage from "../components/admin/scriptures/pages/StoryScripturePage";
-import CompileScripturePage from "../components/admin/scriptures/pages/CompileScripturePage";
+// import CompileScripturePage from "../components/admin/scriptures/pages/CompileScripturePage";
 import GranthScripturePage from "../components/admin/scriptures/pages/GranthScripturePage";
 import ScriptureChapterList from "../components/admin/scripture_chapters/ScriptureChapterList";
 import AddScrArticle from "../components/admin/scripture_articles/AddScrArticle";
@@ -174,7 +174,7 @@ const router = createBrowserRouter(
         {/* <Route path="/admin/scriptures/:id" element={<ProtectedRoutes><ScriptureShow/></ProtectedRoutes>} /> */}
         <Route path="/admin/scriptures/:id/vani" element={<ProtectedRoutes><VaniScripturePage/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:id/stories" element={<ProtectedRoutes><StoryScripturePage/></ProtectedRoutes>} />
-        <Route path="/admin/scriptures/:id/cs_scripture" element={<ProtectedRoutes><CompileScripturePage/></ProtectedRoutes>} />
+        {/* <Route path="/admin/scriptures/:id/cs_scripture" element={<ProtectedRoutes><CompileScripturePage/></ProtectedRoutes>} /> */}
         <Route path="/admin/scriptures/:id/granth" element={<ProtectedRoutes><GranthScripturePage/></ProtectedRoutes>} />
         
         <Route path="/admin/scriptures/:id/chapters" element={<ProtectedRoutes><ScriptureChapterList/></ProtectedRoutes>} />

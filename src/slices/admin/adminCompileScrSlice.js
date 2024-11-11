@@ -83,13 +83,13 @@ export const showCSScripture = createAsyncThunk(
   }
 );
 
-export const getArticleForIndexing = createAsyncThunk(
-  "adminCompileScr/getArticleForIndexing",
+export const getCSArticles = createAsyncThunk(
+  "adminCompileScr/getCSArticles",
   async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
     try {
       const paramsStr = getParamsStringFromHash(params)
       const response = await baseUrl.get(
-        `/admin/compiled_scriptures/${scripture_id}/get_articles_for_indexing?${paramsStr}`
+        `/admin/compiled_scriptures/${scripture_id}/get_cs_articles?${paramsStr}`
       );
       dispatch(showMessage(response.data));
       return response.data;
@@ -119,6 +119,23 @@ export const deleteCSArticle = createAsyncThunk(
   async ({scripture_id, params}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.post(`/admin/compiled_scriptures/${scripture_id}/delete_article`, params);
+      dispatch(showMessage(response.data));
+      return response.data;
+    } catch (error) {
+      dispatch(showError(error.message));
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateArticleChapter = createAsyncThunk(
+  "adminCompileScr/updateArticleChapter",
+  async ({id, cs_article_id, new_chapter_id, page}, {dispatch, rejectWithValue }) => {
+    try {
+      const response = await baseUrl.post(
+        `/admin/compiled_scriptures/${id}/update_article_chapter`,
+        {cs_article_id: cs_article_id, new_chapter_id: new_chapter_id, page: page}
+      );
       dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {
@@ -166,7 +183,7 @@ const adminCompileScrSlice = createSlice({
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
-    .addCase(getArticleForIndexing.fulfilled, (state, action) => {
+    .addCase(getCSArticles.fulfilled, (state, action) => {
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
     })
 
@@ -185,6 +202,14 @@ const adminCompileScrSlice = createSlice({
       for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
       state.loading = false;
     }).addCase(deleteCSArticle.rejected, (state, action) => {
+      state.loading = false;
+    })
+    .addCase(updateArticleChapter.pending, (state, action) => {
+      state.loading = true;
+    }).addCase(updateArticleChapter.fulfilled, (state, action) => {
+      for (const [key, value] of Object.entries(action.payload)) { state[key] = value; }
+      state.loading = false;
+    }).addCase(updateArticleChapter.rejected, (state, action) => {
       state.loading = false;
     });
   },

@@ -66,7 +66,7 @@ const ScriptureList = () => {
 
   const getPageLink = (scripture) => {
     if(scripture.scripture_type_id === 4 || scripture.scripture_type_id === 5) {
-      return `/admin/scriptures/${scripture.id}/cs_scripture`
+      return `/admin/compiled_scriptures/${scripture.id}`
     } else if (scripture.scripture_type_id === 2) {
       return `/admin/scriptures/${scripture.id}/vani`
     } else if (scripture.scripture_type_id === 3){
