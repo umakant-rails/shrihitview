@@ -68,9 +68,9 @@ const ScriptureList = () => {
     if(scripture.scripture_type_id === 4 || scripture.scripture_type_id === 5) {
       return `/admin/compiled_scriptures/${scripture.id}`
     } else if (scripture.scripture_type_id === 2) {
-      return `/admin/scriptures/${scripture.id}/vani`
+      return `/admin/compiled_scriptures/${scripture.id}`
     } else if (scripture.scripture_type_id === 3){
-      return `/admin/scriptures/${scripture.id}/stories`
+      return `/admin/story_scriptures/${scripture.id}`
     } else if (scripture.scripture_type_id === 1){
       return `/admin/scriptures/${scripture.id}/granth`
     }

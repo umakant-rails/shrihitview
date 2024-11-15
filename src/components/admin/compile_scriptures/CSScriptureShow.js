@@ -41,10 +41,6 @@ const CSScriptureShow = () => {
 
   useEffect( () => {
     if(articles){
-      if(params.chapter_id === undefined && chapters.length > 0){
-        setParams(params => ({...params, chapter_id: chapters[0].id}))
-        setSelectedChapterId(chapters[0].id);
-      }
       setArticleList(articles);
       setTotalArticleQnty(total_articles);
       setChapterList(chapters);
@@ -170,7 +166,8 @@ const CSScriptureShow = () => {
     if(newChapterId){
       dispatch(
         updateArticleChapter({
-          id: scripture.id , 
+          id: scripture.id ,
+          chapter_id: selectedChapterId,
           cs_article_id: selectedArticle.cs_article_id, 
           new_chapter_id: newChapterId,
           page: currentPage
@@ -231,6 +228,7 @@ const CSScriptureShow = () => {
                   <tr className="border-b dark:border-gray-700 bg-yellow-500">
                   <th scope="col" className="px-2 py-3">क्रमांक</th>
                     <th scope="col" className="px-2 py-3">रचना</th>
+                    <th scope="col" className="px-2 py-3">अध्याय</th>
                     <th scope="col" className="px-2 py-3">अनुक्रम</th>
                     <th scope="col" className="px-2 py-3">रचना प्रकार</th>
                     <th scope="col" className="px-2 py-3 text-center">गतिविधि</th>
@@ -246,6 +244,9 @@ const CSScriptureShow = () => {
                           {article.hindi_title}
                         </td>
                         <td className="px-2 py-3">
+                          {article.chapter}
+                        </td>
+                        <td className="px-2 py-3">
                           {article.index}
                         </td>
                         <td className="px-2 py-3">
@@ -253,7 +254,7 @@ const CSScriptureShow = () => {
                         </td>
                         <td className="px-2 py-3 flex items-center  justify-center">
                           <div className='mr-2'>
-                            <input type="number" className="w-12 mr-3 rounded px-2 py-1"/>
+                            <input type="number" className="w-16 mr-3 rounded px-2 py-1"/>
                             <button onClick={e => updateToIndex(e, article.id)}
                               className="bg-blue-500 text-white rounded px-3 py-1">
                               अनुक्रम बदलें

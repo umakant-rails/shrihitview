@@ -2,18 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { ITEM_PER_PAGE } from '../../../../utils/types';
-import Pagination from '../../../shared/Pagination';
+import { ITEM_PER_PAGE } from '../../../utils/types';
+import Pagination from '../../shared/Pagination';
 import {
   getScrStories,
   deleteScrStory,
-} from '../../../../slices/admin/adminScriptureSlice';
+  updateIndex,
+} from '../../../slices/admin/adminStoryScriptureSlice';
 
-const StoryScripturePage = () => {
+const StoryScriptureShow = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
 
-  const { scripture, sections, chapters, total_stories, stories, current_page } = useSelector( state => state.adminScripture);
+  const { 
+    scripture, 
+    sections, 
+    chapters, 
+    total_stories, 
+    stories, 
+    current_page 
+  } = useSelector( state => state.adminStoryScripture);
+  const [params, setParams] = useState({page: 1});
   const [storiesList, setStoriesList] = useState([]);
   const [chapterList, setChapterList] = useState([]);
   const [selectedChapterId, setSelectedChapterId] = useState('');
@@ -128,7 +137,6 @@ const StoryScripturePage = () => {
                   <th scope="col" className="px-2 py-3">क्रमांक</th>
                     <th scope="col" className="px-2 py-3">रचना</th>
                     <th scope="col" className="px-2 py-3">अनुक्रम</th>
-                    <th scope="col" className="px-2 py-3">रचना प्रकार</th>
                     <th scope="col" className="px-2 py-3 text-center">गतिविधि</th>
                   </tr>
                 </thead>
@@ -146,9 +154,6 @@ const StoryScripturePage = () => {
                         <td className="px-2 py-3">
                           {story.index}
                         </td> 
-                        <td className="px-2 py-3">
-                          '-'
-                        </td>
                         <td className="px-2 py-3 flex items-center  justify-center">
                           <Link to={`/stories/${story.id}/edit`}>
                             <svg className="w-[30px] h-[30px] text-blue-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -192,4 +197,4 @@ const StoryScripturePage = () => {
   );
 };
 
-export default StoryScripturePage;
+export default StoryScriptureShow;

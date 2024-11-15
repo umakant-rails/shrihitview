@@ -130,12 +130,15 @@ export const deleteCSArticle = createAsyncThunk(
 
 export const updateArticleChapter = createAsyncThunk(
   "adminCompileScr/updateArticleChapter",
-  async ({id, cs_article_id, new_chapter_id, page}, {dispatch, rejectWithValue }) => {
+  async ({id, chapter_id, cs_article_id, new_chapter_id, page}, {dispatch, rejectWithValue }) => {
     try {
-      const response = await baseUrl.post(
-        `/admin/compiled_scriptures/${id}/update_article_chapter`,
-        {cs_article_id: cs_article_id, new_chapter_id: new_chapter_id, page: page}
-      );
+      const params = {
+        cs_article_id: cs_article_id, 
+        new_chapter_id: new_chapter_id, 
+        page: page, 
+        chapter_id: chapter_id
+      };
+      const response = await baseUrl.post( `/admin/compiled_scriptures/${id}/update_article_chapter`, params);
       dispatch(showMessage(response.data));
       return response.data;
     } catch (error) {

@@ -59,8 +59,8 @@ import ScriptureList from "../components/admin/scriptures/ScriptureList";
 import AddScripture from "../components/admin/scriptures/AddScripture";
 import EditScripture from "../components/admin/scriptures/EditScripture";
 // import ScriptureShow from "../components/admin/scriptures/ScriptureShow";
-import VaniScripturePage from "../components/admin/scriptures/pages/VaniScripturePage";
-import StoryScripturePage from "../components/admin/scriptures/pages/StoryScripturePage";
+// import VaniScripturePage from "../components/admin/scriptures/pages/VaniScripturePage";
+// import StoryScriptureShow from "../components/admin/story_scriptures/StoryScriptureShow";
 // import CompileScripturePage from "../components/admin/scriptures/pages/CompileScripturePage";
 import GranthScripturePage from "../components/admin/scriptures/pages/GranthScripturePage";
 import ScriptureChapterList from "../components/admin/scripture_chapters/ScriptureChapterList";
@@ -92,7 +92,9 @@ import UserSuggestionList from "../components/user/suggestions/UserSuggestionLis
 import UserSuggestionShow from "../components/user/suggestions/UserSuggestionShow";
 import UserAddSuggestion from "../components/user/suggestions/UserAddSuggestion";
 import UserEditSuggestion from "../components/user/suggestions/UserEditSuggestion";
+
 import PBCompileScriptureShow from "../components/public/scriptures/PBCompileScriptureShow";
+import StoryScriptureShow from "../components/admin/story_scriptures/StoryScriptureShow";
 
 
 // const router = createBrowserRouter([
@@ -172,8 +174,8 @@ const router = createBrowserRouter(
         <Route path="/admin/scriptures/new" element={<ProtectedRoutes><AddScripture/></ProtectedRoutes>} />
         <Route path="/admin/scriptures/:id/edit" element={<ProtectedRoutes><EditScripture/></ProtectedRoutes>} />
         {/* <Route path="/admin/scriptures/:id" element={<ProtectedRoutes><ScriptureShow/></ProtectedRoutes>} /> */}
-        <Route path="/admin/scriptures/:id/vani" element={<ProtectedRoutes><VaniScripturePage/></ProtectedRoutes>} />
-        <Route path="/admin/scriptures/:id/stories" element={<ProtectedRoutes><StoryScripturePage/></ProtectedRoutes>} />
+        {/* <Route path="/admin/scriptures/:id/vani" element={<ProtectedRoutes><VaniScripturePage/></ProtectedRoutes>} />
+        <Route path="/admin/scriptures/:id/stories" element={<ProtectedRoutes><StoryScripturePage/></ProtectedRoutes>} /> */}
         {/* <Route path="/admin/scriptures/:id/cs_scripture" element={<ProtectedRoutes><CompileScripturePage/></ProtectedRoutes>} /> */}
         <Route path="/admin/scriptures/:id/granth" element={<ProtectedRoutes><GranthScripturePage/></ProtectedRoutes>} />
         
@@ -183,6 +185,7 @@ const router = createBrowserRouter(
 
         <Route path="/admin/compiled_scriptures/:id/add_article_page" element={<ProtectedRoutes><AddCSArticle/></ProtectedRoutes>} />
         <Route path="/admin/compiled_scriptures/:id" element={<ProtectedRoutes><CSScriptureShow/></ProtectedRoutes>} />
+        <Route path="/admin/story_scriptures/:id" element={<ProtectedRoutes><StoryScriptureShow/></ProtectedRoutes>} />
 
         <Route path="/admin/panchangs" element={<ProtectedRoutes><PanchangList /></ProtectedRoutes>} />
         <Route path="/admin/panchangs/new" element={<ProtectedRoutes><AddPanchang /></ProtectedRoutes>} />
