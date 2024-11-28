@@ -72,7 +72,7 @@ const PBContextList = () => {
           {
             totalContexts &&
             <Pagination 
-              showWidget={5} 
+              showWidget={3} 
               totalItems={totalContexts}
               itemsPerPage={ITEM_PER_PAGE}
               pageChangeHandler= {handlePageClick}

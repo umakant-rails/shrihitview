@@ -131,7 +131,7 @@ const SearchArticleList = ({setSearchAppliedState}) => {
       }
       {
         searchArticles && <Pagination 
-          showWidget={5} 
+          showWidget={3} 
           totalItems={totalArticles}
           itemsPerPage={ITEM_PER_PAGE}
           pageChangeHandler= {handlePageClick}

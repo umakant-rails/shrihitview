@@ -53,7 +53,8 @@ const AuthorList = () => {
 
   return (
     <div className='grid md:grid-cols-12'>
-      <div className='md:col-start-2 md:col-span-10'>
+      
+      <div className='sm:col-span-12 lg:col-start-2 lg:col-span-10'>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           रचनाकार/लेखक सूची 
         </div>
@@ -193,7 +194,7 @@ const AuthorList = () => {
               {
                 totalAuthors &&
                 <Pagination 
-                  showWidget={5} 
+                  showWidget={3} 
                   totalItems={totalAuthors}
                   itemsPerPage={ITEM_PER_PAGE}
                   pageChangeHandler= {handlePageClick}

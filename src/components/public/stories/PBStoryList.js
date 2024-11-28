@@ -59,7 +59,7 @@ const PBStoryList = () => {
         {
           totalStories &&
           <Pagination 
-            showWidget={5} 
+            showWidget={3} 
             totalItems={totalStories}
             itemsPerPage={ITEM_PER_PAGE}
             pageChangeHandler= {handlePageClick}

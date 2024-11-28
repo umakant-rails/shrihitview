@@ -10,7 +10,8 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
   const [lastDots, setLastDots] = useState(false);
   //const [totalPages, setTotalPages] = useState(0);
   //const totalPages = Math.ceil(totalItems/itemsPerPage);
-  
+  const smallScreenWidth = 768;
+  const [smallSamll, setSmallScreen] = useState(window.innerWidth <= smallScreenWidth);
   
   let totalPages = Math.ceil(totalItems/itemsPerPage);
   let displayWidget = showWidget;
@@ -20,6 +21,12 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
     pgArr = Array.from(Array(totalPages), (e, i) => i+1);
     displayWidget = totalPages;
   }
+
+  useEffect(() => {
+    const handleResize = () => { setSmallScreen(window.innerWidth <= smallScreenWidth) };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect( () => {
     setPageArr(pgArr);
@@ -77,13 +84,13 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 rounded-l border border-gray-500 ${currentPage === 1 ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
-          {'<< First'}
+          { smallSamll ? '<<' : '<< First'}
         </Link>
         <Link to="#" value={(currentPage === 1) ? 1 : currentPage-1}
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 border-y border-r border-gray-500 ${currentPage === 1 ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
-          {'< Prev'}
+          {smallSamll ? '<' : '< Prev'}
         </Link>
         {
           (firstDots) && (
@@ -108,13 +115,13 @@ const Pagination = ({totalItems, itemsPerPage, pageChangeHandler, showWidget}) =
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 border-y border-r border-gray-500 ${currentPage === totalPages ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
-          {'Next >'}
+          {smallSamll ? '>' : 'Next >'}
         </Link>
         <Link to="#" value={totalPages}
           onClick={(e) => { clickHandler(e); pageChangeHandler(e);} } 
           className={`px-3 py-2 rounded-r border-y border-r border-gray-500 ${currentPage === totalPages ? 'text-gray-400' : 'hover:bg-blue-500 hover:text-white'}`}
         >
-          {'Last >>'}
+          {smallSamll ? '>>' : 'Last >>'}
         </Link>
       </div>
     )

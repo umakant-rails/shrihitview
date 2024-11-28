@@ -65,7 +65,7 @@ const PBArticleTypeList = () => {
           {
             totalArticleTypes &&
             <Pagination 
-              showWidget={5} 
+              showWidget={3} 
               totalItems={totalArticleTypes}
               itemsPerPage={ITEM_PER_PAGE}
               pageChangeHandler= {handlePageClick}

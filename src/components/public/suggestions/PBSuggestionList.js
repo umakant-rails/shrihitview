@@ -97,7 +97,7 @@ const PBSuggestionList = () => {
               {
                 totalSuggestions &&
                 <Pagination 
-                  showWidget={5} 
+                  showWidget={3} 
                   totalItems={totalSuggestions}
                   itemsPerPage={ITEM_PER_PAGE}
                   pageChangeHandler= {handlePageClick}

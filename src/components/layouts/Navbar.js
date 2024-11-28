@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { TAB_LIST } from '../../utils/types';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from "../../services/AuthContext";
@@ -7,6 +7,29 @@ import logo from "../../assets/images/hitlalju.png"
 const Navbar = () => {
   const location = useLocation();
   const {currentUser} = useContext(AuthContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = (event) => {
+    if (event.target.closest('#menu') || event.target.closest('#hamburger')) {
+      return;
+    }
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {setIsMenuOpen(false) };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('click', closeMenu);
+    return () => document.removeEventListener('click', closeMenu); // Cleanup event listener
+  }, []);
 
   const getTabList = () =>{ 
     const currentUrl = location.pathname;
@@ -15,11 +38,11 @@ const Navbar = () => {
         <li key={index} >
           {
             (currentUrl === tab.url) ? (
-              <NavLink to={tab.url} className={`relative bg-yellow-500 rounded-md text-white px-3 py-2 text-sm `}>
+              <NavLink to={tab.url} className={`relative bg-yellow-500 ms-3 rounded-md text-white px-3 py-2 text-sm `}>
                 {tab.label}
               </NavLink>
             ) : (
-              <NavLink to={tab.url} className={`block py-2 px-3 text-white rounded hover:bg-gray-100 
+              <NavLink to={tab.url} className={`block py-2 px-3 text-white rounded hover:bg-blue-500 
                 md:hover:bg-transparent md:border-0 md:hover:text-gray-200 md:p-0 dark:text-white 
                 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white 
                 md:dark:hover:bg-transparent`}>
@@ -43,13 +66,14 @@ const Navbar = () => {
               श्रीहित
             </span>
         </NavLink>
-        <button data-collapse-toggle="navbar-multi-level" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-multi-level" aria-expanded="false">
+        <button id ="hamburger" onClick={toggleMenu} type="button" 
+          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-multi-level" aria-expanded="false">
           <span className="sr-only">Open main menu</span>
           <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
           </svg>
         </button>
-        <div className="hidden w-full md:block md:w-auto" id="navbar-multi-level">
+        <div className="hidden w-full md:block md:w-auto">
           <ul className={`flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 
             rounded-lg md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 
             dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
@@ -76,6 +100,42 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
+                    <NavLink to="/users/register" key={'regiter_link'} className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" >Register</NavLink> 
+                  </li>
+                  <li>
+                    <NavLink to="/users/login" key={'login_link'} className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" >Login</NavLink> 
+                  </li>
+                </>
+              )
+            }
+          </ul>
+        </div>
+        {/* mobile menu */}
+        <div className={`w-full md:w-auto ${isMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
+          <ul className={`flex flex-col font-medium p-4 md:p-0 mt-4 border-t border-gray-100 
+            md:space-x-6 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 
+            dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
+            { getTabList() }
+            { (currentUser) ? ( 
+                <>
+                  <li className='mb-4 border-t border-gray-100 mt-4 pt-4'>
+                    <NavLink to="/users/logout" key={'logoutBtn'} 
+                      className="relative bg-red-500 rounded-md text-white px-3 py-2 text-sm mx-2 mb-4"
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/articles" key={'login_link'} 
+                    className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" 
+                    >
+                      {currentUser.username} 
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className='mb-4 border-t border-gray-100 mt-4 pt-4'>
                     <NavLink to="/users/register" key={'regiter_link'} className="relative bg-blue-500 rounded-md text-white px-3 py-2 text-sm mx-2" >Register</NavLink> 
                   </li>
                   <li>

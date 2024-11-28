@@ -63,7 +63,7 @@ const PBStrotumList = () => {
         {
           totalStrota &&
           <Pagination 
-            showWidget={5} 
+            showWidget={3} 
             totalItems={totalStrota}
             itemsPerPage={ITEM_PER_PAGE}
             pageChangeHandler= {handlePageClick}
