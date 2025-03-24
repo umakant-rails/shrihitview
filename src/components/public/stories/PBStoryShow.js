@@ -6,17 +6,17 @@ import { getStory } from '../../../slices/public/storySlice';
 
 const PBStoryShow = () => {
   const dispatch = useDispatch();
-  const {title} = useParams();
+  const {id, title} = useParams();
   const { story, stories } = useSelector(state => state.story);
 
   useEffect( ()=> {
     window.scrollTo({top: 0, behavior: 'instant'})
-    dispatch(getStory(title));
-  }, [dispatch, title]);
+    dispatch(getStory({id, title}));
+  }, [dispatch, id, title]);
 
   const getScriptureName = (story) => {
     if(story && story.scripture){
-      return <a href={`/pb/scriptures/stories/${story.scripture.name_eng}`}> ( स्त्रोत - {story.scripture.name} )</a>
+      return <a href={`/pb/scriptures/stories/${story.id}/${story.scripture.name_eng}`}> ( स्त्रोत - {story.scripture.name} )</a>
     }
   }
 
@@ -43,7 +43,7 @@ const PBStoryShow = () => {
               <div className='text-blue-700 text-xl px-6'>
                 {
                   stories.length > 0 && stories.map( (story, index) =>
-                    <Link key={index} to={`/pb/stories/${story.title}`}>{story.title}</Link>
+                    <Link key={index} to={`/pb/stories/${story.id}/${story.title}`}>{story.title}</Link>
                   ).reduce((prev, curr) => [prev, ', ', curr])
                 }
               </div>

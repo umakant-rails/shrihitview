@@ -132,7 +132,7 @@ const router = createBrowserRouter(
         <Route path="/pb/scriptures/cs/:id" element={<PBCompileScriptureShow />} />
 
         <Route path="/pb/stories" element={<PBStoryList />} />
-        <Route path="/pb/stories/:title" element={<PBStoryShow />} />
+        <Route path="/pb/stories/:id/:title" element={<PBStoryShow />} />
 
         <Route path="/pb/strota" element={<PBStrotumList />} />
         <Route path="/pb/strota/:title" element={<PBStrotumShow />} />

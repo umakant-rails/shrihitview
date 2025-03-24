@@ -17,7 +17,7 @@ export const getStories = createAsyncThunk(
 
 export const getStory = createAsyncThunk(
   "pbStory/getStory",
-  async (id, {dispatch, rejectWithValue }) => {
+  async ({id, title}, {dispatch, rejectWithValue }) => {
     try {
       const response = await baseUrl.get(`/pb/stories/${id}`);
       return response.data;

@@ -38,13 +38,13 @@ const PBStoryList = () => {
           storyList && storyList.map((story, index)=>
             <div key={index} className='grid md:grid-cols-12 gap-5 px-4 border-b border-b-gray-500 mb-5 pb-5'>
               <div className='hidden lg:block lg:col-span-4'>
-                <Link to={`/pb/stories/${story.title}`} >
+                <Link to={`/pb/stories/${story.id}/${story.title}`} >
                   <img src={shrihit} alt="shit-hit" className='border h-54 border-violet-400'/>
                 </Link>
               </div>
               <div className='md:col-span-12 lg:col-span-8'>
                 <div className='text-2xl font-bold text-blue-800 text-amber-800 mb-3'>
-                  <Link to={`/pb/stories/${story.title}`} >
+                  <Link to={`/pb/stories/${story.id}/${story.title}`} >
                     {story.title}
                   </Link>
                 </div>
