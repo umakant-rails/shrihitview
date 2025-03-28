@@ -13,8 +13,8 @@ const PBTagList = () => {
   }, [dispatch]);
 
   return (
-    <div className='grid md:grid-cols-12'>
-      <div className='col-start-2 col-span-10'>
+    <div className=''>
+      <div className=''>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           टैग्स सूची 
         </div>

@@ -19,8 +19,8 @@ const PBSuggestionShow = () => {
   }, [suggestion]);
   
   return (
-    <div className='grid md:grid-cols-12'>
-      <div className='md:col-start-2 md:col-span-10 shadow-2xl bg-white border border-gray-200 p-5'>
+    <div className=''>
+      <div className='shadow-2xl bg-white border border-gray-200 p-5'>
         <div className={`bg-gradient-to-b from-zinc-400 via-zinc-200 to-zinc-50 
           border-y border-x-4 border-zinc-800 px-3 py-2`}>
           <p className='text-2xl font-bold text-cyan-800 mb-1 px-2'>

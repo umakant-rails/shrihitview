@@ -52,9 +52,8 @@ const AuthorList = () => {
   }
 
   return (
-    <div className='grid md:grid-cols-12'>
-      
-      <div className='sm:col-span-12 lg:col-start-2 lg:col-span-10'>
+    <div className=''>
+      <div className=''>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           रचनाकार/लेखक सूची 
         </div>
@@ -141,7 +140,7 @@ const AuthorList = () => {
                         <td className="px-2 py-3 flex items-center justify-end">
                           <button className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                             {
-                              authorId === author.id ? (
+                              authorId !== author.id ? (
                                 <div onClick={() => showArticles(author)} >
                                   <svg 
                                     className="w-[16px] h-[16px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">

@@ -43,14 +43,14 @@ const Home = () => {
           <div key={index} className='shadow-xl py-2 border-b mb-3 bg-white'>
             <Link to={`/pb/articles/${article.hindi_title}`} key={`swiper-article-${index}`}>
               <img src={shrijicharan} alt="img" />
-              <div className="article-header-yellow mb-3 text-xl">
+              <div className="article-header-yellow mb-3 text-lg">
                 {article.hindi_title}
               </div>
               <div className='max-h-24 min-h-24 overflow-hidden mb-3 px-1'>
                 {<div dangerouslySetInnerHTML={{__html: article.content}} />}
               </div>
             </Link>
-            <div className='border-y mb-3 mt-3 mx-1 py-2 px-1 border-zinc-500 overflow-y-auto text-sm font-semibold'>
+            <div className='min-h-16 border-y mb-3 mt-3 mx-1 py-2 px-1 border-zinc-500 overflow-y-auto text-sm font-semibold'>
               सृजन तिथि : <Link to="#" className='text-blue-500 font-medium'>
                 {dateFormat(article.created_at)}
               </Link>, 
@@ -73,7 +73,7 @@ const Home = () => {
   const setSearchAppliedState = (stateValue) => setSearchApplied(stateValue)
 
   return (
-    <div>
+    <div className=''>
       <div className='grid md:grid-cols-12'>
         <div className='col-span-12 md:col-start-3 md:col-span-8'>
           <SearchArticleList setSearchAppliedState={setSearchAppliedState} />

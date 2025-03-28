@@ -30,13 +30,13 @@ const PBStrotumShow = () => {
   }
 
   return (
-    <div className='grid md:grid-cols-12'>
-      <div className='md:col-span-12 lg:col-start-2 lg:col-span-10'>
+    <div className=''>
+      <div className=''>
         <div className='bg-blue-50 px-2 py-2 text-2xl text-center text-blue-800 border rounded-md border-y-blue-700 shadow-xl mb-5 font-bold'>
           आरती/स्तोत्र - { strotum && strotum.title }
         </div>
         <div className='grid md:grid-cols-12 gap-2'>
-          <div className='md:col-span-8 shadow-xl'>
+          <div className='md:col-span-9 shadow-xl'>
             {
               <div className='leading-10 mb-8 px-2'>
                 {
@@ -58,7 +58,7 @@ const PBStrotumShow = () => {
               </div>
             }
           </div>
-          <div className='mb-5 md:col-span-4'>
+          <div className='mb-5 md:col-span-3'>
             <div className='article-header-violet text-xl'>
               सम्बन्धित बिषय
             </div>
